@@ -2,7 +2,7 @@
   "name": "msu_ssg_election_system",
   "version": "0.0.1",
   "description": "An election system for MSU SSG",
-  "productName": "eleksyon",
+  "productName": "SSG Election",
   "author": "Arifah0100 <arifahabdulbasit@gmail.com>",
   "private": true,
   "scripts": {
