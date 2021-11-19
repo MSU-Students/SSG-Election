@@ -14,7 +14,7 @@
 
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/logo.png" style="height: 40px" />
-          <span class="q-ml-sm">MSU-SSG Election</span>
+          <span class="q-ml-sm">SSG Election</span>
         </q-toolbar-title>
 
         <!------------------------profile----------------------------->

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
+    <div class="q-pa-sm">
       <div class="q-gutter-y-md" style="width:100%, max-width: 1000px">
         <q-card>
           <q-tabs
@@ -536,7 +536,7 @@ export default class ManageAccount extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 400px
-  width: 1200px
+  width: 1220px
 
 
   .q-table__top,

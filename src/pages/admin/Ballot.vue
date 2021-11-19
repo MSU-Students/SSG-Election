@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pl-xl">
+    <div class="q-pl-lg">
       <div class="text-h5 q-pa-lg text-bold">
         <q-icon name="ballot" color="primary" style="font-size: 3rem" />
         Ballot Form
@@ -8,10 +8,10 @@
 
       <!--Ballot Form-->
       <div class="row">
-        <div class="q-pr-md col-8">
+        <div class="col q-pr-md" style="width:100%, max-width: 1000px">
           <q-card class="ballot-form" @submit="onSubmit" @reset="onReset">
             <q-card-section>
-              Ballot Name*
+              Election Name*
               <div class="q-pa-md">
                 <q-input
                   filled
@@ -94,9 +94,9 @@
         </div>
 
         <!--card Form-->
-        <div class="col">
+        <div class="col-4 gt-sm">
           <div class="q-pt-xl">
-            <div class="q-pr-lg">
+            <div class="q-pr-md">
               <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <q-card style="width: 350px">
                   <q-card-section

@@ -1,209 +1,398 @@
 <template>
-  <div class="bg-img row">
-    <div class="col-4">
-      <div
-        class="text-h1 text-bold text-primary q-mt-xl q-pt-xl q-pb-mx"
-        style="text-align: center"
-      >
-        SSG Election
+  <q-carousel
+    animated
+    v-model="slide"
+    control-color="amber-13"
+    style="height: 400px"
+    navigation
+    infinite
+    :autoplay="autoplay"
+    arrows
+    transition-prev="slide-right"
+    transition-next="slide-left"
+    @mouseenter="autoplay = false"
+    @mouseleave="autoplay = true"
+  >
+    <q-carousel-slide :name="1">
+      <div class="bg-img row">
+        <div class="col">
+          <div
+            class="text-h2 text-weight-bolder text-primary q-pt-xl q-pb-mx"
+            style="text-align: center"
+          >
+            SSG
+          </div>
+          <div class="text-h2 text-weight-bolder text-primary" style="text-align: center">
+            Election
+          </div>
+          <div class="q-px-xl q-pb-md">
+            A web-base SSG election and nformation management system in Mindanao State
+            University Marawi
+          </div>
+          <div class="q-ml-xl">
+            <q-btn
+              clickable
+              v-ripple
+              to="/Accounts"
+              outline
+              rounded
+              color="primary"
+              label="Get started"
+            />
+          </div>
+        </div>
+        <div class="col-8 gt-sm">
+          <q-img src="~assets/images/h.png" style="height: 380px" />
+        </div>
       </div>
-      <div class="q-px-xl q-pb-md">
-        A web-base SSG election and nformation management system in Mindanao State
-        University Marawi
-      </div>
-      <div class="q-ml-xl">
+    </q-carousel-slide>
+    <q-carousel-slide :name="2" img-src="~assets/images/v.svg" style="height: 400px" />
+    <q-carousel-slide :name="3" img-src="~assets/images/3.jpg" />
+    <q-carousel-slide :name="4" img-src="~assets/images/4.jpg" />
+  </q-carousel>
+  <!---------------------------------------------->
+  <!--separator-->
+  <div class="row q-col-gutter-lg">
+    <div class="col">
+      <q-toolbar>
+        <q-toolbar-title class="text-overline text-weight-bold"
+          >Live Election</q-toolbar-title
+        >
+      </q-toolbar>
+    </div>
+  </div>
+  <!--separator-->
+
+  <div class="row">
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="50px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
+              </div>
+            </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
+          </div>
+          <q-separator />
+          <div class="row">
+            <div class="col">
+              <div class="text-weight-bold text-center">Prime Minister</div>
+              <div class="text-caption text-center">Position</div>
+            </div>
+            <div class="col">
+              <div class="text-weight-bold text-center">12</div>
+              <div class="text-caption text-center">Vote</div>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="50px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
+              </div>
+            </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
+          </div>
+          <q-separator />
+          <div class="row">
+            <div class="col">
+              <div class="text-weight-bold text-center">Prime Minister</div>
+              <div class="text-caption text-center">Position</div>
+            </div>
+            <div class="col">
+              <div class="text-weight-bold text-center">12</div>
+              <div class="text-caption text-center">Vote</div>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="50px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
+              </div>
+            </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
+          </div>
+          <q-separator />
+          <div class="row">
+            <div class="col">
+              <div class="text-weight-bold text-center">Prime Minister</div>
+              <div class="text-caption text-center">Position</div>
+            </div>
+            <div class="col">
+              <div class="text-weight-bold text-center">12</div>
+              <div class="text-caption text-center">Vote</div>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="50px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
+              </div>
+            </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
+          </div>
+          <q-separator />
+          <div class="row">
+            <div class="col">
+              <div class="text-weight-bold text-center">Prime Minister</div>
+              <div class="text-caption text-center">Position</div>
+            </div>
+            <div class="col">
+              <div class="text-weight-bold text-center">12</div>
+              <div class="text-caption text-center">Vote</div>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+  </div>
+  <!-------------------------->
+
+  <!-----Election Campaign----->
+  <!--separator-->
+  <div class="row q-col-gutter-lg">
+    <div class="col">
+      <q-toolbar>
+        <q-toolbar-title class="text-overline text-weight-bold"
+          >Election Campaign</q-toolbar-title
+        >
+      </q-toolbar>
+    </div>
+  </div>
+  <!--separator-->
+
+  <!-------------------------->
+  <div class="row">
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="q-pa-md">
+              <q-avatar size="100px" class="iext-center shadow-10">
+                <img src="~/assets/images/avatar.svg" alt="logo" />
+              </q-avatar>
+              <div class="q-pt-md">
+                <div class="text-weight-bold">Arifah U. Abdulbasit</div>
+                <div class="text-caption">College of Agriculture</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="q-pa-md item-center">
+              <q-card-section class="text-italic">
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+                repellendus sit "
+              </q-card-section>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="q-pa-md">
+              <q-avatar size="100px" class="iext-center shadow-10">
+                <img src="~/assets/images/avatar.svg" alt="logo" />
+              </q-avatar>
+              <div class="q-pt-md">
+                <div class="text-weight-bold">Arifah U. Abdulbasit</div>
+                <div class="text-caption">
+                  College of Information and Computing Science
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="q-pa-md item-center">
+              <q-card-section class="text-italic">
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+                repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
+                perferendis totam, ea at omnis vel numquam exercitationem aut, natus
+                minima, porro labore.""
+              </q-card-section>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+
+    <div class="col-12 col-md q-pa-md">
+      <q-card class="my-card">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="q-pa-md">
+              <q-avatar size="100px" class="iext-center shadow-10">
+                <img src="~/assets/images/avatar.svg" alt="logo" />
+              </q-avatar>
+              <div class="q-pt-md">
+                <div class="text-weight-bold">Arifah U. Abdulbasit</div>
+                <div class="text-caption">
+                  College of Information and Computing Science
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="q-pa-md item-center">
+              <q-card-section class="text-italic">
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+                repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
+                perferendis totam, ea at omnis vel numquam exercitationem aut, natus
+                minima, porro labore.""
+              </q-card-section>
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </div>
+  </div>
+
+  <!-------------------------->
+
+  <!--separator-->
+  <div class="row q-col-gutter-lg">
+    <div class="col">
+      <q-toolbar>
+        <q-toolbar-title class="text-overline text-weight-bold"
+          >Recent Elections</q-toolbar-title
+        >
+      </q-toolbar>
+    </div>
+  </div>
+  <!--separator-->
+  <!-----------Recent Election Ballot-------------->
+  <div class="row q-pt-md q-pa-md">
+    <q-table
+      class="my-sticky-header-table"
+      title="Recent Election"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      hide-bottom
+      ><template v-slot:top-right>
         <q-btn
-          clickable
-          v-ripple
-          to="/Accounts"
-          outline
-          rounded
           color="primary"
-          label="Get started"
+          icon-right="add"
+          label="Add new election"
+          no-caps
+          to="/Ballot"
         />
-      </div>
-    </div>
-    <div class="col-8">
-      <q-img src="~assets/images/h.png" />
-    </div>
+      </template>
+    </q-table>
   </div>
-
-  <div class="q-pa-lg">
-    <!--separator-->
-    <div class="row q-col-gutter-md">
-      <div class="col-8">
-        <q-toolbar>
-          <q-toolbar-title class="text-overline">---OVERVIEW---</q-toolbar-title>
-        </q-toolbar>
-      </div>
-    </div>
-    <!--separator-->
-
-    <!-- Active Projects-->
-    <div class="row q-col-gutter-lg">
-      <div class="col">
-        <q-card align="center">
-          <q-card-section>
-            <q-icon name="people" color="deep-purple" style="font-size: 3rem"> </q-icon>
-            <div class="text-h5 text-deep-purple q-pb-md">Voters</div>
-            <div class="text-h5">500</div>
-          </q-card-section>
-        </q-card>
-      </div>
-      <div class="col">
-        <q-card align="center">
-          <q-card-section>
-            <q-icon name="emoji_people" color="amber" style="font-size: 3rem"> </q-icon>
-            <div class="text-h5 text-amber q-pb-md">Candidates</div>
-            <div class="text-h5">32</div>
-          </q-card-section>
-        </q-card>
-      </div>
-      <div class="col">
-        <q-card align="center">
-          <q-card-section>
-            <q-icon name="ballot" color="teal" style="font-size: 3rem"> </q-icon>
-            <div class="text-h5 text-teal q-pb-md">Ballot</div>
-            <div class="text-h5">1</div>
-          </q-card-section>
-        </q-card>
-      </div>
-    </div>
-
-    <!--separator-->
-    <div class="row q-col-gutter-md">
-      <div class="col-8">
-        <q-toolbar>
-          <q-toolbar-title class="text-overline">Active Projects</q-toolbar-title>
-        </q-toolbar>
-      </div>
-    </div>
-    <!--separator-->
-
-    <!--live election-->
-    <div class="q-pa-md row items-start q-gutter-md">
-      <q-card class="my-card">
-        <q-item>
-          <div class="col-3">
-            <q-item-section avatar>
-              <q-avatar square>
-                <img src="~assets/profile.png" />
-              </q-avatar>
-            </q-item-section>
-          </div>
-          <q-item-section>
-            <q-item-label><strong>Arifah U. Abdulbasit</strong></q-item-label>
-            <q-item-label caption>College of Engineering, 4th yr.</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <div class="absolute-bottom q-pb-sm">
-          <q-separator />
-          <q-item>
-            <q-item-section>
-              <q-item-label class="text-center"
-                ><strong>Prime Minister</strong></q-item-label
-              >
-              <q-item-label class="text-center" caption> Position</q-item-label>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-center"><strong>12</strong></q-item-label>
-              <q-item-label class="text-center" caption> Votes</q-item-label>
-            </q-item-section>
-          </q-item>
-        </div>
-      </q-card>
-
-      <!--live election-->
-      <q-card class="my-card">
-        <q-item>
-          <div class="col-3">
-            <q-item-section avatar>
-              <q-avatar square>
-                <img src="~assets/profile.png" />
-              </q-avatar>
-            </q-item-section>
-          </div>
-          <q-item-section>
-            <q-item-label><strong>Najmah A. Omar</strong></q-item-label>
-            <q-item-label caption
-              >College of Information and Computing Sciencees, 4th yr.</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-
-        <div class="absolute-bottom q-pb-sm">
-          <q-separator />
-          <q-item>
-            <q-item-section>
-              <q-item-label class="text-center"
-                ><strong>Secretary General</strong></q-item-label
-              >
-              <q-item-label class="text-center" caption> Position</q-item-label>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-center"><strong>15</strong></q-item-label>
-              <q-item-label class="text-center" caption> Votes</q-item-label>
-            </q-item-section>
-          </q-item>
-        </div>
-      </q-card>
-
-      <!--live election-->
-      <q-card class="my-card">
-        <q-item>
-          <div class="col-3">
-            <q-item-section avatar>
-              <q-avatar square>
-                <img src="~assets/profile.png" />
-              </q-avatar>
-            </q-item-section>
-          </div>
-          <q-item-section>
-            <q-item-label><strong>Anisah I. Dayaan</strong></q-item-label>
-            <q-item-label caption>College of Health Sciences, 4th yr.</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <div class="absolute-bottom q-pb-sm">
-          <q-separator />
-          <q-item>
-            <q-item-section>
-              <q-item-label class="text-center"
-                ><strong>Prime Minister</strong></q-item-label
-              >
-              <q-item-label class="text-center" caption> Position</q-item-label>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-center"><strong>12</strong></q-item-label>
-              <q-item-label class="text-center" caption> Votes</q-item-label>
-            </q-item-section>
-          </q-item>
-        </div>
-      </q-card>
-
-      <!--separator-->
-      <div class="row q-col-gutter-md">
-        <div class="col-8">
-          <q-toolbar>
-            <q-toolbar-title class="text-overline">Live Election</q-toolbar-title>
-          </q-toolbar>
-        </div>
-      </div>
-      <!--separator-->
-    </div>
-  </div>
+  <!----------------------------------------------->
 </template>
+
+<script lang="ts">
+import { Vue, Options } from "vue-class-component";
+interface IRow {
+  name: string;
+}
+
+@Options({})
+export default class Student_Candidate extends Vue {
+  autoplay = true;
+  slide = 1;
+
+  columns = [
+    {
+      name: "id",
+      align: "center",
+      field: "id",
+    },
+    {
+      name: "name",
+      required: true,
+      label: "Election Name",
+      align: "left",
+      field: (row: IRow) => row.name,
+      format: (val: string) => `${val}`,
+    },
+
+    {
+      name: "start",
+      align: "center",
+      label: "Election Start",
+      field: "start",
+    },
+    {
+      name: "end",
+      align: "center",
+      label: "Election End",
+      field: "end",
+    },
+    { name: "action", align: "center", field: "action" },
+  ];
+  rows = [
+    {
+      id: "1",
+      name: "2021 Supreme Student Government Election",
+      start: "02-14-2021 10:13:44",
+      end: "02-14-2021 16:13:44",
+    },
+  ];
+}
+</script>
 
 <style>
 .my-card {
-  width: 350px;
-  height: 170px;
+  height: 100%;
+  max-height: 700px;
 }
 .bg-img {
   background-color: #f3eee8;
+}
+.q-carousel {
+  background-color: #f3eee8;
+}
+.my-sticky-header-table {
+  height: 200px;
+  width: 100%;
+  max-width: 1300px;
 }
 </style>

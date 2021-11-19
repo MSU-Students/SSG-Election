@@ -4,13 +4,13 @@
       <q-responsive>
         <q-table
           grid
-          card-class="bg-amber-14 text-white"
           title="List of Representatives"
           :rows="rows"
           :columns="columns"
           row-key="name"
           :filter="filter"
           hide-header
+          hide-bottom
         >
           <template v-slot:top-right>
             <q-input borderless v-model="filter" placeholder="Search">
