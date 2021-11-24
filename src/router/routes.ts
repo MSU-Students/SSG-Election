@@ -28,8 +28,19 @@ const routes: RouteRecordRaw[] = [
       component: () => import('src/layouts/LayoutVoter.vue'),
       children: [
                   { path: '/S_Homepage', component: () => import('src/pages/student/Student_Homepage.vue') },
-                  { path: '/S_Candidate', component: () => import('src/pages/student/Student_Candidate.vue') },
+                  { path: '/S_Profile', component: () => import('src/pages/student/Student_Profile.vue') },
                   { path: '/S_Vote', component: () => import('src/pages/student/Student_vote.vue') }
+                ],
+    },
+
+    //!---->LayoutPrime
+    {
+      path: '/ssg',
+      component: () => import('src/layouts/LayoutPrime.vue'),
+      children: [
+                  { path: '/P_Homepage', component: () => import('src/pages/ssg/SSG_Home.vue') },
+                  { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') },
+                  { path: '/P_Officials', component: () => import('src/pages/ssg/SSG_Officials.vue') }
                 ],
     },
     

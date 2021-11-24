@@ -56,146 +56,6 @@
     <div class="col">
       <q-toolbar>
         <q-toolbar-title class="text-overline text-weight-bold"
-          >Live Election</q-toolbar-title
-        >
-      </q-toolbar>
-    </div>
-  </div>
-  <!--separator-->
-
-  <div class="row">
-    <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="q-pa-md">
-          <div class="row">
-            <div class="col-4">
-              <div class="q-pb-md text-center">
-                <q-avatar size="50px" class="shadow-10">
-                  <img src="~/assets/images/avatar.svg" alt="logo" />
-                </q-avatar>
-              </div>
-            </div>
-            <div class="col-8 q-pa-sm">
-              <div class="text-weight-bold">Najmah A. Omar</div>
-              <div class="text-caption">College of Information Technology</div>
-            </div>
-          </div>
-          <q-separator />
-          <div class="row">
-            <div class="col">
-              <div class="text-weight-bold text-center">Prime Minister</div>
-              <div class="text-caption text-center">Position</div>
-            </div>
-            <div class="col">
-              <div class="text-weight-bold text-center">12</div>
-              <div class="text-caption text-center">Vote</div>
-            </div>
-          </div>
-        </div>
-      </q-card>
-    </div>
-
-    <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="q-pa-md">
-          <div class="row">
-            <div class="col-4">
-              <div class="q-pb-md text-center">
-                <q-avatar size="50px" class="shadow-10">
-                  <img src="~/assets/images/avatar.svg" alt="logo" />
-                </q-avatar>
-              </div>
-            </div>
-            <div class="col-8 q-pa-sm">
-              <div class="text-weight-bold">Najmah A. Omar</div>
-              <div class="text-caption">College of Information Technology</div>
-            </div>
-          </div>
-          <q-separator />
-          <div class="row">
-            <div class="col">
-              <div class="text-weight-bold text-center">Prime Minister</div>
-              <div class="text-caption text-center">Position</div>
-            </div>
-            <div class="col">
-              <div class="text-weight-bold text-center">12</div>
-              <div class="text-caption text-center">Vote</div>
-            </div>
-          </div>
-        </div>
-      </q-card>
-    </div>
-
-    <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="q-pa-md">
-          <div class="row">
-            <div class="col-4">
-              <div class="q-pb-md text-center">
-                <q-avatar size="50px" class="shadow-10">
-                  <img src="~/assets/images/avatar.svg" alt="logo" />
-                </q-avatar>
-              </div>
-            </div>
-            <div class="col-8 q-pa-sm">
-              <div class="text-weight-bold">Najmah A. Omar</div>
-              <div class="text-caption">College of Information Technology</div>
-            </div>
-          </div>
-          <q-separator />
-          <div class="row">
-            <div class="col">
-              <div class="text-weight-bold text-center">Prime Minister</div>
-              <div class="text-caption text-center">Position</div>
-            </div>
-            <div class="col">
-              <div class="text-weight-bold text-center">12</div>
-              <div class="text-caption text-center">Vote</div>
-            </div>
-          </div>
-        </div>
-      </q-card>
-    </div>
-
-    <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="q-pa-md">
-          <div class="row">
-            <div class="col-4">
-              <div class="q-pb-md text-center">
-                <q-avatar size="50px" class="shadow-10">
-                  <img src="~/assets/images/avatar.svg" alt="logo" />
-                </q-avatar>
-              </div>
-            </div>
-            <div class="col-8 q-pa-sm">
-              <div class="text-weight-bold">Najmah A. Omar</div>
-              <div class="text-caption">College of Information Technology</div>
-            </div>
-          </div>
-          <q-separator />
-          <div class="row">
-            <div class="col">
-              <div class="text-weight-bold text-center">Prime Minister</div>
-              <div class="text-caption text-center">Position</div>
-            </div>
-            <div class="col">
-              <div class="text-weight-bold text-center">12</div>
-              <div class="text-caption text-center">Vote</div>
-            </div>
-          </div>
-        </div>
-      </q-card>
-    </div>
-  </div>
-  <!-------------------------->
-
-  <!-----Election Campaign----->
-  <!--separator-->
-  <div class="row q-col-gutter-lg">
-    <div class="col">
-      <q-toolbar>
-        <q-toolbar-title class="text-overline text-weight-bold"
           >Election Campaign</q-toolbar-title
         >
       </q-toolbar>
@@ -203,24 +63,26 @@
   </div>
   <!--separator-->
 
-  <!-------------------------->
   <div class="row">
     <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="row">
-          <div class="col-12 col-md-4">
-            <div class="q-pa-md">
-              <q-avatar size="100px" class="iext-center shadow-10">
-                <img src="~/assets/images/avatar.svg" alt="logo" />
-              </q-avatar>
-              <div class="q-pt-md">
-                <div class="text-weight-bold">Arifah U. Abdulbasit</div>
-                <div class="text-caption">College of Agriculture</div>
+      <q-card class="my-card cursor-pointer">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="60px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
               </div>
             </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
           </div>
-          <div class="col-12 col-md-8">
-            <div class="q-pa-md item-center">
+          <q-separator />
+          <div class="row">
+            <div class="col">
               <q-card-section class="text-italic">
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
                 repellendus sit "
@@ -232,29 +94,59 @@
     </div>
 
     <div class="col-12 col-md q-pa-md">
-      <q-card class="my-card">
-        <div class="row">
-          <div class="col-12 col-md-4">
-            <div class="q-pa-md">
-              <q-avatar size="100px" class="iext-center shadow-10">
-                <img src="~/assets/images/avatar.svg" alt="logo" />
-              </q-avatar>
-              <div class="q-pt-md">
-                <div class="text-weight-bold">Arifah U. Abdulbasit</div>
-                <div class="text-caption">
-                  College of Information and Computing Science
-                </div>
+      <q-card class="my-card cursor-pointer">
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="60px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
               </div>
             </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
           </div>
-          <div class="col-12 col-md-8">
-            <div class="q-pa-md item-center">
+          <q-separator />
+          <div class="row">
+            <div class="col">
               <q-card-section class="text-italic">
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-                perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-                minima, porro labore.""
+                repellendus sit voluptate voluptas eveniet porro. numquam exercitationem
+                aut, natus minima, porro labore.""
               </q-card-section>
+              <q-popup-proxy transition-show="flip-up" transition-hide="flip-down">
+                <q-banner dense>
+                  <div class="row">
+                    <div class="col">
+                      <div class="q-pb-md text-center">
+                        <q-avatar size="50px" class="shadow-10">
+                          <img src="~/assets/images/avatar.svg" alt="logo" />
+                        </q-avatar>
+                      </div>
+                    </div>
+                    <div class="col-8 q-pa-sm">
+                      <div class="text-weight-bold">Najmah A. Omar</div>
+                      <div class="text-caption">College of Information Technology</div>
+                    </div>
+                  </div>
+                  <q-separator />
+
+                  <q-table
+                    class="my-sticky-table"
+                    grid
+                    :rows="rows"
+                    :columns="columns"
+                    row-key="name"
+                    hide-bottom
+                  />
+                  <template v-slot:action>
+                    <q-btn flat dense color="primary" label="close" v-close-popup />
+                  </template>
+                </q-banner>
+              </q-popup-proxy>
             </div>
           </div>
         </div>
@@ -263,67 +155,37 @@
 
     <div class="col-12 col-md q-pa-md">
       <q-card class="my-card cursor-pointer">
-        <div class="row">
-          <div class="col-12 col-md-4">
-            <div class="q-pa-md">
-              <q-avatar size="100px" class="iext-center shadow-10">
-                <img src="~/assets/images/avatar.svg" alt="logo" />
-              </q-avatar>
-              <div class="q-pt-md">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">
-                  College of Information and Computing Science
-                </div>
+        <div class="q-pa-md">
+          <div class="row">
+            <div class="col-4">
+              <div class="q-pb-md text-center">
+                <q-avatar size="60px" class="shadow-10">
+                  <img src="~/assets/images/avatar.svg" alt="logo" />
+                </q-avatar>
               </div>
             </div>
+            <div class="col-8 q-pa-sm">
+              <div class="text-weight-bold">Najmah A. Omar</div>
+              <div class="text-caption">College of Information Technology</div>
+            </div>
           </div>
-
-          <div class="col-12 col-md-8">
-            <div class="q-pa-md item-center">
+          <q-separator />
+          <div class="row">
+            <div class="col">
               <q-card-section class="text-italic">
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-                perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-                minima, porro labore.""
+                repellendus sit "
               </q-card-section>
             </div>
           </div>
         </div>
-        <q-popup-proxy transition-show="flip-up" transition-hide="flip-down">
-          <q-banner dense>
-            <div class="row">
-              <div class="col">
-                <div class="q-pb-md text-center">
-                  <q-avatar size="50px" class="shadow-10">
-                    <img src="~/assets/images/avatar.svg" alt="logo" />
-                  </q-avatar>
-                </div>
-              </div>
-              <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">College of Information Technology</div>
-              </div>
-            </div>
-            <q-separator />
-
-            <q-table
-              class="my-sticky-table"
-              grid
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              hide-bottom
-            />
-            <template v-slot:action>
-              <q-btn flat dense color="primary" label="close" v-close-popup />
-            </template>
-          </q-banner>
-        </q-popup-proxy>
       </q-card>
     </div>
   </div>
-
   <!-------------------------->
+  <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+    <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
+  </q-page-scroller>
 </template>
 
 <script lang="ts">

@@ -1,34 +1,75 @@
 <template>
   <q-layout view="lHh Lpr fff">
-    <q-header elevated class="bg-maroon text-white" height-hint="64">
-      <q-toolbar class="GPL__toolbar" style="height: 64px">
-        <q-btn
-          flat
-          dense
-          round
-          @click="toggleLeftDrawer"
-          aria-label="Menu"
-          icon="menu"
-          class="q-mx-md"
-        />
-
+    <q-header elevated class="bg-primary text-white">
+      <q-toolbar>
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/logo.png" style="height: 40px" />
-          <span class="q-ml-sm">SSG Election</span>
+          <div class="title_name">
+            <span class="q-ml-sm q-mr-lg">SSG Election</span>
+          </div>
+          <q-separator vertical class="bg-deep-red-1" />
+
+          <div class="q-ml-md q-gutter-x-xs gt-sm">
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Home"
+              to="/S_Homepage"
+            />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Profile"
+              to="/S_Profile"
+            />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Vote"
+              to="/S_Vote"
+            />
+          </div>
         </q-toolbar-title>
 
-        <!--------------------profile------------------------->
-        <div class="q-gutter-sm row items-center no-wrap">
+        <!------------------------profile----------------------------->
+        <div class="q-gutter-sm row items-center no-wrap gt-sm">
           <q-tooltip>Account</q-tooltip>
           <q-btn-dropdown round flat dropdown-icon="account_circle" size="20px">
             <div class="q-pa-md">
-              <q-avatar size="70px" style="fixed-center">
-                <img src="~assets/images/flower.png" />
-              </q-avatar>
-              <div class="text-bold" style="text-align: center">Arifah U. Abdulbasit</div>
-              <div class="text-caption" style="text-align: center">201812291</div>
+              <div class="row justify-center">
+                <q-avatar size="80px" class="q-mb-sm">
+                  <img src="~assets/images/avatar.svg" class="q-pb-sm" />
+                </q-avatar>
+              </div>
+              <div class="text-weight-bold" style="text-align: center">
+                {{ voter.name }}
+              </div>
+              <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+              <div class="row justify-center">
+                <q-btn
+                  push
+                  dense
+                  class="q-mt-sm"
+                  color="primary"
+                  label="Logout"
+                  @click="logout"
+                  to="/"
+                />
+              </div>
             </div>
           </q-btn-dropdown>
+        </div>
+        <!----------------------------------------------------  ----->
+        <div class="lt-md">
+          <q-btn
+            flat
+            dense
+            round
+            @click="toggleLeftDrawer"
+            aria-label="Menu"
+            icon="menu"
+            class="q-mx-md"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -41,30 +82,22 @@
       show-if-above
       :width="220"
       :breakpoint="100"
-      color="white"
     >
-      <q-scroll-area class="fit">
-        <q-toolbar class="GPL__toolbar">
-          <q-toolbar-title class="row items-center text-grey-8">
-            <div class="q-ml-sm absolute-center">MENU</div>
-          </q-toolbar-title>
-        </q-toolbar>
-
+      <q-scroll-area
+        style="
+          height: calc(100% - 166px);
+          margin-top: 166px;
+          border-right: 1px solid #ddd;
+        "
+      >
         <q-list padding>
-          <q-item clickable v-ripple to="/S_Homepage">
+          <q-separator />
+          <q-item active clickable v-ripple t0="/S_Homepage">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
 
             <q-item-section> Home </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple to="/S_Candidate">
-            <q-item-section avatar>
-              <q-icon name="people" />
-            </q-item-section>
-
-            <q-item-section> Candidates </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/S_Vote">
@@ -75,19 +108,37 @@
             <q-item-section> Vote </q-item-section>
           </q-item>
 
-          <q-separator />
+          <q-item clickable v-ripple class="absolute-bottom" to="/">
+            <q-item-section avatar>
+              <q-icon name="logout" />
+            </q-item-section>
 
-          <div class="absolute-bottom">
-            <q-item clickable v-ripple to="/" absolute-bottom>
-              <q-item-section avatar>
-                <q-icon name="logout" />
-              </q-item-section>
-
-              <q-item-section> Logout </q-item-section>
-            </q-item>
-          </div>
+            <q-item-section> Logout </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
+
+      <div class="q-pa-sm absolute-top" style="height: 150px">
+        <div class="row justify-center">
+          <q-avatar size="80px" class="q-mb-sm">
+            <img src="~assets/images/avatar.svg" class="q-pb-sm" />
+          </q-avatar>
+        </div>
+        <div class="text-weight-bold" style="text-align: center">{{ voter.name }}</div>
+        <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+        <div class="row justify-center">
+          <q-btn
+            outline
+            rounded
+            dense
+            to="/S_Profile"
+            class="q-mt-sm"
+            color="primary"
+            label="Profile"
+            style="height: 1.5rem; width: 10rem; font-size: smaller"
+          />
+        </div>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -113,15 +164,43 @@ export default class LayoutAdmin extends Vue {
   toggleLeftDrawer() {
     this.leftDrawerOpen = !this.leftDrawerOpen;
   }
+
+  //this is where to put the database
+  voter = {
+    name: "Arifah U. Abdulbasit",
+    idNum: "201812291",
+  };
+  //---------------------------------->
+
+  //---loading for logout
+  //timer,
+  logout() {
+    this.$q.loading.show({
+      message: "Logging out...",
+    });
+
+    //this.timer = setTimeout(() => {
+    //  this.$q.loading.hide()
+    //  this.timer = void 0
+    //   }, 3000);
+
+    this.$q.notify({
+      color: "accent",
+      textColor: "primary",
+      type: "positive",
+      position: "center",
+      message: "Your Successfully Logout.",
+    });
+  }
 }
 </script>
+<style>
+@font-face {
+  font-family: BebasNeue;
+  src: url(~assets/fonts/BebasNeue-Regular.ttf);
+}
 
-<style lang="sass">
-.GPL
-
-  &__toolbar
-    height: 44px
-
-  &__toolbar-input
-    width: 35%
+.title_name {
+  font-family: "BebasNeue";
+}
 </style>

@@ -9,24 +9,25 @@
           </div>
           <q-separator vertical class="bg-deep-red-1" />
 
+          <!-------------Menu Botton------------->
           <div class="q-ml-md q-gutter-x-xs gt-sm">
             <q-btn
               flat
               class="bg-primary text-overline text-white"
               label="Home"
-              to="/Homepage"
+              to="/P_Homepage"
             />
             <q-btn
               flat
               class="bg-primary text-overline text-white"
-              label="Manage Accounts"
-              to="/Accounts"
+              label="Assigning Officers"
+              to="/P_Officials"
             />
             <q-btn
               flat
               class="bg-primary text-overline text-white"
-              label="Election"
-              to="/Ballot"
+              label="Profile"
+              to="/P_Profile"
             />
           </div>
         </q-toolbar-title>
@@ -42,9 +43,9 @@
                 </q-avatar>
               </div>
               <div class="text-weight-bold" style="text-align: center">
-                {{ admin.name }}
+                {{ prime.name }}
               </div>
-              <div class="text-caption" style="text-align: center">{{ admin.idNum }}</div>
+              <div class="text-caption" style="text-align: center">{{ prime.idNum }}</div>
               <div class="row justify-center">
                 <q-btn
                   push
@@ -52,7 +53,6 @@
                   class="q-mt-sm text-caption"
                   color="primary"
                   label="Logout"
-                  icon="logout"
                   @click="logout"
                   to="/"
                 />
@@ -86,14 +86,14 @@
     >
       <q-scroll-area
         style="
-          height: calc(100% - 150px);
-          margin-top: 150px;
+          height: calc(100% - 166px);
+          margin-top: 166px;
           border-right: 1px solid #ddd;
         "
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple t0="/Homepage">
+          <q-item active clickable v-ripple t0="/S_Homepage">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -101,20 +101,12 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/Accounts">
+          <q-item clickable v-ripple to="/P_Officials">
             <q-item-section avatar>
-              <q-icon name="people" />
+              <q-icon name="check" />
             </q-item-section>
 
-            <q-item-section> Manage Accounts </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple to="/Ballot">
-            <q-item-section avatar>
-              <q-icon name="ballot" />
-            </q-item-section>
-
-            <q-item-section> Manage Election </q-item-section>
+            <q-item-section> Assigning Officers </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/">
@@ -133,9 +125,20 @@
             <img src="~assets/images/avatar.svg" class="q-pb-sm" />
           </q-avatar>
         </div>
-        <div class="text-weight-bold" style="text-align: center">{{ admin.name }}</div>
-        <div class="text-caption" style="text-align: center">Admin</div>
-        <div class="row justify-center"></div>
+        <div class="text-weight-bold" style="text-align: center">{{ prime.name }}</div>
+        <div class="text-caption" style="text-align: center">{{ prime.idNum }}</div>
+        <div class="row justify-center">
+          <q-btn
+            outline
+            rounded
+            dense
+            to="/S_Profile"
+            class="q-mt-sm"
+            color="primary"
+            label="Profile"
+            style="height: 1.5rem; width: 10rem; font-size: smaller"
+          />
+        </div>
       </div>
     </q-drawer>
 
@@ -164,7 +167,7 @@ export default class LayoutAdmin extends Vue {
   }
 
   //this is where to put the database
-  admin = {
+  prime = {
     name: "Arifah U. Abdulbasit",
     idNum: "201812291",
   };

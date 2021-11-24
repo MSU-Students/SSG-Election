@@ -202,7 +202,7 @@ export default class Login extends Vue {
 
   async loginUser() {
     if (this.username == "ssg" && this.password == "ssg") {
-      await this.$router.replace("/student");
+      await this.$router.replace("/ssg");
       this.$q.notify({
         color: "positive",
         icon: "cloud_done",
