@@ -2,56 +2,115 @@
   <q-page>
     <div class="q-pa-sm">
       <div class="q-gutter-y-md" style="width:100%, max-width: 1000px">
-        <q-card>
-          <q-tabs
-            v-model="tab"
-            class="bg-primary text-white"
-            align="justify"
-            narrow-indicator
-          >
-            <q-tab name="student" label="Student Account" icon="lock" />
-            <q-tab name="candidate" label="Candidate Account" icon="lock" />
-          </q-tabs>
+        <q-tabs
+          v-model="tab"
+          class="bg-primary text-white"
+          align="justify"
+          narrow-indicator
+        >
+          <q-tab name="student" label="Student Account" icon="lock" />
+          <q-tab name="candidate" label="Candidate Account" icon="lock" />
+        </q-tabs>
 
-          <q-separator />
+        <q-separator />
 
-          <q-tab-panels v-model="tab" animated class="bg-white text-center">
-            <q-tab-panel name="student">
-              <q-table
-                class="my-sticky-header-table"
-                title="Student Account List"
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                :rows-per-page-options="[0]"
-                :filter="filter"
-              >
-                <template v-slot:top-right>
-                  <div class="q-pa-md q-gutter-sm row">
-                    <q-input
-                      outlined
-                      rounded
-                      dense
-                      debounce="300"
-                      v-model="filter"
-                      placeholder="Search"
-                    >
-                      <template v-slot:append>
-                        <q-icon name="search" />
-                      </template>
-                    </q-input>
+        <q-tab-panels v-model="tab" animated class="bg-white text-center">
+          <q-tab-panel name="student">
+            <q-table
+              class="my-sticky-header-table"
+              title="Student Account List"
+              :rows="rows"
+              :columns="columns"
+              row-key="name"
+              :rows-per-page-options="[0]"
+              :filter="filter"
+            >
+              <template v-slot:top-right>
+                <div class="q-pa-md q-gutter-sm row">
+                  <q-input
+                    outlined
+                    rounded
+                    dense
+                    debounce="300"
+                    v-model="filter"
+                    placeholder="Search"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="search" />
+                    </template>
+                  </q-input>
+                  <q-btn
+                    label="Add Account"
+                    color="primary"
+                    dense
+                    flat
+                    icon="add"
+                    @click="add = true"
+                  />
+                  <q-dialog v-model="add" persistent>
+                    <q-card style="width: 450px">
+                      <q-card-section class="row">
+                        <div class="text-h6">Add Account</div>
+                        <q-space />
+                        <q-btn flat round dense icon="close" v-close-popup />
+                      </q-card-section>
+
+                      <q-card-section class="q-gutter-md">
+                        <q-input
+                          outlined
+                          v-model="name"
+                          label="Full Name"
+                          hint="(first name, middle initial, last name)"
+                        />
+                        <q-input
+                          outlined
+                          v-model="username"
+                          label="ID Number"
+                        />
+                        <q-input
+                          outlined
+                          v-model="email"
+                          label="Email"
+                          type="email"
+                        />
+                        <q-select
+                          outlined
+                          v-model="department"
+                          :options="options"
+                          label="Department"
+                        />
+                      </q-card-section>
+
+                      <q-card-actions align="right">
+                        <q-btn
+                          flat
+                          label="Cancel"
+                          color="red-10"
+                          v-close-popup
+                        />
+                        <q-btn flat label="Add" color="primary" v-close-popup />
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>
+                </div>
+              </template>
+
+              <template v-slot:body-cell-action="props">
+                <q-td :props="props">
+                  <div class="q-gutter-sm">
                     <q-btn
-                      label="Add Account"
-                      color="primary"
-                      dense
+                      round
+                      color="blue"
+                      icon="edit"
+                      size="sm"
                       flat
-                      icon="add"
-                      @click="add = true"
+                      dense
+                      @click="editRow = true"
                     />
-                    <q-dialog v-model="add" persistent>
-                      <q-card style="width: 450px">
+                    <q-dialog v-model="editRow" persistent>
+                      <q-card style="width: 350px">
                         <q-card-section class="row">
-                          <div class="text-h6">Add Account</div>
+                          <div class="text-h6">Edit Account</div>
                           <q-space />
                           <q-btn flat round dense icon="close" v-close-popup />
                         </q-card-section>
@@ -63,8 +122,17 @@
                             label="Full Name"
                             hint="(first name, middle initial, last name)"
                           />
-                          <q-input outlined v-model="username" label="ID Number" />
-                          <q-input outlined v-model="email" label="Email" type="email" />
+                          <q-input
+                            outlined
+                            v-model="username"
+                            label="ID Number"
+                          />
+                          <q-input
+                            outlined
+                            v-model="email"
+                            label="Email"
+                            type="email"
+                          />
                           <q-select
                             outlined
                             v-model="department"
@@ -74,141 +142,189 @@
                         </q-card-section>
 
                         <q-card-actions align="right">
-                          <q-btn flat label="Cancel" color="red-10" v-close-popup />
-                          <q-btn flat label="Add" color="primary" v-close-popup />
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="red-10"
+                            v-close-popup
+                          />
+                          <q-btn
+                            flat
+                            label="Save"
+                            color="primary"
+                            v-close-popup
+                          />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                    <q-btn
+                      color="red-10"
+                      icon="delete"
+                      size="sm"
+                      class="q-ml-sm"
+                      flat
+                      round
+                      dense
+                      @click="dialog = true"
+                    />
+                    <q-dialog v-model="dialog" persistent>
+                      <q-card style="width: 300px">
+                        <q-card-section class="row items-center">
+                          <q-avatar
+                            size="sm"
+                            icon="warning"
+                            color="red-10"
+                            text-color="white"
+                          />
+                          <span class="q-ml-sm">Confirm Delete?</span>
+                        </q-card-section>
+                        <q-card-actions align="right">
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="primary"
+                            v-close-popup="cancelEnabled"
+                            :disable="!cancelEnabled"
+                          />
+                          <q-btn
+                            flat
+                            label="Confirm"
+                            color="primary"
+                            v-close-popup
+                          />
                         </q-card-actions>
                       </q-card>
                     </q-dialog>
                   </div>
-                </template>
+                </q-td>
+              </template>
+            </q-table>
+          </q-tab-panel>
+          <br />
 
-                <template v-slot:body-cell-action="props">
-                  <q-td :props="props">
-                    <div class="q-gutter-sm">
-                      <q-btn
-                        round
-                        color="blue"
-                        icon="edit"
-                        size="sm"
-                        flat
-                        dense
-                        @click="editRow = true"
-                      />
-                      <q-dialog v-model="editRow" persistent>
-                        <q-card style="width: 350px">
-                          <q-card-section class="row">
-                            <div class="text-h6">Edit Account</div>
-                            <q-space />
-                            <q-btn flat round dense icon="close" v-close-popup />
-                          </q-card-section>
+          <!--Candidate Panel-->
+          <q-tab-panel name="candidate" class="bg-white">
+            <q-table
+              class="my-sticky-header-table"
+              title="Candidate Account List"
+              :rows="C_rows"
+              :columns="C_columns"
+              row-key="name"
+              :rows-per-page-options="[0]"
+              :filter="filter"
+            >
+              <template v-slot:top-right>
+                <div class="q-pa-md q-gutter-sm row">
+                  <q-input
+                    outlined
+                    rounded
+                    dense
+                    debounce="300"
+                    v-model="filter"
+                    placeholder="Search"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="search" />
+                    </template>
+                  </q-input>
+                  <q-btn
+                    label="Add Account"
+                    color="primary"
+                    dense
+                    flat
+                    icon="add"
+                    @click="add = true"
+                  />
 
-                          <q-card-section class="q-gutter-md">
-                            <q-input
-                              outlined
-                              v-model="name"
-                              label="Full Name"
-                              hint="(first name, middle initial, last name)"
-                            />
-                            <q-input outlined v-model="username" label="ID Number" />
-                            <q-input
-                              outlined
-                              v-model="email"
-                              label="Email"
-                              type="email"
-                            />
-                            <q-select
-                              outlined
-                              v-model="department"
-                              :options="options"
-                              label="Department"
-                            />
-                          </q-card-section>
+                  <!--candidate Add Account-->
+                  <q-dialog v-model="add" persistent>
+                    <q-card style="width: 500px">
+                      <q-card-section class="row">
+                        <div class="text-h6">Add Account</div>
+                        <q-space />
+                        <q-btn flat round dense icon="close" v-close-popup />
+                      </q-card-section>
 
-                          <q-card-actions align="right">
-                            <q-btn flat label="Cancel" color="red-10" v-close-popup />
-                            <q-btn flat label="Save" color="primary" v-close-popup />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
-                      <q-btn
-                        color="red-10"
-                        icon="delete"
-                        size="sm"
-                        class="q-ml-sm"
-                        flat
-                        round
-                        dense
-                        @click="dialog = true"
-                      />
-                      <q-dialog v-model="dialog" persistent>
-                        <q-card style="width: 300px">
-                          <q-card-section class="row items-center">
-                            <q-avatar
-                              size="sm"
-                              icon="warning"
-                              color="red-10"
-                              text-color="white"
-                            />
-                            <span class="q-ml-sm">Confirm Delete?</span>
-                          </q-card-section>
-                          <q-card-actions align="right">
-                            <q-btn
-                              flat
-                              label="Cancel"
-                              color="primary"
-                              v-close-popup="cancelEnabled"
-                              :disable="!cancelEnabled"
-                            />
-                            <q-btn flat label="Confirm" color="primary" v-close-popup />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
-                    </div>
-                  </q-td>
-                </template>
-              </q-table>
-            </q-tab-panel>
-            <br />
+                      <q-card-section class="q-gutter-md">
+                        <q-input
+                          outlined
+                          v-model="name"
+                          label="Full Name"
+                          hint="(first name, middle initial, last name)"
+                        />
+                        <q-input
+                          outlined
+                          v-model="username"
+                          label="ID Number"
+                        />
+                        <q-input
+                          outlined
+                          v-model="email"
+                          label="Email"
+                          type="email"
+                        />
+                        <q-select
+                          outlined
+                          v-model="level"
+                          :options="options_level"
+                          label="Year Level"
+                        />
+                        <q-input
+                          outlined
+                          v-model="course"
+                          label="Course"
+                          type="course"
+                        />
+                        <q-select
+                          outlined
+                          v-model="department"
+                          :options="options"
+                          label="Department"
+                        />
+                        <q-file
+                          v-model="filesImages"
+                          outlined
+                          label="Pick a Profile Picture"
+                          multiple
+                          accept=".jpg, image/*"
+                          @rejected="onRejected"
+                        >
+                          <template v-slot:prepend>
+                            <q-icon name="camera" />
+                          </template>
+                        </q-file>
+                      </q-card-section>
 
-            <!--Candidate Panel-->
-            <q-tab-panel name="candidate" class="bg-white">
-              <q-table
-                class="my-sticky-header-table"
-                title="Candidate Account List"
-                :rows="C_rows"
-                :columns="C_columns"
-                row-key="name"
-                :rows-per-page-options="[0]"
-                :filter="filter"
-              >
-                <template v-slot:top-right>
-                  <div class="q-pa-md q-gutter-sm row">
-                    <q-input
-                      outlined
-                      rounded
-                      dense
-                      debounce="300"
-                      v-model="filter"
-                      placeholder="Search"
-                    >
-                      <template v-slot:append>
-                        <q-icon name="search" />
-                      </template>
-                    </q-input>
+                      <q-card-actions align="right">
+                        <q-btn
+                          flat
+                          label="Cancel"
+                          color="red-10"
+                          v-close-popup
+                        />
+                        <q-btn flat label="Add" color="primary" v-close-popup />
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>
+                </div>
+              </template>
+
+              <template v-slot:body-cell-action="props">
+                <q-td :props="props">
+                  <div class="q-gutter-sm">
                     <q-btn
-                      label="Add Account"
-                      color="primary"
-                      dense
+                      round
+                      color="blue"
+                      icon="edit"
+                      size="sm"
                       flat
-                      icon="add"
-                      @click="add = true"
+                      dense
+                      @click="editRow = true"
                     />
-
-                    <!--candidate Add Account-->
-                    <q-dialog v-model="add" persistent>
-                      <q-card style="width: 500px">
+                    <q-dialog v-model="editRow" persistent>
+                      <q-card style="width: 350px">
                         <q-card-section class="row">
-                          <div class="text-h6">Add Account</div>
+                          <div class="text-h6">Edit Account</div>
                           <q-space />
                           <q-btn flat round dense icon="close" v-close-popup />
                         </q-card-section>
@@ -220,8 +336,17 @@
                             label="Full Name"
                             hint="(first name, middle initial, last name)"
                           />
-                          <q-input outlined v-model="username" label="ID Number" />
-                          <q-input outlined v-model="email" label="Email" type="email" />
+                          <q-input
+                            outlined
+                            v-model="username"
+                            label="ID Number"
+                          />
+                          <q-input
+                            outlined
+                            v-model="email"
+                            label="Email"
+                            type="email"
+                          />
                           <q-select
                             outlined
                             v-model="level"
@@ -240,118 +365,149 @@
                             :options="options"
                             label="Department"
                           />
+
+                          <q-file
+                            v-model="filesImages"
+                            outlined
+                            label="Pick a Profile Picture"
+                            multiple
+                            accept=".jpg, image/*"
+                            @rejected="onRejected"
+                          >
+                            <template v-slot:prepend>
+                              <q-icon name="camera" />
+                            </template>
+                          </q-file>
                         </q-card-section>
 
                         <q-card-actions align="right">
-                          <q-btn flat label="Cancel" color="red-10" v-close-popup />
-                          <q-btn flat label="Add" color="primary" v-close-popup />
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="red-10"
+                            v-close-popup
+                          />
+                          <q-btn
+                            flat
+                            label="Save"
+                            color="primary"
+                            v-close-popup
+                          />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                    <q-btn
+                      color="red-10"
+                      icon="delete"
+                      size="sm"
+                      class="q-ml-sm"
+                      flat
+                      round
+                      dense
+                      @click="dialog = true"
+                    />
+                    <q-dialog v-model="dialog" persistent>
+                      <q-card style="width: 300px">
+                        <q-card-section class="row items-center">
+                          <q-avatar
+                            size="sm"
+                            icon="warning"
+                            color="red-10"
+                            text-color="white"
+                          />
+                          <span class="q-ml-sm">Confirm Delete?</span>
+                        </q-card-section>
+                        <q-card-actions align="right">
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="primary"
+                            v-close-popup="cancelEnabled"
+                            :disable="!cancelEnabled"
+                          />
+                          <q-btn
+                            flat
+                            label="Confirm"
+                            color="primary"
+                            v-close-popup
+                          />
                         </q-card-actions>
                       </q-card>
                     </q-dialog>
                   </div>
-                </template>
+                </q-td>
+              </template>
 
-                <template v-slot:body-cell-action="props">
-                  <q-td :props="props">
-                    <div class="q-gutter-sm">
-                      <q-btn
-                        round
-                        color="blue"
-                        icon="edit"
-                        size="sm"
-                        flat
-                        dense
-                        @click="editRow = true"
-                      />
-                      <q-dialog v-model="editRow" persistent>
-                        <q-card style="width: 350px">
-                          <q-card-section class="row">
-                            <div class="text-h6">Edit Account</div>
-                            <q-space />
-                            <q-btn flat round dense icon="close" v-close-popup />
-                          </q-card-section>
-
-                          <q-card-section class="q-gutter-md">
-                            <q-input
-                              outlined
-                              v-model="name"
-                              label="Full Name"
-                              hint="(first name, middle initial, last name)"
-                            />
-                            <q-input outlined v-model="username" label="ID Number" />
-                            <q-input
-                              outlined
-                              v-model="email"
-                              label="Email"
-                              type="email"
-                            />
-                            <q-select
-                              outlined
-                              v-model="level"
-                              :options="options_level"
-                              label="Year Level"
-                            />
-                            <q-input
-                              outlined
-                              v-model="course"
-                              label="Course"
-                              type="course"
-                            />
-                            <q-select
-                              outlined
-                              v-model="department"
-                              :options="options"
-                              label="Department"
-                            />
-                          </q-card-section>
-
-                          <q-card-actions align="right">
-                            <q-btn flat label="Cancel" color="red-10" v-close-popup />
-                            <q-btn flat label="Save" color="primary" v-close-popup />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
-                      <q-btn
-                        color="red-10"
-                        icon="delete"
-                        size="sm"
-                        class="q-ml-sm"
-                        flat
-                        round
-                        dense
-                        @click="dialog = true"
-                      />
-                      <q-dialog v-model="dialog" persistent>
-                        <q-card style="width: 300px">
-                          <q-card-section class="row items-center">
-                            <q-avatar
-                              size="sm"
-                              icon="warning"
-                              color="red-10"
-                              text-color="white"
-                            />
-                            <span class="q-ml-sm">Confirm Delete?</span>
-                          </q-card-section>
-                          <q-card-actions align="right">
+              <template v-slot:body-cell-Details="props">
+                <q-td :props="props">
+                  <div class="q-gutter-sm">
+                    <q-btn
+                      round
+                      color="blue"
+                      icon="more_vert"
+                      size="md"
+                      flat
+                      dense
+                      @click="Details = true"
+                    />
+                    <q-dialog v-model="Details">
+                      <q-card class="my-card" flat bordered>
+                        <q-card-section>
+                          <div class="text-h6">
+                            Candidate Info
                             <q-btn
+                              round
                               flat
-                              label="Cancel"
-                              color="primary"
-                              v-close-popup="cancelEnabled"
-                              :disable="!cancelEnabled"
+                              dense
+                              icon="close"
+                              class="float-right"
+                              color="grey-8"
+                              v-close-popup
+                            ></q-btn>
+                          </div>
+                        </q-card-section>
+                        <q-card-section horizontal>
+                          <q-card-section class="q-pt-xs col">
+                            <div class="text-overline">
+                              Mindanao State University
+                            </div>
+                            <div class="text-h5 q-mt-sm q-mb-xs">
+                              Basam C. Serad
+                            </div>
+                            <div class="text-caption text-grey">
+                              Prime Minister
+                            </div>
+                          </q-card-section>
+
+                          <q-card-section class="col-5 flex flex-center">
+                            <q-avatar
+                              square
+                              size="120px"
+                              font-size="82px"
+                              color="teal"
+                              text-color="white"
+                              icon="account_circle"
                             />
-                            <q-btn flat label="Confirm" color="primary" v-close-popup />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
-                    </div>
-                  </q-td>
-                </template>
-              </q-table>
-            </q-tab-panel>
-          </q-tab-panels>
-          <br />
-        </q-card>
+                          </q-card-section>
+                        </q-card-section>
+
+                        <q-separator />
+
+                        <q-card-section>
+                          Assessing clients needs and present suitable promoted
+                          products. Liaising with and persuading targeted
+                          doctors to prescribe our products utilizing effective
+                          sales skills.
+                        </q-card-section>
+                      </q-card>
+                    </q-dialog>
+                  </div>
+                </q-td>
+              </template>
+            </q-table>
+          </q-tab-panel>
+        </q-tab-panels>
+        <br />
       </div>
     </div>
   </q-page>
@@ -466,6 +622,7 @@ export default class ManageAccount extends Vue {
     },
     { name: "username", align: "center", label: "Username", field: "username" },
     { name: "password", align: "center", label: "password", field: "password" },
+    { name: "Details", align: "center", label: "Details", field: "Details" },
   ];
 
   C_rows = [
@@ -500,7 +657,7 @@ export default class ManageAccount extends Vue {
       password: "12345",
     },
   ];
-
+  Details = false;
   tab = ["students"];
   dialog = false;
   cancelEnabled = true;
@@ -514,6 +671,7 @@ export default class ManageAccount extends Vue {
   level = "";
   department = "";
   filter = "";
+  filesImages = null;
   options = [
     "College of Information and Computing Sciences",
     "College of Health Sciences",
@@ -528,6 +686,12 @@ export default class ManageAccount extends Vue {
 
   onItemClick() {
     console.log("Clicked!");
+  }
+  onRejected(rejectedEntries: string | any[]) {
+    this.$q.notify({
+      type: "negative",
+      message: `${rejectedEntries.length} file(s) did not pass validation constraints`,
+    });
   }
 }
 </script>
