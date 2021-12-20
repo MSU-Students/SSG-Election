@@ -132,58 +132,60 @@
           </q-card-section>
           <q-card-section>
             <!--login form-->
-            <div class="q-pl-xl q-pr-xl">
-              <q-input
-                v-model="username"
-                dense
-                label="Username"
-                lazy-rules
-                :rules="[(val) => (val && val.length > 0) || 'Input your Username']"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="person" />
-                </template>
-              </q-input>
-
-              <q-input
-                v-model="password"
-                dense
-                label="Password"
-                :type="isPwd ? 'password' : 'text'"
-                lazy-rules
-                :rules="[(val) => (val && val.length > 0) || 'Input your password']"
-              >
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwd = !isPwd"
-                  />
-                </template>
-                <template v-slot:prepend>
-                  <q-icon name="lock" />
-                </template>
-              </q-input>
-
-              <div class="flex justify-center">
-                <q-btn
-                  :ripple="false"
-                  unelevated
-                  rounded
+            <q-form @submit="loginUser">
+              <div class="q-pl-xl q-pr-xl">
+                <q-input
+                  v-model="username"
                   dense
-                  class="glossy q-mt-xs full-width"
-                  label="Login"
-                  color="primary"
-                  @click="loginUser()"
-                />
+                  label="Username"
+                  lazy-rules
+                  :rules="[(val) => (val && val.length > 0) || 'Input your Username']"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="person" />
+                  </template>
+                </q-input>
+
+                <q-input
+                  v-model="password"
+                  dense
+                  label="Password"
+                  :type="isPwd ? 'password' : 'text'"
+                  lazy-rules
+                  :rules="[(val) => (val && val.length > 0) || 'Input your password']"
+                >
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    />
+                  </template>
+                  <template v-slot:prepend>
+                    <q-icon name="lock" />
+                  </template>
+                </q-input>
+
+                <div class="flex justify-center">
+                  <q-btn
+                    :ripple="false"
+                    unelevated
+                    rounded
+                    dense
+                    class="glossy q-mt-xs full-width"
+                    label="Login"
+                    color="primary"
+                    type="submit"
+                  />
+                </div>
+                <div
+                  class="q-mt-md text-center text-caption text-weight-medium text-primary absolute-center-right"
+                >
+                  *To register your account and retrieve the password, proceed to Division
+                  of Student Affairs, Alonto Hall, MSU Marawi Campus.
+                </div>
               </div>
-              <div
-                class="q-mt-md text-center text-caption text-weight-medium text-primary absolute-center-right"
-              >
-                *To register your account and retrieve the password, proceed to Division
-                of Student Affairs, Alonto Hall, MSU Marawi Campus.
-              </div>
-            </div>
+            </q-form>
           </q-card-section>
         </q-card>
       </div>
@@ -202,7 +204,7 @@ export default class Login extends Vue {
 
   async loginUser() {
     if (this.username == "ssg" && this.password == "ssg") {
-      await this.$router.replace("/ssg");
+      await this.$router.replace("/P_Homepage");
       this.$q.notify({
         color: "positive",
         icon: "cloud_done",

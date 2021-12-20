@@ -182,6 +182,10 @@
       </q-card>
     </div>
   </div>
+
+  <div class="row justify-center">
+    <q-btn push color="white" text-color="primary" label="Start Voting" />
+  </div>
   <!-------------------------->
   <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
     <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
