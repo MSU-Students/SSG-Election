@@ -1,20 +1,18 @@
-import { ActionTree } from 'vuex';
-import { StateInterface } from '../index';
-import { AccountStateInterface, AccountInfo } from './state';
+import { ActionTree } from "vuex";
+import { StateInterface } from "../index";
+import { AccountStateInterface, AccountInfo } from "./state";
 
 const actions: ActionTree<AccountStateInterface, StateInterface> = {
-  newAccount(context, newAccount: AccountInfo) {
-    // call your server API
-      context.commit('addAccount', newAccount);
-    
+  addAccount(context, payload: AccountInfo) {
+    context.commit("addNewAccount", payload);
   },
-  editAccount(context, updateAccount: AccountInfo) {
-    // call your server API
-    context.commit('updateAccount', updateAccount);
+
+  editAccount(context, payload: AccountInfo) {
+    context.commit("setAccount", payload);
   },
-  deleteAccount(context, targetAccount: AccountInfo) {
-    // call your server API
-    context.commit('removeAccount', targetAccount);
+
+  deleteAccount(context, payload: AccountInfo) {
+    context.commit("deleteAccount", payload);
   },
 };
 
