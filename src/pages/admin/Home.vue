@@ -298,40 +298,6 @@
 
     <!-------------------------->
 
-    <!--separator-->
-    <div class="row q-col-gutter-lg">
-      <div class="col">
-        <q-toolbar>
-          <q-toolbar-title class="text-overline text-weight-bold"
-            >Recent Elections</q-toolbar-title
-          >
-        </q-toolbar>
-      </div>
-    </div>
-    <!--separator-->
-    <!-----------Recent Election Ballot-------------->
-    <div class="row q-pt-md q-pa-md">
-      <q-table
-        class="my-sticky-header-table"
-        title="Recent Election"
-        :grid="$q.screen.xs"
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        hide-bottom
-        ><template v-slot:top-right>
-          <q-btn
-            color="primary"
-            icon-right="add"
-            label="Add new election"
-            no-caps
-            to="/Ballot"
-          />
-        </template>
-      </q-table>
-    </div>
-
-    <!----------------------------------------------->
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
     </q-page-scroller>
@@ -340,60 +306,14 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
-interface IRow {
-  name: string;
-}
-
 @Options({})
-export default class Student_Candidate extends Vue {
+export default class Admin_Page extends Vue {
   autoplay = true;
   slide = 1;
-
-  columns = [
-    {
-      name: "id",
-      align: "center",
-      field: "id",
-    },
-    {
-      name: "name",
-      required: true,
-      label: "Election Name",
-      align: "left",
-      field: (row: IRow) => row.name,
-      format: (val: string) => `${val}`,
-    },
-
-    {
-      name: "start",
-      align: "center",
-      label: "Election Start",
-      field: "start",
-    },
-    {
-      name: "end",
-      align: "center",
-      label: "Election End",
-      field: "end",
-    },
-    { name: "action", align: "center", field: "action" },
-  ];
-  rows = [
-    {
-      id: "1",
-      name: "2021 Supreme Student Government Election",
-      start: "02-14-2021 10:13:44",
-      end: "02-14-2021 16:13:44",
-    },
-  ];
 }
 </script>
 
 <style>
-.my-card {
-  height: 100%;
-  max-height: 700px;
-}
 .bg-img {
   background-color: #f3eee8;
 }

@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <div class="q-pa-sm">
-      <div class="q-gutter-y-md" style="width:100%, max-width: 1000px">
+    <div class="">
+      <div class="q-gutter-y-sm" style="width:100%, max-width: 1000px">
         <q-tabs
           v-model="tab"
           class="bg-primary text-white"
@@ -50,7 +50,7 @@
                   <q-dialog v-model="addNewAccount" persistent>
                     <q-card style="width: 450px">
                       <q-card-section class="row">
-                        <div class="text-h6">Add Account</div>
+                        <div class="text-h6">Create new Account</div>
                         <q-space />
                         <q-btn flat round dense icon="close" v-close-popup />
                       </q-card-section>
@@ -102,13 +102,9 @@
                           label="Cancel"
                           color="red-10"
                           v-close-popup
+                          @click="resetModel()"
                         />
-                        <q-btn
-                          flat
-                          label="Add"
-                          color="primary"
-                          @click="onAddAccount"
-                        />
+                        <q-btn flat label="Add" color="primary" @click="onAddAccount" />
                       </q-card-actions>
                     </q-card>
                   </q-dialog>
@@ -182,6 +178,7 @@
                             label="Cancel"
                             color="red-10"
                             v-close-popup
+                            @click="resetModel()"
                           />
                           <q-btn
                             flat
@@ -247,7 +244,7 @@
                   <q-dialog v-model="addCandidate" persistent>
                     <q-card style="width: 500px">
                       <q-card-section class="row">
-                        <div class="text-h6">Add Account</div>
+                        <div class="text-h6">Create new Account</div>
                         <q-space />
                         <q-btn flat round dense icon="close" v-close-popup />
                       </q-card-section>
@@ -322,6 +319,7 @@
                           label="Cancel"
                           color="red-10"
                           v-close-popup
+                          @click="resetModel()"
                         />
                         <q-btn
                           flat
@@ -426,6 +424,7 @@
                             label="Cancel"
                             color="red-10"
                             v-close-popup
+                            @click="resetModel()"
                           />
                           <q-btn
                             flat
@@ -480,15 +479,9 @@
                         </q-card-section>
                         <q-card-section horizontal>
                           <q-card-section class="q-pt-xs col">
-                            <div class="text-overline">
-                              Mindanao State University
-                            </div>
-                            <div class="text-h5 q-mt-sm q-mb-xs">
-                              Basam C. Serad
-                            </div>
-                            <div class="text-caption text-grey">
-                              Prime Minister
-                            </div>
+                            <div class="text-overline">Mindanao State University</div>
+                            <div class="text-h5 q-mt-sm q-mb-xs">Basam C. Serad</div>
+                            <div class="text-caption text-grey">Prime Minister</div>
                           </q-card-section>
 
                           <q-card-section class="col-5 flex flex-center">
@@ -506,10 +499,9 @@
                         <q-separator />
 
                         <q-card-section>
-                          Assessing clients needs and present suitable promoted
-                          products. Liaising with and persuading targeted
-                          doctors to prescribe our products utilizing effective
-                          sales skills.
+                          Assessing clients needs and present suitable promoted products.
+                          Liaising with and persuading targeted doctors to prescribe our
+                          products utilizing effective sales skills.
                         </q-card-section>
                       </q-card>
                     </q-dialog>
@@ -565,8 +557,7 @@ export default class ManageAccount extends Vue {
       required: true,
       label: "Name",
       align: "left",
-      field: (row: AccountInfo) =>
-        row.LName + ", " + row.FName + " " + row.MName,
+      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName,
       format: (val: string) => `${val}`,
     },
     {
@@ -605,8 +596,7 @@ export default class ManageAccount extends Vue {
       required: true,
       label: "Name",
       align: "left",
-      field: (row: AccountInfo) =>
-        row.LName + ", " + row.FName + " " + row.MName,
+      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName,
       format: (val: string) => `${val}`,
     },
     {
@@ -644,6 +634,7 @@ export default class ManageAccount extends Vue {
   cancelEnabled = true;
   addNewAccount = false;
   editRowAccount = false;
+  //candidate
   addCandidate = false;
   editRowCandidate = false;
 
@@ -702,12 +693,20 @@ export default class ManageAccount extends Vue {
     await this.addAccount({ ...this.inputAccount });
     this.addNewAccount = false;
     this.resetModel();
+    this.$q.notify({
+      type: "positive",
+      message: "Account is Successfully Added.",
+    });
   }
 
   async onEditAccount() {
     await this.editAccount(this.inputAccount);
     this.editRowAccount = false;
     this.resetModel();
+    this.$q.notify({
+      type: "positive",
+      message: "Successfully Changed.",
+    });
   }
 
   deleteSpecificAccount(val: AccountInfo) {
@@ -749,12 +748,20 @@ export default class ManageAccount extends Vue {
     await this.addAccount({ ...this.inputAccount });
     this.addCandidate = false;
     this.resetModel();
+    this.$q.notify({
+      type: "positive",
+      message: "Account is Successfully Added!.",
+    });
   }
 
   async onEditCandidateAccount() {
     await this.editAccount(this.inputAccount);
     this.editRowCandidate = false;
     this.resetModel();
+    this.$q.notify({
+      type: "positive",
+      message: "Successfully Changed!.",
+    });
   }
 
   deleteSpecificCandidateAccount(val: CandidateAccountInfo) {

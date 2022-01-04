@@ -40,59 +40,61 @@
         </q-card-section>
 
         <q-card-section>
-          <!--login form-->
-          <div class="q-pl-xl q-pr-xl">
-            <q-input
-              v-model="admin_user"
-              dense
-              label="Username"
-              lazy-rules
-              :rules="[(val) => (val && val.length > 0) || 'Input your Username']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="person" />
-              </template>
-            </q-input>
-
-            <q-input
-              v-model="admin_pass"
-              dense
-              label="Password"
-              :type="isPwd ? 'password' : 'text'"
-              lazy-rules
-              :rules="[(val) => (val && val.length > 0) || 'Input your password']"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-              <template v-slot:prepend>
-                <q-icon name="lock" />
-              </template>
-            </q-input>
-
-            <div class="flex justify-center">
-              <q-btn
-                :ripple="false"
-                unelevated
-                rounded
+          <!---------------login form-------------------->
+          <q-form @submit="adminUser">
+            <div class="q-pl-xl q-pr-xl">
+              <q-input
+                v-model="admin_user"
                 dense
-                class="glossy q-mt-xs full-width"
-                label="Login"
-                color="primary"
-                @click="adminUser()"
-              />
-            </div>
-
-            <div class="text-center q-mt-sm d-qutter-lg">
-              <router-link class="text-red-4 text-caption" to="/"
-                >forgot password?</router-link
+                label="Username"
+                lazy-rules
+                :rules="[(val) => (val && val.length > 0) || 'Input your Username']"
               >
+                <template v-slot:prepend>
+                  <q-icon name="person" />
+                </template>
+              </q-input>
+
+              <q-input
+                v-model="admin_pass"
+                dense
+                label="Password"
+                :type="isPwd ? 'password' : 'text'"
+                lazy-rules
+                :rules="[(val) => (val && val.length > 0) || 'Input your password']"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+                <template v-slot:prepend>
+                  <q-icon name="lock" />
+                </template>
+              </q-input>
+
+              <div class="flex justify-center">
+                <q-btn
+                  :ripple="false"
+                  unelevated
+                  rounded
+                  dense
+                  class="glossy q-mt-xs full-width"
+                  label="Login"
+                  color="primary"
+                  type="submit"
+                />
+              </div>
+
+              <div class="text-center q-mt-sm d-qutter-lg">
+                <router-link class="text-red-4 text-caption" to="/"
+                  >forgot password?</router-link
+                >
+              </div>
             </div>
-          </div>
+          </q-form>
         </q-card-section>
       </q-card>
     </q-dialog>
