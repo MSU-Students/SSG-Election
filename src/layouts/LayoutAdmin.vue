@@ -144,8 +144,7 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION AND INFORMATION MANAGEMENT SYSTEM IN MINDANAO STATE
-      UNIVERSITY MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
