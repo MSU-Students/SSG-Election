@@ -15,7 +15,7 @@
                 </div>
               </div>
               <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">{{ options1.values }}</div>
+                <div class="text-weight-bold">Najmah A. Omar</div>
                 <div class="text-caption">College of Information Technology</div>
               </div>
             </div>

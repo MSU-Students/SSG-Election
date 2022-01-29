@@ -24,12 +24,23 @@ const routes: RouteRecordRaw[] = [
 
     //!---->LayoutVoter
     {
-      path: '/student',
+      path: '/Voter',
       component: () => import('src/layouts/LayoutVoter.vue'),
       children: [
-                  { path: '/S_Homepage', component: () => import('src/pages/student/Student_Homepage.vue') },
-                  { path: '/S_Profile', component: () => import('src/pages/student/Student_Profile.vue') },
-                  { path: '/S_Vote', component: () => import('src/pages/student/Student_vote.vue') }
+                  { path: '/V_Homepage', component: () => import('src/pages/voter/Voter_Homepage.vue') },
+                  { path: '/V_Profile', component: () => import('src/pages/voter/Voter_Profile.vue') },
+                  { path: '/V_Vote', component: () => import('src/pages/voter/Voter_Vote.vue') }
+                ],
+    },
+
+    //!---->LayoutRep
+    {
+      path: '/Representative',
+      component: () => import('src/layouts/LayoutRep.vue'),
+      children: [
+                  { path: '/R_Homepage', component: () => import('src/pages/representative/Rep_Homepage.vue') },
+                  { path: '/R_Profile', component: () => import('src/pages/representative/Rep_Profile.vue') },
+                  { path: '/R_Vote', component: () => import('src/pages/representative/Rep_Vote.vue') }
                 ],
     },
 
@@ -43,7 +54,7 @@ const routes: RouteRecordRaw[] = [
                   { path: '/P_Officials', component: () => import('src/pages/ssg/SSG_Officials.vue') }
                 ],
     },
-    
+
   // Always leave this as last one,
   // but you can also remove it
   {

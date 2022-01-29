@@ -214,6 +214,15 @@ export default class Login extends Vue {
         position: "top",
         message: "You are Logged In!.",
       });
+    } else if (this.username == "rep" && this.password == "rep") {
+      await this.$router.replace("/R_Homepage");
+      this.$q.notify({
+        color: "positive",
+        icon: "cloud_done",
+        textColor: "white",
+        position: "top",
+        message: "You are Logged In!.",
+      });
     } else {
       this.username = "";
       this.password = "";

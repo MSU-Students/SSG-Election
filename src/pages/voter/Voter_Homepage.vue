@@ -26,8 +26,8 @@
             Election
           </div>
           <div class="q-px-xl q-pb-md">
-            A web-base SSG election and nformation management system in Mindanao State
-            University Marawi
+            A Web-based Election Management System for Supreme Student Government of
+            Mindanao State University-Marawi
           </div>
           <div class="q-ml-xl">
             <q-btn
@@ -181,10 +181,6 @@
         </div>
       </q-card>
     </div>
-  </div>
-
-  <div class="row justify-center">
-    <q-btn push color="white" text-color="primary" label="Start Voting" />
   </div>
   <!-------------------------->
   <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">

@@ -206,7 +206,7 @@ export default class Login extends Vue {
 
   async loginUser() {
     if (this.username == "voter" && this.password == "voter") {
-      await this.$router.replace("/S_Homepage");
+      await this.$router.replace("/V_Homepage");
       this.$q.notify({
         color: "positive",
         icon: "cloud_done",
