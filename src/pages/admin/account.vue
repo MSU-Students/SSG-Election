@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="">
-      <div class="q-gutter-y-sm" style="width:100%, max-width: 1000px">
+      <div style="width:100%, max-width: 1200px">
         <q-tabs
           v-model="tab"
           class="bg-primary text-white"
@@ -19,6 +19,7 @@
             <q-table
               class="my-sticky-header-table"
               title="Student Account List"
+              :grid="$q.screen.xs"
               :columns="columns"
               :rows="allAccount"
               row-key="name"
@@ -48,7 +49,7 @@
                     @click="addNewAccount = true"
                   />
                   <q-dialog v-model="addNewAccount" persistent>
-                    <q-card style="width: 450px">
+                    <q-card style="width: 700px; max-width: 100vw">
                       <q-card-section class="row">
                         <div class="text-h6">Create new Account</div>
                         <q-space />
@@ -56,44 +57,62 @@
                       </q-card-section>
 
                       <q-card-section class="q-gutter-md">
-                        <q-input
-                          v-model="inputAccount.FName"
-                          dense
-                          outlined
-                          label="First Name"
-                        >
-                        </q-input>
-                        <q-input
-                          v-model="inputAccount.MName"
-                          dense
-                          outlined
-                          label="Middle Initial"
-                        >
-                        </q-input>
-                        <q-input
-                          v-model="inputAccount.LName"
-                          dense
-                          outlined
-                          label="Last Name"
-                        >
-                        </q-input>
-                        <q-input
-                          outlined
-                          v-model="inputAccount.idNum"
-                          label="ID Number"
-                        />
-                        <q-input
-                          outlined
-                          v-model="inputAccount.email"
-                          label="Email"
-                          type="email"
-                        />
-                        <q-select
-                          outlined
-                          v-model="inputAccount.department"
-                          :options="options"
-                          label="Department"
-                        />
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.FName"
+                              dense
+                              outlined
+                              label="First Name"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.MName"
+                              dense
+                              outlined
+                              label="Middle Initial"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.LName"
+                              dense
+                              outlined
+                              label="Last Name"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputAccount.idNum"
+                              label="ID Number"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputAccount.email"
+                              label="Email"
+                              type="email"
+                            /> 
+                          </div>
+                        </div>
+                        
+                        <div class="q-pl-xs">
+                          <q-select
+                            outlined
+                            dense
+                            v-model="inputAccount.department"
+                            :options="options"
+                            label="Department"
+                          />
+                        </div>
                       </q-card-section>
 
                       <q-card-actions align="right">
@@ -124,7 +143,7 @@
                       @click="openEditDialog(props.row)"
                     />
                     <q-dialog v-model="editRowAccount" persistent>
-                      <q-card style="width: 350px">
+                      <q-card style="width: 700px; max-width: 100vw">
                         <q-card-section class="row">
                           <div class="text-h6">Edit Account</div>
                           <q-space />
@@ -132,44 +151,62 @@
                         </q-card-section>
 
                         <q-card-section class="q-gutter-md">
-                          <q-input
-                            v-model="inputAccount.FName"
-                            dense
-                            outlined
-                            label="First Name"
-                          >
-                          </q-input>
-                          <q-input
-                            v-model="inputAccount.MName"
-                            dense
-                            outlined
-                            label="Middle Initial"
-                          >
-                          </q-input>
-                          <q-input
-                            v-model="inputAccount.LName"
-                            dense
-                            outlined
-                            label="Last Name"
-                          >
-                          </q-input>
-                          <q-input
-                            outlined
-                            v-model="inputAccount.idNum"
-                            label="ID Number"
-                          />
-                          <q-input
-                            outlined
-                            v-model="inputAccount.email"
-                            label="Email"
-                            type="email"
-                          />
+                          <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.FName"
+                              dense
+                              outlined
+                              label="First Name"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.MName"
+                              dense
+                              outlined
+                              label="Middle Initial"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              v-model="inputAccount.LName"
+                              dense
+                              outlined
+                              label="Last Name"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputAccount.idNum"
+                              label="ID Number"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputAccount.email"
+                              label="Email"
+                              type="email"
+                            /> 
+                          </div>
+                        </div>
+                        
+                        <div class="q-pl-xs">
                           <q-select
                             outlined
+                            dense
                             v-model="inputAccount.department"
                             :options="options"
                             label="Department"
                           />
+                        </div>
                         </q-card-section>
 
                         <q-card-actions align="right">
@@ -206,13 +243,14 @@
           </q-tab-panel>
           <br />
 
-          <!-------------------------------------------------------------------------------------->
+          <!-------------------------------------------------------------------------------------------------------------->
 
-          <!------------------------------------------candidate Panel--------------------------------->
+          <!------------------------------------------candidate Panel--------------------------------------------------->
           <q-tab-panel name="candidate" class="bg-white">
             <q-table
               class="my-sticky-header-table"
               title="Candidate Account List"
+              :grid="$q.screen.xs"
               :columns="C_columns"
               :rows="allCandidateAccount"
               row-key="name"
@@ -239,10 +277,10 @@
                     dense
                     flat
                     icon="add"
-                    @click="addCandidate = true"
+                    @click="addNewCandidate = true"
                   />
-                  <q-dialog v-model="addCandidate" persistent>
-                    <q-card style="width: 500px">
+                  <q-dialog v-model="addNewCandidate" persistent>
+                    <q-card style="width: 800px; max-width: 100vw">
                       <q-card-section class="row">
                         <div class="text-h6">Create new Account</div>
                         <q-space />
@@ -250,67 +288,108 @@
                       </q-card-section>
 
                       <q-card-section class="q-gutter-md">
-                        <q-input
-                          v-model="inputCandidateAccount.FName"
-                          dense
-                          outlined
-                          label="First Name"
-                        >
-                        </q-input>
-                        <q-input
-                          v-model="inputCandidateAccount.MName"
-                          dense
-                          outlined
-                          label="Middle Initial"
-                        >
-                        </q-input>
-                        <q-input
-                          v-model="inputCandidateAccount.LName"
-                          dense
-                          outlined
-                          label="Last Name"
-                        >
-                        </q-input>
-                        <q-input
-                          outlined
-                          v-model="inputCandidateAccount.idNum"
-                          label="ID Number"
-                        />
-                        <q-input
-                          outlined
-                          v-model="inputCandidateAccount.email"
-                          label="Email"
-                          type="email"
-                        />
-                        <q-select
-                          outlined
-                          v-model="inputCandidateAccount.level"
-                          :options="options_level"
-                          label="Year Level"
-                        />
-                        <q-input
-                          outlined
-                          v-model="inputCandidateAccount.course"
-                          label="Course"
-                          type="course"
-                        />
-                        <q-select
-                          outlined
-                          v-model="inputCandidateAccount.department"
-                          :options="options"
-                          label="Department"
-                        />
-                        <q-file
-                          v-model="filesImages"
-                          outlined
-                          label="Pick a Profile Picture"
-                          multiple
-                          accept=".jpg, image/*"
-                        >
-                          <template v-slot:prepend>
-                            <q-icon name="camera" />
-                          </template>
-                        </q-file>
+                        <div class="q-gutter-xs row">
+                            <div class="col">
+                              <q-input
+                                v-model="inputCandidateAccount.FName"
+                                dense
+                                outlined
+                                label="First Name"
+                              >
+                              </q-input>
+                            </div>
+                            
+                            <div class="col">
+                            <q-input
+                              v-model="inputCandidateAccount.MName"
+                              dense
+                              outlined
+                              label="Middle Initial"
+                            >
+                            </q-input></div>
+                            
+                            <div class="col">
+                              <q-input
+                              v-model="inputCandidateAccount.LName"
+                              dense
+                              outlined
+                              label="Last Name"
+                            >
+                            </q-input>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.idNum"
+                              label="ID Number"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.email"
+                              label="Email"
+                              type="email"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-select
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.level"
+                              :options="options_level"
+                              label="Year Level"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.course"
+                              label="Course"
+                              type="course"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                              <q-select
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.department"
+                                :options="options"
+                                label="Department"
+                              />
+                          </div>
+                          
+                          <div class="col">
+                            <q-file
+                              v-model="filesImages"
+                              outlined
+                              dense
+                              label="Pick a Profile Picture"
+                              multiple
+                              accept=".jpg, image/*"
+                            >
+                            <template v-slot:prepend>
+                                <q-icon name="camera" />
+                              </template>
+                            </q-file>
+                          </div>
+                        </div>
+                        
+                        
+                          
                       </q-card-section>
 
                       <q-card-actions align="right">
@@ -319,7 +398,7 @@
                           label="Cancel"
                           color="red-10"
                           v-close-popup
-                          @click="resetModel()"
+                          @click="resetModelCandidate()"
                         />
                         <q-btn
                           flat
@@ -345,8 +424,10 @@
                       dense
                       @click="openCandidateEditDialog(props.row)"
                     />
+
+                    <!---------EDIT CANDIDATE----------->
                     <q-dialog v-model="editRowCandidate" persistent>
-                      <q-card style="width: 350px">
+                      <q-card style="width: 800px; max-width: 100vw">
                         <q-card-section class="row">
                           <div class="text-h6">Edit Account</div>
                           <q-space />
@@ -354,68 +435,105 @@
                         </q-card-section>
 
                         <q-card-section class="q-gutter-md">
-                          <q-input
-                            v-model="inputCandidateAccount.FName"
-                            dense
-                            outlined
-                            label="First Name"
-                          >
-                          </q-input>
-                          <q-input
-                            v-model="inputCandidateAccount.MName"
-                            dense
-                            outlined
-                            label="Middle Initial"
-                          >
-                          </q-input>
-                          <q-input
-                            v-model="inputCandidateAccount.LName"
-                            dense
-                            outlined
-                            label="Last Name"
-                          >
-                          </q-input>
-                          <q-input
-                            outlined
-                            v-model="inputCandidateAccount.idNum"
-                            label="ID Number"
-                          />
-                          <q-input
-                            outlined
-                            v-model="inputCandidateAccount.email"
-                            label="Email"
-                            type="email"
-                          />
-                          <q-select
-                            outlined
-                            v-model="inputCandidateAccount.level"
-                            :options="options_level"
-                            label="Year Level"
-                          />
-                          <q-input
-                            outlined
-                            v-model="inputCandidateAccount.course"
-                            label="Course"
-                            type="course"
-                          />
-                          <q-select
-                            outlined
-                            v-model="inputCandidateAccount.department"
-                            :options="options"
-                            label="Department"
-                          />
-
-                          <q-file
-                            v-model="filesImages"
-                            outlined
-                            label="Pick a Profile Picture"
-                            multiple
-                            accept=".jpg, image/*"
-                          >
+                          <div class="q-gutter-xs row">
+                            <div class="col">
+                              <q-input
+                                v-model="inputCandidateAccount.FName"
+                                dense
+                                outlined
+                                label="First Name"
+                              >
+                              </q-input>
+                            </div>
+                            
+                            <div class="col">
+                            <q-input
+                              v-model="inputCandidateAccount.MName"
+                              dense
+                              outlined
+                              label="Middle Initial"
+                            >
+                            </q-input></div>
+                            
+                            <div class="col">
+                              <q-input
+                              v-model="inputCandidateAccount.LName"
+                              dense
+                              outlined
+                              label="Last Name"
+                            >
+                            </q-input>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.idNum"
+                              label="ID Number"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.email"
+                              label="Email"
+                              type="email"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                            <q-select
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.level"
+                              :options="options_level"
+                              label="Year Level"
+                            />
+                          </div>
+                          <div class="col">
+                            <q-input
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.course"
+                              label="Course"
+                              type="course"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="q-gutter-xs row">
+                          <div class="col">
+                              <q-select
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.department"
+                                :options="options"
+                                label="Department"
+                              />
+                          </div>
+                          
+                          <div class="col">
+                            <q-file
+                              v-model="filesImages"
+                              outlined
+                              dense
+                              label="Pick a Profile Picture"
+                              multiple
+                              accept=".jpg, image/*"
+                            >
                             <template v-slot:prepend>
-                              <q-icon name="camera" />
-                            </template>
-                          </q-file>
+                                <q-icon name="camera" />
+                              </template>
+                            </q-file>
+                          </div>
+                        </div>
                         </q-card-section>
 
                         <q-card-actions align="right">
@@ -424,7 +542,7 @@
                             label="Cancel"
                             color="red-10"
                             v-close-popup
-                            @click="resetModel()"
+                            @click="resetModelCandidate()"
                           />
                           <q-btn
                             flat
@@ -544,6 +662,11 @@ export default class ManageAccount extends Vue {
   editAccount!: (payload: AccountInfo) => Promise<void>;
   deleteAccount!: (payload: AccountInfo) => Promise<void>;
 
+  allCandidateAccount!: CandidateAccountInfo[];
+  addCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
+  editCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
+  deleteCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
+
   columns = [
     { name: "action", align: "center", field: "action" },
     {
@@ -557,7 +680,7 @@ export default class ManageAccount extends Vue {
       required: true,
       label: "Name",
       align: "left",
-      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName,
+      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName+ " "+ row.SName,
       format: (val: string) => `${val}`,
     },
     {
@@ -578,11 +701,6 @@ export default class ManageAccount extends Vue {
 
   //-----------------------------------------------Table Column for candidate account
 
-  allCandidateAccount!: CandidateAccountInfo[];
-  newCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
-  editCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
-  deleteCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
-
   C_columns = [
     { name: "action", align: "center", field: "action" },
     {
@@ -596,7 +714,7 @@ export default class ManageAccount extends Vue {
       required: true,
       label: "Name",
       align: "left",
-      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName,
+      field: (row: CandidateAccountInfo) => row.LName + ", " + row.FName + " " + row.MName + " "+ row.SName,
       format: (val: string) => `${val}`,
     },
     {
@@ -635,36 +753,38 @@ export default class ManageAccount extends Vue {
   addNewAccount = false;
   editRowAccount = false;
   //candidate
-  addCandidate = false;
+  addNewCandidate = false;
   editRowCandidate = false;
 
   //---------------------------------------------------for student
   inputAccount: AccountInfo = {
-    FName: "",
-    MName: "",
-    LName: "",
-    idNum: "",
-    department: "",
-    email: "",
-    username: "",
-    password: "",
+    FName: '',
+    MName: '',
+    LName: '',
+    SName: '',
+    idNum: '',
+    department: '',
+    email: '',
+    username: '',
+    password: '',
   };
 
   //---------------------------------------------------for Candidate
   inputCandidateAccount: CandidateAccountInfo = {
-    FName: "",
-    MName: "",
-    LName: "",
-    idNum: "",
-    department: "",
-    level: "",
-    course: "",
-    email: "",
-    username: "",
-    password: "",
+    FName: '',
+    MName: '',
+    LName: '',
+    SName: '',
+    idNum: '',
+    department: '',
+    level: '',
+    course: '',
+    email: '',
+    username: '',
+    password: '',
   };
 
-  filter = "";
+  filter = '';
   filesImages = null;
 
   options = [
@@ -699,6 +819,16 @@ export default class ManageAccount extends Vue {
     });
   }
 
+  async onAddCandidateAccount() {
+    await this.addCandidateAccount({ ...this.inputCandidateAccount });
+    this.addNewCandidate = false;
+    this.resetModelCandidate();
+    this.$q.notify({
+      type: "positive",
+      message: "Account is Successfully Added!.",
+    });
+  }
+
   async onEditAccount() {
     await this.editAccount(this.inputAccount);
     this.editRowAccount = false;
@@ -706,6 +836,16 @@ export default class ManageAccount extends Vue {
     this.$q.notify({
       type: "positive",
       message: "Successfully Changed.",
+    });
+  }
+
+  async onEditCandidateAccount() {
+    await this.editCandidateAccount(this.inputCandidateAccount);
+    this.editRowCandidate = false;
+    this.resetModelCandidate();
+    this.$q.notify({
+      type: "positive",
+      message: "Successfully Changed!.",
     });
   }
 
@@ -719,7 +859,23 @@ export default class ManageAccount extends Vue {
       .onOk(async () => {
         await this.deleteAccount(val);
         this.$q.notify({
-          type: "positive",
+          type: "warning",
+          message: "Successfully deleted!",
+        });
+      });
+  }
+
+  deleteSpecificCandidateAccount(val: CandidateAccountInfo) {
+    this.$q
+      .dialog({
+        message: "Confirm to delete?",
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        await this.deleteCandidateAccount(val);
+        this.$q.notify({
+          type: "warning",
           message: "Successfully deleted!",
         });
       });
@@ -732,9 +888,10 @@ export default class ManageAccount extends Vue {
 
   resetModel() {
     this.inputAccount = {
-      FName: "",
-      MName: "",
-      LName: "",
+      FName: '',
+      MName: '',
+      LName: '',
+      SName: '',
       idNum: "",
       department: "",
       email: "",
@@ -743,53 +900,17 @@ export default class ManageAccount extends Vue {
     };
   }
 
-  //----------------------------------------------functions for Candidate Account
-  async onAddCandidateAccount() {
-    await this.addAccount({ ...this.inputAccount });
-    this.addCandidate = false;
-    this.resetModel();
-    this.$q.notify({
-      type: "positive",
-      message: "Account is Successfully Added!.",
-    });
-  }
-
-  async onEditCandidateAccount() {
-    await this.editAccount(this.inputAccount);
-    this.editRowCandidate = false;
-    this.resetModel();
-    this.$q.notify({
-      type: "positive",
-      message: "Successfully Changed!.",
-    });
-  }
-
-  deleteSpecificCandidateAccount(val: CandidateAccountInfo) {
-    this.$q
-      .dialog({
-        message: "Confirm to delete?",
-        cancel: true,
-        persistent: true,
-      })
-      .onOk(async () => {
-        await this.deleteAccount(val);
-        this.$q.notify({
-          type: "positive",
-          message: "Successfully deleted!",
-        });
-      });
-  }
-
   openCandidateEditDialog(val: CandidateAccountInfo) {
     this.editRowCandidate = true;
-    this.inputAccount = { ...val };
+    this.inputCandidateAccount = { ...val };
   }
 
   resetModelCandidate() {
     this.inputCandidateAccount = {
-      FName: "",
-      MName: "",
-      LName: "",
+      FName: '',
+      MName: '',
+      LName: '',
+      SName: '',
       idNum: "",
       department: "",
       level: "",
@@ -805,8 +926,8 @@ export default class ManageAccount extends Vue {
 <style lang="sass">
 .my-sticky-header-table
   /* height or max-height is important */
-  height: 400px
-  width: 1220px
+  height: 425px
+  width: 1250px
 
 
   .q-table__top,

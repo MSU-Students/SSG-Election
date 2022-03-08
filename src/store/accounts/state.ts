@@ -3,6 +3,7 @@ export interface AccountInfo {
   FName: string;
   MName: string;
   LName: string;
+  SName: string;
   idNum: string;
   department: string;
   email: string;
@@ -22,6 +23,7 @@ function state(): AccountStateInterface {
         FName: "Arifah",
         MName: "U.",
         LName: "Abdulbasit",
+        SName: "",
         idNum: "201812291",
         email: "arifahabdulbasit@gmail.com",
         department: "College of Information and Computing Sciences",
@@ -32,6 +34,7 @@ function state(): AccountStateInterface {
         FName: "Najmah",
         MName: "A.",
         LName: "Omar",
+        SName: "",
         idNum: "201811518",
         email: "najmahomar@gmail.com",
         department: "College of Information and Computing Sciences",
@@ -42,6 +45,7 @@ function state(): AccountStateInterface {
         FName: "Anisah",
         MName: "I.",
         LName: "Dayaan",
+        SName: "",
         idNum: "201811942",
         email: "anisahdayaan@gmail.com",
         department: "College of Information and Computing Sciences",

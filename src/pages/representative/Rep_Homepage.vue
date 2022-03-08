@@ -32,7 +32,7 @@
             <q-btn
               clickable
               v-ripple
-              to="/Accounts"
+              to="/Representative/R_Vote"
               outline
               rounded
               color="primary"

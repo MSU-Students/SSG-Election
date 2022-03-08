@@ -3,6 +3,7 @@ export interface CandidateAccountInfo {
   FName: string;
   MName: string;
   LName: string;
+  SName: string;
   idNum: string;
   department: string;
   level: string;
@@ -24,6 +25,7 @@ function state(): CandidateAccountStateInterface {
         FName: "Arifah",
         MName: "U.",
         LName: "Abdulbasit",
+        SName: "",
         idNum: "201812291",
         email: "arifahabdulbasit@gmail.com",
         level: "4th Year",
@@ -36,6 +38,7 @@ function state(): CandidateAccountStateInterface {
         FName: "Najmah",
         MName: "A.",
         LName: "Omar",
+        SName: "",
         idNum: "201811518",
         email: "najmahomar@gmail.com",
         level: "4th Year",
@@ -48,6 +51,7 @@ function state(): CandidateAccountStateInterface {
         FName: "Anisah",
         MName: "I.",
         LName: "Dayaan",
+        SName: "",
         idNum: "201811942",
         email: "anisahdayaan@gmail.com",
         level: "4th Year",
