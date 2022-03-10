@@ -10,13 +10,13 @@ export interface ElectionInfo {
 }
 
 export interface ElectionStateInterface {
-  allAccount: ElectionInfo[];
-  activeAccount?: ElectionInfo;
+  allElection: ElectionInfo[];
+  activeElection?: ElectionInfo;
 }
 
 function state(): ElectionStateInterface {
   return {
-    allAccount: [
+    allElection: [
       {
       electionID: "1",
       electionName: "2021 Supreme Student Government Election",

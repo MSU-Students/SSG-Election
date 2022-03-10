@@ -6,21 +6,15 @@ import {
   useStore as vuexUseStore,
 } from "vuex";
 
-// import example from './module-example'
-// import { ExampleStateInterface } from './module-example/state';
 import account from "./accounts";
 import { AccountStateInterface } from "./accounts/state";
 
 import candidate from "./candidateAccounts";
 import { CandidateAccountStateInterface } from "./candidateAccounts/state";
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
+
+import election from "./election";
+import { ElectionStateInterface } from "./election/state";
+
 
 export interface StateInterface {
   // Define your own store structure, using submodules if needed
@@ -28,6 +22,7 @@ export interface StateInterface {
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   account: AccountStateInterface;
   candidate: CandidateAccountStateInterface;
+  election: ElectionStateInterface;
 }
 
 // provide typings for `this.$store`
@@ -46,6 +41,7 @@ export default store(function (/* { ssrContext } */) {
     modules: {
       account,
       candidate,
+      election,
     },
 
     // enable strict mode (adds overhead!)
