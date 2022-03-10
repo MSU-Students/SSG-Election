@@ -1,174 +1,112 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="col-12 col-md q-pa-md">
-        <q-card class="my-card">
-          <div class="q-pa-md">
-            <!--------------------------------voting----------------------------->
-
-            <div class="row">
-              <div class="col-4">
-                <div class="q-pb-md text-center">
-                  <q-avatar size="50px" class="shadow-10">
-                    <img src="~/assets/images/avatar.svg" alt="logo" />
-                  </q-avatar>
-                </div>
-              </div>
-              <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">College of Information Technology</div>
-              </div>
+  <q-page>
+    <div class="row q-pa-lg q-pl-xl q-pr-lg">
+      <div class="col-4">
+        <q-card>
+          <div class="row q-pl-xl">
+            <div class="q-mt-md">
+             Prime Minister: <strong>{{ group }}</strong>
+             <br/>
+             Secretary General: <strong>{{ group2 }}</strong>
             </div>
-            <q-separator />
-            <div class="row q-pt-sm q-pl-sm">
-              <div class="col">
-                <q-btn outline class="text-primary" icon="check" label="Vote" />
-              </div>
-              <div class="col">
-                <q-btn outline class="text-green" label="Detail" />
-              </div>
-            </div>
+          </div>
+          <div class="row justify-end q-pa-md">
+            <q-btn label="Submit" color="primary " />
+            <q-btn
+              flat style="color: maroon"
+              label="Reset"
+              @click="onResetClick"
+              class="q-ml-md"
+            />
           </div>
         </q-card>
       </div>
-
-      <!------------------------------------------>
-
-      <div class="col-12 col-md q-pa-md">
-        <q-card class="my-card">
-          <div class="q-pa-md">
-            <div class="row">
-              <div class="col-4">
-                <div class="q-pb-md text-center">
-                  <q-avatar size="50px" class="shadow-10">
-                    <img src="~/assets/images/avatar.svg" alt="logo" />
-                  </q-avatar>
-                </div>
-              </div>
-              <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">College of Information Technology</div>
-              </div>
-            </div>
-            <q-separator />
-            <div class="row q-pt-sm q-pl-sm">
-              <div class="col">
-                <q-btn outline class="text-primary" icon="check" label="Vote" />
-              </div>
-              <div class="col">
-                <q-btn outline class="text-green" label="Detail" />
-              </div>
+      <div class="col-8 q-px-lg q-gutter-y-md">
+        <q-card class="">
+          <div class="row q-pa-md">
+            <div class="text-bold q-pl-md">
+              <q-icon
+                name="people"
+                color="primary"
+              />
+              Prime Minister
             </div>
           </div>
-        </q-card>
-      </div>
-
-      <!------------------------------------------>
-
-      <div class="col-12 col-md q-pa-md">
-        <q-card class="my-card">
-          <div class="q-pa-md">
-            <div class="row">
-              <div class="col-4">
-                <div class="q-pb-md text-center">
-                  <q-avatar size="50px" class="shadow-10">
-                    <img src="~/assets/images/avatar.svg" alt="logo" />
-                  </q-avatar>
-                </div>
-              </div>
-              <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">College of Information Technology</div>
-              </div>
-            </div>
-            <q-separator />
-            <div class="row q-pt-sm q-pl-sm">
-              <div class="col">
-                <q-btn outline class="text-primary" icon="check" label="Vote" />
-              </div>
-              <div class="col">
-                <q-btn outline class="text-green" label="Detail" />
-              </div>
-            </div>
+          <q-separator/>
+          <div class="row q-pa-sm q-pl-lg">
+              <q-option-group
+                v-model="group"
+                :options="primeMinister"
+                color="maroon"
+              />
+              
           </div>
         </q-card>
-      </div>
-
-      <!------------------------------------------>
-
-      <div class="col-12 col-md q-pa-md">
-        <q-card class="my-card">
-          <div class="q-pa-md">
-            <div class="row">
-              <div class="col-4">
-                <div class="q-pb-md text-center">
-                  <q-avatar size="50px" class="shadow-10">
-                    <img src="~/assets/images/avatar.svg" alt="logo" />
-                  </q-avatar>
-                </div>
-              </div>
-              <div class="col-8 q-pa-sm">
-                <div class="text-weight-bold">Najmah A. Omar</div>
-                <div class="text-caption">College of Information Technology</div>
-              </div>
+        <q-space/>
+        <q-card>
+          <div class="row q-pa-md">
+            <div class="text-bold q-pl-md">
+              <q-icon
+                name="people"
+                color="primary"
+              />
+              Secretary General
             </div>
-            <q-separator />
-            <div class="row q-pt-sm q-pl-sm">
-              <div class="col">
-                <q-btn outline class="text-primary" icon="check" label="Vote" />
-              </div>
-              <div class="col">
-                <q-btn outline class="text-green" label="Detail" />
-              </div>
-            </div>
+          </div>
+          <q-separator/>
+          <div class="row q-pa-sm q-pl-lg">
+              <q-option-group
+                v-model="group2"
+                :options="secretary"
+                color="maroon"
+              />
           </div>
         </q-card>
       </div>
     </div>
-    <!-------------------------->
-  </div>
+  </q-page>
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { Vue, Options } from 'vue-class-component';
 
-@Options({})
-export default class Student_Vote extends Vue {
-  submitResult = [];
-  minister = null;
-  secretary = null;
+export default class studentVote extends Vue {
+  group = [];
+  group2 = [];
 
-  options1 = [
+  onResetClick() {
+    this.group = [];
+    this.group2 = [];
+  }
+
+  primeMinister = [
     {
-      label: "ABDULBASIT, Arifah U.",
-      value: "ABDULBASIT, Arifah U.",
-      color: "primary",
+      label: 'ABDULBASIT, Arifah U.',
+      value: 'ABDULBASIT, Arifah U.',
     },
     {
-      label: "DAYAAN, Anisah I.",
-      value: "DAYAAN, Anisah I.",
-      color: "primary",
+      label: 'DAYAAN, Anisah I.',
+      value: 'DAYAAN, Anisah I.',
     },
     {
-      label: "OMAR, Najmah A.",
-      value: "OMAR, Najmah A.",
-      color: "primary",
+      label: 'OMAR, Najmah A.',
+      value: 'OMAR, Najmah A.',
     },
   ];
 
-  options2 = [
+  secretary = [
     {
-      label: "ALANGO, Norjehan M.",
-      value: "ALANGO, Norjehan M.",
-      color: "primary",
+      label: 'ABDULBASIT, Arifah U.',
+      value: 'ABDULBASIT, Arifah U.',
     },
     {
-      label: "AYAON, Norhani A.",
-      value: "AYAON, Norhani A.",
-      color: "primary",
+      label: 'DAYAAN, Anisah I.',
+      value: 'DAYAAN, Anisah I.',
+    },
+    {
+      label: 'OMAR, Najmah A.',
+      value: 'OMAR, Najmah A.',
     },
   ];
-
-  shape = "line";
 }
 </script>
