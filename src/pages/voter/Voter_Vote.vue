@@ -1,44 +1,57 @@
 <template>
   <q-page>
-    <div class="row q-pa-md">
-      <div class="col-12 col-md-8 q-px-lg">
+    <div class="row q-pa-md q-pl-xl q-pr-lg">
+      <div class="col-4 q-pa-md">
+        <div class="q-pa-md text-overline text-bold">
+          Voting Information
+          <q-separator />
+        </div>
         <q-card>
-          <div class="row q-pa-md">
-            <div class="text-h5 q-pa-lg text-bold">
-              <q-icon
-                name="people"
-                color="primary"
-                style="font-size: 3rem"
-              /><br />
-              Representatives
+          <div class="col q-pa-md text-caption">
+            College Representative: <strong>{{ group }}</strong>
+          </div>
+          <q-separator />
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              dense
+              class="text-overline"
+              label="Submit Vote"
+              color="primary "
+            />
+            <q-btn
+              flat
+              dense
+              style="color: maroon"
+              label="Reset"
+              @click="onResetClick"
+              class="text-overline q-ml-md"
+            />
+          </div>
+        </q-card>
+      </div>
+      <div class="col-8 q-px-lg q-gutter-y-md">
+        <div class="q-pt-lg q-mt-lg text-overline text-bold">
+          Select Candidates
+          <q-separator />
+        </div>
+        <q-card>
+          <q-card-actions class="bg-deep-orange-1">
+            <div class="text-bold text-subtitle2 q-pl-md">
+              <q-icon name="people" color="primary" />
+              College Representative
             </div>
-            <div class="q-pa-lg">
+          </q-card-actions>
+          <q-separator />
+          <q-card-actions>
+            
               <q-option-group
                 v-model="group"
                 :options="options"
                 color="maroon"
                 type="checkbox"
               />
-            </div>
-          </div>
-          <div class="row q-pl-xl">
-            <div class="q-mt-md">
-              Your selection: <strong>{{ group }}</strong>
-            </div>
-          </div>
-          <div class="row justify-end q-pa-md">
-            <q-btn label="Submit" color="primary " />
-            <q-btn
-              flat style="color: maroon"
-              label="Reset"
-              @click="onResetClick"
-              class="q-ml-md"
-            />
-          </div>
+          </q-card-actions>
         </q-card>
-      </div>
-      <div class="col-12 col-md-4 q-pt-xl gt-sm">
-        <q-img src="~assets/images/vote.svg" />
       </div>
     </div>
   </q-page>

@@ -28,6 +28,12 @@
               label="Election"
               to="/Ballot"
             />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Election Result"
+              to="/Result"
+            />
           </div>
         </q-toolbar-title>
 
@@ -115,6 +121,14 @@
             </q-item-section>
 
             <q-item-section> Manage Election </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/Result">
+            <q-item-section avatar>
+              <q-icon name="ballot" />
+            </q-item-section>
+
+            <q-item-section>Election Result</q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/">
