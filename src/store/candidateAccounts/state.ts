@@ -11,6 +11,7 @@ export interface CandidateAccountInfo {
   email: string;
   username: string;
   password: string;
+  saying: string,
 }
 
 export interface CandidateAccountStateInterface {
@@ -33,6 +34,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        saying: "Patience is Virtue"
       },
       {
         FName: "Najmah",
@@ -46,6 +48,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        saying: "Sometimes...."
       },
       {
         FName: "Anisah",
@@ -59,6 +62,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        saying: "Try and try until you success"
       },
     ],
   };

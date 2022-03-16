@@ -40,8 +40,7 @@
             </div>
           </q-card-actions>
           <q-separator />
-          <q-card-actions>
-            <chart />
+          <q-card-actions><PrimeMinisterChart />
           </q-card-actions>
         </q-card>
         <q-space />
@@ -63,9 +62,9 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import Chart from "components/Charts/prime.result.vue";
+import PrimeMinisterChart from "components/Charts/prime.result.vue";
 @Options({
-  components: { Chart },
+  components: { PrimeMinisterChart },
 })
 export default class studentVote extends Vue {
 }

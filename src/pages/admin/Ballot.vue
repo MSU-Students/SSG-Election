@@ -208,12 +208,6 @@
                         ]"
                       />
                     </div>
-                    <div>
-                      <q-toggle
-                        v-model="inputElection.electionAgreement"
-                        label="I accept the terms and agreement"
-                      />
-                    </div>
                   </div>
                   <div class="row q-pt-md">
                     <div class="col-12 col-md-3">instructions *</div>
