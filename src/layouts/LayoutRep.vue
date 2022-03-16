@@ -100,7 +100,7 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/R_Vote">
+          <q-item clickable v-ripple to="/R_Voting">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>
