@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * SSG Election
- * The ssg-election API description
+ * The SSG Election API
  *
  * The version of the OpenAPI document: 1.0
  * 

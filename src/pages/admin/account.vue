@@ -64,6 +64,12 @@
                               dense
                               outlined
                               label="First Name"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                           <div class="col">
@@ -72,6 +78,12 @@
                               dense
                               outlined
                               label="Middle Initial"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                           <div class="col">
@@ -80,10 +92,16 @@
                               dense
                               outlined
                               label="Last Name"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                         </div>
-                        
+
                         <div class="q-gutter-xs row">
                           <div class="col">
                             <q-input
@@ -91,6 +109,12 @@
                               dense
                               v-model="inputAccount.idNum"
                               label="ID Number"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                           <div class="col">
@@ -100,10 +124,16 @@
                               v-model="inputAccount.email"
                               label="Email"
                               type="email"
-                            /> 
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
+                            />
                           </div>
                         </div>
-                        
+
                         <div class="q-pl-xs">
                           <q-select
                             outlined
@@ -111,6 +141,12 @@
                             v-model="inputAccount.department"
                             :options="options"
                             label="Department"
+                            lazy-rules
+                            :rules="[
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Does not accept empty input',
+                            ]"
                           />
                         </div>
                       </q-card-section>
@@ -123,7 +159,12 @@
                           v-close-popup
                           @click="resetModel()"
                         />
-                        <q-btn flat label="Add" color="primary" @click="onAddAccount" />
+                        <q-btn
+                          flat
+                          label="Add"
+                          color="primary"
+                          @click="onAddAccount"
+                        />
                       </q-card-actions>
                     </q-card>
                   </q-dialog>
@@ -152,61 +193,97 @@
 
                         <q-card-section class="q-gutter-md">
                           <div class="q-gutter-xs row">
-                          <div class="col">
-                            <q-input
-                              v-model="inputAccount.FName"
-                              dense
+                            <div class="col">
+                              <q-input
+                                v-model="inputAccount.FName"
+                                dense
+                                outlined
+                                label="First Name"
+                                lazy-rules
+                                :rules="[
+                                  (val) =>
+                                    (val && val.length > 0) ||
+                                    'Does not accept empty input',
+                                ]"
+                              />
+                            </div>
+                            <div class="col">
+                              <q-input
+                                v-model="inputAccount.MName"
+                                dense
+                                outlined
+                                label="Middle Initial"
+                                lazy-rules
+                                :rules="[
+                                  (val) =>
+                                    (val && val.length > 0) ||
+                                    'Does not accept empty input',
+                                ]"
+                              />
+                            </div>
+                            <div class="col">
+                              <q-input
+                                v-model="inputAccount.LName"
+                                dense
+                                outlined
+                                label="Last Name"
+                                lazy-rules
+                                :rules="[
+                                  (val) =>
+                                    (val && val.length > 0) ||
+                                    'Does not accept empty input',
+                                ]"
+                              />
+                            </div>
+                          </div>
+
+                          <div class="q-gutter-xs row">
+                            <div class="col">
+                              <q-input
+                                outlined
+                                dense
+                                v-model="inputAccount.idNum"
+                                label="ID Number"
+                                lazy-rules
+                                :rules="[
+                                  (val) =>
+                                    (val && val.length > 0) ||
+                                    'Does not accept empty input',
+                                ]"
+                              />
+                            </div>
+                            <div class="col">
+                              <q-input
+                                outlined
+                                dense
+                                v-model="inputAccount.email"
+                                label="Email"
+                                type="email"
+                                lazy-rules
+                                :rules="[
+                                  (val) =>
+                                    (val && val.length > 0) ||
+                                    'Does not accept empty input',
+                                ]"
+                              />
+                            </div>
+                          </div>
+
+                          <div class="q-pl-xs">
+                            <q-select
                               outlined
-                              label="First Name"
+                              dense
+                              v-model="inputAccount.department"
+                              :options="options"
+                              label="Department"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
-                          <div class="col">
-                            <q-input
-                              v-model="inputAccount.MName"
-                              dense
-                              outlined
-                              label="Middle Initial"
-                            />
-                          </div>
-                          <div class="col">
-                            <q-input
-                              v-model="inputAccount.LName"
-                              dense
-                              outlined
-                              label="Last Name"
-                            />
-                          </div>
-                        </div>
-                        
-                        <div class="q-gutter-xs row">
-                          <div class="col">
-                            <q-input
-                              outlined
-                              dense
-                              v-model="inputAccount.idNum"
-                              label="ID Number"
-                            />
-                          </div>
-                          <div class="col">
-                            <q-input
-                              outlined
-                              dense
-                              v-model="inputAccount.email"
-                              label="Email"
-                              type="email"
-                            /> 
-                          </div>
-                        </div>
-                        
-                        <div class="q-pl-xs">
-                          <q-select
-                            outlined
-                            dense
-                            v-model="inputAccount.department"
-                            :options="options"
-                            label="Department"
-                          />
-                        </div>
                         </q-card-section>
 
                         <q-card-actions align="right">
@@ -280,46 +357,64 @@
                     @click="addNewCandidate = true"
                   />
                   <q-dialog v-model="addNewCandidate" persistent>
-                    <q-card style="width: 800px; max-width: 100vw">
-                      <q-card-section class="row">
+                    <q-card style="width: 900px; max-width: 100vw">
+                      <q-card-section class="row ">
                         <div class="text-h6">Create new Account</div>
                         <q-space />
                         <q-btn flat round dense icon="close" v-close-popup />
                       </q-card-section>
 
-                      <q-card-section class="q-gutter-md">
+                      <q-card-section>
                         <div class="q-gutter-xs row">
-                            <div class="col">
-                              <q-input
-                                v-model="inputCandidateAccount.FName"
-                                dense
-                                outlined
-                                label="First Name"
-                              >
-                              </q-input>
-                            </div>
-                            
-                            <div class="col">
+                          <div class="col">
+                            <q-input
+                              v-model="inputCandidateAccount.FName"
+                              dense
+                              outlined
+                              label="First Name"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
+                            >
+                            </q-input>
+                          </div>
+
+                          <div class="col">
                             <q-input
                               v-model="inputCandidateAccount.MName"
                               dense
                               outlined
                               label="Middle Initial"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             >
-                            </q-input></div>
-                            
-                            <div class="col">
-                              <q-input
+                            </q-input>
+                          </div>
+
+                          <div class="col">
+                            <q-input
                               v-model="inputCandidateAccount.LName"
                               dense
                               outlined
                               label="Last Name"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             >
                             </q-input>
-                            </div>
-                            
+                          </div>
                         </div>
-                        
+
                         <div class="q-gutter-xs row">
                           <div class="col">
                             <q-input
@@ -327,6 +422,12 @@
                               dense
                               v-model="inputCandidateAccount.idNum"
                               label="ID Number"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                           <div class="col">
@@ -336,10 +437,16 @@
                               v-model="inputCandidateAccount.email"
                               label="Email"
                               type="email"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                         </div>
-                        
+
                         <div class="q-gutter-xs row">
                           <div class="col">
                             <q-select
@@ -348,6 +455,12 @@
                               v-model="inputCandidateAccount.level"
                               :options="options_level"
                               label="Year Level"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                           <div class="col">
@@ -357,21 +470,33 @@
                               v-model="inputCandidateAccount.course"
                               label="Course"
                               type="course"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             />
                           </div>
                         </div>
-                        
+
                         <div class="q-gutter-xs row">
                           <div class="col">
-                              <q-select
-                                outlined
-                                dense
-                                v-model="inputCandidateAccount.department"
-                                :options="options"
-                                label="Department"
-                              />
+                            <q-select
+                              outlined
+                              dense
+                              v-model="inputCandidateAccount.department"
+                              :options="options"
+                              label="Department"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
+                            />
                           </div>
-                          
+
                           <div class="col">
                             <q-file
                               v-model="filesImages"
@@ -380,16 +505,34 @@
                               label="Pick a Profile Picture"
                               multiple
                               accept=".jpg, image/*"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Does not accept empty input',
+                              ]"
                             >
-                            <template v-slot:prepend>
+                              <template v-slot:prepend>
                                 <q-icon name="camera" />
                               </template>
                             </q-file>
                           </div>
                         </div>
-                        
-                        
-                          
+                        <div class="row q-gutter-xs">
+                            <q-input
+                              v-model="inputCandidateAccount.saying"
+                              filled
+                              type="textarea"
+                              label="Campaign Sayings"
+                              style="width: 900px; max-width: 100vw"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Please type something',
+                              ]"
+                            />
+                          </div>
                       </q-card-section>
 
                       <q-card-actions align="right">
@@ -434,7 +577,7 @@
                           <q-btn flat round dense icon="close" v-close-popup />
                         </q-card-section>
 
-                        <q-card-section class="q-gutter-md">
+                        <q-card-section class="q-gutter-sm">
                           <div class="q-gutter-xs row">
                             <div class="col">
                               <q-input
@@ -445,71 +588,71 @@
                               >
                               </q-input>
                             </div>
-                            
-                            <div class="col">
-                            <q-input
-                              v-model="inputCandidateAccount.MName"
-                              dense
-                              outlined
-                              label="Middle Initial"
-                            >
-                            </q-input></div>
-                            
+
                             <div class="col">
                               <q-input
-                              v-model="inputCandidateAccount.LName"
-                              dense
-                              outlined
-                              label="Last Name"
-                            >
-                            </q-input>
+                                v-model="inputCandidateAccount.MName"
+                                dense
+                                outlined
+                                label="Middle Initial"
+                              >
+                              </q-input>
                             </div>
-                            
-                        </div>
-                        
-                        <div class="q-gutter-xs row">
-                          <div class="col">
-                            <q-input
-                              outlined
-                              dense
-                              v-model="inputCandidateAccount.idNum"
-                              label="ID Number"
-                            />
+
+                            <div class="col">
+                              <q-input
+                                v-model="inputCandidateAccount.LName"
+                                dense
+                                outlined
+                                label="Last Name"
+                              >
+                              </q-input>
+                            </div>
                           </div>
-                          <div class="col">
-                            <q-input
-                              outlined
-                              dense
-                              v-model="inputCandidateAccount.email"
-                              label="Email"
-                              type="email"
-                            />
+
+                          <div class="q-gutter-xs row">
+                            <div class="col">
+                              <q-input
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.idNum"
+                                label="ID Number"
+                              />
+                            </div>
+                            <div class="col">
+                              <q-input
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.email"
+                                label="Email"
+                                type="email"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div class="q-gutter-xs row">
-                          <div class="col">
-                            <q-select
-                              outlined
-                              dense
-                              v-model="inputCandidateAccount.level"
-                              :options="options_level"
-                              label="Year Level"
-                            />
+
+                          <div class="q-gutter-xs row">
+                            <div class="col">
+                              <q-select
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.level"
+                                :options="options_level"
+                                label="Year Level"
+                              />
+                            </div>
+                            <div class="col">
+                              <q-input
+                                outlined
+                                dense
+                                v-model="inputCandidateAccount.course"
+                                label="Course"
+                                type="course"
+                              />
+                            </div>
                           </div>
-                          <div class="col">
-                            <q-input
-                              outlined
-                              dense
-                              v-model="inputCandidateAccount.course"
-                              label="Course"
-                              type="course"
-                            />
-                          </div>
-                        </div>
-                        
-                        <div class="q-gutter-xs row">
-                          <div class="col">
+
+                          <div class="q-gutter-xs row">
+                            <div class="col">
                               <q-select
                                 outlined
                                 dense
@@ -517,23 +660,38 @@
                                 :options="options"
                                 label="Department"
                               />
+                            </div>
+
+                            <div class="col">
+                              <q-file
+                                v-model="filesImages"
+                                outlined
+                                dense
+                                label="Pick a Profile Picture"
+                                multiple
+                                accept=".jpg, image/*"
+                              >
+                                <template v-slot:prepend>
+                                  <q-icon name="camera" />
+                                </template>
+                              </q-file>
+                            </div>
                           </div>
-                          
-                          <div class="col">
-                            <q-file
-                              v-model="filesImages"
-                              outlined
-                              dense
-                              label="Pick a Profile Picture"
-                              multiple
-                              accept=".jpg, image/*"
-                            >
-                            <template v-slot:prepend>
-                                <q-icon name="camera" />
-                              </template>
-                            </q-file>
+                          <div class="row q-gutter-xs">
+                            <q-input
+                              v-model="inputCandidateAccount.saying"
+                              filled
+                              type="textarea"
+                              label="Campaign Sayings"
+                              style="width: 900px; max-width: 100vw"
+                              lazy-rules
+                              :rules="[
+                                (val) =>
+                                  (val && val.length > 0) ||
+                                  'Please type something',
+                              ]"
+                            />
                           </div>
-                        </div>
                         </q-card-section>
 
                         <q-card-actions align="right">
@@ -597,9 +755,15 @@
                         </q-card-section>
                         <q-card-section horizontal>
                           <q-card-section class="q-pt-xs col">
-                            <div class="text-overline">Mindanao State University</div>
-                            <div class="text-h5 q-mt-sm q-mb-xs">Basam C. Serad</div>
-                            <div class="text-caption text-grey">Prime Minister</div>
+                            <div class="text-overline">
+                              Mindanao State University
+                            </div>
+                            <div class="text-h5 q-mt-sm q-mb-xs">
+                              Basam C. Serad
+                            </div>
+                            <div class="text-caption text-grey">
+                              Prime Minister
+                            </div>
                           </q-card-section>
 
                           <q-card-section class="col-5 flex flex-center">
@@ -617,9 +781,10 @@
                         <q-separator />
 
                         <q-card-section>
-                          Assessing clients needs and present suitable promoted products.
-                          Liaising with and persuading targeted doctors to prescribe our
-                          products utilizing effective sales skills.
+                          Assessing clients needs and present suitable promoted
+                          products. Liaising with and persuading targeted
+                          doctors to prescribe our products utilizing effective
+                          sales skills.
                         </q-card-section>
                       </q-card>
                     </q-dialog>
@@ -636,22 +801,22 @@
 </template>
 
 <script lang="ts">
-import { AccountInfo } from "src/store/accounts/state";
-import { CandidateAccountInfo } from "src/store/candidateAccounts/state";
-import { Vue, Options } from "vue-class-component";
-import { mapActions, mapState } from "vuex";
+import { AccountInfo } from 'src/store/accounts/state';
+import { CandidateAccountInfo } from 'src/store/candidateAccounts/state';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
 
 @Options({
   computed: {
-    ...mapState("account", ["allAccount"]),
-    ...mapState("candidate", ["allCandidateAccount"]),
+    ...mapState('account', ['allAccount']),
+    ...mapState('candidate', ['allCandidateAccount']),
   },
   methods: {
-    ...mapActions("account", ["addAccount", "editAccount", "deleteAccount"]),
-    ...mapActions("candidate", [
-      "addCandidateAccount",
-      "editCandidateAccount",
-      "deleteCandidateAccount",
+    ...mapActions('account', ['addAccount', 'editAccount', 'deleteAccount']),
+    ...mapActions('candidate', [
+      'addCandidateAccount',
+      'editCandidateAccount',
+      'deleteCandidateAccount',
     ]),
   },
 })
@@ -668,86 +833,88 @@ export default class ManageAccount extends Vue {
   deleteCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
 
   columns = [
-    { name: "action", align: "center", field: "action" },
+    { name: 'action', align: 'center', field: 'action' },
     {
-      name: "id",
-      align: "center",
-      label: "ID Number",
-      field: "id",
+      name: 'id',
+      align: 'center',
+      label: 'ID Number',
+      field: 'id',
     },
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Name",
-      align: "left",
-      field: (row: AccountInfo) => row.LName + ", " + row.FName + " " + row.MName+ " "+ row.SName,
+      label: 'Name',
+      align: 'left',
+      field: (row: AccountInfo) =>
+        row.LName + ', ' + row.FName + ' ' + row.MName + ' ' + row.SName,
       format: (val: string) => `${val}`,
     },
     {
-      name: "email",
-      align: "center",
-      label: "Email",
-      field: "email",
+      name: 'email',
+      align: 'center',
+      label: 'Email',
+      field: 'email',
     },
     {
-      name: "department",
-      align: "center",
-      label: "Department",
-      field: "department",
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: 'department',
     },
-    { name: "username", align: "center", label: "Username", field: "username" },
-    { name: "password", align: "center", label: "password", field: "password" },
+    { name: 'username', align: 'center', label: 'Username', field: 'username' },
+    { name: 'password', align: 'center', label: 'password', field: 'password' },
   ];
 
   //-----------------------------------------------Table Column for candidate account
 
   C_columns = [
-    { name: "action", align: "center", field: "action" },
+    { name: 'action', align: 'center', field: 'action' },
     {
-      name: "id",
-      align: "center",
-      label: "ID Number",
-      field: "id",
+      name: 'id',
+      align: 'center',
+      label: 'ID Number',
+      field: 'id',
     },
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Name",
-      align: "left",
-      field: (row: CandidateAccountInfo) => row.LName + ", " + row.FName + " " + row.MName + " "+ row.SName,
+      label: 'Name',
+      align: 'left',
+      field: (row: CandidateAccountInfo) =>
+        row.LName + ', ' + row.FName + ' ' + row.MName + ' ' + row.SName,
       format: (val: string) => `${val}`,
     },
     {
-      name: "email",
-      align: "center",
-      label: "Email",
-      field: "email",
+      name: 'email',
+      align: 'center',
+      label: 'Email',
+      field: 'email',
     },
     {
-      name: "level",
-      align: "center",
-      label: "Year Level",
-      field: "level",
+      name: 'level',
+      align: 'center',
+      label: 'Year Level',
+      field: 'level',
     },
     {
-      name: "course",
-      align: "center",
-      label: "Course",
-      field: "course",
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: 'course',
     },
     {
-      name: "department",
-      align: "center",
-      label: "Department",
-      field: "department",
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: 'department',
     },
-    { name: "username", align: "center", label: "Username", field: "username" },
-    { name: "password", align: "center", label: "password", field: "password" },
-    { name: "Details", align: "center", label: "Details", field: "Details" },
+    { name: 'username', align: 'center', label: 'Username', field: 'username' },
+    { name: 'password', align: 'center', label: 'password', field: 'password' },
+    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
   ];
 
   Details = false;
-  tab = ["students"];
+  tab = ['students'];
   confirmDelete = false;
   cancelEnabled = true;
   addNewAccount = false;
@@ -782,31 +949,32 @@ export default class ManageAccount extends Vue {
     email: '',
     username: '',
     password: '',
+    saying: '',
   };
 
   filter = '';
   filesImages = null;
 
   options = [
-    "College of Agriculture",
-    "College of Business Administration and Accounting",
-    "College of Education",
-    "College of Engineering",
-    "College of Fisheries",
-    "College of Forestry and Environmental Studies",
-    "College of Health Science",
-    "College of Hotel and Restaurant Management",
-    "College of Information and Computing Science",
-    "College of Law",
-    "College of Medicine",
-    "College of Natural Science and Mathematics",
-    "College of Public Affair",
-    "College of Social Science and Humanities",
-    "College of Sports, Physical Education and Recreation",
-    "King Faisal Center for Islamic, Arabic and Asian Studies",
+    'College of Agriculture',
+    'College of Business Administration and Accounting',
+    'College of Education',
+    'College of Engineering',
+    'College of Fisheries',
+    'College of Forestry and Environmental Studies',
+    'College of Health Science',
+    'College of Hotel and Restaurant Management',
+    'College of Information and Computing Science',
+    'College of Law',
+    'College of Medicine',
+    'College of Natural Science and Mathematics',
+    'College of Public Affair',
+    'College of Social Science and Humanities',
+    'College of Sports, Physical Education and Recreation',
+    'King Faisal Center for Islamic, Arabic and Asian Studies',
   ];
 
-  options_level = ["1st Year", "2nd Year", "3nd Year", "4th Year"];
+  options_level = ['1st Year', '2nd Year', '3nd Year', '4th Year'];
 
   //------------------------------------------functions for Student Account
   async onAddAccount() {
@@ -814,8 +982,8 @@ export default class ManageAccount extends Vue {
     this.addNewAccount = false;
     this.resetModel();
     this.$q.notify({
-      type: "positive",
-      message: "Account is Successfully Added.",
+      type: 'positive',
+      message: 'Account is Successfully Added.',
     });
   }
 
@@ -824,8 +992,8 @@ export default class ManageAccount extends Vue {
     this.addNewCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
-      type: "positive",
-      message: "Account is Successfully Added!.",
+      type: 'positive',
+      message: 'Account is Successfully Added!.',
     });
   }
 
@@ -834,8 +1002,8 @@ export default class ManageAccount extends Vue {
     this.editRowAccount = false;
     this.resetModel();
     this.$q.notify({
-      type: "positive",
-      message: "Successfully Changed.",
+      type: 'positive',
+      message: 'Successfully Changed.',
     });
   }
 
@@ -844,23 +1012,23 @@ export default class ManageAccount extends Vue {
     this.editRowCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
-      type: "positive",
-      message: "Successfully Changed!.",
+      type: 'positive',
+      message: 'Successfully Changed!.',
     });
   }
 
   deleteSpecificAccount(val: AccountInfo) {
     this.$q
       .dialog({
-        message: "Confirm to delete?",
+        message: 'Confirm to delete?',
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
         await this.deleteAccount(val);
         this.$q.notify({
-          type: "warning",
-          message: "Successfully deleted!",
+          type: 'warning',
+          message: 'Successfully deleted!',
         });
       });
   }
@@ -868,15 +1036,15 @@ export default class ManageAccount extends Vue {
   deleteSpecificCandidateAccount(val: CandidateAccountInfo) {
     this.$q
       .dialog({
-        message: "Confirm to delete?",
+        message: 'Confirm to delete?',
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
         await this.deleteCandidateAccount(val);
         this.$q.notify({
-          type: "warning",
-          message: "Successfully deleted!",
+          type: 'warning',
+          message: 'Successfully deleted!',
         });
       });
   }
@@ -892,11 +1060,11 @@ export default class ManageAccount extends Vue {
       MName: '',
       LName: '',
       SName: '',
-      idNum: "",
-      department: "",
-      email: "",
-      username: "",
-      password: "",
+      idNum: '',
+      department: '',
+      email: '',
+      username: '',
+      password: '',
     };
   }
 
@@ -911,13 +1079,14 @@ export default class ManageAccount extends Vue {
       MName: '',
       LName: '',
       SName: '',
-      idNum: "",
-      department: "",
-      level: "",
-      course: "",
-      email: "",
-      username: "",
-      password: "",
+      idNum: '',
+      department: '',
+      level: '',
+      course: '',
+      email: '',
+      username: '',
+      password: '',
+      saying: '',
     };
   }
 }
