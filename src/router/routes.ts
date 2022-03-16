@@ -40,6 +40,7 @@ const routes: RouteRecordRaw[] = [
       children: [
                   { path: '/R_Homepage', component: () => import('src/pages/representative/Rep_Homepage.vue') },
                   { path: '/R_Profile', component: () => import('src/pages/representative/Rep_Profile.vue') },
+                  { path: '/R_Home', component: () => import('src/pages/representative/Rep_Home.vue') },
                   { path: '/R_Vote', component: () => import('src/pages/representative/Rep_Vote.vue') }
                 ],
     },
@@ -51,6 +52,7 @@ const routes: RouteRecordRaw[] = [
       children: [
                   { path: '/P_Homepage', component: () => import('src/pages/ssg/SSG_Home.vue') },
                   { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') },
+                  { path: '/P_Assign', component: () => import('src/pages/ssg/SSG_Assign.vue') },
                   { path: '/P_Officials', component: () => import('src/pages/ssg/SSG_Officials.vue') }
                 ],
     },
