@@ -92,7 +92,7 @@
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple to="/R_Homepage">
+          <q-item active clickable v-ripple to="/R_Nominee">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -100,7 +100,7 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/R_Vote">
+          <q-item clickable v-ripple to="/R_Votes">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>
