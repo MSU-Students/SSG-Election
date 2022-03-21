@@ -215,7 +215,7 @@ export default class Login extends Vue {
         message: "You are Logged In!.",
       });
     } else if (this.username == "rep" && this.password == "rep") {
-      await this.$router.replace("/R_Homepage");
+      await this.$router.replace("/R_Nominee");
       this.$q.notify({
         color: "positive",
         icon: "cloud_done",
