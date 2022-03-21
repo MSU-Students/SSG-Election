@@ -14,19 +14,13 @@
               flat
               class="bg-primary text-overline text-white"
               label="Home"
-              to="/R_Homepage"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Profile"
-              to="/R_Profile"
+              to="/R_Nominee"
             />
             <q-btn
               flat
               class="bg-primary text-overline text-white"
               label="Vote"
-              to="/R_Vote"
+              to="/R_Voting"
             />
           </div>
         </q-toolbar-title>
@@ -92,7 +86,7 @@
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple to="/R_Homepage">
+          <q-item active clickable v-ripple to="/R_Nominee">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -100,7 +94,7 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/R_Vote">
+          <q-item clickable v-ripple to="/R_Voting">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>
@@ -131,7 +125,7 @@
             outline
             rounded
             dense
-            to="/R_Profile"
+            to="/R_Votes"
             class="q-mt-sm"
             color="primary"
             label="Profile"
