@@ -1,4 +1,5 @@
 <template>
+  <q-img class="wave" src="~assets/images/image.png" />
   <div>
     <q-splitter v-model="splitterModel">
       <template v-slot:before>
@@ -149,3 +150,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.wave {
+  background-color: #e6ddd3;
+  position: fixed;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+}
+</style>
