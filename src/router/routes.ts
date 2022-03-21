@@ -51,9 +51,8 @@ const routes: RouteRecordRaw[] = [
       component: () => import('src/layouts/LayoutPrime.vue'),
       children: [
                   { path: '/P_Homepage', component: () => import('src/pages/ssg/SSG_Home.vue') },
-                  { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') },
                   { path: '/P_Assign', component: () => import('src/pages/ssg/SSG_Assign.vue') },
-                  { path: '/P_Officials', component: () => import('src/pages/ssg/SSG_Officials.vue') }
+                  { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') }
                 ],
     },
 
