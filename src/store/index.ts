@@ -15,6 +15,9 @@ import { CandidateAccountStateInterface } from "./candidateAccounts/state";
 import election from "./election";
 import { ElectionStateInterface } from "./election/state";
 
+import auth from './auth';
+import { IAuthState } from './auth/state';
+
 
 export interface StateInterface {
   // Define your own store structure, using submodules if needed
@@ -23,6 +26,7 @@ export interface StateInterface {
   account: AccountStateInterface;
   candidate: CandidateAccountStateInterface;
   election: ElectionStateInterface;
+  auth: IAuthState;
 }
 
 // provide typings for `this.$store`
@@ -42,6 +46,7 @@ export default store(function (/* { ssrContext } */) {
       account,
       candidate,
       election,
+      auth,
     },
 
     // enable strict mode (adds overhead!)
