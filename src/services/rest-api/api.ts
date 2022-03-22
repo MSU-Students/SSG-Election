@@ -73,10 +73,10 @@ export interface AdminDto {
 export interface CandidateDto {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CandidateDto
      */
-    'position_id': number;
+    'position_type': string;
     /**
      * 
      * @type {number}
@@ -107,13 +107,31 @@ export interface ElectionDto {
      * @type {string}
      * @memberof ElectionDto
      */
-    'election_date': string;
+    'election_name': string;
     /**
      * 
      * @type {string}
      * @memberof ElectionDto
      */
-    'election_time': string;
+    'start_date': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'start_time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'end_date': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'end_time': string;
 }
 /**
  * 
@@ -133,19 +151,6 @@ export interface MediaDto {
      * @memberof MediaDto
      */
     'filename'?: string;
-}
-/**
- * 
- * @export
- * @interface PositionsDto
- */
-export interface PositionsDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionsDto
-     */
-    'type': string;
 }
 /**
  * 
@@ -474,42 +479,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(electionDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Add new Positions
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addPositions: async (positionsDto: PositionsDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'positionsDto' is not null or undefined
-            assertParamExists('addPositions', 'positionsDto', positionsDto)
-            const localVarPath = `/positions`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(positionsDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -848,40 +817,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('deleteElection', 'electionId', electionId)
             const localVarPath = `/election/{election_id}`
                 .replace(`{${"election_id"}}`, encodeURIComponent(String(electionId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Delete Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePositions: async (positionsId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'positionsId' is not null or undefined
-            assertParamExists('deletePositions', 'positionsId', positionsId)
-            const localVarPath = `/positions/{positions_id}`
-                .replace(`{${"positions_id"}}`, encodeURIComponent(String(positionsId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1346,70 +1281,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('getMedia', 'id', id)
             const localVarPath = `/media/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPosition: async (positionsId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'positionsId' is not null or undefined
-            assertParamExists('getPosition', 'positionsId', positionsId)
-            const localVarPath = `/positions/{positions_id}`
-                .replace(`{${"positions_id"}}`, encodeURIComponent(String(positionsId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all Positions
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPositions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/positions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2190,46 +2061,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Update Positions by id
-         * @param {number} positionsId 
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updatePositions: async (positionsId: number, positionsDto: PositionsDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'positionsId' is not null or undefined
-            assertParamExists('updatePositions', 'positionsId', positionsId)
-            // verify required parameter 'positionsDto' is not null or undefined
-            assertParamExists('updatePositions', 'positionsDto', positionsDto)
-            const localVarPath = `/positions/{positions_id}`
-                .replace(`{${"positions_id"}}`, encodeURIComponent(String(positionsId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(positionsDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update Prime Minister by id
          * @param {number} primeMinisterId 
          * @param {PrimeMinisterDto} primeMinisterDto 
@@ -2592,17 +2423,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new Positions
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addPositions(positionsDto: PositionsDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PositionsDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addPositions(positionsDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Add new Prime Minister
          * @param {PrimeMinisterDto} primeMinisterDto 
          * @param {*} [options] Override http request option.
@@ -2709,17 +2529,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteElection(electionId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ElectionDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteElection(electionId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePositions(positionsId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PositionsDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePositions(positionsId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2871,27 +2680,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async getMedia(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMedia(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPosition(positionsId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PositionsDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPosition(positionsId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all Positions
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPositions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PositionsDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPositions(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3133,18 +2921,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update Positions by id
-         * @param {number} positionsId 
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updatePositions(positionsId: number, positionsDto: PositionsDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PositionsDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePositions(positionsId, positionsDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update Prime Minister by id
          * @param {number} primeMinisterId 
          * @param {PrimeMinisterDto} primeMinisterDto 
@@ -3280,16 +3056,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new Positions
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addPositions(positionsDto: PositionsDto, options?: any): AxiosPromise<PositionsDto> {
-            return localVarFp.addPositions(positionsDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Add new Prime Minister
          * @param {PrimeMinisterDto} primeMinisterDto 
          * @param {*} [options] Override http request option.
@@ -3387,16 +3153,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteElection(electionId: number, options?: any): AxiosPromise<ElectionDto> {
             return localVarFp.deleteElection(electionId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePositions(positionsId: number, options?: any): AxiosPromise<PositionsDto> {
-            return localVarFp.deletePositions(positionsId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3534,25 +3290,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getMedia(id: number, options?: any): AxiosPromise<void> {
             return localVarFp.getMedia(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get Positions by id
-         * @param {number} positionsId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPosition(positionsId: number, options?: any): AxiosPromise<PositionsDto> {
-            return localVarFp.getPosition(positionsId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all Positions
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPositions(options?: any): AxiosPromise<PositionsDto> {
-            return localVarFp.getPositions(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3771,17 +3508,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Update Positions by id
-         * @param {number} positionsId 
-         * @param {PositionsDto} positionsDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updatePositions(positionsId: number, positionsDto: PositionsDto, options?: any): AxiosPromise<PositionsDto> {
-            return localVarFp.updatePositions(positionsId, positionsDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update Prime Minister by id
          * @param {number} primeMinisterId 
          * @param {PrimeMinisterDto} primeMinisterDto 
@@ -3915,18 +3641,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new Positions
-     * @param {PositionsDto} positionsDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public addPositions(positionsDto: PositionsDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addPositions(positionsDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Add new Prime Minister
      * @param {PrimeMinisterDto} primeMinisterDto 
      * @param {*} [options] Override http request option.
@@ -4043,18 +3757,6 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteElection(electionId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deleteElection(electionId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete Positions by id
-     * @param {number} positionsId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deletePositions(positionsId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deletePositions(positionsId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4220,29 +3922,6 @@ export class DefaultApi extends BaseAPI {
      */
     public getMedia(id: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getMedia(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get Positions by id
-     * @param {number} positionsId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getPosition(positionsId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getPosition(positionsId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all Positions
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getPositions(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getPositions(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4502,19 +4181,6 @@ export class DefaultApi extends BaseAPI {
      */
     public updateElection(electionId: number, electionDto: ElectionDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).updateElection(electionId, electionDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update Positions by id
-     * @param {number} positionsId 
-     * @param {PositionsDto} positionsDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updatePositions(positionsId: number, positionsDto: PositionsDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updatePositions(positionsId, positionsDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

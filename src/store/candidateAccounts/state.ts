@@ -1,3 +1,4 @@
+import { Positions } from './../../interfaces/positions.interface';
 export interface CandidateAccountInfo {
   candidateID?: string;
   FName: string;
@@ -11,6 +12,7 @@ export interface CandidateAccountInfo {
   email: string;
   username: string;
   password: string;
+  position: String;
   saying: string,
 }
 
@@ -34,6 +36,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        position: "Prime Minister",
         saying: "Patience is Virtue"
       },
       {
@@ -48,6 +51,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        position: "Executive Secretary",
         saying: "Sometimes...."
       },
       {
@@ -62,6 +66,7 @@ function state(): CandidateAccountStateInterface {
         department: "College of Information and Computing Sciences",
         username: "aBjH45",
         password: "12345",
+        position: "Prime Minister",
         saying: "Try and try until you success"
       },
     ],

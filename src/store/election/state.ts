@@ -1,33 +1,14 @@
-export interface ElectionInfo {
-  electionID?: string;
-  electionName: string;
-  electionAgreement: string;
-  Instruction: string;
-  startdate: string;
-      starttime: string;
-      enddate: string;
-      endtime: string;
-}
+import { Election } from "src/interfaces/election.interface";
+import { ElectionDto } from "src/services/rest-api";
 
 export interface ElectionStateInterface {
-  allElection: ElectionInfo[];
-  activeElection?: ElectionInfo;
+  allElection: ElectionDto[];
+  newElection?: Election;
 }
 
 function state(): ElectionStateInterface {
   return {
-    allElection: [
-      {
-      electionID: "1",
-      electionName: "2021 Supreme Student Government Election",
-      electionAgreement: "Yes",
-      Instruction: "The Election must be on time. you can only vote once",
-      startdate: "02-14-2021",
-      starttime: "10:13:44",
-      enddate: "02-14-2021",
-      endtime: "10:13:44",
-    }
-    ],
+    allElection: [],
   };
 }
 
