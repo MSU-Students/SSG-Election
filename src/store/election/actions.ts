@@ -1,10 +1,36 @@
-import { ActionTree } from "vuex";
-import { StateInterface } from "../index";
-import { ElectionStateInterface, ElectionInfo } from "./state";
+import { Election } from 'src/interfaces/election.interface';
+import electionservice from 'src/services/election.service';
+import { ElectionDto } from 'src/services/rest-api';
+import { ActionTree } from 'vuex';
+import { StateInterface } from '../index';
+import { ElectionStateInterface } from './state';
 
 const actions: ActionTree<ElectionStateInterface, StateInterface> = {
-  addElection(context, payload: ElectionInfo) {
-    context.commit("addNewElection", payload);
+  async addElection(context, payload: ElectionDto): Promise<void> {
+    const result = await electionservice.create(payload);
+    context.commit('setNewElection', result);
+    await context.dispatch('getAllElection');
+  },
+
+  async editElection(context, payload: any): Promise<any> {
+    const result = await electionservice.update(payload.itemCode, payload);
+    context.commit('updateElection', result);
+    await context.dispatch('getAllElection');
+  },
+
+  async deleteElection(context, election_id: number): Promise<any> {
+    const result = await electionservice.deleteOne(election_id);
+    context.commit('deleteElection', result);
+  },
+
+  async getAllElection(context): Promise<any> {
+    const res = await electionservice.getAll();
+    context.commit('getAllElection', res);
+  },
+
+  async getOneElection(context, election_id: number): Promise<any> {
+    const res = await electionservice.getOne(election_id);
+    context.commit('getOneElection', res);
   },
 };
 

@@ -11,16 +11,16 @@ class ElectionService extends DefaultApi {
     const response = await ssgApiService.getElections();
     return response.data;
   }
-  async getOne(id: number): Promise<ElectionDto> {
-    const response = await ssgApiService.getElection(id);
+  async getOne(election_id: number): Promise<ElectionDto> {
+    const response = await ssgApiService.getElection(election_id);
     return response.data;
   }
-  async update(id: number, payload: ElectionDto) {
-    const response = await ssgApiService.updateElection(id, payload);
+  async update(election_id: number, payload: ElectionDto) {
+    const response = await ssgApiService.updateElection(election_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteElection(id);
+  async deleteOne(election_id: number) {
+    const response = await ssgApiService.deleteElection(election_id);
     return response.data;
   }
 }

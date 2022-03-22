@@ -1,10 +1,11 @@
 import { MutationTree } from 'vuex';
-import { IAuthState } from './state';
+import { AUser, IAuthState } from './state';
 
 const mutation: MutationTree<IAuthState> = {
-  someMutation (/* state: ExampleStateInterface */) {
-    // your code
-  }
+  setCurrentUser(state, payload: AUser) {
+    state.currentUser = payload;
+  },
+  
 };
 
 export default mutation;
