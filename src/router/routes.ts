@@ -5,10 +5,6 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('pages/login.vue'),
   },
-  {
-    path: '/login_ssg',
-    component: () => import('pages/Login_SSG.vue'),
-  },
 
     //----> LayoutAdmin
     {

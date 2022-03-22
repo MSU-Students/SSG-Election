@@ -43,19 +43,6 @@ export interface AccessTokenDto {
 /**
  * 
  * @export
- * @interface AccountTypeDto
- */
-export interface AccountTypeDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof AccountTypeDto
-     */
-    'account_type': string;
-}
-/**
- * 
- * @export
  * @interface AdminDto
  */
 export interface AdminDto {
@@ -339,6 +326,12 @@ export interface UserDto {
      * @type {string}
      * @memberof UserDto
      */
+    'userType': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
     'status': string;
     /**
      * 
@@ -379,42 +372,6 @@ export interface VoterDto {
  */
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @summary Add new Account Type
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addAccountType: async (accountTypeDto: AccountTypeDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountTypeDto' is not null or undefined
-            assertParamExists('addAccountType', 'accountTypeDto', accountTypeDto)
-            const localVarPath = `/account-type`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(accountTypeDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @summary Add new Admin
@@ -813,40 +770,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Delete Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAccountType: async (accountTypeId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountTypeId' is not null or undefined
-            assertParamExists('deleteAccountType', 'accountTypeId', accountTypeId)
-            const localVarPath = `/account-type/{account_type_id}`
-                .replace(`{${"account_type_id"}}`, encodeURIComponent(String(accountTypeId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Delete Admin by id
          * @param {number} adminId 
          * @param {*} [options] Override http request option.
@@ -1205,70 +1128,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAccountType: async (accountTypeId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountTypeId' is not null or undefined
-            assertParamExists('getAccountType', 'accountTypeId', accountTypeId)
-            const localVarPath = `/account-type/{account_type_id}`
-                .replace(`{${"account_type_id"}}`, encodeURIComponent(String(accountTypeId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all Account Type
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAccountTypes: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account-type`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -2211,46 +2070,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Update Account Type by id
-         * @param {number} accountTypeId 
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAccountType: async (accountTypeId: number, accountTypeDto: AccountTypeDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountTypeId' is not null or undefined
-            assertParamExists('updateAccountType', 'accountTypeId', accountTypeId)
-            // verify required parameter 'accountTypeDto' is not null or undefined
-            assertParamExists('updateAccountType', 'accountTypeDto', accountTypeDto)
-            const localVarPath = `/account-type/{account_type_id}`
-                .replace(`{${"account_type_id"}}`, encodeURIComponent(String(accountTypeId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(accountTypeDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update Admin by id
          * @param {number} adminId 
          * @param {AdminDto} adminDto 
@@ -2740,17 +2559,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Add new Account Type
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addAccountType(accountTypeDto: AccountTypeDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountTypeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addAccountType(accountTypeDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Add new Admin
          * @param {AdminDto} adminDto 
          * @param {*} [options] Override http request option.
@@ -2872,17 +2680,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Delete Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteAccountType(accountTypeId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountTypeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAccountType(accountTypeId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Delete Admin by id
          * @param {number} adminId 
          * @param {*} [options] Override http request option.
@@ -3000,27 +2797,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteVoter(voterId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteVoter(voterId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getAccountType(accountTypeId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountTypeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountType(accountTypeId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all Account Type
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getAccountTypes(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTypes(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3321,18 +3097,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update Account Type by id
-         * @param {number} accountTypeId 
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateAccountType(accountTypeId: number, accountTypeDto: AccountTypeDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountTypeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccountType(accountTypeId, accountTypeDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update Admin by id
          * @param {number} adminId 
          * @param {AdminDto} adminDto 
@@ -3486,16 +3250,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary Add new Account Type
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addAccountType(accountTypeDto: AccountTypeDto, options?: any): AxiosPromise<AccountTypeDto> {
-            return localVarFp.addAccountType(accountTypeDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Add new Admin
          * @param {AdminDto} adminDto 
          * @param {*} [options] Override http request option.
@@ -3606,16 +3360,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Delete Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAccountType(accountTypeId: number, options?: any): AxiosPromise<AccountTypeDto> {
-            return localVarFp.deleteAccountType(accountTypeId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Delete Admin by id
          * @param {number} adminId 
          * @param {*} [options] Override http request option.
@@ -3723,25 +3467,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteVoter(voterId: number, options?: any): AxiosPromise<VoterDto> {
             return localVarFp.deleteVoter(voterId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get Account Type by id
-         * @param {number} accountTypeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAccountType(accountTypeId: number, options?: any): AxiosPromise<AccountTypeDto> {
-            return localVarFp.getAccountType(accountTypeId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all Account Type
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAccountTypes(options?: any): AxiosPromise<object> {
-            return localVarFp.getAccountTypes(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4013,17 +3738,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Update Account Type by id
-         * @param {number} accountTypeId 
-         * @param {AccountTypeDto} accountTypeDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAccountType(accountTypeId: number, accountTypeDto: AccountTypeDto, options?: any): AxiosPromise<AccountTypeDto> {
-            return localVarFp.updateAccountType(accountTypeId, accountTypeDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update Admin by id
          * @param {number} adminId 
          * @param {AdminDto} adminDto 
@@ -4165,18 +3879,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
-     * @summary Add new Account Type
-     * @param {AccountTypeDto} accountTypeDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public addAccountType(accountTypeDto: AccountTypeDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addAccountType(accountTypeDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Add new Admin
      * @param {AdminDto} adminDto 
      * @param {*} [options] Override http request option.
@@ -4309,18 +4011,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Delete Account Type by id
-     * @param {number} accountTypeId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteAccountType(accountTypeId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteAccountType(accountTypeId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Delete Admin by id
      * @param {number} adminId 
      * @param {*} [options] Override http request option.
@@ -4449,29 +4139,6 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteVoter(voterId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deleteVoter(voterId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get Account Type by id
-     * @param {number} accountTypeId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getAccountType(accountTypeId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getAccountType(accountTypeId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all Account Type
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getAccountTypes(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getAccountTypes(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4796,19 +4463,6 @@ export class DefaultApi extends BaseAPI {
      */
     public register(userDto: UserDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).register(userDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update Account Type by id
-     * @param {number} accountTypeId 
-     * @param {AccountTypeDto} accountTypeDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updateAccountType(accountTypeId: number, accountTypeDto: AccountTypeDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateAccountType(accountTypeId, accountTypeDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

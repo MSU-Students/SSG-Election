@@ -7,7 +7,7 @@
           <q-separator />
         </div>
         <q-card>
-          <q-item active clickable v-ripple dense t0="">
+          <q-item active clickable v-ripple dense t0="prime()">
             <q-item-section> Prime Minister </q-item-section>
           </q-item>
           <q-separator />
@@ -33,27 +33,31 @@
           <q-separator />
         </div>
         <q-card>
-          <q-card-actions class="bg-deep-orange-1">
-            <div class="text-bold text-subtitle2 q-pl-md">
-              <q-icon name="people" color="primary" />
-              Prime Minister - Result as of <strong>Date Mentioned</strong>
+          <div id="prime">
+            <q-card-actions class="bg-deep-orange-1">
+              <div class="text-bold text-subtitle2 q-pl-md">
+                <q-icon name="people" color="primary" />
+                Prime Minister - Result as of <strong>Date Mentioned</strong>
+              </div>
+            </q-card-actions>
+            <q-separator />
+            <div class="q-pa-md">
+              <prime-minister-chart />
             </div>
-          </q-card-actions>
-          <q-separator />
-          <q-card-actions><PrimeMinisterChart />
-          </q-card-actions>
-        </q-card>
-        <q-space />
-        <q-card>
-          <q-card-actions class="bg-deep-orange-1">
-            <div class="text-bold text-subtitle2 q-pl-md">
-              <q-icon name="people" color="primary" />
-              Secretary General - Result as of <strong>Date Mentioned</strong>
+          </div>
+          <q-space />
+          <div id="secretary">
+            <q-card-actions class="bg-deep-orange-1">
+              <div class="text-bold text-subtitle2 q-pl-md">
+                <q-icon name="people" color="primary" />
+                Secretary General - Result as of <strong>Date Mentioned</strong>
+              </div>
+            </q-card-actions>
+            <q-separator />
+            <div class="q-pa-md">
+              <secretary-general-chart />
             </div>
-          </q-card-actions>
-          <q-separator />
-          <q-card-actions>
-          </q-card-actions>
+          </div>
         </q-card>
       </div>
     </div>
@@ -62,10 +66,10 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import PrimeMinisterChart from "components/Charts/prime.result.vue";
+import PrimeMinisterChart from 'components/Charts/prime.result.vue';
+import SecretaryGeneralChart from 'components/Charts/prime.result.vue';
 @Options({
-  components: { PrimeMinisterChart },
+  components: { PrimeMinisterChart, SecretaryGeneralChart },
 })
-export default class studentVote extends Vue {
-}
+export default class studentVote extends Vue {}
 </script>

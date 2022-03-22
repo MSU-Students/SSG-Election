@@ -6,12 +6,29 @@ class SsgApiService extends DefaultApi {
   constructor() {
     super(new Configuration(), localBasePath, getAxiosInstance());
   }
-  async loginUser(username: string, password: string) {
-    const response = await this.login(username, password);
+  async loginUser(userName: string, password: string) {
+    const response = await ssgApiService.login(userName, password);
     if (response.status == 201) {
+      console.log(response);
       sessionStorage.setItem('access-token', response.data.accessToken || '');
-      sessionStorage.setItem('refresh-token', response.data.refreshToken || '');
+      sessionStorage.setItem(
+        'refresh-token',
+        String(response.data.refreshToken)
+      );
+      const user = await this.getUserProfile();
+      return user.data;
     }
+  }
+
+  async logoutUser() {
+    const response = await ssgApiService.logout();
+    localStorage.removeItem('access-token');
+    return response;
+  }
+
+  async getUserProfile() {
+    const response = await ssgApiService.getProfile();
+    return response;
   }
 }
 
@@ -59,6 +76,8 @@ function getAxiosInstance() {
     }
   );
   return axiosInstance;
+
+
 }
 
 export const ssgApiService = new SsgApiService();
