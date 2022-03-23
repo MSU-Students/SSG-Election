@@ -199,12 +199,6 @@ export interface RepresentativeDto {
 export interface StudentAcademicYrDto {
     /**
      * 
-     * @type {number}
-     * @memberof StudentAcademicYrDto
-     */
-    'student_id': number;
-    /**
-     * 
      * @type {string}
      * @memberof StudentAcademicYrDto
      */

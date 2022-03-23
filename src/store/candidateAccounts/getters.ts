@@ -1,8 +1,8 @@
 import { GetterTree } from 'vuex';
 import { StateInterface } from '../index';
-import { CandidateAccountStateInterface } from './state';
+import { CandidateStateInterface } from './state';
 
-const getters: GetterTree<CandidateAccountStateInterface, StateInterface> = {
+const getters: GetterTree<CandidateStateInterface, StateInterface> = {
   someAction (/* context */) {
     // your code
   }
