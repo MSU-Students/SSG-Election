@@ -1,75 +1,14 @@
-import { Positions } from './../../interfaces/positions.interface';
-export interface CandidateAccountInfo {
-  candidateID?: string;
-  FName: string;
-  MName: string;
-  LName: string;
-  SName: string;
-  idNum: string;
-  department: string;
-  level: string;
-  course: string;
-  email: string;
-  username: string;
-  password: string;
-  position: String;
-  saying: string,
+import { Candidate } from 'src/interfaces/candidate.interface';
+import { CandidateDto } from 'src/services/rest-api';
+
+export interface CandidateStateInterface {
+  allCandidate: CandidateDto[];
+  newCandidate?: Candidate;
 }
 
-export interface CandidateAccountStateInterface {
-  allCandidateAccount: CandidateAccountInfo[];
-  activeAccount?: CandidateAccountInfo;
-}
-
-function state(): CandidateAccountStateInterface {
+function state(): CandidateStateInterface {
   return {
-    allCandidateAccount: [
-      {
-        FName: "Arifah",
-        MName: "U.",
-        LName: "Abdulbasit",
-        SName: "",
-        idNum: "201812291",
-        email: "arifahabdulbasit@gmail.com",
-        level: "4th Year",
-        course: "BS-Information Technology",
-        department: "College of Information and Computing Sciences",
-        username: "aBjH45",
-        password: "12345",
-        position: "Prime Minister",
-        saying: "Patience is Virtue"
-      },
-      {
-        FName: "Najmah",
-        MName: "A.",
-        LName: "Omar",
-        SName: "",
-        idNum: "201811518",
-        email: "najmahomar@gmail.com",
-        level: "4th Year",
-        course: "BS-Information Technology",
-        department: "College of Information and Computing Sciences",
-        username: "aBjH45",
-        password: "12345",
-        position: "Executive Secretary",
-        saying: "Sometimes...."
-      },
-      {
-        FName: "Anisah",
-        MName: "I.",
-        LName: "Dayaan",
-        SName: "",
-        idNum: "201811942",
-        email: "anisahdayaan@gmail.com",
-        level: "4th Year",
-        course: "BS-Information Technology",
-        department: "College of Information and Computing Sciences",
-        username: "aBjH45",
-        password: "12345",
-        position: "Prime Minister",
-        saying: "Try and try until you success"
-      },
-    ],
+    allCandidate: [],
   };
 }
 

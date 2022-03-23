@@ -14,7 +14,7 @@
       >
         <q-card
           class="shadow-20"
-          v-bind:style="$q.screen.lt.sm ? { width: '80%' } : { width: '60%' }"
+          v-bind:style="$q.screen.lt.sm ? { width: '70%' } : { width: '50%' }"
         >
           <q-card-section>
             <q-avatar size="103px" class="absolute-center shadow-10">
@@ -39,7 +39,7 @@
           <q-card-section>
             <!---------------------------login form--------------------------->
             <q-form @submit="loginUser()">
-              <div class="q-pl-xl q-pr-xl">
+              <div class="q-pl-lg q-pr-lg">
                 <q-input
                   v-model="username"
                   dense

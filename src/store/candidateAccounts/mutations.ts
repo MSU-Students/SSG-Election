@@ -1,25 +1,25 @@
-import { MutationTree } from "vuex";
-import { CandidateAccountStateInterface, CandidateAccountInfo } from "./state";
+import { Candidate } from 'src/interfaces/candidate.interface';
+import { MutationTree } from 'vuex';
+import { CandidateStateInterface } from './state';
 
-const mutation: MutationTree<CandidateAccountStateInterface> = {
-  addNewCandidateAccount(state, payload: CandidateAccountInfo) {
-    state.allCandidateAccount.push(payload);
+const mutation: MutationTree<CandidateStateInterface> = {
+  setNewCandidate(state, payload: Candidate) {
+    state.newCandidate= payload;
   },
-  setCandidateAccount(state, payload: CandidateAccountInfo) {
-    const index = state.allCandidateAccount.findIndex(
-      (s) => s.candidateID === payload.candidateID
-    );
-    if (index >= 0) {
-      state.allCandidateAccount.splice(index, 1, payload);
-    }
+  updateCandidate(state, payload: Candidate) {
+    state.newCandidate = payload;
   },
-  deleteCandidateAccount(state, payload: CandidateAccountInfo) {
-    const index = state.allCandidateAccount.findIndex(
-      (s) => s.candidateID === payload.candidateID
-    );
-    if (index >= 0) {
-      state.allCandidateAccount.splice(index, 1);
-    }
+  deleteCandidate(state, payload: any) {
+    state.allCandidate.push(payload);
+  },
+
+  getAllCandidate(state, payload) {
+    state.allCandidate = [];
+    state.allCandidate.push(...payload);
+  },
+
+  getOneCandidate(state, payload) {
+    state.allCandidate = payload;
   },
 };
 
