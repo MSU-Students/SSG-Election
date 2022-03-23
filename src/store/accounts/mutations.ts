@@ -1,25 +1,25 @@
-import { MutationTree } from "vuex";
-import { AccountStateInterface, AccountInfo } from "./state";
+import { User } from 'src/interfaces/User.interface';
+import { MutationTree } from 'vuex';
+import { UserStateInterface } from './state';
 
-const mutation: MutationTree<AccountStateInterface> = {
-  addNewAccount(state, payload: AccountInfo) {
-    state.allAccount.push(payload);
+const mutation: MutationTree<UserStateInterface> = {
+  setNewv(state, payload: User) {
+    state.newUser= payload;
   },
-  setAccount(state, payload: AccountInfo) {
-    const index = state.allAccount.findIndex(
-      (s) => s.userID === payload.userID
-    );
-    if (index >= 0) {
-      state.allAccount.splice(index, 1, payload);
-    }
+  updateUser(state, payload: User) {
+    state.newUser = payload;
   },
-  deleteAccount(state, payload: AccountInfo) {
-    const index = state.allAccount.findIndex(
-      (s) => s.userID === payload.userID
-    );
-    if (index >= 0) {
-      state.allAccount.splice(index, 1);
-    }
+  deleteUser(state, payload: any) {
+    state.allUser.push(payload);
+  },
+
+  getAllUser(state, payload) {
+    state.allUser = [];
+    state.allUser.push(...payload);
+  },
+
+  getOneUser(state, payload) {
+    state.allUser = payload;
   },
 };
 
