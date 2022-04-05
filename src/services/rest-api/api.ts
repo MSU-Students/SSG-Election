@@ -79,6 +79,12 @@ export interface CandidateDto {
     'position_type': string;
     /**
      * 
+     * @type {string}
+     * @memberof CandidateDto
+     */
+    'platform': string;
+    /**
+     * 
      * @type {number}
      * @memberof CandidateDto
      */
@@ -88,13 +94,7 @@ export interface CandidateDto {
      * @type {number}
      * @memberof CandidateDto
      */
-    'studentAcademicYr_id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CandidateDto
-     */
-    'quote': string;
+    'student_id': number;
 }
 /**
  * 
@@ -108,6 +108,12 @@ export interface ElectionDto {
      * @memberof ElectionDto
      */
     'election_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'academic_yr': string;
     /**
      * 
      * @type {string}
@@ -132,6 +138,12 @@ export interface ElectionDto {
      * @memberof ElectionDto
      */
     'end_time': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElectionDto
+     */
+    'admin_id': number;
 }
 /**
  * 
@@ -155,19 +167,6 @@ export interface MediaDto {
 /**
  * 
  * @export
- * @interface PrimeMinisterDto
- */
-export interface PrimeMinisterDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof PrimeMinisterDto
-     */
-    'election_id': number;
-}
-/**
- * 
- * @export
  * @interface RefreshDto
  */
 export interface RefreshDto {
@@ -186,53 +185,47 @@ export interface RefreshDto {
 export interface RepresentativeDto {
     /**
      * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'academic_yr': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'position': string;
+    /**
+     * 
      * @type {number}
      * @memberof RepresentativeDto
      */
-    'voter_id': number;
+    'ssg_id': number;
 }
 /**
  * 
  * @export
- * @interface StudentAcademicYrDto
+ * @interface SsgMemberDto
  */
-export interface StudentAcademicYrDto {
+export interface SsgMemberDto {
     /**
      * 
      * @type {string}
-     * @memberof StudentAcademicYrDto
+     * @memberof SsgMemberDto
      */
-    'college': string;
+    'academic_yr': string;
     /**
      * 
      * @type {string}
-     * @memberof StudentAcademicYrDto
+     * @memberof SsgMemberDto
      */
-    'department': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StudentAcademicYrDto
-     */
-    'course': string;
+    'position': string;
     /**
      * 
      * @type {number}
-     * @memberof StudentAcademicYrDto
+     * @memberof SsgMemberDto
      */
-    'year_admitted': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StudentAcademicYrDto
-     */
-    'academic_year': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StudentAcademicYrDto
-     */
-    'current_yr_level': number;
+    'election_id': number;
 }
 /**
  * 
@@ -240,12 +233,6 @@ export interface StudentAcademicYrDto {
  * @interface StudentDto
  */
 export interface StudentDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof StudentDto
-     */
-    'account_id': number;
     /**
      * 
      * @type {number}
@@ -282,6 +269,48 @@ export interface StudentDto {
      * @memberof StudentDto
      */
     'email'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'yr_admitted': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'college': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'course': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'department': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'student_type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDto
+     */
+    'user_id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDto
+     */
+    'picture_id': number;
 }
 /**
  * 
@@ -342,27 +371,76 @@ export interface UserDto {
 /**
  * 
  * @export
- * @interface VoterDto
+ * @interface VoteRepDto
  */
-export interface VoterDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof VoterDto
-     */
-    'candidate_id': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof VoterDto
-     */
-    'election_id': number;
+export interface VoteRepDto {
     /**
      * 
      * @type {string}
-     * @memberof VoterDto
+     * @memberof VoteRepDto
+     */
+    'rep1_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteRepDto
+     */
+    'rep2_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteRepDto
+     */
+    'academic_yr': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteRepDto
      */
     'date': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteRepDto
+     */
+    'time': string;
+}
+/**
+ * 
+ * @export
+ * @interface VoteSsgDto
+ */
+export interface VoteSsgDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'prime_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'secretary_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'academic_yr': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'date': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'time': string;
 }
 
 /**
@@ -481,42 +559,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Add new Prime Minister
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addPrime: async (primeMinisterDto: PrimeMinisterDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'primeMinisterDto' is not null or undefined
-            assertParamExists('addPrime', 'primeMinisterDto', primeMinisterDto)
-            const localVarPath = `/prime-minister`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(primeMinisterDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Add new Representative
          * @param {RepresentativeDto} representativeDto 
          * @param {*} [options] Override http request option.
@@ -553,6 +595,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Add new SSG Member
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addSsg: async (ssgMemberDto: SsgMemberDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ssgMemberDto' is not null or undefined
+            assertParamExists('addSsg', 'ssgMemberDto', ssgMemberDto)
+            const localVarPath = `/ssg-member`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(ssgMemberDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Add new Student
          * @param {StudentDto} studentDto 
          * @param {*} [options] Override http request option.
@@ -581,42 +659,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(studentDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Add new Student Academic Year
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addStudentAcademicYear: async (studentAcademicYrDto: StudentAcademicYrDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'studentAcademicYrDto' is not null or undefined
-            assertParamExists('addStudentAcademicYear', 'studentAcademicYrDto', studentAcademicYrDto)
-            const localVarPath = `/student-academic-yr`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(studentAcademicYrDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -697,15 +739,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Add new Voter
-         * @param {VoterDto} voterDto 
+         * @summary Add new Representative Candidate
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addVoter: async (voterDto: VoterDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'voterDto' is not null or undefined
-            assertParamExists('addVoter', 'voterDto', voterDto)
-            const localVarPath = `/voter`;
+        addVoteRep: async (voteRepDto: VoteRepDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voteRepDto' is not null or undefined
+            assertParamExists('addVoteRep', 'voteRepDto', voteRepDto)
+            const localVarPath = `/vote-rep`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -724,7 +766,43 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(voterDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(voteRepDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add new SSG Candidate
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addVoteSsg: async (voteSsgDto: VoteSsgDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voteSsgDto' is not null or undefined
+            assertParamExists('addVoteSsg', 'voteSsgDto', voteSsgDto)
+            const localVarPath = `/vote-ssg`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(voteSsgDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -835,40 +913,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Delete Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePrime: async (primeMinisterId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'primeMinisterId' is not null or undefined
-            assertParamExists('deletePrime', 'primeMinisterId', primeMinisterId)
-            const localVarPath = `/prime-minister/{primeMinister_id}`
-                .replace(`{${"primeMinister_id"}}`, encodeURIComponent(String(primeMinisterId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -903,16 +947,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Delete Student by id
-         * @param {number} studentId 
+         * @summary Delete SSG Member by id
+         * @param {number} ssgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteStudent: async (studentId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'studentId' is not null or undefined
-            assertParamExists('deleteStudent', 'studentId', studentId)
-            const localVarPath = `/student/{student_id}`
-                .replace(`{${"student_id"}}`, encodeURIComponent(String(studentId)));
+        deleteSsg: async (ssgId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ssgId' is not null or undefined
+            assertParamExists('deleteSsg', 'ssgId', ssgId)
+            const localVarPath = `/ssg-member/{ssg_id}`
+                .replace(`{${"ssg_id"}}`, encodeURIComponent(String(ssgId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -937,16 +981,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Delete Student Academic Year by id
-         * @param {number} studentAcademicYrId 
+         * @summary Delete Student by id
+         * @param {number} studentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteStudentAcademicYear: async (studentAcademicYrId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'studentAcademicYrId' is not null or undefined
-            assertParamExists('deleteStudentAcademicYear', 'studentAcademicYrId', studentAcademicYrId)
-            const localVarPath = `/student-academic-yr/{studentAcademicYr_id}`
-                .replace(`{${"studentAcademicYr_id"}}`, encodeURIComponent(String(studentAcademicYrId)));
+        deleteStudent: async (studentId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'studentId' is not null or undefined
+            assertParamExists('deleteStudent', 'studentId', studentId)
+            const localVarPath = `/student/{student_id}`
+                .replace(`{${"student_id"}}`, encodeURIComponent(String(studentId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1039,16 +1083,50 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Delete Voter by id
-         * @param {number} voterId 
+         * @summary Delete Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteVoter: async (voterId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'voterId' is not null or undefined
-            assertParamExists('deleteVoter', 'voterId', voterId)
-            const localVarPath = `/voter/{voter_id}`
-                .replace(`{${"voter_id"}}`, encodeURIComponent(String(voterId)));
+        deleteVoteRep: async (voterRepId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterRepId' is not null or undefined
+            assertParamExists('deleteVoteRep', 'voterRepId', voterRepId)
+            const localVarPath = `/vote-rep/{voter_rep_id}`
+                .replace(`{${"voter_rep_id"}}`, encodeURIComponent(String(voterRepId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteVoteSsg: async (voterSsgId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterSsgId' is not null or undefined
+            assertParamExists('deleteVoteSsg', 'voterSsgId', voterSsgId)
+            const localVarPath = `/vote-ssg/{voter_ssg_id}`
+                .replace(`{${"voter_ssg_id"}}`, encodeURIComponent(String(voterSsgId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1299,70 +1377,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPrime: async (primeMinisterId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'primeMinisterId' is not null or undefined
-            assertParamExists('getPrime', 'primeMinisterId', primeMinisterId)
-            const localVarPath = `/prime-minister/{primeMinister_id}`
-                .replace(`{${"primeMinister_id"}}`, encodeURIComponent(String(primeMinisterId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all Prime Ministers
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPrimes: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/prime-minister`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary get profile info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1461,6 +1475,70 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Get SSG Members by id
+         * @param {number} ssgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSsg: async (ssgId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ssgId' is not null or undefined
+            assertParamExists('getSsg', 'ssgId', ssgId)
+            const localVarPath = `/ssg-member/{ssg_id}`
+                .replace(`{${"ssg_id"}}`, encodeURIComponent(String(ssgId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all SSG Members
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSsgs: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ssg-member`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get Student by id
          * @param {number} studentId 
          * @param {*} [options] Override http request option.
@@ -1471,70 +1549,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('getStudent', 'studentId', studentId)
             const localVarPath = `/student/{student_id}`
                 .replace(`{${"student_id"}}`, encodeURIComponent(String(studentId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getStudentAcademicYear: async (studentAcademicYrId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'studentAcademicYrId' is not null or undefined
-            assertParamExists('getStudentAcademicYear', 'studentAcademicYrId', studentAcademicYrId)
-            const localVarPath = `/student-academic-yr/{studentAcademicYr_id}`
-                .replace(`{${"studentAcademicYr_id"}}`, encodeURIComponent(String(studentAcademicYrId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all Student Academic Years
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getStudentAcademicYears: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/student-academic-yr`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1717,16 +1731,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get Voters by id
-         * @param {number} voterId 
+         * @summary Get Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVoter: async (voterId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'voterId' is not null or undefined
-            assertParamExists('getVoter', 'voterId', voterId)
-            const localVarPath = `/voter/{voter_id}`
-                .replace(`{${"voter_id"}}`, encodeURIComponent(String(voterId)));
+        getVoteRep: async (voterRepId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterRepId' is not null or undefined
+            assertParamExists('getVoteRep', 'voterRepId', voterRepId)
+            const localVarPath = `/vote-rep/{voter_rep_id}`
+                .replace(`{${"voter_rep_id"}}`, encodeURIComponent(String(voterRepId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1751,12 +1765,76 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get all Voters
+         * @summary Get all Representative Candidate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVoters: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/voter`;
+        getVoteReps: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/vote-rep`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVoteSsg: async (voterSsgId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterSsgId' is not null or undefined
+            assertParamExists('getVoteSsg', 'voterSsgId', voterSsgId)
+            const localVarPath = `/vote-ssg/{voter_ssg_id}`
+                .replace(`{${"voter_ssg_id"}}`, encodeURIComponent(String(voterSsgId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all SSG Candidate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVoteSsgs: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/vote-ssg`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2055,46 +2133,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Update Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updatePrime: async (primeMinisterId: number, primeMinisterDto: PrimeMinisterDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'primeMinisterId' is not null or undefined
-            assertParamExists('updatePrime', 'primeMinisterId', primeMinisterId)
-            // verify required parameter 'primeMinisterDto' is not null or undefined
-            assertParamExists('updatePrime', 'primeMinisterDto', primeMinisterDto)
-            const localVarPath = `/prime-minister/{primeMinister_id}`
-                .replace(`{${"primeMinister_id"}}`, encodeURIComponent(String(primeMinisterId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(primeMinisterDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update Representative by id
          * @param {number} representativeId 
          * @param {RepresentativeDto} representativeDto 
@@ -2135,6 +2173,46 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Update SSG Member by id
+         * @param {number} ssgId 
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSsg: async (ssgId: number, ssgMemberDto: SsgMemberDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ssgId' is not null or undefined
+            assertParamExists('updateSsg', 'ssgId', ssgId)
+            // verify required parameter 'ssgMemberDto' is not null or undefined
+            assertParamExists('updateSsg', 'ssgMemberDto', ssgMemberDto)
+            const localVarPath = `/ssg-member/{ssg_id}`
+                .replace(`{${"ssg_id"}}`, encodeURIComponent(String(ssgId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(ssgMemberDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update Student by id
          * @param {number} studentId 
          * @param {StudentDto} studentDto 
@@ -2167,46 +2245,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(studentDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateStudentAcademicYear: async (studentAcademicYrId: number, studentAcademicYrDto: StudentAcademicYrDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'studentAcademicYrId' is not null or undefined
-            assertParamExists('updateStudentAcademicYear', 'studentAcademicYrId', studentAcademicYrId)
-            // verify required parameter 'studentAcademicYrDto' is not null or undefined
-            assertParamExists('updateStudentAcademicYear', 'studentAcademicYrDto', studentAcademicYrDto)
-            const localVarPath = `/student-academic-yr/{studentAcademicYr_id}`
-                .replace(`{${"studentAcademicYr_id"}}`, encodeURIComponent(String(studentAcademicYrId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(studentAcademicYrDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2295,19 +2333,19 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Update Voter by id
-         * @param {number} voterId 
-         * @param {VoterDto} voterDto 
+         * @summary Update Representative Candidate by id
+         * @param {number} voterRepId 
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVoter: async (voterId: number, voterDto: VoterDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'voterId' is not null or undefined
-            assertParamExists('updateVoter', 'voterId', voterId)
-            // verify required parameter 'voterDto' is not null or undefined
-            assertParamExists('updateVoter', 'voterDto', voterDto)
-            const localVarPath = `/voter/{voter_id}`
-                .replace(`{${"voter_id"}}`, encodeURIComponent(String(voterId)));
+        updateVoteRep: async (voterRepId: number, voteRepDto: VoteRepDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterRepId' is not null or undefined
+            assertParamExists('updateVoteRep', 'voterRepId', voterRepId)
+            // verify required parameter 'voteRepDto' is not null or undefined
+            assertParamExists('updateVoteRep', 'voteRepDto', voteRepDto)
+            const localVarPath = `/vote-rep/{voter_rep_id}`
+                .replace(`{${"voter_rep_id"}}`, encodeURIComponent(String(voterRepId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2326,7 +2364,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(voterDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(voteRepDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateVoteSsg: async (voterSsgId: number, voteSsgDto: VoteSsgDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'voterSsgId' is not null or undefined
+            assertParamExists('updateVoteSsg', 'voterSsgId', voterSsgId)
+            // verify required parameter 'voteSsgDto' is not null or undefined
+            assertParamExists('updateVoteSsg', 'voteSsgDto', voteSsgDto)
+            const localVarPath = `/vote-ssg/{voter_ssg_id}`
+                .replace(`{${"voter_ssg_id"}}`, encodeURIComponent(String(voterSsgId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(voteSsgDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2417,17 +2495,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new Prime Minister
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addPrime(primeMinisterDto: PrimeMinisterDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrimeMinisterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addPrime(primeMinisterDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Add new Representative
          * @param {RepresentativeDto} representativeDto 
          * @param {*} [options] Override http request option.
@@ -2439,6 +2506,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Add new SSG Member
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addSsg(ssgMemberDto: SsgMemberDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsgMemberDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addSsg(ssgMemberDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Add new Student
          * @param {StudentDto} studentDto 
          * @param {*} [options] Override http request option.
@@ -2446,17 +2524,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async addStudent(studentDto: StudentDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addStudent(studentDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Add new Student Academic Year
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addStudentAcademicYear(studentAcademicYrDto: StudentAcademicYrDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentAcademicYrDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addStudentAcademicYear(studentAcademicYrDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2483,13 +2550,24 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new Voter
-         * @param {VoterDto} voterDto 
+         * @summary Add new Representative Candidate
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addVoter(voterDto: VoterDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addVoter(voterDto, options);
+        async addVoteRep(voteRepDto: VoteRepDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteRepDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addVoteRep(voteRepDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add new SSG Candidate
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addVoteSsg(voteSsgDto: VoteSsgDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteSsgDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addVoteSsg(voteSsgDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2527,17 +2605,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Delete Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePrime(primeMinisterId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrimeMinisterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePrime(primeMinisterId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -2549,6 +2616,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Delete SSG Member by id
+         * @param {number} ssgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSsg(ssgId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsgMemberDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSsg(ssgId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Delete Student by id
          * @param {number} studentId 
          * @param {*} [options] Override http request option.
@@ -2556,17 +2634,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteStudent(studentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudent(studentId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteStudentAcademicYear(studentAcademicYrId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentAcademicYrDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudentAcademicYear(studentAcademicYrId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2593,13 +2660,24 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Delete Voter by id
-         * @param {number} voterId 
+         * @summary Delete Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteVoter(voterId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteVoter(voterId, options);
+        async deleteVoteRep(voterRepId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteRepDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteVoteRep(voterRepId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteVoteSsg(voterSsgId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteSsgDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteVoteSsg(voterSsgId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2678,27 +2756,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Get Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPrime(primeMinisterId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrimeMinisterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPrime(primeMinisterId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all Prime Ministers
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPrimes(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrimeMinisterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPrimes(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary get profile info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2730,6 +2787,27 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get SSG Members by id
+         * @param {number} ssgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSsg(ssgId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsgMemberDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSsg(ssgId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all SSG Members
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSsgs(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsgMemberDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSsgs(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Get Student by id
          * @param {number} studentId 
          * @param {*} [options] Override http request option.
@@ -2737,27 +2815,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async getStudent(studentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getStudent(studentId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getStudentAcademicYear(studentAcademicYrId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentAcademicYrDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStudentAcademicYear(studentAcademicYrId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all Student Academic Years
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getStudentAcademicYears(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentAcademicYrDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStudentAcademicYears(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2814,23 +2871,44 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Get Voters by id
-         * @param {number} voterId 
+         * @summary Get Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVoter(voterId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoter(voterId, options);
+        async getVoteRep(voterRepId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteRepDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoteRep(voterRepId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @summary Get all Voters
+         * @summary Get all Representative Candidate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVoters(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoters(options);
+        async getVoteReps(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteRepDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoteReps(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVoteSsg(voterSsgId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteSsgDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoteSsg(voterSsgId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all SSG Candidate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVoteSsgs(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteSsgDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVoteSsgs(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2915,18 +2993,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updatePrime(primeMinisterId: number, primeMinisterDto: PrimeMinisterDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrimeMinisterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePrime(primeMinisterId, primeMinisterDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update Representative by id
          * @param {number} representativeId 
          * @param {RepresentativeDto} representativeDto 
@@ -2939,6 +3005,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Update SSG Member by id
+         * @param {number} ssgId 
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSsg(ssgId: number, ssgMemberDto: SsgMemberDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsgMemberDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSsg(ssgId, ssgMemberDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update Student by id
          * @param {number} studentId 
          * @param {StudentDto} studentDto 
@@ -2947,18 +3025,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async updateStudent(studentId: number, studentDto: StudentDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateStudent(studentId, studentDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateStudentAcademicYear(studentAcademicYrId: number, studentAcademicYrDto: StudentAcademicYrDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentAcademicYrDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateStudentAcademicYear(studentAcademicYrId, studentAcademicYrDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2987,14 +3053,26 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update Voter by id
-         * @param {number} voterId 
-         * @param {VoterDto} voterDto 
+         * @summary Update Representative Candidate by id
+         * @param {number} voterRepId 
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVoter(voterId: number, voterDto: VoterDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoterDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVoter(voterId, voterDto, options);
+        async updateVoteRep(voterRepId: number, voteRepDto: VoteRepDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteRepDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVoteRep(voterRepId, voteRepDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateVoteSsg(voterSsgId: number, voteSsgDto: VoteSsgDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VoteSsgDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVoteSsg(voterSsgId, voteSsgDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3050,16 +3128,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new Prime Minister
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addPrime(primeMinisterDto: PrimeMinisterDto, options?: any): AxiosPromise<PrimeMinisterDto> {
-            return localVarFp.addPrime(primeMinisterDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Add new Representative
          * @param {RepresentativeDto} representativeDto 
          * @param {*} [options] Override http request option.
@@ -3070,6 +3138,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Add new SSG Member
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addSsg(ssgMemberDto: SsgMemberDto, options?: any): AxiosPromise<SsgMemberDto> {
+            return localVarFp.addSsg(ssgMemberDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Add new Student
          * @param {StudentDto} studentDto 
          * @param {*} [options] Override http request option.
@@ -3077,16 +3155,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         addStudent(studentDto: StudentDto, options?: any): AxiosPromise<StudentDto> {
             return localVarFp.addStudent(studentDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Add new Student Academic Year
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addStudentAcademicYear(studentAcademicYrDto: StudentAcademicYrDto, options?: any): AxiosPromise<StudentAcademicYrDto> {
-            return localVarFp.addStudentAcademicYear(studentAcademicYrDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3110,13 +3178,23 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new Voter
-         * @param {VoterDto} voterDto 
+         * @summary Add new Representative Candidate
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addVoter(voterDto: VoterDto, options?: any): AxiosPromise<VoterDto> {
-            return localVarFp.addVoter(voterDto, options).then((request) => request(axios, basePath));
+        addVoteRep(voteRepDto: VoteRepDto, options?: any): AxiosPromise<VoteRepDto> {
+            return localVarFp.addVoteRep(voteRepDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add new SSG Candidate
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addVoteSsg(voteSsgDto: VoteSsgDto, options?: any): AxiosPromise<VoteSsgDto> {
+            return localVarFp.addVoteSsg(voteSsgDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3150,16 +3228,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Delete Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePrime(primeMinisterId: number, options?: any): AxiosPromise<PrimeMinisterDto> {
-            return localVarFp.deletePrime(primeMinisterId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -3170,6 +3238,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Delete SSG Member by id
+         * @param {number} ssgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSsg(ssgId: number, options?: any): AxiosPromise<SsgMemberDto> {
+            return localVarFp.deleteSsg(ssgId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Delete Student by id
          * @param {number} studentId 
          * @param {*} [options] Override http request option.
@@ -3177,16 +3255,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteStudent(studentId: number, options?: any): AxiosPromise<StudentDto> {
             return localVarFp.deleteStudent(studentId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteStudentAcademicYear(studentAcademicYrId: number, options?: any): AxiosPromise<StudentAcademicYrDto> {
-            return localVarFp.deleteStudentAcademicYear(studentAcademicYrId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3210,13 +3278,23 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Delete Voter by id
-         * @param {number} voterId 
+         * @summary Delete Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteVoter(voterId: number, options?: any): AxiosPromise<VoterDto> {
-            return localVarFp.deleteVoter(voterId, options).then((request) => request(axios, basePath));
+        deleteVoteRep(voterRepId: number, options?: any): AxiosPromise<VoteRepDto> {
+            return localVarFp.deleteVoteRep(voterRepId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteVoteSsg(voterSsgId: number, options?: any): AxiosPromise<VoteSsgDto> {
+            return localVarFp.deleteVoteSsg(voterSsgId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3287,25 +3365,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Get Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPrime(primeMinisterId: number, options?: any): AxiosPromise<PrimeMinisterDto> {
-            return localVarFp.getPrime(primeMinisterId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all Prime Ministers
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPrimes(options?: any): AxiosPromise<PrimeMinisterDto> {
-            return localVarFp.getPrimes(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary get profile info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3334,6 +3393,25 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Get SSG Members by id
+         * @param {number} ssgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSsg(ssgId: number, options?: any): AxiosPromise<SsgMemberDto> {
+            return localVarFp.getSsg(ssgId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all SSG Members
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSsgs(options?: any): AxiosPromise<SsgMemberDto> {
+            return localVarFp.getSsgs(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get Student by id
          * @param {number} studentId 
          * @param {*} [options] Override http request option.
@@ -3341,25 +3419,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getStudent(studentId: number, options?: any): AxiosPromise<StudentDto> {
             return localVarFp.getStudent(studentId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getStudentAcademicYear(studentAcademicYrId: number, options?: any): AxiosPromise<StudentAcademicYrDto> {
-            return localVarFp.getStudentAcademicYear(studentAcademicYrId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all Student Academic Years
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getStudentAcademicYears(options?: any): AxiosPromise<StudentAcademicYrDto> {
-            return localVarFp.getStudentAcademicYears(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3410,22 +3469,41 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Get Voters by id
-         * @param {number} voterId 
+         * @summary Get Representative Candidate by id
+         * @param {number} voterRepId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVoter(voterId: number, options?: any): AxiosPromise<VoterDto> {
-            return localVarFp.getVoter(voterId, options).then((request) => request(axios, basePath));
+        getVoteRep(voterRepId: number, options?: any): AxiosPromise<VoteRepDto> {
+            return localVarFp.getVoteRep(voterRepId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary Get all Voters
+         * @summary Get all Representative Candidate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVoters(options?: any): AxiosPromise<VoterDto> {
-            return localVarFp.getVoters(options).then((request) => request(axios, basePath));
+        getVoteReps(options?: any): AxiosPromise<VoteRepDto> {
+            return localVarFp.getVoteReps(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVoteSsg(voterSsgId: number, options?: any): AxiosPromise<VoteSsgDto> {
+            return localVarFp.getVoteSsg(voterSsgId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all SSG Candidate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVoteSsgs(options?: any): AxiosPromise<VoteSsgDto> {
+            return localVarFp.getVoteSsgs(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3502,17 +3580,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Update Prime Minister by id
-         * @param {number} primeMinisterId 
-         * @param {PrimeMinisterDto} primeMinisterDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updatePrime(primeMinisterId: number, primeMinisterDto: PrimeMinisterDto, options?: any): AxiosPromise<PrimeMinisterDto> {
-            return localVarFp.updatePrime(primeMinisterId, primeMinisterDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update Representative by id
          * @param {number} representativeId 
          * @param {RepresentativeDto} representativeDto 
@@ -3524,6 +3591,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Update SSG Member by id
+         * @param {number} ssgId 
+         * @param {SsgMemberDto} ssgMemberDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSsg(ssgId: number, ssgMemberDto: SsgMemberDto, options?: any): AxiosPromise<SsgMemberDto> {
+            return localVarFp.updateSsg(ssgId, ssgMemberDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Update Student by id
          * @param {number} studentId 
          * @param {StudentDto} studentDto 
@@ -3532,17 +3610,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         updateStudent(studentId: number, studentDto: StudentDto, options?: any): AxiosPromise<StudentDto> {
             return localVarFp.updateStudent(studentId, studentDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update Student Academic Year by id
-         * @param {number} studentAcademicYrId 
-         * @param {StudentAcademicYrDto} studentAcademicYrDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateStudentAcademicYear(studentAcademicYrId: number, studentAcademicYrDto: StudentAcademicYrDto, options?: any): AxiosPromise<StudentAcademicYrDto> {
-            return localVarFp.updateStudentAcademicYear(studentAcademicYrId, studentAcademicYrDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3568,14 +3635,25 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Update Voter by id
-         * @param {number} voterId 
-         * @param {VoterDto} voterDto 
+         * @summary Update Representative Candidate by id
+         * @param {number} voterRepId 
+         * @param {VoteRepDto} voteRepDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVoter(voterId: number, voterDto: VoterDto, options?: any): AxiosPromise<VoterDto> {
-            return localVarFp.updateVoter(voterId, voterDto, options).then((request) => request(axios, basePath));
+        updateVoteRep(voterRepId: number, voteRepDto: VoteRepDto, options?: any): AxiosPromise<VoteRepDto> {
+            return localVarFp.updateVoteRep(voterRepId, voteRepDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update SSG Candidate by id
+         * @param {number} voterSsgId 
+         * @param {VoteSsgDto} voteSsgDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateVoteSsg(voterSsgId: number, voteSsgDto: VoteSsgDto, options?: any): AxiosPromise<VoteSsgDto> {
+            return localVarFp.updateVoteSsg(voterSsgId, voteSsgDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3635,18 +3713,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new Prime Minister
-     * @param {PrimeMinisterDto} primeMinisterDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public addPrime(primeMinisterDto: PrimeMinisterDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addPrime(primeMinisterDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Add new Representative
      * @param {RepresentativeDto} representativeDto 
      * @param {*} [options] Override http request option.
@@ -3659,6 +3725,18 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Add new SSG Member
+     * @param {SsgMemberDto} ssgMemberDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addSsg(ssgMemberDto: SsgMemberDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).addSsg(ssgMemberDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Add new Student
      * @param {StudentDto} studentDto 
      * @param {*} [options] Override http request option.
@@ -3667,18 +3745,6 @@ export class DefaultApi extends BaseAPI {
      */
     public addStudent(studentDto: StudentDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).addStudent(studentDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Add new Student Academic Year
-     * @param {StudentAcademicYrDto} studentAcademicYrDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public addStudentAcademicYear(studentAcademicYrDto: StudentAcademicYrDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addStudentAcademicYear(studentAcademicYrDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3707,14 +3773,26 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new Voter
-     * @param {VoterDto} voterDto 
+     * @summary Add new Representative Candidate
+     * @param {VoteRepDto} voteRepDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public addVoter(voterDto: VoterDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addVoter(voterDto, options).then((request) => request(this.axios, this.basePath));
+    public addVoteRep(voteRepDto: VoteRepDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).addVoteRep(voteRepDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add new SSG Candidate
+     * @param {VoteSsgDto} voteSsgDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addVoteSsg(voteSsgDto: VoteSsgDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).addVoteSsg(voteSsgDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3755,18 +3833,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Delete Prime Minister by id
-     * @param {number} primeMinisterId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deletePrime(primeMinisterId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deletePrime(primeMinisterId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Delete Representative by id
      * @param {number} representativeId 
      * @param {*} [options] Override http request option.
@@ -3779,6 +3845,18 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Delete SSG Member by id
+     * @param {number} ssgId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteSsg(ssgId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteSsg(ssgId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Delete Student by id
      * @param {number} studentId 
      * @param {*} [options] Override http request option.
@@ -3787,18 +3865,6 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteStudent(studentId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deleteStudent(studentId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete Student Academic Year by id
-     * @param {number} studentAcademicYrId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteStudentAcademicYear(studentAcademicYrId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteStudentAcademicYear(studentAcademicYrId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3827,14 +3893,26 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Delete Voter by id
-     * @param {number} voterId 
+     * @summary Delete Representative Candidate by id
+     * @param {number} voterRepId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public deleteVoter(voterId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteVoter(voterId, options).then((request) => request(this.axios, this.basePath));
+    public deleteVoteRep(voterRepId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteVoteRep(voterRepId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete SSG Candidate by id
+     * @param {number} voterSsgId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteVoteSsg(voterSsgId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteVoteSsg(voterSsgId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3920,29 +3998,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Get Prime Minister by id
-     * @param {number} primeMinisterId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getPrime(primeMinisterId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getPrime(primeMinisterId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all Prime Ministers
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getPrimes(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getPrimes(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary get profile info
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3977,6 +4032,29 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Get SSG Members by id
+     * @param {number} ssgId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getSsg(ssgId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getSsg(ssgId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all SSG Members
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getSsgs(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getSsgs(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Get Student by id
      * @param {number} studentId 
      * @param {*} [options] Override http request option.
@@ -3985,29 +4063,6 @@ export class DefaultApi extends BaseAPI {
      */
     public getStudent(studentId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getStudent(studentId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get Student Academic Year by id
-     * @param {number} studentAcademicYrId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getStudentAcademicYear(studentAcademicYrId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getStudentAcademicYear(studentAcademicYrId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all Student Academic Years
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getStudentAcademicYears(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getStudentAcademicYears(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4069,25 +4124,48 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Get Voters by id
-     * @param {number} voterId 
+     * @summary Get Representative Candidate by id
+     * @param {number} voterRepId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getVoter(voterId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getVoter(voterId, options).then((request) => request(this.axios, this.basePath));
+    public getVoteRep(voterRepId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVoteRep(voterRepId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Get all Voters
+     * @summary Get all Representative Candidate
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getVoters(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getVoters(options).then((request) => request(this.axios, this.basePath));
+    public getVoteReps(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVoteReps(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get SSG Candidate by id
+     * @param {number} voterSsgId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getVoteSsg(voterSsgId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVoteSsg(voterSsgId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all SSG Candidate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getVoteSsgs(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVoteSsgs(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4179,19 +4257,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Update Prime Minister by id
-     * @param {number} primeMinisterId 
-     * @param {PrimeMinisterDto} primeMinisterDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updatePrime(primeMinisterId: number, primeMinisterDto: PrimeMinisterDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updatePrime(primeMinisterId, primeMinisterDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Update Representative by id
      * @param {number} representativeId 
      * @param {RepresentativeDto} representativeDto 
@@ -4205,6 +4270,19 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Update SSG Member by id
+     * @param {number} ssgId 
+     * @param {SsgMemberDto} ssgMemberDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateSsg(ssgId: number, ssgMemberDto: SsgMemberDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).updateSsg(ssgId, ssgMemberDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update Student by id
      * @param {number} studentId 
      * @param {StudentDto} studentDto 
@@ -4214,19 +4292,6 @@ export class DefaultApi extends BaseAPI {
      */
     public updateStudent(studentId: number, studentDto: StudentDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).updateStudent(studentId, studentDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update Student Academic Year by id
-     * @param {number} studentAcademicYrId 
-     * @param {StudentAcademicYrDto} studentAcademicYrDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updateStudentAcademicYear(studentAcademicYrId: number, studentAcademicYrDto: StudentAcademicYrDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateStudentAcademicYear(studentAcademicYrId, studentAcademicYrDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4257,15 +4322,28 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Update Voter by id
-     * @param {number} voterId 
-     * @param {VoterDto} voterDto 
+     * @summary Update Representative Candidate by id
+     * @param {number} voterRepId 
+     * @param {VoteRepDto} voteRepDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public updateVoter(voterId: number, voterDto: VoterDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateVoter(voterId, voterDto, options).then((request) => request(this.axios, this.basePath));
+    public updateVoteRep(voterRepId: number, voteRepDto: VoteRepDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).updateVoteRep(voterRepId, voteRepDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update SSG Candidate by id
+     * @param {number} voterSsgId 
+     * @param {VoteSsgDto} voteSsgDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateVoteSsg(voterSsgId: number, voteSsgDto: VoteSsgDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).updateVoteSsg(voterSsgId, voteSsgDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

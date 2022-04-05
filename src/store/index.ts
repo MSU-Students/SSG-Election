@@ -10,7 +10,7 @@ import account from "./accounts";
 import { AccountStateInterface } from "./accounts/state";
 
 import candidate from "./candidateAccounts";
-import { CandidateAccountStateInterface } from "./candidateAccounts/state";
+import { CandidateStateInterface } from "./candidateAccounts/state";
 
 import election from "./election";
 import { ElectionStateInterface } from "./election/state";
@@ -24,7 +24,7 @@ export interface StateInterface {
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   account: AccountStateInterface;
-  candidate: CandidateAccountStateInterface;
+  candidate: CandidateStateInterface;
   election: ElectionStateInterface;
   auth: IAuthState;
 }

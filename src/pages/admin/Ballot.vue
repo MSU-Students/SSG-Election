@@ -65,8 +65,7 @@
                         :dense="dense"
                         lazy-rules
                         :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Please type something',
+                          (val) => (val && val.length > 0) || 'Please type something',
                         ]"
                       />
                     </div>
@@ -83,9 +82,7 @@
                           type="date"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the date',
+                            (val) => (val && val.length > 0) || 'Please enter the date',
                           ]"
                           hint="Native date"
                         />
@@ -98,9 +95,7 @@
                           type="time"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the time',
+                            (val) => (val && val.length > 0) || 'Please enter the time',
                           ]"
                           hint="Native time"
                         />
@@ -119,9 +114,7 @@
                           type="date"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the date',
+                            (val) => (val && val.length > 0) || 'Please enter the date',
                           ]"
                           hint="Native date"
                         />
@@ -134,9 +127,7 @@
                           type="time"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the time',
+                            (val) => (val && val.length > 0) || 'Please enter the time',
                           ]"
                           hint="Native time"
                         />
@@ -152,12 +143,7 @@
                       v-close-popup
                       @click="resetModel()"
                     />
-                    <q-btn
-                      flat
-                      label="Submit"
-                      color="primary"
-                      @click="onaddElection()"
-                    />
+                    <q-btn flat label="Submit" color="primary" @click="onaddElection()" />
                   </div>
                 </div>
               </q-card-section>
@@ -202,9 +188,7 @@
                             :dense="dense"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
+                              (val) => (val && val.length > 0) || 'Please type something',
                             ]"
                           />
                         </div>
@@ -222,8 +206,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the date',
+                                  (val && val.length > 0) || 'Please enter the date',
                               ]"
                               hint="Native date"
                             />
@@ -237,8 +220,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the time',
+                                  (val && val.length > 0) || 'Please enter the time',
                               ]"
                               hint="Native time"
                             />
@@ -258,8 +240,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the date',
+                                  (val && val.length > 0) || 'Please enter the date',
                               ]"
                               hint="Native date"
                             />
@@ -273,8 +254,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the time',
+                                  (val && val.length > 0) || 'Please enter the time',
                               ]"
                               hint="Native time"
                             />
@@ -321,19 +301,19 @@
 </template>
 
 <script lang="ts">
-import { ElectionDto } from 'src/services/rest-api';
-import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { ElectionDto } from "src/services/rest-api";
+import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
 @Options({
   computed: {
-    ...mapState('election', ['allElection']),
+    ...mapState("election", ["allElection"]),
   },
   methods: {
-    ...mapActions('election', [
-      'addElection',
-      'editElection',
-      'deleteElection',
-      'getAllElection',
+    ...mapActions("election", [
+      "addElection",
+      "editElection",
+      "deleteElection",
+      "getAllElection",
     ]),
   },
 })
@@ -349,29 +329,29 @@ export default class ManageElection extends Vue {
   }
 
   columns = [
-    { name: 'action', align: 'center', field: 'action' },
+    { name: "action", align: "center", field: "action" },
     {
-      name: 'name',
+      name: "name",
       required: true,
-      label: 'Election Name',
-      align: 'left',
+      label: "Election Name",
+      align: "left",
       field: (row: ElectionDto) => row.election_name,
       format: (val: string) => `${val}`,
     },
 
     {
-      name: 'name',
+      name: "name",
       required: true,
-      label: 'Election Start',
-      align: 'left',
+      label: "Election Start",
+      align: "left",
       field: (row: ElectionDto) => row.start_date,
       format: (val: string) => `${val}`,
     },
     {
-      name: 'name',
+      name: "name",
       required: true,
-      label: 'Election End',
-      align: 'left',
+      label: "Election End",
+      align: "left",
       field: (row: ElectionDto) => row.end_date,
       format: (val: string) => `${val}`,
     },
@@ -381,11 +361,13 @@ export default class ManageElection extends Vue {
   dense = true;
 
   inputElection: ElectionDto = {
-    election_name: '',
-    start_date: '',
-    start_time: '',
-    end_date: '',
-    end_time: '',
+    election_name: "",
+    academic_yr: "",
+    start_date: "",
+    start_time: "",
+    end_date: "",
+    end_time: "",
+    admin_id: 0,
   };
 
   async onaddElection() {
@@ -393,8 +375,8 @@ export default class ManageElection extends Vue {
     this.addNewElection = false;
     this.resetModel();
     this.$q.notify({
-      type: 'positive',
-      message: 'An Election is succcessfully Added.',
+      type: "positive",
+      message: "An Election is succcessfully Added.",
     });
   }
 
@@ -403,23 +385,23 @@ export default class ManageElection extends Vue {
     this.editRowElection = false;
     this.resetModel();
     this.$q.notify({
-      type: 'positive',
-      message: 'Successfully Edit.',
+      type: "positive",
+      message: "Successfully Edit.",
     });
   }
 
   deleteSpecificElection(val: ElectionDto) {
     this.$q
       .dialog({
-        message: 'Confirm to delete?',
+        message: "Confirm to delete?",
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
         await this.deleteElection(val);
         this.$q.notify({
-          type: 'warning',
-          message: 'Successfully deleted',
+          type: "warning",
+          message: "Successfully deleted",
         });
       });
   }
@@ -431,11 +413,13 @@ export default class ManageElection extends Vue {
 
   resetModel() {
     this.inputElection = {
-      election_name: '',
-      start_date: '',
-      start_time: '',
-      end_date: '',
-      end_time: '',
+      election_name: "",
+      academic_yr: "",
+      start_date: "",
+      start_time: "",
+      end_date: "",
+      end_time: "",
+      admin_id: 0,
     };
   }
 }
