@@ -1,108 +1,113 @@
 <template>
   <q-img class="wave" src="~assets/images/image.png" />
-  <div>
-    <q-splitter v-model="splitterModel">
-      <template v-slot:before>
-        <div class="q-mb-xl"></div>
-        <q-card style="width: 500px">
-          <q-card-section>
-            <div class="text-h8 text-overline text-bold">All Position</div>
-            <q-separator />
-            <div class="q-px-sm text-subtitle1 text-weight-medium">
-              <div>
-                Prime Minister: <strong>{{ selected }}</strong>
-              </div>
+  <div class="q-pa-md q-pl-md">
+    <div class="q-pa-md">
+      <q-splitter v-model="splitterModel">
+        <template v-slot:before>
+          <div class="row">
+            <div class="q-pa-md col-3 col-sm-4">
+              <q-card style="width: 500px">
+                <q-card-section>
+                  <div class="text-h8 text-overline text-bold">All Position</div>
+                  <q-separator />
+                  <div class="q-px-sm text-subtitle1 text-weight-medium">
+                    <div>
+                      Prime Minister: <strong>{{ selected }}</strong>
+                    </div>
 
-              <div>
-                Secretary General:<strong>{{ selected1 }}</strong>
-              </div>
-              <div>
-                Chief Minister:<strong>{{ selected2 }}</strong>
-              </div>
+                    <div>
+                      Secretary General:<strong>{{ selected1 }}</strong>
+                    </div>
+                    <div>
+                      Chief Minister:<strong>{{ selected2 }}</strong>
+                    </div>
+                  </div>
+                </q-card-section>
+
+                <q-separator inset />
+
+                <q-card-actions align="center">
+                  <q-btn label="Submit" color="green" flat @click="submit = true" />
+                </q-card-actions>
+              </q-card>
             </div>
-          </q-card-section>
+          </div>
 
-          <q-separator inset />
+          <q-dialog v-model="submit" persistent>
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar icon="warning" color="primary" text-color="white" />
+                <span class="q-ml-sm">Are you sure of your choices?</span>
+              </q-card-section>
 
-          <q-card-actions align="center">
-            <q-btn label="Submit" color="green" flat @click="submit = true" />
-          </q-card-actions>
-        </q-card>
+              <q-card-actions align="right">
+                <q-btn flat label="Cancel" color="primary" v-close-popup />
+                <q-btn flat label="Yes" color="green" v-close-popup />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
+        </template>
 
-        <q-dialog v-model="submit" persistent>
-          <q-card>
-            <q-card-section class="row items-center">
-              <q-avatar icon="warning" color="primary" text-color="white" />
-              <span class="q-ml-sm">Are you sure of your choices?</span>
-            </q-card-section>
+        <template v-slot:after>
+          <div class="q-pt-lg q-mt-lg text-overline text-bold">Select Candidates</div>
+          <div class="q-gutter-md row items-start text-h6 text-weight-bold">
+            <q-card>
+              <q-card-actions class="bg-deep-orange-1">
+                <div class="text-bold text-subtitle2 q-pl-md">
+                  <q-icon name="people" color="primary" />
+                  Prime Minister
+                </div>
+              </q-card-actions>
+              <q-separator />
+              <q-table
+                :rows="rows"
+                :columns="columns"
+                row-key="name"
+                selection="single"
+                v-model:selected="selected"
+                style="width: 1000px"
+              />
+            </q-card>
 
-            <q-card-actions align="right">
-              <q-btn flat label="Cancel" color="primary" v-close-popup />
-              <q-btn flat label="Yes" color="green" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-      </template>
+            <q-card>
+              <q-card-actions class="bg-deep-orange-1">
+                <div class="text-bold text-subtitle2 q-pl-md">
+                  <q-icon name="people" color="primary" />
+                  Secretary General
+                </div>
+              </q-card-actions>
+              <q-separator />
+              <q-table
+                :rows="rows"
+                :columns="columns"
+                row-key="name"
+                selection="single"
+                v-model:selected="selected1"
+                style="width: 1000px"
+              />
+            </q-card>
 
-      <template v-slot:after>
-        <div class="q-pt-lg q-mt-lg text-overline text-bold">Select Candidates</div>
-        <div class="q-gutter-md row items-start text-h6 text-weight-bold">
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Prime Minister
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              selection="single"
-              v-model:selected="selected"
-              style="width: 1000px"
-            />
-          </q-card>
-
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Secretary General
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              selection="single"
-              v-model:selected="selected1"
-              style="width: 1000px"
-            />
-          </q-card>
-
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Chief Minister
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              selection="single"
-              v-model:selected="selected2"
-              style="width: 1000px"
-            />
-          </q-card>
-        </div>
-      </template>
-    </q-splitter>
+            <q-card>
+              <q-card-actions class="bg-deep-orange-1">
+                <div class="text-bold text-subtitle2 q-pl-md">
+                  <q-icon name="people" color="primary" />
+                  Chief Minister
+                </div>
+              </q-card-actions>
+              <q-separator />
+              <q-table
+                :rows="rows"
+                :columns="columns"
+                row-key="name"
+                selection="single"
+                v-model:selected="selected2"
+                style="width: 1000px"
+              />
+            </q-card>
+          </div>
+        </template>
+      </q-splitter>
+    </div>
   </div>
 </template>
 
