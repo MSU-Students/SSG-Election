@@ -21,13 +21,7 @@
               flat
               class="bg-primary text-overline text-white"
               label="Assigning Officers"
-              to="/P_Assign"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Profile"
-              to="/P_Profile"
+              to="/P_Assigning"
             />
           </div>
         </q-toolbar-title>
@@ -101,7 +95,7 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/P_Assign">
+          <q-item clickable v-ripple to="/P_Assigning">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>

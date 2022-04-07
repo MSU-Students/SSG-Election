@@ -1,24 +1,8 @@
 <template>
-  <q-img class="wave" src="~assets/images/image.png" />
-  <div>
-    <q-splitter v-model="splitterModel">
-      <template v-slot:before>
-        <div class="q-mb-xl"></div>
-        <q-card style="width: 500px">
-          <q-card-section>
-            <div class="text-h8 text-overline text-bold">Student Info</div>
-            <q-separator />
-            <div class="q-px-sm text-subtitle1 text-weight-medium">
-              <div>ID Number:</div>
-
-              <div>Name:</div>
-              <div>Course:</div>
-            </div>
-          </q-card-section>
-        </q-card>
-      </template>
-
-      <template v-slot:after>
+  <div class="row q-pa-md q-pl-xl">
+    <div class="col-12 col-md-4 q-pa-md">
+      <q-img class="wave" src="~assets/images/image.png" />
+      <div class>
         <div class="q-pt-lg q-mt-lg text-overline text-bold">List Of Nominees</div>
         <div class="q-gutter-md row items-start text-h6 text-weight-bold">
           <q-card>
@@ -86,8 +70,8 @@
             />
           </q-card>
         </div>
-      </template>
-    </q-splitter>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -140,9 +124,6 @@ export default {
     return {
       splitterModel: ref(30),
       vote: ref(false),
-      selected: ref(),
-      selected1: ref(),
-      selected2: ref(),
       submit: ref(false),
       columns,
       rows,

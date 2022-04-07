@@ -32,7 +32,7 @@
               flat
               class="bg-primary text-overline text-white"
               label="Election Result"
-              to="/Result"
+              to="/Tally"
             />
           </div>
         </q-toolbar-title>
@@ -123,7 +123,7 @@
             <q-item-section> Manage Election </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/Result">
+          <q-item clickable v-ripple to="/Tally">
             <q-item-section avatar>
               <q-icon name="ballot" />
             </q-item-section>

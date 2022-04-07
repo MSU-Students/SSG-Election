@@ -25,9 +25,7 @@
             <!--title-->
             <div class="q-pt-lg">
               <div class="col text-h6 ellipsis flex justify-center">
-                <div class="text-h2 text-primary q-my-none text-weight-bold">
-                  SSG
-                </div>
+                <div class="text-h2 text-primary q-my-none text-weight-bold">SSG</div>
               </div>
               <div class="col text-h6 ellipsis flex justify-center">
                 <div class="text-h4 text-primary q-my-none text-weight-bold">
@@ -45,9 +43,7 @@
                   dense
                   label="Username"
                   lazy-rules
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Input your Username',
-                  ]"
+                  :rules="[(val) => (val && val.length > 0) || 'Input your Username']"
                 >
                   <template v-slot:prepend>
                     <q-icon name="person" />
@@ -60,9 +56,7 @@
                   label="Password"
                   :type="isPwd ? 'password' : 'text'"
                   lazy-rules
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Input your password',
-                  ]"
+                  :rules="[(val) => (val && val.length > 0) || 'Input your password']"
                 >
                   <template v-slot:append>
                     <q-icon
@@ -91,9 +85,8 @@
                 <div
                   class="q-mt-md text-center text-caption text-weight-medium text-primary absolute-center-right"
                 >
-                  *To register your account and retrieve the password, proceed
-                  to Division of Student Affairs, Alonto Hall, MSU Marawi
-                  Campus.
+                  *To register your account and retrieve the password, proceed to Division
+                  of Student Affairs, Alonto Hall, MSU Marawi Campus.
                 </div>
               </div>
             </q-form>
@@ -105,24 +98,24 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component';
-import { AUser } from 'src/store/auth/state';
-import { mapActions, mapState } from 'vuex';
+import { Vue, Options } from "vue-class-component";
+import { AUser } from "src/store/auth/state";
+import { mapActions, mapState } from "vuex";
 
 @Options({
   methods: {
-    ...mapActions('auth', ['login', 'authUser']),
+    ...mapActions("auth", ["login", "authUser"]),
   },
   computed: {
-    ...mapState('auth', ['currentUser']),
+    ...mapState("auth", ["currentUser"]),
   },
 })
 export default class Login extends Vue {
   login!: (auth: { userName: string; password: string }) => Promise<AUser>;
   currentUser!: AUser;
 
-  username = '';
-  password = '';
+  username = "";
+  password = "";
   isPwd = true;
 
   async loginUser() {
@@ -131,39 +124,39 @@ export default class Login extends Vue {
         userName: this.username,
         password: this.password,
       });
-      if (this.currentUser.userType == 'admin') {
-        await this.$router.replace('/Homepage');
+      if (this.currentUser.userType == "admin") {
+        await this.$router.replace("/Homepage");
         this.$q.notify({
-          position: 'center',
-          type: 'positive',
-          message: 'You are logged in',
+          position: "center",
+          type: "positive",
+          message: "You are logged in",
         });
-      } else if (this.currentUser.userType == 'voter') {
-        await this.$router.replace('/V_Homepage');
+      } else if (this.currentUser.userType == "voter") {
+        await this.$router.replace("/V_Homepage");
         this.$q.notify({
-          position: 'center',
-          type: 'positive',
-          message: 'You are logged in',
+          position: "center",
+          type: "positive",
+          message: "You are logged in",
         });
-      } else if (this.currentUser.userType == 'ssg') {
-        await this.$router.replace('P_Homepage');
+      } else if (this.currentUser.userType == "ssg") {
+        await this.$router.replace("P_Homepage");
         this.$q.notify({
-          position: 'center',
-          type: 'positive',
-          message: 'You are logged in',
+          position: "center",
+          type: "positive",
+          message: "You are logged in",
         });
-      } else if (this.currentUser.userType == 'rep') {
-        await this.$router.replace('/R_Homepage');
+      } else if (this.currentUser.userType == "rep") {
+        await this.$router.replace("/R_Nominee");
         this.$q.notify({
-          position: 'center',
-          type: 'positive',
-          message: 'You are logged in',
+          position: "center",
+          type: "positive",
+          message: "You are logged in",
         });
       }
     } catch (error) {
       this.$q.notify({
-        type: 'negative',
-        message: 'Wrong Username or Password!',
+        type: "negative",
+        message: "Wrong Username or Password!",
       });
     }
   }

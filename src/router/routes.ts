@@ -15,6 +15,7 @@ const routes: RouteRecordRaw[] = [
                   {path: '/Accounts', component: () => import('src/pages/admin/account.vue') },
                   {path: '/Ballot', component: () => import('src/pages/admin/Ballot.vue') },
                   {path: '/Result', component: () => import('src/pages/admin/Result.vue') },
+                  {path: '/Tally', component: () => import('src/pages/admin/Tally.vue') }
                 ],
     },
 
@@ -48,7 +49,8 @@ const routes: RouteRecordRaw[] = [
       children: [
                   { path: '/P_Homepage', component: () => import('src/pages/ssg/SSG_Home.vue') },
                   { path: '/P_Assign', component: () => import('src/pages/ssg/SSG_Assign.vue') },
-                  { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') }
+                  { path: '/P_Profile', component: () => import('src/pages/ssg/SSG_Profile.vue') },
+                  { path: '/P_Assigning', component: () => import('src/pages/ssg/SSG_Assigning.vue') }
                 ],
     },
 
