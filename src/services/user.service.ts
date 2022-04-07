@@ -23,6 +23,10 @@ class UserService extends DefaultApi {
     const response = await ssgApiService.deleteUsers(id);
     return response.data;
   }
+  async getUserProfile() {
+    const response = await ssgApiService.getProfile();
+    return response.data;
+  }
 }
 
 const userservice = new UserService();

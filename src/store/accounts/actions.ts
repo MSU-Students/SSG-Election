@@ -1,36 +1,40 @@
-import { User } from 'src/interfaces/User.interface';
-import userservice from 'src/services/user.service';
-import { UserDto } from 'src/services/rest-api';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
-import { UserStateInterface } from './state';
+import { AccountStateInterface } from './state';
+import userService from 'src/services/user.service';
 
-const actions: ActionTree<UserStateInterface, StateInterface> = {
-  async addUser(context, payload: UserDto): Promise<void> {
-    const result = await userservice.create(payload);
-    context.commit('setNewUser', result);
+const actions: ActionTree<AccountStateInterface, StateInterface> = {
+  async addAccount(context, payload: any): Promise<any> {
+    const result = await userService.create(payload);
+    context.commit('setNewAccount', result);
     await context.dispatch('getAllUser');
   },
 
-  async editUser(context, payload: any): Promise<any> {
-    const result = await userservice.update(payload.itemCode, payload);
-    context.commit('updateCandidate', result);
+  async editAccount(context, payload: any): Promise<any> {
+    const result = await userService.update(payload.id, payload);
+    context.commit('updateAccount', result);
     await context.dispatch('getAllUser');
   },
 
-  async deleteUser(context, user_id: number): Promise<any> {
-    const result = await userservice.deleteOne(user_id);
-    context.commit('deleteUser', result);
+  async deleteAccount(context, id: number): Promise<any> {
+    const result = await userService.deleteOne(id);
+    context.commit('deleteAccount', result);
   },
 
   async getAllUser(context): Promise<any> {
-    const res = await userservice.getAll();
+    const res = await userService.getAll();
     context.commit('getAllUser', res);
   },
 
-  async getOneUser(context, user_id: number): Promise<any> {
-    const res = await userservice.getOne(user_id);
+  async getOneUser(context, id: number): Promise<any> {
+    const res = await userService.getOne(id);
     context.commit('getOneUser', res);
+  },
+
+  async getProfile(context): Promise<any> {
+    const res = await userService.getUserProfile();
+    context.commit('getProfile', res);
+    return res;
   },
 };
 

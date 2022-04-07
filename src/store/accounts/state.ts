@@ -1,14 +1,12 @@
-import { User } from 'src/interfaces/user.interface';
-import { UserDto } from 'src/services/rest-api';
-
-export interface UserStateInterface {
-  allUser: UserDto[];
-  newUser?: User;
+import { User } from "src/interfaces/user.interface";
+export interface AccountStateInterface {
+  allAccount: User[];
+  newAccount?: User;
 }
 
-function state(): UserStateInterface {
+function state(): AccountStateInterface {
   return {
-    allUser: [],
+    allAccount: [],
   };
 }
 

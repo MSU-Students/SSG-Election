@@ -763,8 +763,8 @@
 </template>
 
 <script lang="ts">
-import { AccountInfo } from 'src/store/accounts/state';
-import { CandidateAccountInfo } from 'src/store/candidateAccounts/state';
+import { UserDto } from "src/services/rest-api";
+import { CandidateDto } from "src/services/rest-api";
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
@@ -774,7 +774,12 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('candidate', ['allCandidateAccount']),
   },
   methods: {
-    ...mapActions('account', ['addAccount', 'editAccount', 'deleteAccount']),
+    ...mapActions("account", [
+      "addAccount",
+      "editAccount",
+      "deleteAccount",
+      "getAllUser",
+    ]),
     ...mapActions('candidate', [
       'addCandidateAccount',
       'editCandidateAccount',
@@ -784,15 +789,16 @@ import { mapActions, mapState } from 'vuex';
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
-  allAccount!: AccountInfo[];
-  addAccount!: (payload: AccountInfo) => Promise<void>;
-  editAccount!: (payload: AccountInfo) => Promise<void>;
-  deleteAccount!: (payload: AccountInfo) => Promise<void>;
+  allAccount!: UserDto[];
+  addAccount!: (payload: UserDto) => Promise<void>;
+  editAccount!: (payload: UserDto) => Promise<void>;
+  deleteAccount!: (payload: UserDto) => Promise<void>;
+  getAllUser!: () => Promise<void>;
 
-  allCandidateAccount!: CandidateAccountInfo[];
-  addCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
-  editCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
-  deleteCandidateAccount!: (payload: CandidateAccountInfo) => Promise<void>;
+  allCandidateAccount!: CandidateDto[];
+  addCandidateAccount!: (payload: CandidateDto) => Promise<void>;
+  editCandidateAccount!: (payload: CandidateDto) => Promise<void>;
+  deleteCandidateAccount!: (payload: CandidateDto) => Promise<void>;
 
   columns = [
     { name: 'action', align: 'center', field: 'action' },
