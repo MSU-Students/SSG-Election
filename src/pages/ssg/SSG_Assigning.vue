@@ -12,63 +12,67 @@
                 EXECUTIVE OFFICERS
               </div>
             </q-card-actions>
-            <div class="row q-pa-md">
-              <div class="q-pa-md">Prime Minister:</div>
-              <q-select
-                filled
-                v-model="model1"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
-
-              <div class="q-pa-md">Executive Secretary:</div>
-              <q-select
-                filled
-                v-model="model2"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
-
-              <div class="q-pa-md">Intl. Dep. Prime Minister:</div>
-              <q-select
-                filled
-                v-model="model3"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+            <div class="row q-pa-md justify-around">
+              <div class="row">
+                <div class="q-pa-md">Prime Minister:</div>
+                <q-select
+                  filled
+                  v-model="model1"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              <div class="row">
+                <div class="q-pa-md">Executive Secretary:</div>
+                <q-select
+                  filled
+                  v-model="model2"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              <div class="row">
+                <div class="q-pa-md">Intl. Dep. Prime Minister:</div>
+                <q-select
+                  filled
+                  v-model="model3"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
             </div>
           </q-card>
         </div>
@@ -81,44 +85,48 @@
                 PARLIAMENT
               </div>
             </q-card-actions>
-            <div class="row q-pa-md">
-              <div class="q-pa-md">Chief Minister:</div>
-              <q-select
-                filled
-                v-model="model4"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+            <div class="row q-pa-md justify-around">
+              <div class="row">
+                <div class="q-pa-md">Chief Minister:</div>
+                <q-select
+                  filled
+                  v-model="model4"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
 
-              <div class="q-pa-md">College Representative:</div>
-              <q-select
-                filled
-                v-model="model5"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+              <div class="row">
+                <div class="q-pa-md">College Representative:</div>
+                <q-select
+                  filled
+                  v-model="model5"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
             </div>
           </q-card>
         </div>
@@ -131,44 +139,48 @@
                 JUDICIARY
               </div>
             </q-card-actions>
-            <div class="row q-pa-md">
-              <div class="q-pa-md">Association Justice:</div>
-              <q-select
-                filled
-                v-model="model6"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+            <div class="row q-pa-md justify-md-evenly">
+              <div class="row">
+                <div class="q-pa-md">Association Justice:</div>
+                <q-select
+                  filled
+                  v-model="model6"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
 
-              <div class="q-pa-md">Associative Justice:</div>
-              <q-select
-                filled
-                v-model="model7"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                style="padding-bottom: 10px"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey"> No results </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+              <div class="row">
+                <div class="q-pa-md">Associative Justice:</div>
+                <q-select
+                  filled
+                  v-model="model7"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="options"
+                  @filter="filterFn"
+                  style="padding-bottom: 10px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
             </div>
           </q-card>
         </div>

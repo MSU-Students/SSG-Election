@@ -125,7 +125,7 @@
             outline
             rounded
             dense
-            to="/R_Votes"
+            to="/R_Voting"
             class="q-mt-sm"
             color="primary"
             label="Profile"
