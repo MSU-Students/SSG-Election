@@ -4,7 +4,7 @@
       <div class="q-pt-sm q-mt-md text-overline text-bold">Assigning Of Officers</div>
 
       <div class="row">
-        <div class="q-pa-md col-3 col-sm-4">
+        <div class="q-pa-md col-12 col-md">
           <q-card>
             <q-card-actions class="bg-deep-orange-1">
               <div class="text-overline text-bold text-h4 q-pl-md">
@@ -77,7 +77,7 @@
           </q-card>
         </div>
 
-        <div class="q-pa-md col-3 col-sm-4">
+        <div class="q-pa-md col-12 col-md">
           <q-card>
             <q-card-actions class="bg-deep-orange-1">
               <div class="text-overline text-bold text-h4 q-pl-md">
@@ -131,7 +131,7 @@
           </q-card>
         </div>
 
-        <div class="q-pa-md col-3 col-sm-4">
+        <div class="q-pa-md col-12 col-md">
           <q-card>
             <q-card-actions class="bg-deep-orange-1">
               <div class="text-overline text-bold text-h4 q-pl-md">
