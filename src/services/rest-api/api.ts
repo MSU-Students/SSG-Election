@@ -73,6 +73,12 @@ export interface AdminDto {
 export interface CandidateDto {
     /**
      * 
+     * @type {number}
+     * @memberof CandidateDto
+     */
+    'candidate_id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof CandidateDto
      */
@@ -85,16 +91,16 @@ export interface CandidateDto {
     'platform': string;
     /**
      * 
-     * @type {number}
+     * @type {ElectionDto}
      * @memberof CandidateDto
      */
-    'election_id': number;
+    'election'?: ElectionDto;
     /**
      * 
-     * @type {number}
+     * @type {StudentDto}
      * @memberof CandidateDto
      */
-    'student_id': number;
+    'student'?: StudentDto;
 }
 /**
  * 
@@ -104,10 +110,22 @@ export interface CandidateDto {
 export interface ElectionDto {
     /**
      * 
+     * @type {number}
+     * @memberof ElectionDto
+     */
+    'election_id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof ElectionDto
      */
     'election_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'election_type': string;
     /**
      * 
      * @type {string}
@@ -138,12 +156,6 @@ export interface ElectionDto {
      * @memberof ElectionDto
      */
     'end_time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ElectionDto
-     */
-    'admin_id': number;
 }
 /**
  * 
@@ -163,6 +175,12 @@ export interface MediaDto {
      * @memberof MediaDto
      */
     'filename'?: string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof MediaDto
+     */
+    'student'?: StudentDto;
 }
 /**
  * 
@@ -185,6 +203,12 @@ export interface RefreshDto {
 export interface RepresentativeDto {
     /**
      * 
+     * @type {number}
+     * @memberof RepresentativeDto
+     */
+    'representative_id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof RepresentativeDto
      */
@@ -197,10 +221,10 @@ export interface RepresentativeDto {
     'position': string;
     /**
      * 
-     * @type {number}
+     * @type {VoteRepDto}
      * @memberof RepresentativeDto
      */
-    'ssg_id': number;
+    'voterep'?: VoteRepDto;
 }
 /**
  * 
@@ -210,6 +234,12 @@ export interface RepresentativeDto {
 export interface SsgMemberDto {
     /**
      * 
+     * @type {number}
+     * @memberof SsgMemberDto
+     */
+    'ssg_id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SsgMemberDto
      */
@@ -222,10 +252,10 @@ export interface SsgMemberDto {
     'position': string;
     /**
      * 
-     * @type {number}
+     * @type {VoteSsgDto}
      * @memberof SsgMemberDto
      */
-    'election_id': number;
+    'votessg'?: VoteSsgDto;
 }
 /**
  * 
@@ -238,7 +268,13 @@ export interface StudentDto {
      * @type {number}
      * @memberof StudentDto
      */
-    'school_id': number;
+    'student_id'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDto
+     */
+    'school_id'?: number;
     /**
      * 
      * @type {string}
@@ -250,7 +286,7 @@ export interface StudentDto {
      * @type {string}
      * @memberof StudentDto
      */
-    'middle_name': string;
+    'middle_name'?: string;
     /**
      * 
      * @type {string}
@@ -301,16 +337,16 @@ export interface StudentDto {
     'student_type': string;
     /**
      * 
-     * @type {number}
+     * @type {UserDto}
      * @memberof StudentDto
      */
-    'user_id': number;
+    'user'?: UserDto;
     /**
      * 
-     * @type {number}
+     * @type {MediaDto}
      * @memberof StudentDto
      */
-    'picture_id': number;
+    'media'?: MediaDto;
 }
 /**
  * 
@@ -367,6 +403,12 @@ export interface UserDto {
      * @memberof UserDto
      */
     'refreshToken'?: string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof UserDto
+     */
+    'student'?: StudentDto;
 }
 /**
  * 
@@ -374,6 +416,12 @@ export interface UserDto {
  * @interface VoteRepDto
  */
 export interface VoteRepDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof VoteRepDto
+     */
+    'vote_rep_id'?: number;
     /**
      * 
      * @type {string}
@@ -404,6 +452,12 @@ export interface VoteRepDto {
      * @memberof VoteRepDto
      */
     'time': string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteRepDto
+     */
+    'student'?: StudentDto;
 }
 /**
  * 
@@ -411,6 +465,12 @@ export interface VoteRepDto {
  * @interface VoteSsgDto
  */
 export interface VoteSsgDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof VoteSsgDto
+     */
+    'vote_ssg_id'?: number;
     /**
      * 
      * @type {string}
@@ -441,6 +501,12 @@ export interface VoteSsgDto {
      * @memberof VoteSsgDto
      */
     'time': string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteSsgDto
+     */
+    'student'?: StudentDto;
 }
 
 /**

@@ -13,7 +13,7 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
   },
 
   async editSsgMember(context, payload: any): Promise<any> {
-    const result = await ssgmemberservice.update(payload.itemCode, payload);
+    const result = await ssgmemberservice.update(payload.ssgmember_id, payload);
     context.commit('updateSsgMember', result);
     await context.dispatch('getAllSsgMember');
   },

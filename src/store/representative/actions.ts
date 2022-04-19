@@ -13,7 +13,7 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
   },
 
   async editRepresentative(context, payload: any): Promise<any> {
-    const result = await representativeservice.update(payload.itemCode, payload);
+    const result = await representativeservice.update(payload.representative_id, payload);
     context.commit('updateRepresentative', result);
     await context.dispatch('getAllRepresentative');
   },

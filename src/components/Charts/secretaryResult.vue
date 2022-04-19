@@ -15,18 +15,18 @@ import Chart from 'chart.js/auto';
 export default class ChartComponent extends Vue {
   chart?: Chart;
   mounted() {
-    const labels = ['Revenue', 'Purchase', 'Expenses'];
+    const labels = ['Serad, Basam', 'Alango, Norjehan', 'MAngcol, Naeem Jr.'];
     const data = {
       labels: labels,
       datasets: [
         {
           label: 'Revenue',
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
+            'rgb(179,0,0)',
+            'rgb(33,186,69)',
+            'rgb(231,200,24)',
           ],
-          data: [15000, 4000, 5000],
+          data: [15, 21, 17],
           hoverOffset: 40,
         },
       ],

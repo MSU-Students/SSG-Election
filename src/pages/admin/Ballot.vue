@@ -40,7 +40,7 @@
           />
 
           <q-dialog v-model="addNewElection" persistent>
-            <q-card style="width: 800px; max-width: 100vw" class="q-pa-sm">
+            <q-card style="width: 700px; max-width: 100vw" class="q-pa-sm">
               <q-card-section class="row">
                 <div class="text-h6">Create new Election</div>
                 <q-space />
@@ -65,13 +65,47 @@
                         :dense="dense"
                         lazy-rules
                         :rules="[
-                          (val) => (val && val.length > 0) || 'Please type something',
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
                         ]"
                       />
                     </div>
                   </div>
 
-                  <div class="row q-pt-md">
+                  <div class="row">
+                    <div class="col-12 col-md-3">Election type *</div>
+                    <div class="col-12 col-md-9">
+                      <q-select
+                        filled
+                        v-model="inputElection.election_type"
+                        :options="election_type"
+                        :dense="dense"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
+                        ]"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 col-md-3">Academic Year *</div>
+                    <div class="col-12 col-md-9">
+                      <q-input
+                        filled
+                        v-model="inputElection.academic_yr"
+                        :dense="dense"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
+                        ]"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row q-pt-xs">
                     <div class="col-12 col-md-3">Start Time *</div>
                     <div class="q-gutter-lg q-py-sm row">
                       <div class="col-5">
@@ -82,7 +116,9 @@
                           type="date"
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please enter the date',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the date',
                           ]"
                           hint="Native date"
                         />
@@ -95,7 +131,9 @@
                           type="time"
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please enter the time',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the time',
                           ]"
                           hint="Native time"
                         />
@@ -103,7 +141,7 @@
                     </div>
                   </div>
 
-                  <div class="row q-pt-md">
+                  <div class="row q-pt-xs">
                     <div class="col-3">End Time *</div>
                     <div class="q-gutter-lg q-py-sm row">
                       <div class="col-5">
@@ -114,7 +152,9 @@
                           type="date"
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please enter the date',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the date',
                           ]"
                           hint="Native date"
                         />
@@ -127,13 +167,19 @@
                           type="time"
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please enter the time',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the time',
                           ]"
                           hint="Native time"
                         />
                       </div>
                     </div>
                   </div>
+
+                    <div class="text-red text-caption text-center q-pt-md">
+                      Important Note: You cannot manually stop the Election
+                    </div>
 
                   <div align="right">
                     <q-btn
@@ -143,7 +189,12 @@
                       v-close-popup
                       @click="resetModel()"
                     />
-                    <q-btn flat label="Submit" color="primary" @click="onaddElection()" />
+                    <q-btn
+                      flat
+                      label="Submit"
+                      color="primary"
+                      @click="onaddElection()"
+                    />
                   </div>
                 </div>
               </q-card-section>
@@ -180,86 +231,128 @@
                   <q-card-section>
                     <div>
                       <div class="row">
-                        <div class="col-12 col-md-3">Election Name *</div>
-                        <div class="col-12 col-md-9">
-                          <q-input
-                            filled
-                            v-model="inputElection.election_name"
-                            :dense="dense"
-                            lazy-rules
-                            :rules="[
-                              (val) => (val && val.length > 0) || 'Please type something',
-                            ]"
-                          />
-                        </div>
-                      </div>
+                    <div class="col-12 col-md-3">Election Name *</div>
+                    <div class="col-12 col-md-9">
+                      <q-input
+                        filled
+                        v-model="inputElection.election_name"
+                        :dense="dense"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
+                        ]"
+                      />
+                    </div>
+                  </div>
 
-                      <div class="row q-pt-md">
-                        <div class="col-12 col-md-3">Start Time *</div>
-                        <div class="q-gutter-lg q-py-sm row">
-                          <div class="col-5">
-                            <q-input
-                              v-model="inputElection.start_date"
-                              :dense="dense"
-                              filled
-                              type="date"
-                              lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) || 'Please enter the date',
-                              ]"
-                              hint="Native date"
-                            />
-                          </div>
-                          <div class="col-5">
-                            <q-input
-                              v-model="inputElection.start_time"
-                              :dense="dense"
-                              filled
-                              type="time"
-                              lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) || 'Please enter the time',
-                              ]"
-                              hint="Native time"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                  <div class="row">
+                    <div class="col-12 col-md-3">Election type *</div>
+                    <div class="col-12 col-md-9">
+                      <q-select
+                        filled
+                        v-model="inputElection.election_type"
+                        :options="election_type"
+                        :dense="dense"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
+                        ]"
+                      />
+                    </div>
+                  </div>
 
-                      <div class="row q-pt-md">
-                        <div class="col-3">End Time *</div>
-                        <div class="q-gutter-lg q-py-sm row">
-                          <div class="col-5">
-                            <q-input
-                              v-model="inputElection.end_date"
-                              :dense="dense"
-                              filled
-                              type="date"
-                              lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) || 'Please enter the date',
-                              ]"
-                              hint="Native date"
-                            />
-                          </div>
-                          <div class="col-5">
-                            <q-input
-                              v-model="inputElection.end_time"
-                              :dense="dense"
-                              filled
-                              type="time"
-                              lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) || 'Please enter the time',
-                              ]"
-                              hint="Native time"
-                            />
-                          </div>
-                        </div>
+                  <div class="row">
+                    <div class="col-12 col-md-3">Academic Year *</div>
+                    <div class="col-12 col-md-9">
+                      <q-input
+                        filled
+                        v-model="inputElection.academic_yr"
+                        :dense="dense"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Please type something',
+                        ]"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row q-pt-xs">
+                    <div class="col-12 col-md-3">Start Time *</div>
+                    <div class="q-gutter-lg q-py-sm row">
+                      <div class="col-5">
+                        <q-input
+                          v-model="inputElection.start_date"
+                          :dense="dense"
+                          filled
+                          type="date"
+                          lazy-rules
+                          :rules="[
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the date',
+                          ]"
+                          hint="Native date"
+                        />
+                      </div>
+                      <div class="col-5">
+                        <q-input
+                          v-model="inputElection.start_time"
+                          :dense="dense"
+                          filled
+                          type="time"
+                          lazy-rules
+                          :rules="[
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the time',
+                          ]"
+                          hint="Native time"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row q-pt-xs">
+                    <div class="col-3">End Time *</div>
+                    <div class="q-gutter-lg q-py-sm row">
+                      <div class="col-5">
+                        <q-input
+                          v-model="inputElection.end_date"
+                          :dense="dense"
+                          filled
+                          type="date"
+                          lazy-rules
+                          :rules="[
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the date',
+                          ]"
+                          hint="Native date"
+                        />
+                      </div>
+                      <div class="col-5">
+                        <q-input
+                          v-model="inputElection.end_time"
+                          :dense="dense"
+                          filled
+                          type="time"
+                          lazy-rules
+                          :rules="[
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please enter the time',
+                          ]"
+                          hint="Native time"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                      <div class="text-red text-caption text-center q-pt-md">
+                        Important Note: You cannot manually stop the Election
                       </div>
 
                       <div align="right">
@@ -301,19 +394,20 @@
 </template>
 
 <script lang="ts">
-import { ElectionDto } from "src/services/rest-api";
-import { Vue, Options } from "vue-class-component";
-import { mapActions, mapState } from "vuex";
+import { ElectionDto } from 'src/services/rest-api';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
+
 @Options({
   computed: {
-    ...mapState("election", ["allElection"]),
+    ...mapState('election', ['allElection']),
   },
   methods: {
-    ...mapActions("election", [
-      "addElection",
-      "editElection",
-      "deleteElection",
-      "getAllElection",
+    ...mapActions('election', [
+      'addElection',
+      'editElection',
+      'deleteElection',
+      'getAllElection',
     ]),
   },
 })
@@ -329,29 +423,29 @@ export default class ManageElection extends Vue {
   }
 
   columns = [
-    { name: "action", align: "center", field: "action" },
+    { name: 'action', align: 'center', field: 'action' },
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Election Name",
-      align: "left",
+      label: 'Election Name',
+      align: 'left',
       field: (row: ElectionDto) => row.election_name,
       format: (val: string) => `${val}`,
     },
 
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Election Start",
-      align: "left",
+      label: 'Election Start',
+      align: 'left',
       field: (row: ElectionDto) => row.start_date,
       format: (val: string) => `${val}`,
     },
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Election End",
-      align: "left",
+      label: 'Election End',
+      align: 'left',
       field: (row: ElectionDto) => row.end_date,
       format: (val: string) => `${val}`,
     },
@@ -360,14 +454,16 @@ export default class ManageElection extends Vue {
   editRowElection = false;
   dense = true;
 
+  election_type = ['College Representatives', 'SSG Election'];
+
   inputElection: ElectionDto = {
-    election_name: "",
-    academic_yr: "",
-    start_date: "",
-    start_time: "",
-    end_date: "",
-    end_time: "",
-    admin_id: 0,
+    election_name: '',
+    academic_yr: '',
+    election_type: '',
+    start_date: '',
+    start_time: '',
+    end_date: '',
+    end_time: '',
   };
 
   async onaddElection() {
@@ -375,8 +471,8 @@ export default class ManageElection extends Vue {
     this.addNewElection = false;
     this.resetModel();
     this.$q.notify({
-      type: "positive",
-      message: "An Election is succcessfully Added.",
+      type: 'positive',
+      message: 'An Election is succcessfully Added.',
     });
   }
 
@@ -385,23 +481,23 @@ export default class ManageElection extends Vue {
     this.editRowElection = false;
     this.resetModel();
     this.$q.notify({
-      type: "positive",
-      message: "Successfully Edit.",
+      type: 'positive',
+      message: 'Successfully Edit.',
     });
   }
 
   deleteSpecificElection(val: ElectionDto) {
     this.$q
       .dialog({
-        message: "Confirm to delete?",
+        message: 'Confirm to delete?',
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
-        await this.deleteElection(val);
+        await this.deleteElection(val.election_id as any);
         this.$q.notify({
-          type: "warning",
-          message: "Successfully deleted",
+          type: 'warning',
+          message: 'Successfully deleted',
         });
       });
   }
@@ -413,13 +509,13 @@ export default class ManageElection extends Vue {
 
   resetModel() {
     this.inputElection = {
-      election_name: "",
-      academic_yr: "",
-      start_date: "",
-      start_time: "",
-      end_date: "",
-      end_time: "",
-      admin_id: 0,
+      election_name: '',
+      academic_yr: '',
+      election_type: '',
+      start_date: '',
+      start_time: '',
+      end_date: '',
+      end_time: '',
     };
   }
 }

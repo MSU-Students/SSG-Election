@@ -13,7 +13,7 @@ const actions: ActionTree<CandidateStateInterface, StateInterface> = {
   },
 
   async editCandidate(context, payload: any): Promise<any> {
-    const result = await candidateservice.update(payload.itemCode, payload);
+    const result = await candidateservice.update(payload.candidate_id, payload);
     context.commit('updateCandidate', result);
     await context.dispatch('getAllCandidate');
   },
@@ -26,6 +26,8 @@ const actions: ActionTree<CandidateStateInterface, StateInterface> = {
   async getAllCandidate(context): Promise<any> {
     const res = await candidateservice.getAll();
     context.commit('getAllCandidate', res);
+    await context.dispatch('student/getAllStudent');
+    await context.dispatch('election/getAllElection');
   },
 
   async getOneCandidate(context, candidate_id: number): Promise<any> {

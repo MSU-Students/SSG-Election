@@ -12,7 +12,7 @@ const actions: ActionTree<TempTallyStateInterface, StateInterface> = {
   },
 
   async editTempTally(context, payload: any): Promise<any> {
-    const result = await temptallyservice.update(payload.itemCode, payload);
+    const result = await temptallyservice.update(payload.temp_tally_id, payload);
     context.commit('updateTempTally', result);
     await context.dispatch('getAllTempTally');
   },

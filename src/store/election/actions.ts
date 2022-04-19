@@ -13,7 +13,7 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
   },
 
   async editElection(context, payload: any): Promise<any> {
-    const result = await electionservice.update(payload.itemCode, payload);
+    const result = await electionservice.update(payload.election_id, payload);
     context.commit('updateElection', result);
     await context.dispatch('getAllElection');
   },

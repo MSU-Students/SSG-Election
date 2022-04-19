@@ -1,3 +1,4 @@
+
 import { store } from "quasar/wrappers";
 import { InjectionKey } from "vue";
 import {
@@ -6,8 +7,8 @@ import {
   useStore as vuexUseStore,
 } from "vuex";
 
-import account from "./accounts";
-import { AccountStateInterface } from "./accounts/state";
+import student from "./student";
+import { StudentStateInterface } from './student/state';
 
 import candidate from "./candidateAccounts";
 import { CandidateStateInterface } from "./candidateAccounts/state";
@@ -23,7 +24,7 @@ export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  account: AccountStateInterface;
+  student: StudentStateInterface;
   candidate: CandidateStateInterface;
   election: ElectionStateInterface;
   auth: IAuthState;
@@ -43,7 +44,7 @@ export const storeKey: InjectionKey<VuexStore<StateInterface>> =
 export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
-      account,
+      student,
       candidate,
       election,
       auth,

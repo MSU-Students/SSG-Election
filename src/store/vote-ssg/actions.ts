@@ -12,7 +12,7 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   },
 
   async editVoteSsg(context, payload: any): Promise<any> {
-    const result = await votessgservice.update(payload.itemCode, payload);
+    const result = await votessgservice.update(payload.votessg_id, payload);
     context.commit('updateVoteSsg', result);
     await context.dispatch('getAllVoteSsg');
   },

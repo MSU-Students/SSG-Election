@@ -1,13 +1,10 @@
 <template>
-  <q-img class="wave" src="~assets/images/image.png" />
-  <div class="row q-pa-md q-pl-md">
-    <div class="col q-pa-md bi-justify-left">
-      <div class="row rounded-xl">
-        <div class="q-pt-sm q-mt-md text-overline text-bold">List Of Nominees</div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 col-md-12">
+  <div class="row q-pa-md q-pl-xl">
+    <div class="col-12 col-md-4 q-pa-md">
+      <q-img class="wave" src="~assets/images/image.png" />
+      <div class>
+        <div class="q-pt-lg q-mt-lg text-overline text-bold">List Of Nominees</div>
+        <div class="q-gutter-md row items-start text-h6 text-weight-bold">
           <q-card>
             <q-card-actions class="bg-deep-orange-1">
               <div class="text-bold text-subtitle2 q-pl-md">
@@ -15,37 +12,62 @@
                 Prime Minister
               </div>
             </q-card-actions>
+            <q-separator />
+            <q-table :rows="rows" :columns="columns" row-key="name" style="width: 1000px">
+              <q-btn
+                round
+                icon="folder"
+                size="md"
+                color="green"
+                flat
+                @click="submit = true"
+              />
+              <q-dialog v-model="submit" persistent>
+                <q-card>
+                  <q-card-section class="row items-center">
+                    <q-avatar icon="warning" color="primary" text-color="white" />
+                    <span class="q-ml-sm">Are you sure of your choices?</span>
+                  </q-card-section>
 
-            <q-responsive :ratio="18 / 6">
-              <q-table
-                :class="$q.screen.xs"
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                hide-pagination
-            /></q-responsive>
+                  <q-card-actions align="right">
+                    <q-btn flat label="Cancel" color="primary" v-close-popup />
+                    <q-btn flat label="Yes" color="green" v-close-popup />
+                  </q-card-actions>
+                </q-card> </q-dialog
+              >>
+            </q-table>
           </q-card>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12 col-md-12">
-          <q-card class="q-mt-lg">
+          <q-card>
             <q-card-actions class="bg-deep-orange-1">
               <div class="text-bold text-subtitle2 q-pl-md">
                 <q-icon name="people" color="primary" />
-                Executive Secretary
+                Secretary General
               </div>
             </q-card-actions>
+            <q-separator />
+            <q-table
+              :rows="rows"
+              :columns="columns"
+              row-key="name"
+              style="width: 1000px"
+            />
+          </q-card>
 
-            <q-responsive :ratio="18 / 6">
-              <q-table
-                :class="$q.screen.xs"
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                hide-pagination
-            /></q-responsive>
+          <q-card>
+            <q-card-actions class="bg-deep-orange-1">
+              <div class="text-bold text-subtitle2 q-pl-md">
+                <q-icon name="people" color="primary" />
+                Chief Minister
+              </div>
+            </q-card-actions>
+            <q-separator />
+            <q-table
+              :rows="rows"
+              :columns="columns"
+              row-key="name"
+              style="width: 1000px"
+            />
           </q-card>
         </div>
       </div>
@@ -66,42 +88,43 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Department",
+    name: "year",
     align: "center",
-    label: "Department",
-    field: "department",
+    label: "Year",
+    field: "year",
     sortable: true,
   },
-  {
-    name: "Total Votes",
-    align: "right",
-    label: "Total Votes",
-    field: "total_votes",
-    sortable: true,
-  },
+  { name: "course", label: "Course", align: "center", field: "course", sortable: true },
+  { name: "detail", label: "Detail", field: "detail", sortable: true },
 ];
 
 const rows = [
   {
     name: "Anisah Dayaan",
-    department: "CICS",
-    total_votes: "65",
+    year: "4th",
+    course: "Database",
+    detail: "detail",
   },
   {
     name: "Thomas Edison",
-    department: "CSSH",
-    total_votes: "76",
+    year: "3rd",
+    course: "Networking",
+    detail: "detail",
   },
   {
     name: "Ellon Musk",
-    department: "CNSM",
-    total_votes: "93",
+    year: "1st",
+    course: "ComSci",
+    detail: "detail",
   },
 ];
 
 export default {
   setup() {
     return {
+      splitterModel: ref(30),
+      vote: ref(false),
+      submit: ref(false),
       columns,
       rows,
     };

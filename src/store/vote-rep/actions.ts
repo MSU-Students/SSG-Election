@@ -12,7 +12,7 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
   },
 
   async editVoteRep(context, payload: any): Promise<any> {
-    const result = await voterepservice.update(payload.itemCode, payload);
+    const result = await voterepservice.update(payload.voterep_id, payload);
     context.commit('updateVoteRep', result);
     await context.dispatch('getAllVoteRep');
   },

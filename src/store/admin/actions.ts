@@ -13,7 +13,7 @@ const actions: ActionTree<AdminStateInterface, StateInterface> = {
   },
 
   async editAdmin(context, payload: any): Promise<any> {
-    const result = await adminservice.update(payload.itemCode, payload);
+    const result = await adminservice.update(payload.admin_id, payload);
     context.commit('updateAdmin', result);
     await context.dispatch('getAllAdmin');
   },
