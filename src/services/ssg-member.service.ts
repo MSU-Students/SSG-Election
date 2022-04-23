@@ -11,16 +11,16 @@ class SsgMemberService extends DefaultApi {
     const response = await ssgApiService.getSsgs();
     return response.data;
   }
-  async getOne(id: number): Promise<SsgMemberDto> {
-    const response = await ssgApiService.getSsg(id);
+  async getOne(ssg_id: number): Promise<SsgMemberDto> {
+    const response = await ssgApiService.getSsg(ssg_id);
     return response.data;
   }
-  async update(id: number, payload: SsgMemberDto) {
-    const response = await ssgApiService.updateSsg(id, payload);
+  async update(ssg_id: number, payload: SsgMemberDto) {
+    const response = await ssgApiService.updateSsg(ssg_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteSsg(id);
+  async delete(ssg_id: number) {
+    const response = await ssgApiService.deleteSsg(ssg_id);
     return response.data;
   }
 }

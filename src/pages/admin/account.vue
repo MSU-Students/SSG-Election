@@ -9,8 +9,24 @@ div
           align="justify"
           narrow-indicator
         >
-          <q-tab name="student" label="Student Account" icon="lock" />
-          <q-tab name="candidate" label="Candidate Account" icon="lock" />
+          <q-tab
+            class="text-caption"
+            name="student"
+            label="Student Account"
+            icon="lock"
+          />
+          <q-tab
+            class="text-caption"
+            name="representative"
+            label="Representatives Account"
+            icon="lock"
+          />
+          <q-tab
+            class="text-caption"
+            name="ssg"
+            label="SSG Account"
+            icon="lock"
+          />
         </q-tabs>
 
         <q-separator />
@@ -57,34 +73,43 @@ div
                         <q-btn flat round dense icon="close" v-close-popup />
                       </q-card-section>
 
-                      <q-card-section class="q-gutter-xs">
-                        <div class="row">
+                      <q-card-section>
+                        <div class="row q-pl-md q-pr-lg">
                           <!--C O L U M N-->
-                          <div class="col-4">
-                            <div class="q-pa-md text-overline text-bold">
+                          <div class="col-12 col-md-4">
+                            <div class="text-overline text-bold">
                               Account Type
-                              <div class="q-gutter-y-lg">
+                              <div class="q-gutter-y-md">
                                 <q-file
                                   outlined
                                   v-model="file"
                                   label="Pick a Profile Pic"
-                                  filled
                                   style="max-width: 300px"
                                 />
 
-                                <q-input
+                                <q-select
                                   outlined
                                   dense
-                                  label="Select Account Type"
+                                  v-model="inputAccount.student_type"
+                                  :options="student_type"
+                                  label="Select Account type"
+                                  hint="change student status"
+                                  style="max-width: 300px"
+                                  lazy-rules
+                                  :rules="[
+                                    (val) =>
+                                      (val && val.length > 0) ||
+                                      'Does not accept empty input',
+                                  ]"
                                 />
                               </div>
                             </div>
                           </div>
-                          <div class="col-8">
-                            <div class="q-pa-md text-overline text-bold">
+                          <div class="col-12 col-md-8">
+                            <div class="text-overline text-bold">
                               Student Information
                               <div class="q-gutter-xs row">
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     v-model="inputAccount.first_name"
                                     dense
@@ -98,7 +123,7 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     v-model="inputAccount.middle_name"
                                     dense
@@ -106,7 +131,7 @@ div
                                     label="Middle Initial"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     v-model="inputAccount.last_name"
                                     dense
@@ -120,7 +145,7 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     v-model="inputAccount.suffix"
                                     dense
@@ -131,7 +156,7 @@ div
                               </div>
 
                               <div class="q-gutter-xs row">
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     outlined
                                     dense
@@ -145,7 +170,7 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     outlined
                                     dense
@@ -160,13 +185,12 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     outlined
                                     dense
                                     v-model="inputAccount.yr_admitted"
                                     label="Year Admitted"
-                                    type="yr_admitted"
                                     lazy-rules
                                     :rules="[
                                       (val) =>
@@ -178,7 +202,7 @@ div
                               </div>
 
                               <div class="q-gutter-xs row">
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     outlined
                                     dense
@@ -193,7 +217,7 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-input
                                     outlined
                                     dense
@@ -208,7 +232,7 @@ div
                                     ]"
                                   />
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md">
                                   <q-select
                                     outlined
                                     dense
@@ -263,40 +287,43 @@ div
                       @click="openEditDialog(props.row)"
                     />
                     <q-dialog v-model="editRowAccount" persistent>
-                      <q-card style="width: 700px; max-width: 100vw">
+                      <q-card style="width: 1100px; max-width: 100vw">
                         <q-card-section class="row">
                           <div class="text-h6">Edit Account</div>
                           <q-space />
                           <q-btn flat round dense icon="close" v-close-popup />
                         </q-card-section>
 
-                        <q-card-section class="q-gutter-xs">
-                          <div class="row">
-                            <div class="col-3">
-                              <div class="q-pa-md text-overline text-bold">
+                        <q-card-section>
+                          <div class="row q-pl-md q-pr-lg">
+                            <!--C O L U M N-->
+                            <div class="col-12 col-md-4">
+                              <div class="text-overline text-bold">
                                 Account Type
-                                <div class="q-gutter-y-lg">
+                                <div class="q-gutter-y-md">
                                   <q-file
                                     outlined
                                     v-model="file"
                                     label="Pick a Profile Pic"
-                                    filled
-                                    style="max-width: 300px"
                                   />
 
-                                  <q-input
+                                  <q-select
                                     outlined
                                     dense
-                                    label="Select Account Type"
+                                    v-model="inputAccount.student_type"
+                                    :options="student_type"
+                                    label="Select Account type"
+                                    hint="change student status"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div class="col-9">
-                              <div class="q-pa-md text-overline text-bold">
+                            <div class="col-12 col-md-8">
+                              <div class="text-overline text-bold">
                                 Student Information
-                                <div class="q-gutter-xs row">
-                                  <div class="col">
+
+                                <div class="q-gutter-x-xs q-gutter-y-lg row">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       v-model="inputAccount.first_name"
                                       dense
@@ -304,7 +331,7 @@ div
                                       label="First Name"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       v-model="inputAccount.middle_name"
                                       dense
@@ -312,7 +339,7 @@ div
                                       label="Middle Initial"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       v-model="inputAccount.last_name"
                                       dense
@@ -320,7 +347,7 @@ div
                                       label="Last Name"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       v-model="inputAccount.suffix"
                                       dense
@@ -330,8 +357,8 @@ div
                                   </div>
                                 </div>
 
-                                <div class="q-gutter-xs row">
-                                  <div class="col">
+                                <div class="q-gutter-xs q-gutter-y-md row">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       outlined
                                       dense
@@ -339,7 +366,7 @@ div
                                       label="ID Number"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       outlined
                                       dense
@@ -348,19 +375,18 @@ div
                                       type="email"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       outlined
                                       dense
                                       v-model="inputAccount.yr_admitted"
                                       label="Year Admitted"
-                                      type="yr_admitted"
                                     />
                                   </div>
                                 </div>
 
-                                <div class="q-gutter-xs row">
-                                  <div class="col">
+                                <div class="q-gutter-xs q-gutter-y-md row">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       outlined
                                       dense
@@ -369,7 +395,7 @@ div
                                       hint="BS Information Technology"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-input
                                       outlined
                                       dense
@@ -378,7 +404,7 @@ div
                                       hint="Department of Information Technology"
                                     />
                                   </div>
-                                  <div class="col">
+                                  <div class="col-12 col-md">
                                     <q-select
                                       outlined
                                       dense
@@ -429,10 +455,10 @@ div
           <!-------------------------------------------------------------------------------------------------------------->
 
           <!------------------------------------------candidate Panel--------------------------------------------------->
-          <q-tab-panel name="candidate" class="bg-white">
+          <q-tab-panel name="representative" class="bg-white">
             <q-table
               class="my-sticky-header-table"
-              title="Candidate Account List"
+              title="Representative Account List"
               :grid="$q.screen.xs"
               :columns="CandidateColumn"
               :rows="allCandidate"
@@ -503,25 +529,24 @@ div
                             </q-select>
                           </div>
                         </div>
-                        <div class="row q-gutter-xs">
-                          <div class="col">
-                            <q-input
-                              v-model="inputCandidate.platform"
-                              dense
-                              outlined
-                              label="Platform"
-                            >
-                            </q-input>
-                          </div>
-                          <div class="col">
-                            <q-select
-                              :options="position"
-                              outlined
-                              dense
-                              v-model="inputCandidate.position_type"
-                              label="Position"
-                            />
-                          </div>
+                        <div class="q-gutter-xs">
+                          <q-select
+                            outlined
+                            dense
+                            :options="position"
+                            v-model="inputCandidate.position_type"
+                            label="Student Status"
+                          />
+                        </div>
+                        <div class="q-gutter-xs">
+                          <q-input
+                            v-model="inputCandidate.platform"
+                            type="textarea"
+                            dense
+                            outlined
+                            label="Platform"
+                          >
+                          </q-input>
                         </div>
                         <div align="right">
                           <q-btn
@@ -558,7 +583,7 @@ div
                     />
 
                     <!---------EDIT CANDIDATE----------->
-                    <q-dialog v-model="updateCandidate" persistent>
+                    <q-dialog v-model="editRowCandidate" persistent>
                       <q-card style="width: 800px; max-width: 100vw">
                         <q-card-section class="row">
                           <div class="text-h6">Edit Account</div>
@@ -598,25 +623,24 @@ div
                               </q-select>
                             </div>
                           </div>
-                          <div class="row q-gutter-xs">
-                            <div class="col">
-                              <q-input
-                                v-model="inputCandidate.platform"
-                                dense
-                                outlined
-                                label="Platform"
-                              >
-                              </q-input>
-                            </div>
-                            <div class="col">
-                              <q-select
-                                outlined
-                                dense
-                                :options="position"
-                                v-model="inputCandidate.position_type"
-                                label="Position"
-                              />
-                            </div>
+                          <div class="q-gutter-xs">
+                            <q-select
+                              outlined
+                              dense
+                              :options="position"
+                              v-model="inputCandidate.position_type"
+                              label="Student Status"
+                            />
+                          </div>
+                          <div class="q-gutter-xs">
+                            <q-input
+                              v-model="inputCandidate.platform"
+                              type="textarea"
+                              dense
+                              outlined
+                              label="Platform"
+                            >
+                            </q-input>
                           </div>
                           <div align="right">
                             <q-btn
@@ -630,7 +654,7 @@ div
                               flat
                               label="Save"
                               color="primary"
-                              @click="onaddCandidateAccount()"
+                              @click="onEditCandidateAccount()"
                             />
                           </div>
                         </q-card-section>
@@ -735,7 +759,7 @@ import { mapActions, mapState } from 'vuex';
   computed: {
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
-    ...mapState('candidate', ['allCandidateAccount']),
+    ...mapState('candidate', ['allCandidate']),
   },
   methods: {
     ...mapActions('student', [
@@ -831,6 +855,7 @@ export default class ManageAccount extends Vue {
   //-----------------------------------------------Table Column for candidate account
 
   CandidateColumn = [
+    { name: 'action', align: 'center', field: 'action' },
     {
       name: 'id',
       align: 'center',
@@ -843,7 +868,11 @@ export default class ManageAccount extends Vue {
       label: 'Name',
       align: 'left',
       field: (row: any) =>
-        row.student?.last_name + ', ' + row.student?.first_name,
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
     },
     {
       name: 'email',
@@ -854,7 +883,7 @@ export default class ManageAccount extends Vue {
     {
       name: 'level',
       align: 'center',
-      label: 'Year Level',
+      label: 'Year Admitted',
       field: (row: any) => row.student?.yr_admitted,
     },
     {
@@ -873,18 +902,20 @@ export default class ManageAccount extends Vue {
       name: 'election_yr',
       align: 'center',
       label: 'Year Elected',
-      field: (row: any) => row.election?.election_yr,
+      field: (row: any) => row.election?.start_date,
     },
     {
       name: 'position',
       align: 'center',
-      label: 'Position',
+      label: 'Student Status',
       field: 'position_type',
     },
   ];
 
+  filter = '';
+  file = null;
   Details = false;
-  tab = 'students';
+  tab = 'student';
   addNewAccount = false;
   updateAccount = false;
   editRowAccount = false;
@@ -892,9 +923,6 @@ export default class ManageAccount extends Vue {
   addNewCandidate = false;
   editRowCandidate = false;
   updateCandidate = false;
-
-  student_type = ['Regular', 'Representative'];
-  statusOptions = ['Active', 'Inactive'];
 
   //---------------------------------------------------for student
   inputAccount: StudentDto = {
@@ -917,11 +945,9 @@ export default class ManageAccount extends Vue {
 
   //---------------------------------------------------for Candidate
 
-  filter = '';
-  file = null;
-
   position = ['Prime Minister', 'Executive Sectretary'];
-
+  student_type = ['Regular', 'Representative'];
+  statusOptions = ['Active', 'Inactive'];
   options = [
     'College of Agriculture',
     'College of Business Administration and Accounting',

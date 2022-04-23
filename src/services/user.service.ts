@@ -11,16 +11,16 @@ class UserService extends DefaultApi {
     const response = await ssgApiService.getUserss();
     return response.data;
   }
-  async getOne(id: number): Promise<UserDto> {
-    const response = await ssgApiService.getUsers(id);
+  async getOne(account_id: number): Promise<UserDto> {
+    const response = await ssgApiService.getUsers(account_id);
     return response.data;
   }
-  async update(id: number, payload: UserDto) {
-    const response = await ssgApiService.updateUsers(id, payload);
+  async update(account_id: number, payload: UserDto) {
+    const response = await ssgApiService.updateUsers(account_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteUsers(id);
+  async delete(account_id: number) {
+    const response = await ssgApiService.deleteUsers(account_id);
     return response.data;
   }
   async getUserProfile() {

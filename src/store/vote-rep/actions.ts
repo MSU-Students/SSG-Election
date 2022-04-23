@@ -18,13 +18,15 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
   },
 
   async deleteVoteRep(context, voterep_id: number): Promise<any> {
-    const result = await voterepservice.deleteOne(voterep_id);
+    const result = await voterepservice.delete(voterep_id);
     context.commit('deleteVoteRep', result);
+    await context.dispatch('getAllVoteRep');
   },
 
   async getAllVoteRep(context): Promise<any> {
     const res = await voterepservice.getAll();
     context.commit('getAllVoteRep', res);
+    await this.dispatch('student/getAllStudent');
   },
 
   async getOneVoteRep(context, voterep_id: number): Promise<any> {

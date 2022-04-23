@@ -19,8 +19,9 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
   },
 
   async deleteSsgMember(context, ssgmember_id: number): Promise<any> {
-    const result = await ssgmemberservice.deleteOne(ssgmember_id);
+    const result = await ssgmemberservice.delete(ssgmember_id);
     context.commit('deleteSsgMember', result);
+    await context.dispatch('getAllSsgMember');
   },
 
   async getAllSsgMember(context): Promise<any> {

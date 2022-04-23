@@ -19,12 +19,6 @@
             <q-btn
               flat
               class="bg-primary text-overline text-white"
-              label="Profile"
-              to="/V_Profile"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
               label="Vote"
               to="/V_Vote"
             />

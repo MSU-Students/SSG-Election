@@ -11,16 +11,16 @@ class VoteRepService extends DefaultApi {
     const response = await ssgApiService.getVoteReps();
     return response.data;
   }
-  async getOne(id: number): Promise<VoteRepDto> {
-    const response = await ssgApiService.getVoteRep(id);
+  async getOne(voter_rep_id: number): Promise<VoteRepDto> {
+    const response = await ssgApiService.getVoteRep(voter_rep_id);
     return response.data;
   }
-  async update(id: number, payload: VoteRepDto) {
-    const response = await ssgApiService.updateVoteRep(id, payload);
+  async update(voter_rep_id: number, payload: VoteRepDto) {
+    const response = await ssgApiService.updateVoteRep(voter_rep_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteVoteRep(id);
+  async delete(voter_rep_id: number) {
+    const response = await ssgApiService.deleteVoteRep(voter_rep_id);
     return response.data;
   }
 }

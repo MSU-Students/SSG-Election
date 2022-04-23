@@ -403,12 +403,6 @@ export interface UserDto {
      * @memberof UserDto
      */
     'refreshToken'?: string;
-    /**
-     * 
-     * @type {StudentDto}
-     * @memberof UserDto
-     */
-    'student'?: StudentDto;
 }
 /**
  * 

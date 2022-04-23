@@ -15,12 +15,13 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
   async editRepresentative(context, payload: any): Promise<any> {
     const result = await representativeservice.update(payload.representative_id, payload);
     context.commit('updateRepresentative', result);
-    await context.dispatch('getAllRepresentative');
+    await this.dispatch('getAllRepresentative');
   },
 
   async deleteRepresentative(context, representative_id: number): Promise<any> {
-    const result = await representativeservice.deleteOne(representative_id);
+    const result = await representativeservice.delete(representative_id);
     context.commit('deleteRepresentative', result);
+    await this.dispatch('getAllRepresentative');
   },
 
   async getAllRepresentative(context): Promise<any> {

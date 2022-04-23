@@ -19,15 +19,16 @@ const actions: ActionTree<CandidateStateInterface, StateInterface> = {
   },
 
   async deleteCandidate(context, candidate_id: number): Promise<any> {
-    const result = await candidateservice.deleteOne(candidate_id);
+    const result = await candidateservice.delete(candidate_id);
     context.commit('deleteCandidate', result);
+    await context.dispatch('getAllCandidate');
   },
 
   async getAllCandidate(context): Promise<any> {
     const res = await candidateservice.getAll();
     context.commit('getAllCandidate', res);
-    await context.dispatch('student/getAllStudent');
-    await context.dispatch('election/getAllElection');
+    await this.dispatch('student/getAllStudent');
+    await this.dispatch('election/getAllElection');
   },
 
   async getOneCandidate(context, candidate_id: number): Promise<any> {

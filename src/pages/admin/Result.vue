@@ -23,7 +23,7 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="representative">
             <!--R E R P R E S E N T A T I V E-->
-            <div class="q-pa-sm q-gutter-x-sm row">
+            <div class="q-pa-xs q-gutter-x-sm row">
               <div class="col-12 col-md">
                 <q-table
                   :grid="$q.screen.xs"
@@ -35,21 +35,67 @@
                   :filter="filter"
                 >
                   <template v-slot:top-right>
-                    <q-input
-                      borderless
-                      dense
-                      debounce="300"
-                      v-model="filter"
-                      placeholder="Search"
-                    >
-                      <template v-slot:append>
-                        <q-icon name="search" />
-                      </template>
-                    </q-input>
+                    <div class="row">
+                      <q-input
+                        outlined
+                        rounded
+                        dense
+                        debounce="300"
+                        v-model="filter"
+                        placeholder="Search"
+                      >
+                        <template v-slot:append>
+                          <q-icon name="search" />
+                          <div>
+                            <q-fab
+                              color="primary"
+                              icon="sort"
+                              label="Filter by:"
+                              label-position="top"
+                              external-label
+                              padding="xs"
+                              direction="down"
+                            >
+                              <q-fab-action
+                                color="white"
+                                padding="5px"
+                                text-color="black"
+                                @click="filter = 'CIT'"
+                                label="CIT"
+                                label-position="left"
+                              />
+                              <q-fab-action
+                                color="white"
+                                padding="5px"
+                                text-color="black"
+                                @click="filter = 'CBAA'"
+                                label="CBAA"
+                                label-position="left"
+                              />
+                              <q-fab-action
+                                color="white"
+                                padding="5px"
+                                text-color="black"
+                                @click="filter = 'CHARM'"
+                                label="CHARM"
+                                label-position="left"
+                              />
+                              <q-fab-action
+                                color="white"
+                                text-color="black"
+                                @click="filter = ''"
+                                icon="clear"
+                                label-position="left"
+                              />
+                            </q-fab>
+                          </div>
+                        </template>
+                      </q-input>
+                    </div>
                   </template>
                 </q-table>
               </div>
-              <div class="col-12 col-md ">
+              <div class="col-12 col-md">
                 <q-card>
                   <div class="q-pa-md text-center text-bold text-primary">
                     College Representative in Graph
@@ -79,12 +125,19 @@
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
-import SecretaryGeneralChart from 'components/Charts/prime.result.vue';
+import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
+import PrimeMinisterChart from 'components/Charts/prime.result.vue';
 import { VoteRepDto, StudentDto } from 'src/services/rest-api';
 @Options({
-  components: { RepresentativeResult, SecretaryGeneralChart },
-  ...mapState('vote-rep', ['allVoteRep']),
-  ...mapState('student', ['allStudent']),
+  components: {
+    RepresentativeResult,
+    SecretaryGeneralChart,
+    PrimeMinisterChart,
+  },
+  computed: {
+    ...mapState('vote-rep', ['allVoteRep']),
+    ...mapState('student', ['allStudent']),
+  },
   methods: {
     ...mapActions('vote-rep', ['getAllVoteRep']),
   },
@@ -101,35 +154,38 @@ export default class studentResult extends Vue {
   filter = '';
 
   representative = [
-    { name: 'action', align: 'center', field: 'action' },
     {
       name: 'name',
       required: true,
       label: 'Name',
       align: 'left',
-      // field: (row: VoteRepDto) =>
-      //   row.last_name +
-      //   ', ' +
-      //   row.first_name +
-      //   ' ' +
-      //   row.middle_name +
-      //   ' ' +
-      //   row.suffix,
-      format: (val: string) => `${val}`,
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: 'course',
+      field: (row: any) => row.student?.course,
+    },
+
+    {
+      name: 'level',
+      align: 'center',
+      label: 'Year Level',
+      field: (row: any) => row.student?.yr_admitted,
     },
     {
-      name: 'college',
+      name: 'department',
       align: 'center',
-      label: 'College',
-      field: 'college',
+      label: 'Department',
+      field: (row: any) => row.student?.department,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'vote' },
+    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
   ];
 }
 </script>

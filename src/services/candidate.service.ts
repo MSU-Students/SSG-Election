@@ -11,16 +11,16 @@ class CandidateService extends DefaultApi {
     const response = await ssgApiService.getCandidates();
     return response.data;
   }
-  async getOne(id: number): Promise<CandidateDto> {
-    const response = await ssgApiService.getCandidate(id);
+  async getOne(candidate_id: number): Promise<CandidateDto> {
+    const response = await ssgApiService.getCandidate(candidate_id);
     return response.data;
   }
-  async update(id: number, payload: CandidateDto) {
-    const response = await ssgApiService.updateCandidate(id, payload);
+  async update(candidate_id: number, payload: CandidateDto) {
+    const response = await ssgApiService.updateCandidate(candidate_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteAdmin(id);
+  async delete(candidate_id: number) {
+    const response = await ssgApiService.deleteAdmin(candidate_id);
     return response.data;
   }
 }

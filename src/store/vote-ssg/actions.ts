@@ -18,8 +18,9 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   },
 
   async deleteVoteSsg(context, votessg_id: number): Promise<any> {
-    const result = await votessgservice.deleteOne(votessg_id);
+    const result = await votessgservice.delete(votessg_id);
     context.commit('deleteVoteSsg', result);
+    await context.dispatch('getAllVoteSsg');
   },
 
   async getAllVoteSsg(context): Promise<any> {

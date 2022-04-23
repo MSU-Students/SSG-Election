@@ -1,23 +1,25 @@
 <template>
   <q-page>
-    <div class="row q-pa-md q-pl-xl q-pr-lg">
-      <div class="col-4 q-pa-md">
+    <div class="row q-pa-md">
+      <div class="col-12 col-md-4 q-pa-md">
         <div class="q-pa-md text-overline text-bold">
           Voting Information
           <q-separator />
         </div>
         <q-card>
           <div class="col q-pa-md text-caption">
-            College Representative: <strong>{{ group }}</strong>
+            College Representative: <strong>{{ selected }}</strong>
           </div>
           <q-separator />
-          <div class="row justify-center q-pa-sm">
+          <div class="row justify-end q-pa-sm q-pr-md">
             <q-btn
               dense
               class="text-overline"
               label="Submit Vote"
-              color="primary "
+              color="primary"
+              to="/V_Result"
             />
+
             <q-btn
               flat
               dense
@@ -29,7 +31,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-8 q-px-lg q-gutter-y-md">
+      <div class="col-12 col-md-8 q-px-lg q-gutter-y-md">
         <div class="q-pt-lg q-mt-lg text-overline text-bold">
           Select Candidates
           <q-separator />
@@ -43,13 +45,15 @@
           </q-card-actions>
           <q-separator />
           <q-card-actions>
-            
-              <q-option-group
-                v-model="group"
-                :options="options"
-                color="maroon"
-                type="checkbox"
-              />
+            <q-table
+              class="my-sticky-header-table"
+              :rows="allVoteRep"
+              :columns="columns"
+              row-key="name"
+              :selected-rows-label="selected"
+              selection="multiple"
+              v-model:selected="selected"
+            />
           </q-card-actions>
         </q-card>
       </div>
@@ -58,29 +62,90 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { StudentDto, VoteRepDto } from 'src/services/rest-api';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
 
-export default class studentVote extends Vue{
-     group = ([]);
+@Options({
+  computed: {
+    ...mapState('student', ['allStudent']),
+    ...mapState('voteRep', ['allVoteRep']),
+  },
+  methods: {
+    ...mapActions('voteRep', ['addVoteRep', 'getAllVoteRep']),
+  },
+})
+export default class studentVote extends Vue {
+  addVoteRep!: (payload: VoteRepDto) => Promise<void>;
+  getAllVoteRep!: () => Promise<void>;
+  allVoteRep!: VoteRepDto[];
+  allStudent!: StudentDto[];
 
-      onResetClick () {
-        this.group = [];
-      };
+  async mounted() {
+    await this.getAllVoteRep();
+  }
 
+  columns = [
+    {
+      name: 'name',
+      required: true,
+      label: 'Name',
+      align: 'left',
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
+    },
+    {
+      name: 'level',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: any) => row.student?.yr_admitted,
+    },
+    {
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: any) => row.student?.course,
+    },
+    {
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: (row: any) => row.student?.department,
+    },
+  ];
+  selected = [];
 
-      options = [
-        {
-          label: 'ABDULBASIT, Arifah U.',
-          value: 'ABDULBASIT, Arifah U.',
-        },
-        {
-          label: 'DAYAAN, Anisah I.',
-          value: 'DAYAAN, Anisah I.',
-        },
-        {
-          label: 'OMAR, Najmah A.',
-          value: 'OMAR, Najmah A.',
-        },
-      ]
+  onResetClick() {
+    this.selected = [];
+  }
+
+  submitVote(val: VoteRepDto) {
+    this.$q
+      .dialog({
+        message: 'Submit vote?',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        await this.addVoteRep(val.vote_rep_id as any);
+        this.$q.notify({
+          type: 'warning',
+          message: 'Successfully deleted',
+        });
+      });
+  }
 }
 </script>
+
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: 100%
+  max-height: 700px
+  width: 100%
+  max-width: 1500px
+</style>

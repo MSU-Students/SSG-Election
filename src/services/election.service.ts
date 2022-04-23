@@ -19,7 +19,7 @@ class ElectionService extends DefaultApi {
     const response = await ssgApiService.updateElection(election_id, payload);
     return response.data;
   }
-  async deleteOne(election_id: number) {
+  async delete(election_id: number) {
     const response = await ssgApiService.deleteElection(election_id);
     return response.data;
   }

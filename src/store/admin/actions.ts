@@ -19,8 +19,9 @@ const actions: ActionTree<AdminStateInterface, StateInterface> = {
   },
 
   async deleteAdmin(context, admin_id: number): Promise<any> {
-    const result = await adminservice.deleteOne(admin_id);
+    const result = await adminservice.delete(admin_id);
     context.commit('deleteAdmin', result);
+    await context.dispatch('getAllAdmin');
   },
 
   async getAllAdmin(context): Promise<any> {

@@ -1,178 +1,178 @@
 <template>
-  <q-img class="wave" src="~assets/images/image.png" />
-  <div class="q-pa-md q-pl-md">
-    <div class="q-pa-md">
-      <q-splitter v-model="splitterModel">
-        <template v-slot:before>
-          <div class="row">
-            <div class="q-pa-md col-3 col-sm-4">
-              <q-card style="width: 500px">
-                <q-card-section>
-                  <div class="text-h8 text-overline text-bold">All Position</div>
-                  <q-separator />
-                  <div class="q-px-sm text-subtitle1 text-weight-medium">
-                    <div>
-                      Prime Minister: <strong>{{ selected }}</strong>
-                    </div>
+  <q-page>
+    <div class="row q-pa-md">
+      <div class="col-12 col-md-4 q-pa-md">
+        <div class="q-pa-md text-overline text-bold">
+          Voting Information
+          <q-separator />
+        </div>
+        <q-card>
+          <div class="col q-pa-md text-caption">
+            Prime Minister: <strong>{{ prime }}</strong>
+          </div>
 
-                    <div>
-                      Secretary General:<strong>{{ selected1 }}</strong>
-                    </div>
-                    <div>
-                      Chief Minister:<strong>{{ selected2 }}</strong>
-                    </div>
-                  </div>
-                </q-card-section>
+          <div class="col q-pa-md text-caption">
+            Secretary General: <strong>{{ secretary }}</strong>
+          </div>
+          <q-separator />
+          <div class="row justify-end q-pa-sm q-pr-md">
+            <q-btn
+              dense
+              class="text-overline"
+              label="Submit Vote"
+              color="primary"
+              to="/V_Result"
+            />
 
-                <q-separator inset />
-
-                <q-card-actions align="center">
-                  <q-btn label="Submit" color="green" flat @click="submit = true" />
-                </q-card-actions>
-              </q-card>
+            <q-btn
+              flat
+              dense
+              style="color: maroon"
+              label="Reset"
+              @click="onResetClick"
+              class="text-overline q-ml-md"
+            />
+          </div>
+        </q-card>
+      </div>
+      <div class="col-12 col-md-8 q-px-lg q-gutter-y-md">
+        <div class="q-pt-lg q-mt-lg text-overline text-bold">
+          Select Candidates
+          <q-separator />
+        </div>
+        <q-card>
+          <q-card-actions class="bg-deep-orange-1">
+            <div class="text-bold text-subtitle2 q-pl-md">
+              <q-icon name="people" color="primary" />
+              Prime Minister
             </div>
-          </div>
+          </q-card-actions>
+          <q-separator />
+          <q-card-actions>
+            <q-table
+              class="my-sticky-header-table"
+              :rows="allVoteRep"
+              :columns="columns"
+              row-key="name"
+              :selected-rows-label="prime"
+              selection="single"
+              v-model:selected="prime"
+            />
+          </q-card-actions>
+        </q-card>
 
-          <q-dialog v-model="submit" persistent>
-            <q-card>
-              <q-card-section class="row items-center">
-                <q-avatar icon="warning" color="primary" text-color="white" />
-                <span class="q-ml-sm">Are you sure of your choices?</span>
-              </q-card-section>
-
-              <q-card-actions align="right">
-                <q-btn flat label="Cancel" color="primary" v-close-popup />
-                <q-btn flat label="Yes" color="green" v-close-popup />
-              </q-card-actions>
-            </q-card>
-          </q-dialog>
-        </template>
-
-        <template v-slot:after>
-          <div class="q-pt-lg q-mt-lg text-overline text-bold">Select Candidates</div>
-          <div class="q-gutter-md row items-start text-h6 text-weight-bold">
-            <q-card>
-              <q-card-actions class="bg-deep-orange-1">
-                <div class="text-bold text-subtitle2 q-pl-md">
-                  <q-icon name="people" color="primary" />
-                  Prime Minister
-                </div>
-              </q-card-actions>
-              <q-separator />
-              <q-table
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                selection="single"
-                v-model:selected="selected"
-                style="width: 1000px"
-              />
-            </q-card>
-
-            <q-card>
-              <q-card-actions class="bg-deep-orange-1">
-                <div class="text-bold text-subtitle2 q-pl-md">
-                  <q-icon name="people" color="primary" />
-                  Secretary General
-                </div>
-              </q-card-actions>
-              <q-separator />
-              <q-table
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                selection="single"
-                v-model:selected="selected1"
-                style="width: 1000px"
-              />
-            </q-card>
-
-            <q-card>
-              <q-card-actions class="bg-deep-orange-1">
-                <div class="text-bold text-subtitle2 q-pl-md">
-                  <q-icon name="people" color="primary" />
-                  Chief Minister
-                </div>
-              </q-card-actions>
-              <q-separator />
-              <q-table
-                :rows="rows"
-                :columns="columns"
-                row-key="name"
-                selection="single"
-                v-model:selected="selected2"
-                style="width: 1000px"
-              />
-            </q-card>
-          </div>
-        </template>
-      </q-splitter>
+        <q-card>
+          <q-card-actions class="bg-deep-orange-1">
+            <div class="text-bold text-subtitle2 q-pl-md">
+              <q-icon name="people" color="primary" />
+              Secretary General
+            </div>
+          </q-card-actions>
+          <q-separator />
+          <q-card-actions>
+            <q-table
+              class="my-sticky-header-table"
+              :rows="allVoteRep"
+              :columns="columns"
+              row-key="name"
+              :selected-rows-label="secretary"
+              selection="single"
+              v-model:selected="secretary"
+            />
+          </q-card-actions>
+        </q-card>
+      </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
-<script>
-import { ref } from "vue";
+<script lang="ts">
+import { StudentDto, VoteRepDto } from 'src/services/rest-api';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
 
-const columns = [
-  {
-    name: "name",
-    required: true,
-    label: "Name",
-    align: "left",
-    field: (row) => row.name,
-    sortable: true,
+@Options({
+  computed: {
+    ...mapState('student', ['allStudent']),
+    ...mapState('voteRep', ['allVoteRep']),
   },
-  {
-    name: "year",
-    align: "center",
-    label: "Year",
-    field: "year",
-    sortable: true,
+  methods: {
+    ...mapActions('voteRep', ['addVoteRep', 'getAllVoteRep']),
   },
-  { name: "course", align: "right", label: "Course", field: "course", sortable: true },
-];
+})
+export default class studentVote extends Vue {
+  addVoteRep!: (payload: VoteRepDto) => Promise<void>;
+  getAllVoteRep!: () => Promise<void>;
+  allVoteRep!: VoteRepDto[];
+  allStudent!: StudentDto[];
 
-const rows = [
-  {
-    name: "Anisah Dayaan",
-    year: "4th",
-    course: "Database",
-  },
-  {
-    name: "Thomas Edison",
-    year: "3rd",
-    course: "Networking",
-  },
-  {
-    name: "Ellon Musk",
-    year: "1st",
-    course: "ComSci",
-  },
-];
+  async mounted() {
+    await this.getAllVoteRep();
+  }
 
-export default {
-  setup() {
-    return {
-      splitterModel: ref(30), // start at 30%
-      selected: ref(),
-      selected1: ref(),
-      selected2: ref(),
-      submit: ref(false),
-      columns,
-      rows,
-    };
-  },
-};
+  columns = [
+    {
+      name: 'name',
+      required: true,
+      label: 'Name',
+      align: 'left',
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
+    },
+    {
+      name: 'level',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: any) => row.student?.yr_admitted,
+    },
+    {
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: any) => row.student?.course,
+    },
+    {
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: (row: any) => row.student?.department,
+    },
+  ];
+  prime = [];
+  secretary = [];
+
+  onResetClick() {
+    this.prime = [];
+    this.secretary = [];
+  }
+
+  submitVote(val: VoteRepDto) {
+    this.$q
+      .dialog({
+        message: 'Submit vote?',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        await this.addVoteRep(val.vote_rep_id as any);
+        this.$q.notify({
+          type: 'warning',
+          message: 'Successfully deleted',
+        });
+      });
+  }
+}
 </script>
 
-<style>
-.wave {
-  background-color: #e6ddd3;
-  position: fixed;
-  height: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: -1;
-}
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: 100%
+  max-height: 700px
+  width: 100%
+  max-width: 1500px
 </style>

@@ -11,16 +11,16 @@ class StudentService extends DefaultApi {
     const response = await ssgApiService.getStudents();
     return response.data;
   }
-  async getOne(id: number): Promise<StudentDto> {
-    const response = await ssgApiService.getStudent(id);
+  async getOne(student_id: number): Promise<StudentDto> {
+    const response = await ssgApiService.getStudent(student_id);
     return response.data;
   }
-  async update(id: number, payload: StudentDto) {
-    const response = await ssgApiService.updateStudent(id, payload);
+  async update(student_id: number, payload: StudentDto) {
+    const response = await ssgApiService.updateStudent(student_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteStudent(id);
+  async delete(student_id: number) {
+    const response = await ssgApiService.deleteStudent(student_id);
     return response.data;
   }
 }

@@ -11,14 +11,15 @@ const actions: ActionTree<AccountStateInterface, StateInterface> = {
   },
 
   async editAccount(context, payload: any): Promise<any> {
-    const result = await userService.update(payload.id, payload);
+    const result = await userService.update(payload.account_id, payload);
     context.commit('updateAccount', result);
     await context.dispatch('getAllUser');
   },
 
-  async deleteAccount(context, id: number): Promise<any> {
-    const result = await userService.deleteOne(id);
+  async deleteAccount(context, account_id: number): Promise<any> {
+    const result = await userService.delete(account_id);
     context.commit('deleteAccount', result);
+    await context.dispatch('getAllUser');
   },
 
   async getAllUser(context): Promise<any> {
@@ -26,8 +27,8 @@ const actions: ActionTree<AccountStateInterface, StateInterface> = {
     context.commit('getAllUser', res);
   },
 
-  async getOneUser(context, id: number): Promise<any> {
-    const res = await userService.getOne(id);
+  async getOneUser(context, account_id: number): Promise<any> {
+    const res = await userService.getOne(account_id);
     context.commit('getOneUser', res);
   },
 

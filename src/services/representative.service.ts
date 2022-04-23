@@ -11,16 +11,16 @@ class RepresentativeService extends DefaultApi {
     const response = await ssgApiService.getRepresentatives();
     return response.data;
   }
-  async getOne(id: number): Promise<RepresentativeDto> {
-    const response = await ssgApiService.getRepresentative(id);
+  async getOne(representative_id: number): Promise<RepresentativeDto> {
+    const response = await ssgApiService.getRepresentative(representative_id);
     return response.data;
   }
-  async update(id: number, payload: RepresentativeDto) {
-    const response = await ssgApiService.updateRepresentative(id, payload);
+  async update(representative_id: number, payload: RepresentativeDto) {
+    const response = await ssgApiService.updateRepresentative(representative_id, payload);
     return response.data;
   }
-  async deleteOne(id: number) {
-    const response = await ssgApiService.deleteRepresentative(id);
+  async delete(representative_id: number) {
+    const response = await ssgApiService.deleteRepresentative(representative_id);
     return response.data;
   }
 }

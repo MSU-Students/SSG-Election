@@ -19,8 +19,9 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
   },
 
   async deleteElection(context, election_id: number): Promise<any> {
-    const result = await electionservice.deleteOne(election_id);
+    const result = await electionservice.delete(election_id);
     context.commit('deleteElection', result);
+    await context.dispatch('getAllElection');
   },
 
   async getAllElection(context): Promise<any> {
