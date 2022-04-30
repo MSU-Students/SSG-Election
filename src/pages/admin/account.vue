@@ -82,7 +82,7 @@ div
                               <div class="q-gutter-y-md">
                                 <q-file
                                   outlined
-                                  v-model="file"
+                                  v-model="imageAttachement"
                                   label="Pick a Profile Pic"
                                   style="max-width: 300px"
                                 />
@@ -155,7 +155,7 @@ div
                                 </div>
                               </div>
 
-                              <div class="q-gutter-xs row">
+                              <div class="q-gutter-x-xs row">
                                 <div class="col-12 col-md">
                                   <q-input
                                     outlined
@@ -303,7 +303,7 @@ div
                                 <div class="q-gutter-y-md">
                                   <q-file
                                     outlined
-                                    v-model="file"
+                                    v-model="imageAttachement"
                                     label="Pick a Profile Pic"
                                   />
 
@@ -684,57 +684,178 @@ div
                       size="md"
                       flat
                       dense
-                      @click="Details = true"
+                      @click="openDetailDialog(props.row)"
                     />
-                    <q-dialog v-model="Details">
-                      <q-card class="my-card" flat bordered>
-                        <q-card-section>
-                          <div class="text-h6">
-                            Candidate Info
-                            <q-btn
-                              round
-                              flat
-                              dense
-                              icon="close"
-                              class="float-right"
-                              color="grey-8"
-                              v-close-popup
-                            ></q-btn>
-                          </div>
-                        </q-card-section>
-                        <q-card-section horizontal>
-                          <q-card-section class="q-pt-xs col">
-                            <div class="text-overline">
-                              Mindanao State University
-                            </div>
-                            <div class="text-h5 q-mt-sm q-mb-xs">
-                              Basam C. Serad
-                            </div>
-                            <div class="text-caption text-grey">
-                              Prime Minister
+                    <q-dialog v-model="showDetails">
+                      <q-card
+                        class="my-card"
+                        style="width: 700px; max-width: 60vw"
+                        flat
+                        bordered
+                      >
+                          <q-card-section>
+                            <div class="text-h6">
+                              Representative Information
+                              <q-btn
+                                round
+                                flat
+                                dense
+                                icon="close"
+                                class="float-right"
+                                color="grey-8"
+                                v-close-popup
+                              ></q-btn>
                             </div>
                           </q-card-section>
+                          <q-card-section horizontal>
+                            <q-card-section class="q-pt-xs col">
+                              <div class="text-overline">
+                                Mindanao State University
+                              </div>
+                              <div class="text-caption">
+                                {{ inputCandidate.student?.college }} -
+                                {{ inputCandidate.student?.course }}
+                              </div>
+                              <div class="text-h5 q-mt-sm q-mb-xs">
+                                {{ inputCandidate.student?.last_name }},
+                                {{ inputCandidate.student?.first_name }}
+                                {{ inputCandidate.student?.middle_name }}
+                              </div>
+                              <div class="text-caption text-grey">
+                                {{ inputCandidate.position_type }}
+                              </div>
+                            </q-card-section>
 
-                          <q-card-section class="col-5 flex flex-center">
-                            <q-avatar
-                              square
-                              size="120px"
-                              font-size="82px"
-                              color="teal"
-                              text-color="white"
-                              icon="account_circle"
-                            />
+                            <q-card-section class="col-5 flex flex-center">
+                              <q-avatar
+                                square
+                                :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
+                                size="120px"
+                                font-size="82px"
+                                color="teal"
+                                text-color="white"
+                                icon="account_circle"
+                              />
+                            </q-card-section>
                           </q-card-section>
-                        </q-card-section>
 
-                        <q-separator />
+                          <q-separator />
 
-                        <q-card-section>
-                          Assessing clients needs and present suitable promoted
-                          products. Liaising with and persuading targeted
-                          doctors to prescribe our products utilizing effective
-                          sales skills.
-                        </q-card-section>
+                          <q-card-section>
+                            <div class="text-italic text-h5">
+                              "{{ inputCandidate.platform }}"
+                            </div>
+                          </q-card-section>
+                      </q-card>
+                    </q-dialog>
+                  </div>
+                </q-td>
+              </template>
+            </q-table>
+          </q-tab-panel>
+
+          <!---------------------------------------S S G MEMBER Panel-------------------------------->
+          <q-tab-panel name="ssg" class="bg-white">
+            <q-table
+              class="my-sticky-header-table"
+              title="SSG Account List"
+              :grid="$q.screen.xs"
+              :columns="SSG_Column"
+              :rows="allSsgMember"
+              row-key="name"
+              :rows-per-page-options="[0]"
+              :filter="filter"
+            >
+              <template v-slot:top-right>
+                <div class="q-pa-md q-gutter-sm row">
+                  <q-input
+                    outlined
+                    rounded
+                    dense
+                    debounce="300"
+                    v-model="filter"
+                    placeholder="Search"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="search" />
+                    </template>
+                  </q-input>
+                </div>
+              </template>
+
+              <template v-slot:body-cell-Details="props">
+                <q-td :props="props">
+                  <div class="q-gutter-sm">
+                    <q-btn
+                      round
+                      color="blue"
+                      icon="description"
+                      size="md"
+                      flat
+                      dense
+                      @click="openSsgDetailDialog(props.row)"
+                    />
+                    <q-dialog v-model="showSSGDetails">
+                      <q-card
+                        class="my-card"
+                        style="width: 700px; max-width: 60vw"
+                        flat
+                        bordered
+                      >
+                          <q-card-section>
+                            <div class="text-h6">
+                              SSG Member Information
+                              <q-btn
+                                round
+                                flat
+                                dense
+                                icon="close"
+                                class="float-right"
+                                color="grey-8"
+                                v-close-popup
+                              ></q-btn>
+                            </div>
+                          </q-card-section>
+                          <q-card-section horizontal>
+                            <q-card-section class="q-pt-xs col">
+                              <!--
+                              <div class="text-overline">
+                                Mindanao State University
+                              </div>
+                              <div class="text-caption">
+                                {{ inputSsg.student?.college }} -
+                                {{ inputSsg.student?.course }}
+                              </div>
+                              <div class="text-h5 q-mt-sm q-mb-xs">
+                                {{ inputSsg.student?.last_name }},
+                                {{ inputSsg.student?.first_name }}
+                                {{ inputSsg.student?.middle_name }}
+                              </div>
+                              <div class="text-caption text-grey">
+                                {{ inputSsg.position }}
+                              </div>
+                              -->
+                            </q-card-section>
+
+                            <q-card-section class="col-5 flex flex-center">
+                              <q-avatar
+                                square
+                                size="120px"
+                                font-size="82px"
+                                color="teal"
+                                text-color="white"
+                                icon="account_circle"
+                              />
+                            </q-card-section>
+                          </q-card-section>
+
+                          <q-separator />
+
+                          <q-card-section>
+                            <div class="text-italic text-h5">
+                              "{{ inputCandidate.platform }}"
+                            </div>
+                          </q-card-section>
                       </q-card>
                     </q-dialog>
                   </div>
@@ -750,7 +871,7 @@ div
 </template>
 
 <script lang="ts">
-import { ElectionDto, StudentDto } from 'src/services/rest-api';
+import { ElectionDto, StudentDto, SsgMemberDto, MediaDto } from 'src/services/rest-api';
 import { CandidateDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
@@ -760,6 +881,8 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
     ...mapState('candidate', ['allCandidate']),
+    ...mapState('ssgMember', ['allSsgMember']),
+    ...mapActions('media', ['uploadMedia']),
   },
   methods: {
     ...mapActions('student', [
@@ -774,6 +897,7 @@ import { mapActions, mapState } from 'vuex';
       'deleteCandidate',
       'getAllCandidate',
     ]),
+    ...mapActions('ssgMember', ['getAllSsgMember']),
   },
 })
 export default class ManageAccount extends Vue {
@@ -791,9 +915,15 @@ export default class ManageAccount extends Vue {
   deleteCandidate!: (payload: CandidateDto) => Promise<void>;
   getAllCandidate!: () => Promise<void>;
 
+  allSsgMember!: SsgMemberDto[];
+  getAllSsgMember!: () => Promise<void>;
+
+  uploadMedia!: (payload: File) => Promise<MediaDto>;
+
   async mounted() {
     await this.getAllStudent();
     await this.getAllCandidate();
+    await this.getAllSsgMember();
   }
   columns = [
     { name: 'action', align: 'center', field: 'action' },
@@ -849,11 +979,9 @@ export default class ManageAccount extends Vue {
       field: 'student_type',
       color: 'green',
     },
-    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
   ];
 
   //-----------------------------------------------Table Column for candidate account
-
   CandidateColumn = [
     { name: 'action', align: 'center', field: 'action' },
     {
@@ -910,11 +1038,74 @@ export default class ManageAccount extends Vue {
       label: 'Student Status',
       field: 'position_type',
     },
+    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
+  ];
+
+  //-----------------------------------------------Table Column for candidate account
+  SSG_Column = [
+    { name: 'action', align: 'center', field: 'action' },
+    {
+      name: 'id',
+      align: 'center',
+      label: 'ID Number',
+      field: (row: any) => row.student?.school_id,
+    },
+    {
+      name: 'name',
+      required: true,
+      label: 'Name',
+      align: 'left',
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
+    },
+    {
+      name: 'email',
+      align: 'center',
+      label: 'Email',
+      field: (row: any) => row.student?.email,
+    },
+    {
+      name: 'level',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: any) => row.student?.yr_admitted,
+    },
+    {
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: any) => row.student?.course,
+    },
+    {
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: (row: any) => row.student?.department,
+    },
+    {
+      name: 'election_yr',
+      align: 'center',
+      label: 'Year Elected',
+      field: (row: any) => row.election?.start_date,
+    },
+    {
+      name: 'position',
+      align: 'center',
+      label: 'Student Status',
+      field: 'position_type',
+    },
+    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
   ];
 
   filter = '';
-  file = null;
-  Details = false;
+  imageAttachement: File[] | File = [];
+  loading = false;
+  showDetails = false;
+  showSSGDetails = false;
   tab = 'student';
   addNewAccount = false;
   updateAccount = false;
@@ -924,8 +1115,12 @@ export default class ManageAccount extends Vue {
   editRowCandidate = false;
   updateCandidate = false;
 
+  addNewSsg = false;
+  editRowSsg = false;
+  updateSsg = false;
+
   //---------------------------------------------------for student
-  inputAccount: StudentDto = {
+  inputAccount: any = {
     first_name: '',
     middle_name: '',
     last_name: '',
@@ -936,11 +1131,17 @@ export default class ManageAccount extends Vue {
     course: '',
     department: '',
     student_type: 'regular',
+    url: '',
   };
 
   inputCandidate: CandidateDto = {
     position_type: '',
     platform: '',
+  };
+
+  inputSsg: SsgMemberDto = {
+    position: '',
+    academic_yr: '',
   };
 
   //---------------------------------------------------for Candidate
@@ -971,9 +1172,16 @@ export default class ManageAccount extends Vue {
 
   //------------------------------------------functions for Student Account
   async onaddAccount() {
-    await this.addStudent(this.inputAccount);
+    //upload picture
+    this.loading = true;
+    const media = await this.uploadMedia(this.imageAttachement as File);
+    const res: any = await this.addStudent({
+      ...this.inputAccount,
+      url: media.id,
+    });
     this.addNewAccount = false;
     this.resetModel();
+    this.loading = false;
     this.$q.notify({
       type: 'positive',
       message: 'Account is Successfully Added!.',
@@ -981,7 +1189,9 @@ export default class ManageAccount extends Vue {
   }
 
   async onEditAccount() {
-    await this.editStudent(this.inputAccount);
+    this.loading = true;
+    const media = await this.uploadMedia(this.imageAttachement as File);
+    await this.editStudent({ ...this.inputAccount, url: media.id });
     this.editRowAccount = false;
     this.resetModel();
     this.$q.notify({
@@ -1023,6 +1233,7 @@ export default class ManageAccount extends Vue {
       course: '',
       department: '',
       student_type: 'regular',
+      url: '',
     };
   }
 
@@ -1050,6 +1261,10 @@ export default class ManageAccount extends Vue {
     this.editRowCandidate = true;
     this.inputCandidate = { ...val };
   }
+  openDetailDialog(val: CandidateDto) {
+    this.showDetails = true;
+    this.inputCandidate = { ...val };
+  }
 
   deleteSpecificCandidateAccount(val: CandidateDto) {
     this.$q
@@ -1072,6 +1287,10 @@ export default class ManageAccount extends Vue {
       position_type: '',
       platform: '',
     };
+  }
+
+  openSsgDetailDialog(val: SsgMemberDto) {
+    this.showSSGDetails = true;
   }
 }
 </script>

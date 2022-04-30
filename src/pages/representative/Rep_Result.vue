@@ -15,100 +15,13 @@
           indicator-color="primary"
           align="justify"
         >
-          <q-tab name="representative" label="College Representative" />
           <q-tab name="prime" label="Prime Minister" />
           <q-tab name="secretary" label="Executive Secretary" />
         </q-tabs>
-
         <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="representative">
-            <!--R E R P R E S E N T A T I V E-->
-            <div class="q-pa-xs q-gutter-sm row">
-              <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="College Representatives"
-                  class="my-sticky-header-table"
-                  :rows="allVoteRep"
-                  :columns="representative"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                          <div>
-                            <q-fab
-                              color="primary"
-                              icon="sort"
-                              label="Filter by:"
-                              label-position="top"
-                              external-label
-                              padding="xs"
-                              direction="down"
-                            >
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter = 'CIT'"
-                                label="CIT"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter = 'CBAA'"
-                                label="CBAA"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter = 'CHARM'"
-                                label="CHARM"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                text-color="black"
-                                @click="filter = ''"
-                                icon="clear"
-                                label-position="left"
-                              />
-                            </q-fab>
-                          </div>
-                        </template>
-                      </q-input>
-                    </div>
-                  </template>
-                </q-table>
-              </div>
-              <div class="col-12 col-md">
-                <q-card>
-                  <div class="q-pa-md text-center text-bold text-primary">
-                    College Representative: Graph Result
-                  </div>
-                  <representative-result />
-                </q-card>
-              </div>
-            </div>
-          </q-tab-panel>
-
           <q-tab-panel name="prime">
             <!--S S G - P R I M E - M I N I S T E R-->
-            <div class="q-pa-xs q-gutter-sm row">
+            <div class="q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-table
                   :grid="$q.screen.xs"
@@ -231,43 +144,8 @@ export default class studentResult extends Vue {
     await this.getAllVoteSsg();
   }
 
-  tab = 'representative';
+  tab = 'prime';
   filter = '';
-
-  representative = [
-    {
-      name: 'name',
-      required: true,
-      label: 'Name',
-      align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
-        ', ' +
-        row.student?.first_name +
-        ' ' +
-        row.student?.middle_name,
-    },
-    {
-      name: 'course',
-      align: 'center',
-      label: 'Course',
-      field: (row: any) => row.student?.course,
-    },
-
-    {
-      name: 'level',
-      align: 'center',
-      label: 'Year Level',
-      field: (row: any) => row.student?.yr_admitted,
-    },
-    {
-      name: 'department',
-      align: 'center',
-      label: 'Department',
-      field: (row: any) => row.student?.department,
-    },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
-  ];
 
   prime = [
     {

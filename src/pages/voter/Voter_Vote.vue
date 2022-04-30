@@ -7,8 +7,14 @@
           <q-separator />
         </div>
         <q-card>
-          <div class="col q-pa-md text-caption">
-            College Representative: <strong>{{ selected }}</strong>
+          <div class="q-pa-md q-gutter-y-md">
+              Your <strong>College Representative</strong> shows here
+            <div class="col text-caption">
+              1st representative: <strong>{{ selected }}</strong>
+            </div>
+            <div class="col text-caption">
+              2nd representative: <strong>{{ selected }}</strong>
+            </div>
           </div>
           <q-separator />
           <div class="row justify-end q-pa-sm q-pr-md">
@@ -17,7 +23,7 @@
               class="text-overline"
               label="Submit Vote"
               color="primary"
-              to="/V_Result"
+              @click="submitVote"
             />
 
             <q-btn
@@ -51,7 +57,7 @@
               :columns="columns"
               row-key="name"
               :selected-rows-label="selected"
-              selection="multiple"
+              selection="single"
               v-model:selected="selected"
             />
           </q-card-actions>

@@ -21,7 +21,7 @@
               class="text-overline"
               label="Submit Vote"
               color="primary"
-              to="/V_Result"
+              @click="submitVote"
             />
 
             <q-btn
@@ -87,7 +87,7 @@
 </template>
 
 <script lang="ts">
-import { StudentDto, VoteRepDto } from 'src/services/rest-api';
+import { StudentDto, VoteRepDto, VoteSsgDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
@@ -95,19 +95,25 @@ import { mapActions, mapState } from 'vuex';
   computed: {
     ...mapState('student', ['allStudent']),
     ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('voteSsg', ['allVoteSsg']),
   },
   methods: {
     ...mapActions('voteRep', ['addVoteRep', 'getAllVoteRep']),
   },
 })
 export default class studentVote extends Vue {
-  addVoteRep!: (payload: VoteRepDto) => Promise<void>;
+  addVoteSsg!: (payload: VoteSsgDto) => Promise<void>;
+  getAllVoteSsg!: () => Promise<void>;
+  allVoteSsg!: VoteSsgDto[];
+
   getAllVoteRep!: () => Promise<void>;
   allVoteRep!: VoteRepDto[];
+
   allStudent!: StudentDto[];
 
   async mounted() {
     await this.getAllVoteRep();
+    await this.getAllVoteSsg();
   }
 
   columns = [
@@ -150,7 +156,7 @@ export default class studentVote extends Vue {
     this.secretary = [];
   }
 
-  submitVote(val: VoteRepDto) {
+  submitVote(val: VoteSsgDto) {
     this.$q
       .dialog({
         message: 'Submit vote?',
@@ -158,7 +164,7 @@ export default class studentVote extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.addVoteRep(val.vote_rep_id as any);
+        await this.addVoteSsg(val.vote_ssg_id as any);
         this.$q.notify({
           type: 'warning',
           message: 'Successfully deleted',

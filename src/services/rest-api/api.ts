@@ -165,6 +165,12 @@ export interface ElectionDto {
 export interface MediaDto {
     /**
      * 
+     * @type {number}
+     * @memberof MediaDto
+     */
+    'id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof MediaDto
      */
@@ -175,12 +181,6 @@ export interface MediaDto {
      * @memberof MediaDto
      */
     'filename'?: string;
-    /**
-     * 
-     * @type {StudentDto}
-     * @memberof MediaDto
-     */
-    'student'?: StudentDto;
 }
 /**
  * 
@@ -337,16 +337,16 @@ export interface StudentDto {
     'student_type': string;
     /**
      * 
+     * @type {number}
+     * @memberof StudentDto
+     */
+    'url': number;
+    /**
+     * 
      * @type {UserDto}
      * @memberof StudentDto
      */
     'user'?: UserDto;
-    /**
-     * 
-     * @type {MediaDto}
-     * @memberof StudentDto
-     */
-    'media'?: MediaDto;
 }
 /**
  * 

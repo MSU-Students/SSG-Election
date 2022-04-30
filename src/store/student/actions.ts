@@ -17,7 +17,7 @@ const actions: ActionTree<StudentStateInterface, StateInterface> = {
   },
 
   async deleteStudent(context, student_id: number): Promise<any> {
-    const result = await studentservice.deleteStudent(student_id);
+    const result = await studentservice.delete(student_id);
     context.commit('deleteStudent', result);
     await context.dispatch('getAllStudent');
   },

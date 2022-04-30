@@ -58,11 +58,11 @@ import { VoteRepDto, StudentDto } from 'src/services/rest-api';
 @Options({
   components: { RepresentativeResult },
   computed: {
-    ...mapState('vote-rep', ['allVoteRep']),
+    ...mapState('voteRep', ['allVoteRep']),
     ...mapState('student', ['allStudent']),
   },
   methods: {
-    ...mapActions('vote-rep', ['getAllVoteRep']),
+    ...mapActions('voteRep', ['getAllVoteRep']),
   },
 })
 export default class studentResult extends Vue {

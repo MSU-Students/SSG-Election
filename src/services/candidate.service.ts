@@ -20,7 +20,7 @@ class CandidateService extends DefaultApi {
     return response.data;
   }
   async delete(candidate_id: number) {
-    const response = await ssgApiService.deleteAdmin(candidate_id);
+    const response = await ssgApiService.deleteCandidate(candidate_id);
     return response.data;
   }
 }
