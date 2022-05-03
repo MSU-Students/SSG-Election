@@ -973,6 +973,40 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Delete Media by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMedia: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteMedia', 'id', id)
+            const localVarPath = `/media/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -1403,7 +1437,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get Media
+         * @summary Get Media by id
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2473,7 +2507,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Upload Media
+         * @summary Add Media
          * @param {any} [file] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2665,6 +2699,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Delete Media by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteMedia(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MediaDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteMedia(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -2805,12 +2850,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Get Media
+         * @summary Get Media by id
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMedia(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getMedia(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MediaDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMedia(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3137,7 +3182,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Upload Media
+         * @summary Add Media
          * @param {any} [file] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3288,6 +3333,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Delete Media by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMedia(id: number, options?: any): AxiosPromise<MediaDto> {
+            return localVarFp.deleteMedia(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Delete Representative by id
          * @param {number} representativeId 
          * @param {*} [options] Override http request option.
@@ -3415,12 +3470,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Get Media
+         * @summary Get Media by id
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMedia(id: number, options?: any): AxiosPromise<void> {
+        getMedia(id: number, options?: any): AxiosPromise<MediaDto> {
             return localVarFp.getMedia(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3717,7 +3772,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Upload Media
+         * @summary Add Media
          * @param {any} [file] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3893,6 +3948,18 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Delete Media by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteMedia(id: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteMedia(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Delete Representative by id
      * @param {number} representativeId 
      * @param {*} [options] Override http request option.
@@ -4046,7 +4113,7 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Get Media
+     * @summary Get Media by id
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4408,7 +4475,7 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Upload Media
+     * @summary Add Media
      * @param {any} [file] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

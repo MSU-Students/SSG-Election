@@ -271,6 +271,9 @@
                             filled
                             v-model="inputElection.academic_yr"
                             :dense="dense"
+                            hint="current academic year"
+                            mask="#### - ####"
+                            fill-mask
                             lazy-rules
                             :rules="[
                               (val) =>

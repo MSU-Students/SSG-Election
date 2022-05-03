@@ -82,25 +82,10 @@ div
                               <div class="q-gutter-y-md">
                                 <q-file
                                   outlined
+                                  accept=".jpg, image/*"
                                   v-model="imageAttachement"
                                   label="Pick a Profile Pic"
                                   style="max-width: 300px"
-                                />
-
-                                <q-select
-                                  outlined
-                                  dense
-                                  v-model="inputAccount.student_type"
-                                  :options="student_type"
-                                  label="Select Account type"
-                                  hint="change student status"
-                                  style="max-width: 300px"
-                                  lazy-rules
-                                  :rules="[
-                                    (val) =>
-                                      (val && val.length > 0) ||
-                                      'Does not accept empty input',
-                                  ]"
                                 />
                               </div>
                             </div>
@@ -304,16 +289,8 @@ div
                                   <q-file
                                     outlined
                                     v-model="imageAttachement"
+                                    accept=".jpg, image/*"
                                     label="Pick a Profile Pic"
-                                  />
-
-                                  <q-select
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.student_type"
-                                    :options="student_type"
-                                    label="Select Account type"
-                                    hint="change student status"
                                   />
                                 </div>
                               </div>
@@ -460,8 +437,8 @@ div
               class="my-sticky-header-table"
               title="Representative Account List"
               :grid="$q.screen.xs"
-              :columns="CandidateColumn"
-              :rows="allCandidate"
+              :columns="RepresentativeColumn"
+              :rows="allRepresentative"
               row-key="name"
               :rows-per-page-options="[0]"
               :filter="filter"
@@ -480,92 +457,6 @@ div
                       <q-icon name="search" />
                     </template>
                   </q-input>
-
-                  <q-btn
-                    label="Add Account"
-                    color="primary"
-                    dense
-                    flat
-                    icon="add"
-                    @click="addNewCandidate = true"
-                  />
-                  <q-dialog v-model="addNewCandidate" persistent>
-                    <q-card style="width: 900px; max-width: 100vw">
-                      <q-card-section class="row">
-                        <div class="text-h6">Create new Account</div>
-                        <q-space />
-                        <q-btn flat round dense icon="close" v-close-popup />
-                      </q-card-section>
-
-                      <q-card-section class="q-gutter-sm">
-                        <div class="row q-gutter-xs">
-                          <div class="col">
-                            <q-select
-                              :options="allStudent"
-                              option-label="school_id"
-                              option-value="student_id"
-                              map-options
-                              emit-value
-                              v-model="inputCandidate.student"
-                              dense
-                              outlined
-                              label="Select ID Number"
-                            >
-                            </q-select>
-                          </div>
-
-                          <div class="col">
-                            <q-select
-                              :options="allElection"
-                              option-label="academic_yr"
-                              option-value="election_id"
-                              map-options
-                              emit-value
-                              v-model="inputCandidate.election"
-                              dense
-                              outlined
-                              label="Select Election Year"
-                            >
-                            </q-select>
-                          </div>
-                        </div>
-                        <div class="q-gutter-xs">
-                          <q-select
-                            outlined
-                            dense
-                            :options="position"
-                            v-model="inputCandidate.position_type"
-                            label="Student Status"
-                          />
-                        </div>
-                        <div class="q-gutter-xs">
-                          <q-input
-                            v-model="inputCandidate.platform"
-                            type="textarea"
-                            dense
-                            outlined
-                            label="Platform"
-                          >
-                          </q-input>
-                        </div>
-                        <div align="right">
-                          <q-btn
-                            flat
-                            label="Cancel"
-                            color="red-10"
-                            @click="resetModelCandidate()"
-                            v-close-popup
-                          />
-                          <q-btn
-                            flat
-                            label="Save"
-                            color="primary"
-                            @click="onaddCandidateAccount()"
-                          />
-                        </div>
-                      </q-card-section>
-                    </q-card>
-                  </q-dialog>
                 </div>
               </template>
 
@@ -600,7 +491,7 @@ div
                                 option-value="student_id"
                                 map-options
                                 emit-value
-                                v-model="inputCandidate.student"
+                                v-model="inputRepresentative.voterep"
                                 dense
                                 outlined
                                 label="Select ID Number"
@@ -615,7 +506,7 @@ div
                                 option-value="election_id"
                                 map-options
                                 emit-value
-                                v-model="inputCandidate.election"
+                                v-model="inputRepresentative.voterep"
                                 dense
                                 outlined
                                 label="Select Year Elected"
@@ -628,14 +519,13 @@ div
                               outlined
                               dense
                               :options="position"
-                              v-model="inputCandidate.position_type"
-                              label="Student Status"
+                              v-model="inputRepresentative.position"
+                              label="Position to run"
                             />
                           </div>
                           <div class="q-gutter-xs">
                             <q-input
-                              v-model="inputCandidate.platform"
-                              type="textarea"
+                              v-model="inputRepresentative.academic_yr"
                               dense
                               outlined
                               label="Platform"
@@ -693,59 +583,59 @@ div
                         flat
                         bordered
                       >
-                          <q-card-section>
-                            <div class="text-h6">
-                              Representative Information
-                              <q-btn
-                                round
-                                flat
-                                dense
-                                icon="close"
-                                class="float-right"
-                                color="grey-8"
-                                v-close-popup
-                              ></q-btn>
+                        <q-card-section>
+                          <div class="text-h6">
+                            Representative Information
+                            <q-btn
+                              round
+                              flat
+                              dense
+                              icon="close"
+                              class="float-right"
+                              color="grey-8"
+                              v-close-popup
+                            ></q-btn>
+                          </div>
+                        </q-card-section>
+                        <q-card-section horizontal>
+                          <q-card-section class="q-pt-xs col">
+                            <div class="text-overline">
+                              Mindanao State University
+                            </div>
+                            <div class="text-caption">
+                              {{ inputRepresentative.voterep?.student?.college }} -
+                              {{ inputRepresentative.voterep?.student?.course }}
+                            </div>
+                            <div class="text-h5 q-mt-sm q-mb-xs">
+                              {{ inputRepresentative.voterep?.student?.last_name }},
+                              {{ inputRepresentative.voterep?.student?.first_name }}
+                              {{ inputRepresentative.voterep?.student?.middle_name }}
+                            </div>
+                            <div class="text-caption text-grey">
+                              {{ inputRepresentative.position }}
                             </div>
                           </q-card-section>
-                          <q-card-section horizontal>
-                            <q-card-section class="q-pt-xs col">
-                              <div class="text-overline">
-                                Mindanao State University
-                              </div>
-                              <div class="text-caption">
-                                {{ inputCandidate.student?.college }} -
-                                {{ inputCandidate.student?.course }}
-                              </div>
-                              <div class="text-h5 q-mt-sm q-mb-xs">
-                                {{ inputCandidate.student?.last_name }},
-                                {{ inputCandidate.student?.first_name }}
-                                {{ inputCandidate.student?.middle_name }}
-                              </div>
-                              <div class="text-caption text-grey">
-                                {{ inputCandidate.position_type }}
-                              </div>
-                            </q-card-section>
 
-                            <q-card-section class="col-5 flex flex-center">
-                              <q-avatar
-                                square
-                                :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
-                                size="120px"
-                                font-size="82px"
-                                color="teal"
-                                text-color="white"
-                                icon="account_circle"
-                              />
-                            </q-card-section>
+                          <q-card-section class="col-5 flex flex-center">
+                            <q-avatar
+                              square
+                              :src="`http://localhost:3000/media/${inputRepresentative.voterep?.student?.url}`"
+                              size="120px"
+                              font-size="82px"
+                              color="teal"
+                              text-color="white"
+                              icon="account_circle"
+                            />
                           </q-card-section>
+                        </q-card-section>
 
-                          <q-separator />
+                        <q-separator />
 
-                          <q-card-section>
-                            <div class="text-italic text-h5">
-                              "{{ inputCandidate.platform }}"
-                            </div>
-                          </q-card-section>
+                        <q-card-section>
+                          <div class="text-italic text-h5">
+                            Platform Here
+                          </div>
+                        </q-card-section>
                       </q-card>
                     </q-dialog>
                   </div>
@@ -802,60 +692,58 @@ div
                         flat
                         bordered
                       >
-                          <q-card-section>
-                            <div class="text-h6">
-                              SSG Member Information
-                              <q-btn
-                                round
-                                flat
-                                dense
-                                icon="close"
-                                class="float-right"
-                                color="grey-8"
-                                v-close-popup
-                              ></q-btn>
-                            </div>
-                          </q-card-section>
-                          <q-card-section horizontal>
-                            <q-card-section class="q-pt-xs col">
-                              <!--
+                        <q-card-section>
+                          <div class="text-h6">
+                            SSG Member Information
+                            <q-btn
+                              round
+                              flat
+                              dense
+                              icon="close"
+                              class="float-right"
+                              color="grey-8"
+                              v-close-popup
+                            ></q-btn>
+                          </div>
+                        </q-card-section>
+                        <q-card-section horizontal>
+                          <q-card-section class="q-pt-xs col">
                               <div class="text-overline">
                                 Mindanao State University
                               </div>
                               <div class="text-caption">
-                                {{ inputSsg.student?.college }} -
-                                {{ inputSsg.student?.course }}
+                                {{ inputSsg.votessg?.student?.college}} -
+                                {{ inputSsg.votessg?.student?.course }}
                               </div>
                               <div class="text-h5 q-mt-sm q-mb-xs">
-                                {{ inputSsg.student?.last_name }},
-                                {{ inputSsg.student?.first_name }}
-                                {{ inputSsg.student?.middle_name }}
+                                {{ inputSsg.votessg?.student?.last_name }},
+                                {{ inputSsg.votessg?.student?.first_name }}
+                                {{ inputSsg.votessg?.student?.middle_name }}
                               </div>
                               <div class="text-caption text-grey">
                                 {{ inputSsg.position }}
                               </div>
-                              -->
-                            </q-card-section>
-
-                            <q-card-section class="col-5 flex flex-center">
-                              <q-avatar
-                                square
-                                size="120px"
-                                font-size="82px"
-                                color="teal"
-                                text-color="white"
-                                icon="account_circle"
-                              />
-                            </q-card-section>
                           </q-card-section>
 
-                          <q-separator />
-
-                          <q-card-section>
-                            <div class="text-italic text-h5">
-                              "{{ inputCandidate.platform }}"
-                            </div>
+                          <q-card-section class="col-5 flex flex-center">
+                            <q-avatar
+                              square
+                              size="120px"
+                              font-size="82px"
+                              color="teal"
+                              text-color="white"
+                              icon="account_circle"
+                            />
                           </q-card-section>
+                        </q-card-section>
+
+                        <q-separator />
+
+                        <q-card-section>
+                          <div class="text-italic text-h5">
+                            "{{ inputRepresentative.academic_yr }}"
+                          </div>
+                        </q-card-section>
                       </q-card>
                     </q-dialog>
                   </div>
@@ -871,8 +759,13 @@ div
 </template>
 
 <script lang="ts">
-import { ElectionDto, StudentDto, SsgMemberDto, MediaDto } from 'src/services/rest-api';
-import { CandidateDto } from 'src/services/rest-api';
+import {
+  ElectionDto,
+  StudentDto,
+  SsgMemberDto,
+  MediaDto,
+  RepresentativeDto,
+} from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
@@ -880,7 +773,7 @@ import { mapActions, mapState } from 'vuex';
   computed: {
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
-    ...mapState('candidate', ['allCandidate']),
+    ...mapState('representative', ['allRepresentative']),
     ...mapState('ssgMember', ['allSsgMember']),
     ...mapActions('media', ['uploadMedia']),
   },
@@ -891,11 +784,11 @@ import { mapActions, mapState } from 'vuex';
       'deleteStudent',
       'getAllStudent',
     ]),
-    ...mapActions('candidate', [
-      'addCandidate',
-      'editCandidate',
-      'deleteCandidate',
-      'getAllCandidate',
+    ...mapActions('representative', [
+      'addRepresentative',
+      'editRepresentative',
+      'deleteRepresentative',
+      'getAllRepresentative',
     ]),
     ...mapActions('ssgMember', ['getAllSsgMember']),
   },
@@ -909,11 +802,11 @@ export default class ManageAccount extends Vue {
   deleteStudent!: (payload: StudentDto) => Promise<void>;
   getAllStudent!: () => Promise<void>;
 
-  allCandidate!: CandidateDto[];
-  addCandidate!: (payload: CandidateDto) => Promise<void>;
-  editCandidate!: (payload: CandidateDto) => Promise<void>;
-  deleteCandidate!: (payload: CandidateDto) => Promise<void>;
-  getAllCandidate!: () => Promise<void>;
+  allRepresentative!: RepresentativeDto[];
+  addRepresentative!: (payload: RepresentativeDto) => Promise<void>;
+  editRepresentative!: (payload: RepresentativeDto) => Promise<void>;
+  deleteRepresentative!: (payload: RepresentativeDto) => Promise<void>;
+  getAllRepresentative!: () => Promise<void>;
 
   allSsgMember!: SsgMemberDto[];
   getAllSsgMember!: () => Promise<void>;
@@ -922,7 +815,7 @@ export default class ManageAccount extends Vue {
 
   async mounted() {
     await this.getAllStudent();
-    await this.getAllCandidate();
+    await this.getAllRepresentative();
     await this.getAllSsgMember();
   }
   columns = [
@@ -982,7 +875,7 @@ export default class ManageAccount extends Vue {
   ];
 
   //-----------------------------------------------Table Column for candidate account
-  CandidateColumn = [
+  RepresentativeColumn = [
     { name: 'action', align: 'center', field: 'action' },
     {
       name: 'id',
@@ -1134,9 +1027,9 @@ export default class ManageAccount extends Vue {
     url: '',
   };
 
-  inputCandidate: CandidateDto = {
-    position_type: '',
-    platform: '',
+  inputRepresentative: RepresentativeDto = {
+    position: '',
+    academic_yr: '',
   };
 
   inputSsg: SsgMemberDto = {
@@ -1147,7 +1040,6 @@ export default class ManageAccount extends Vue {
   //---------------------------------------------------for Candidate
 
   position = ['Prime Minister', 'Executive Sectretary'];
-  student_type = ['Regular', 'Representative'];
   statusOptions = ['Active', 'Inactive'];
   options = [
     'College of Agriculture',
@@ -1238,7 +1130,7 @@ export default class ManageAccount extends Vue {
   }
 
   async onaddCandidateAccount() {
-    await this.addCandidate(this.inputCandidate);
+    await this.addRepresentative(this.inputRepresentative);
     this.addNewCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
@@ -1248,7 +1140,7 @@ export default class ManageAccount extends Vue {
   }
 
   async onEditCandidateAccount() {
-    await this.editCandidate(this.inputCandidate);
+    await this.editRepresentative(this.inputRepresentative);
     this.editRowCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
@@ -1257,16 +1149,16 @@ export default class ManageAccount extends Vue {
     });
   }
 
-  openEditCandidateDialog(val: CandidateDto) {
+  openEditCandidateDialog(val: RepresentativeDto) {
     this.editRowCandidate = true;
-    this.inputCandidate = { ...val };
+    this.inputRepresentative = { ...val };
   }
-  openDetailDialog(val: CandidateDto) {
+  openDetailDialog(val: RepresentativeDto) {
     this.showDetails = true;
-    this.inputCandidate = { ...val };
+    this.inputRepresentative = { ...val };
   }
 
-  deleteSpecificCandidateAccount(val: CandidateDto) {
+  deleteSpecificCandidateAccount(val: RepresentativeDto) {
     this.$q
       .dialog({
         message: 'Confirm to delete?',
@@ -1274,7 +1166,7 @@ export default class ManageAccount extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.deleteCandidate(val.candidate_id as any);
+        await this.deleteRepresentative(val.representative_id as any);
         this.$q.notify({
           type: 'warning',
           message: 'Successfully deleted',
@@ -1283,9 +1175,9 @@ export default class ManageAccount extends Vue {
   }
 
   resetModelCandidate() {
-    this.inputCandidate = {
-      position_type: '',
-      platform: '',
+    this.inputRepresentative = {
+      position: '',
+      academic_yr: '',
     };
   }
 

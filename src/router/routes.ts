@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
                   {path: '/Accounts', component: () => import('src/pages/admin/account.vue') },
                   {path: '/Ballot', component: () => import('src/pages/admin/Ballot.vue') },
                   {path: '/Result', component: () => import('src/pages/admin/Result.vue') },
-                  {path: '/Tally', component: () => import('src/pages/admin/Tally.vue') }
+                  {path: '/List', component: () => import('src/pages/admin/CandidateList.vue') }
                 ],
     },
 

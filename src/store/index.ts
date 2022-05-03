@@ -9,6 +9,9 @@ import {
 import account from './accounts';
 import { AccountStateInterface } from './accounts/state';
 
+import media from './media-module';
+import { MediaStateInterface } from './media-module/state';
+
 import student from './student';
 import { StudentStateInterface } from './student/state';
 
@@ -41,6 +44,7 @@ export interface StateInterface {
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   account: AccountStateInterface;
+  media: MediaStateInterface;
   student: StudentStateInterface;
   voteRep: VoteRepStateInterface;
   representative: RepresentativeStateInterface;
@@ -67,6 +71,7 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
       account,
+      media,
       voteRep,
       representative,
       voteSsg,
