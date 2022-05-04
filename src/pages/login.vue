@@ -18,7 +18,7 @@
         >
           <q-card-section>
             <q-avatar size="103px" class="absolute-center shadow-10">
-              <img src="../assets/images/avatar.svg" alt="logo" />
+              <img src="../assets/images/ssg.png" alt="logo" />
             </q-avatar>
           </q-card-section>
           <q-card-section>

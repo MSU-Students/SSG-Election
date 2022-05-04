@@ -3,7 +3,7 @@
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title class="row items-center no-wrap">
-          <img src="~/assets/logo.png" style="height: 40px" />
+          <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
             <span class="q-ml-sm q-mr-lg">SSG Election</span>
           </div>

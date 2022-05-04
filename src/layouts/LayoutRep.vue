@@ -3,7 +3,7 @@
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title class="row items-center no-wrap">
-          <img src="~/assets/logo.png" style="height: 40px" />
+          <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
             <span class="q-ml-sm q-mr-lg">SSG Election</span>
           </div>
@@ -20,7 +20,7 @@
               flat
               class="bg-primary text-overline text-white"
               label="Vote"
-              to="/R_Voting"
+              to="/R_Vote"
             />
           </div>
         </q-toolbar-title>
@@ -94,7 +94,7 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/R_Voting">
+          <q-item clickable v-ripple to="/R_Vote">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>
@@ -125,7 +125,7 @@
             outline
             rounded
             dense
-            to="/R_Voting"
+            to="/R_Vote"
             class="q-mt-sm"
             color="primary"
             label="Profile"

@@ -38,7 +38,7 @@ const routes: RouteRecordRaw[] = [
                   { path: '/R_Homepage', component: () => import('src/pages/representative/Rep_Homepage.vue') },
                   { path: '/R_Nominee', component: () => import('src/pages/representative/Rep_Nominee.vue')},
                   { path: '/R_Result', component: () => import('src/pages/representative/Rep_Result.vue') },
-                  { path: '/R_Voting', component: () => import('src/pages/representative/Rep_Voting.vue')}
+                  { path: '/R_Vote', component: () => import('src/pages/representative/Rep_Voting.vue')}
                 ],
     },
 
