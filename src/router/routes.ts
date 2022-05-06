@@ -25,6 +25,7 @@ const routes: RouteRecordRaw[] = [
       component: () => import('src/layouts/LayoutVoter.vue'),
       children: [
                   { path: '/V_Homepage', component: () => import('src/pages/voter/Voter_Homepage.vue') },
+                  { path: '/V_List', component: () => import('src/pages/voter/Voter_CandidateLIst.vue') },
                   { path: '/V_Result', component: () => import('src/pages/voter/Voter_Result.vue') },
                   { path: '/V_Vote', component: () => import('src/pages/voter/Voter_Vote.vue') }
                 ],

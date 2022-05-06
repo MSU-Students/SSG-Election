@@ -39,6 +39,9 @@ import { AdminStateInterface } from './admin/state';
 import auth from './auth';
 import { IAuthState } from './auth/state';
 
+import tempRep from './tempRep';
+import { TempRepStateInterface } from './tempRep/state';
+
 export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
@@ -54,6 +57,7 @@ export interface StateInterface {
   election: ElectionStateInterface;
   admin: AdminStateInterface;
   auth: IAuthState;
+  tempRep: TempRepStateInterface;
 }
 
 // provide typings for `this.$store`
@@ -81,6 +85,7 @@ export default store(function (/* { ssrContext } */) {
       election,
       admin,
       auth,
+      tempRep,
     },
 
     // enable strict mode (adds overhead!)

@@ -83,15 +83,6 @@
                     </div>
                   </div>
                   <div class="q-gutter-xs">
-                    <q-select
-                      outlined
-                      dense
-                      :options="student_type"
-                      v-model="inputCandidate.position_type"
-                      label="Student Status"
-                    />
-                  </div>
-                  <div class="q-gutter-xs">
                     <q-input
                       v-model="inputCandidate.platform"
                       type="textarea"
@@ -177,15 +168,6 @@
                       </div>
                     </div>
                     <div class="q-gutter-xs">
-                      <q-select
-                        outlined
-                        dense
-                        :options="student_type"
-                        v-model="inputCandidate.position_type"
-                        label="Student Status"
-                      />
-                    </div>
-                    <div class="q-gutter-xs">
                       <q-input
                         v-model="inputCandidate.platform"
                         type="textarea"
@@ -223,13 +205,6 @@
                 dense
                 @click="deleteSpecificCandidateAccount(props.row)"
               />
-            </div>
-          </q-td>
-        </template>
-
-        <template v-slot:body-cell-Details="props">
-          <q-td :props="props">
-            <div class="q-gutter-sm">
               <q-btn
                 round
                 color="blue"
@@ -278,10 +253,13 @@
                     </q-card-section>
 
                     <q-card-section class="col-5 flex flex-center">
-                      <q-avatar
+                      <q-img
                         square
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
-                        size="120px"
+                        v-for="mode in fitModes"
+                        :key="mode"
+                        style="max-width: 300px; height: 150px"
+                        :fit="mode"
                         font-size="82px"
                         color="teal"
                         text-color="white"
@@ -344,7 +322,7 @@ export default class ManageElection extends Vue {
   }
 
   CandidateColumn = [
-    { name: 'action', align: 'center', field: 'action' },
+    { name: 'action', align: 'center',label: 'Action', field: 'action'},
     {
       name: 'id',
       align: 'center',
@@ -361,7 +339,8 @@ export default class ManageElection extends Vue {
         ', ' +
         row.student?.first_name +
         ' ' +
-        row.student?.middle_name,
+        row.student?.middle_name+
+        '.',
     },
     {
       name: 'email',
@@ -390,7 +369,7 @@ export default class ManageElection extends Vue {
     {
       name: 'election_yr',
       align: 'center',
-      label: 'Year Elected',
+      label: 'Election Date',
       field: (row: any) => row.election?.start_date,
     },
     {
@@ -399,7 +378,6 @@ export default class ManageElection extends Vue {
       label: 'Student Status',
       field: 'position_type',
     },
-    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
   ];
   filter = '';
   showDetails = false;
@@ -408,10 +386,11 @@ export default class ManageElection extends Vue {
   dense = true;
 
   student_type = ['Regular', 'Representative'];
-
-  inputCandidate: CandidateDto = {
-    position_type: '',
+  fitModes = ['scale-down'];
+  inputCandidate: any = {
+    position_type: 'Representative',
     platform: '',
+    url: '',
   };
 
   async onaddCandidateAccount() {

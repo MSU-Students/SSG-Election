@@ -1,95 +1,176 @@
 <template>
   <q-page>
-    <div class="row q-pa-md">
-      <div class="col-12 col-md-4 q-pa-md">
-        <div class="q-pa-md text-overline text-bold">
-          Voting Information
-          <q-separator />
+    <div class="q-pa-sm">
+      <!--separator-->
+      <div class="row q-col-gutter-lg">
+        <div class="col">
+          <q-toolbar>
+            <q-toolbar-title class="text-overline text-weight-bold"
+              >Election Campaign</q-toolbar-title
+            >
+          </q-toolbar>
         </div>
-        <q-card>
-          <div class="q-pa-md q-gutter-y-md">
-              Your <strong>College Representative</strong> shows here
-            <div class="col text-caption">
-              1st representative: <strong>{{ selected }}</strong>
-            </div>
-            <div class="col text-caption">
-              2nd representative: <strong>{{ selected }}</strong>
-            </div>
-          </div>
-          <q-separator />
-          <div class="row justify-end q-pa-sm q-pr-md">
-            <q-btn
-              dense
-              class="text-overline"
-              label="Submit Vote"
-              color="primary"
-              @click="submitVote"
-            />
-
-            <q-btn
-              flat
-              dense
-              style="color: maroon"
-              label="Reset"
-              @click="onResetClick"
-              class="text-overline q-ml-md"
-            />
-          </div>
-        </q-card>
       </div>
-      <div class="col-12 col-md-8 q-px-lg q-gutter-y-md">
-        <div class="q-pt-lg q-mt-lg text-overline text-bold">
-          Select Candidates
-          <q-separator />
-        </div>
-        <q-card>
-          <q-card-actions class="bg-deep-orange-1">
-            <div class="text-bold text-subtitle2 q-pl-md">
-              <q-icon name="people" color="primary" />
-              College Representative
+      <!--separator-->
+      <div class="row">
+        <div class="col-12 col-md">
+          <div class="row">
+            <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
+              <div class="col-12 col-md q-pa-xs">
+                <q-card
+                  class="my-card cursor-pointer"
+                  style="width: 300px; max-width: 70vw"
+                >
+                  <div class="q-pa-md">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="q-pb-md text-center">
+                          <q-img
+                            square
+                            :src="`http://localhost:3000/media/${data.student?.url}`"
+                            v-for="mode in fitModes"
+                            :key="mode"
+                            style="max-width: 300px; height: 150px"
+                            :fit="mode"
+                            font-size="82px"
+                            color="teal"
+                            text-color="white"
+                            icon="account_circle"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-8 q-pa-sm">
+                        <div class="text-weight-bold">
+                          {{ data.student?.first_name }}
+                          {{ data.student?.middle_name }}.
+                          {{ data.student?.last_name }}
+                        </div>
+                        <div class="text-caption">
+                          {{ data.student?.course }}
+                        </div>
+                        <div class="text-caption">
+                          {{ data.student?.yr_admitted }}
+                        </div>
+                      </div>
+                    </div>
+                    <q-separator />
+                    <div class="row">
+                      <div class="col">
+                        <q-card-section class="text-overline">
+                          <q-btn
+                            unelevated
+                            square
+                            dense
+                            color="secondary"
+                            label="Vote"
+                            class="full-width absolute-bottom"
+                            @click="onaddBalot()"
+                          />
+                        </q-card-section>
+                      </div>
+                    </div>
+                  </div>
+                </q-card>
+              </div>
             </div>
-          </q-card-actions>
-          <q-separator />
-          <q-card-actions>
-            <q-table
-              class="my-sticky-header-table"
-              :rows="allVoteRep"
-              :columns="columns"
-              row-key="name"
-              :selected-rows-label="selected"
-              selection="single"
-              v-model:selected="selected"
-            />
-          </q-card-actions>
-        </q-card>
+          </div>
+          <q-separator vertical />
+        </div>
+
+        <div class="col-12 col-md">
+          <q-card>
+            <q-card-actions class="bg-deep-orange-1">
+              <div class="text-bold text-subtitle2 q-pl-md">
+                <q-icon name="people" color="primary" />
+                College Representative
+              </div>
+            </q-card-actions>
+            <q-separator />
+            <q-card-actions>
+              <q-table
+                :rows="allCandidate"
+                :columns="columns"
+                class="my-sticky-header-table"
+                title="Selected Candidate"
+                :rows-per-page-options="[0]"
+                row-key="temp_tally_id"
+                hide-bottom
+              />
+            </q-card-actions>
+            <q-card-section>
+              <q-card-section class="text-overline" style="text-align: center">
+                <div class="row q-gutter-sm">
+                  <div class="col">
+                    <q-btn
+                      unelevated
+                      square
+                      dense
+                      push
+                      color="primary"
+                      class="full-width"
+                      label="Submit Vote"
+                      icon="check"
+                      @click="submitVote"
+                    />
+                  </div>
+                  <div class="col">
+                    <q-btn
+                      unelevated
+                      square
+                      dense
+                      outline
+                      class="text-primary full-width"
+                      label="Clear Selection"
+                      @click="resetModel"
+                    />
+                  </div>
+                </div>
+              </q-card-section>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { StudentDto, VoteRepDto } from 'src/services/rest-api';
+import { CandidateDto, VoteRepDto } from 'src/services/rest-api';
+import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
 @Options({
   computed: {
-    ...mapState('student', ['allStudent']),
+    ...mapState('candidate', ['allCandidate']),
     ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('tempRep', ['allTempRep']),
   },
   methods: {
-    ...mapActions('voteRep', ['addVoteRep', 'getAllVoteRep']),
+    ...mapActions('candidate', ['getAllCandidate']),
+    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
+    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep']),
   },
 })
-export default class studentVote extends Vue {
+export default class ManageElection extends Vue {
   addVoteRep!: (payload: VoteRepDto) => Promise<void>;
-  getAllVoteRep!: () => Promise<void>;
   allVoteRep!: VoteRepDto[];
-  allStudent!: StudentDto[];
-
+  getAllCandidate!: () => Promise<void>;
+  allCandidate!: CandidateDto[];
+  allTempRep!: TempRep[];
+  addTempRep!: (payload: TempRep) => Promise<void>;
   async mounted() {
-    await this.getAllVoteRep();
+    await this.getAllCandidate();
   }
+
+  filter = '';
+  showDetails = false;
+  addNewCandidate = false;
+  editRowCandidate = false;
+  dense = true;
+
+  student_type = ['Regular', 'Representative'];
+  fitModes = ['scale-down'];
 
   columns = [
     {
@@ -116,14 +197,9 @@ export default class studentVote extends Vue {
       label: 'Course',
       field: (row: any) => row.student?.course,
     },
-    {
-      name: 'department',
-      align: 'center',
-      label: 'Department',
-      field: (row: any) => row.student?.department,
-    },
   ];
   selected = [];
+  addNewVoteRep = false;
 
   onResetClick() {
     this.selected = [];
@@ -140,18 +216,66 @@ export default class studentVote extends Vue {
         await this.addVoteRep(val.vote_rep_id as any);
         this.$q.notify({
           type: 'warning',
-          message: 'Successfully deleted',
+          message: 'You have successfully voted',
         });
       });
+  }
+
+  tempInput: TempRep = {
+    position_type: '',
+    platform: '',
+  };
+
+  async onaddBalot() {
+    await this.addTempRep(this.tempInput);
+  }
+
+  async onaddVoteRep() {
+    await this.addVoteRep(this.inputVoteRep);
+    this.addNewVoteRep = false;
+    this.resetModel();
+    this.$q.notify({
+      type: 'positive',
+      message: 'An Election is succcessfully Added.',
+    });
+  }
+
+  inputVoteRep: VoteRepDto = {
+    rep1_name: '',
+    rep2_name: '',
+    academic_yr: '',
+    date: '',
+    time: '',
+  };
+  resetModel() {
+    this.inputVoteRep = {
+      rep1_name: '',
+      rep2_name: '',
+      academic_yr: '',
+      date: '',
+      time: '',
+    };
   }
 }
 </script>
 
-<style lang="sass">
-.my-sticky-header-table
-  /* height or max-height is important */
-  height: 100%
-  max-height: 700px
-  width: 100%
-  max-width: 1500px
+<style>
+.my-card {
+  height: 100%;
+  max-height: 900px;
+}
+.bg-img {
+  background-color: #f3eee8;
+}
+.q-carousel {
+  background-color: #f3eee8;
+}
+.my-sticky-header-table {
+  height: 200px;
+  width: 100%;
+  max-width: 1300px;
+}
+.my-sticky-table {
+  width: 250px;
+}
 </style>

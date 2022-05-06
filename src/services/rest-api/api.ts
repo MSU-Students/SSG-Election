@@ -351,25 +351,6 @@ export interface StudentDto {
 /**
  * 
  * @export
- * @interface TempTallyDto
- */
-export interface TempTallyDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof TempTallyDto
-     */
-    'candidate_id': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TempTallyDto
-     */
-    'election_id': number;
-}
-/**
- * 
- * @export
  * @interface UserDto
  */
 export interface UserDto {
@@ -727,42 +708,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Add new Tally 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addTally: async (tempTallyDto: TempTallyDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tempTallyDto' is not null or undefined
-            assertParamExists('addTally', 'tempTallyDto', tempTallyDto)
-            const localVarPath = `/temp-tally`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tempTallyDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Add new Users
          * @param {UserDto} userDto 
          * @param {*} [options] Override http request option.
@@ -1085,40 +1030,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('deleteStudent', 'studentId', studentId)
             const localVarPath = `/student/{student_id}`
                 .replace(`{${"student_id"}}`, encodeURIComponent(String(studentId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Delete Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteTally: async (tempTallyId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tempTallyId' is not null or undefined
-            assertParamExists('deleteTally', 'tempTallyId', tempTallyId)
-            const localVarPath = `/temp-tally/{tempTally_id}`
-                .replace(`{${"tempTally_id"}}`, encodeURIComponent(String(tempTallyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1673,70 +1584,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          */
         getStudents: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/student`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all Tally s
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTallies: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/temp-tally`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTally: async (tempTallyId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tempTallyId' is not null or undefined
-            assertParamExists('getTally', 'tempTallyId', tempTallyId)
-            const localVarPath = `/temp-tally/{tempTally_id}`
-                .replace(`{${"tempTally_id"}}`, encodeURIComponent(String(tempTallyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2347,46 +2194,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Update Tally by id
-         * @param {number} tempTallyId 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTally: async (tempTallyId: number, tempTallyDto: TempTallyDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tempTallyId' is not null or undefined
-            assertParamExists('updateTally', 'tempTallyId', tempTallyId)
-            // verify required parameter 'tempTallyDto' is not null or undefined
-            assertParamExists('updateTally', 'tempTallyDto', tempTallyDto)
-            const localVarPath = `/temp-tally/{tempTally_id}`
-                .replace(`{${"tempTally_id"}}`, encodeURIComponent(String(tempTallyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tempTallyDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update Users by id
          * @param {number} accountId 
          * @param {UserDto} userDto 
@@ -2622,17 +2429,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new Tally 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addTally(tempTallyDto: TempTallyDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TempTallyDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addTally(tempTallyDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Add new Users
          * @param {UserDto} userDto 
          * @param {*} [options] Override http request option.
@@ -2739,17 +2535,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteStudent(studentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudent(studentId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteTally(tempTallyId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TempTallyDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTally(tempTallyId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2934,27 +2719,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Get all Tally s
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getTallies(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TempTallyDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTallies(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getTally(tempTallyId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TempTallyDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTally(tempTallyId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Get Users by id
          * @param {number} accountId 
          * @param {*} [options] Override http request option.
@@ -3134,18 +2898,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update Tally by id
-         * @param {number} tempTallyId 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateTally(tempTallyId: number, tempTallyDto: TempTallyDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TempTallyDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTally(tempTallyId, tempTallyDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update Users by id
          * @param {number} accountId 
          * @param {UserDto} userDto 
@@ -3263,16 +3015,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new Tally 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addTally(tempTallyDto: TempTallyDto, options?: any): AxiosPromise<TempTallyDto> {
-            return localVarFp.addTally(tempTallyDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Add new Users
          * @param {UserDto} userDto 
          * @param {*} [options] Override http request option.
@@ -3370,16 +3112,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteStudent(studentId: number, options?: any): AxiosPromise<StudentDto> {
             return localVarFp.deleteStudent(studentId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteTally(tempTallyId: number, options?: any): AxiosPromise<TempTallyDto> {
-            return localVarFp.deleteTally(tempTallyId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3546,25 +3278,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Get all Tally s
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTallies(options?: any): AxiosPromise<TempTallyDto> {
-            return localVarFp.getTallies(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get Tally by id
-         * @param {number} tempTallyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTally(tempTallyId: number, options?: any): AxiosPromise<TempTallyDto> {
-            return localVarFp.getTally(tempTallyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Get Users by id
          * @param {number} accountId 
          * @param {*} [options] Override http request option.
@@ -3728,17 +3441,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Update Tally by id
-         * @param {number} tempTallyId 
-         * @param {TempTallyDto} tempTallyDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTally(tempTallyId: number, tempTallyDto: TempTallyDto, options?: any): AxiosPromise<TempTallyDto> {
-            return localVarFp.updateTally(tempTallyId, tempTallyDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update Users by id
          * @param {number} accountId 
          * @param {UserDto} userDto 
@@ -3864,18 +3566,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new Tally 
-     * @param {TempTallyDto} tempTallyDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public addTally(tempTallyDto: TempTallyDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).addTally(tempTallyDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Add new Users
      * @param {UserDto} userDto 
      * @param {*} [options] Override http request option.
@@ -3992,18 +3682,6 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteStudent(studentId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deleteStudent(studentId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete Tally by id
-     * @param {number} tempTallyId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteTally(tempTallyId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteTally(tempTallyId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4205,29 +3883,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Get all Tally s
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getTallies(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getTallies(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get Tally by id
-     * @param {number} tempTallyId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getTally(tempTallyId: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getTally(tempTallyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Get Users by id
      * @param {number} accountId 
      * @param {*} [options] Override http request option.
@@ -4419,19 +4074,6 @@ export class DefaultApi extends BaseAPI {
      */
     public updateStudent(studentId: number, studentDto: StudentDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).updateStudent(studentId, studentDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update Tally by id
-     * @param {number} tempTallyId 
-     * @param {TempTallyDto} tempTallyDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updateTally(tempTallyId: number, tempTallyDto: TempTallyDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateTally(tempTallyId, tempTallyDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

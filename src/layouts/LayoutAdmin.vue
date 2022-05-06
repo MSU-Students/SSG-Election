@@ -19,6 +19,12 @@
             <q-btn
               flat
               class="bg-primary text-overline text-white"
+              label="Election"
+              to="/Ballot"
+            />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
               label="Candidate List"
               to="/List"
             />
@@ -27,12 +33,6 @@
               class="bg-primary text-overline text-white"
               label="Manage Accounts"
               to="/Accounts"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Election"
-              to="/Ballot"
             />
             <q-btn
               flat
@@ -113,12 +113,20 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
+          <q-item clickable v-ripple to="/Ballot">
+            <q-item-section avatar>
+              <q-icon name="ballot" />
+            </q-item-section>
+
+            <q-item-section> Manage Election </q-item-section>
+          </q-item>
+
           <q-item clickable v-ripple to="/List">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
 
-            <q-item-section> Account list </q-item-section>
+            <q-item-section> Candidate list </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Accounts">
@@ -127,14 +135,6 @@
             </q-item-section>
 
             <q-item-section> Manage Accounts </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple to="/Ballot">
-            <q-item-section avatar>
-              <q-icon name="ballot" />
-            </q-item-section>
-
-            <q-item-section> Manage Election </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Result">
