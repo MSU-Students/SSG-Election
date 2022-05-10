@@ -5,7 +5,7 @@
       title="Representative Account List"
       :grid="$q.screen.xs"
       :columns="RepresentativeColumn"
-      :rows="allCandidate"
+      :rows="allVoteRep"
       row-key="name"
       :rows-per-page-options="[0]"
       :filter="filter"
@@ -95,7 +95,7 @@
                       v-model="inputRepresentative.academic_yr"
                       dense
                       outlined
-                      label="Platform"
+                      label="Year"
                     >
                     </q-input>
                   </div>
@@ -198,8 +198,10 @@
                 <q-separator />
 
                 <q-card-section>
-                  <div class="text-italic text-h5">Platform Here</div>
-                </q-card-section>F
+                  <div class="text-italic text-h5">
+                    Platform Here
+                  </div> </q-card-section
+                >F
               </q-card>
             </q-dialog>
           </div>
@@ -217,6 +219,7 @@ import {
   MediaDto,
   RepresentativeDto,
   CandidateDto,
+  VoteRepDto,
 } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -226,52 +229,40 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
     ...mapState('representative', ['allRepresentative']),
-    ...mapState('ssgMember', ['allSsgMember']),
-    ...mapState('candidate', ['allCandidate']),
+    ...mapState('voteRep', ['allVoteRep']),
   },
   methods: {
-    ...mapActions('student', [
-      'addStudent',
-      'editStudent',
-      'deleteStudent',
-      'getAllStudent',
-    ]),
+    ...mapActions('student', ['getAllStudent']),
     ...mapActions('representative', [
       'addRepresentative',
       'editRepresentative',
       'deleteRepresentative',
       'getAllRepresentative',
     ]),
-    ...mapActions('ssgMember', ['getAllSsgMember']),
-    ...mapActions('candidate', ['getAllCandidate']),
-    ...mapActions('media', ['uploadMedia']),
+    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
   },
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
   allElection!: ElectionDto[];
+  getAllElection!: () => Promise<void>;
   allStudent!: StudentDto[];
-  addStudent!: (payload: StudentDto) => Promise<void>;
-  editStudent!: (payload: StudentDto) => Promise<void>;
-  deleteStudent!: (payload: StudentDto) => Promise<void>;
   getAllStudent!: () => Promise<void>;
 
-  allCandidate!: CandidateDto[];
+  allVoteRep!: VoteRepDto[];
+  getAllVoteRep!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
   addRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   editRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   deleteRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   getAllRepresentative!: () => Promise<void>;
 
-  allSsgMember!: SsgMemberDto[];
-  getAllSsgMember!: () => Promise<void>;
-
   uploadMedia!: (payload: File) => Promise<MediaDto>;
 
   async mounted() {
     await this.getAllStudent();
     await this.getAllRepresentative();
-    await this.getAllSsgMember();
+    await this.getAllVoteRep();
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -351,25 +342,6 @@ export default class ManageAccount extends Vue {
   //---------------------------------------------------for Candidate
 
   position = ['Prime Minister', 'Executive Sectretary'];
-  statusOptions = ['Active', 'Inactive'];
-  options = [
-    'College of Agriculture',
-    'College of Business Administration and Accounting',
-    'College of Education',
-    'College of Engineering',
-    'College of Fisheries',
-    'College of Forestry and Environmental Studies',
-    'College of Health Science',
-    'College of Hotel and Restaurant Management',
-    'College of Information and Computing Science',
-    'College of Law',
-    'College of Medicine',
-    'College of Natural Science and Mathematics',
-    'College of Public Affair',
-    'College of Social Science and Humanities',
-    'College of Sports, Physical Education and Recreation',
-    'King Faisal Center for Islamic, Arabic and Asian Studies',
-  ];
 
   async onaddCandidateAccount() {
     await this.addRepresentative(this.inputRepresentative);

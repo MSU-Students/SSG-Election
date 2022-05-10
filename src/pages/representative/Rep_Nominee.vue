@@ -1,144 +1,131 @@
 <template>
-  <div class="row q-pa-md q-pl-xl">
-    <div class="col-12 col-md-4 q-pa-md">
-      <q-img class="wave" src="~assets/images/image.png" />
-      <div class>
-        <div class="q-pt-lg q-mt-lg text-overline text-bold">List Of Nominees</div>
-        <div class="q-gutter-md row items-start text-h6 text-weight-bold">
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Prime Minister
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table :rows="rows" :columns="columns" row-key="name" style="width: 1000px">
-              <q-btn
-                round
-                icon="folder"
-                size="md"
-                color="green"
-                flat
-                @click="submit = true"
-              />
-              <q-dialog v-model="submit" persistent>
-                <q-card>
-                  <q-card-section class="row items-center">
-                    <q-avatar icon="warning" color="primary" text-color="white" />
-                    <span class="q-ml-sm">Are you sure of your choices?</span>
-                  </q-card-section>
-
-                  <q-card-actions align="right">
-                    <q-btn flat label="Cancel" color="primary" v-close-popup />
-                    <q-btn flat label="Yes" color="green" v-close-popup />
-                  </q-card-actions>
-                </q-card> </q-dialog
-              >>
-            </q-table>
-          </q-card>
-
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Secretary General
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              style="width: 1000px"
-            />
-          </q-card>
-
-          <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                Chief Minister
-              </div>
-            </q-card-actions>
-            <q-separator />
-            <q-table
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              style="width: 1000px"
-            />
-          </q-card>
+  <q-page>
+    <div class="q-pa-md">
+      <!--separator-->
+      <div class="row q-col-gutter-lg">
+        <div class="col">
+          <q-toolbar>
+            <q-toolbar-title class="text-overline text-weight-bold"
+              >Election Campaign</q-toolbar-title
+            >
+          </q-toolbar>
+        </div>
+      </div>
+      <!--separator-->
+      <div class="q-gutter-md">
+        <div class="row">
+          <q-table
+            :grid="$q.screen.xs"
+            title="Prime Minister"
+            :rows="allRepresentative"
+            :columns="columns"
+            row-key="name"
+            :filter="filter"
+            hide-bottom
+          />
+        </div>
+        <div class="row">
+          <q-table
+            :grid="$q.screen.xs"
+            title="Secretary General"
+            :rows="allRepresentative"
+            :columns="columns"
+            row-key="name"
+            :filter="filter"
+            hide-bottom
+          />
         </div>
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
-<script>
-import { ref } from "vue";
+<script lang="ts">
+import {
+  RepresentativeDto,
+  StudentDto,
+  ElectionDto,
+} from 'src/services/rest-api';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
 
-const columns = [
-  {
-    name: "name",
-    required: true,
-    label: "Name",
-    align: "left",
-    field: (row) => row.name,
-    sortable: true,
+@Options({
+  computed: {
+    ...mapState('representative', ['allRepresentative']),
+    ...mapState('student', ['allStudent']),
+    ...mapState('election', ['allElection']),
   },
-  {
-    name: "year",
-    align: "center",
-    label: "Year",
-    field: "year",
-    sortable: true,
+  methods: {
+    ...mapActions('representative', ['getAllRepresentative']),
   },
-  { name: "course", label: "Course", align: "center", field: "course", sortable: true },
-  { name: "detail", label: "Detail", field: "detail", sortable: true },
-];
+})
+export default class ManageElection extends Vue {
+  getAllRepresentative!: () => Promise<void>;
+  allRepresentative!: RepresentativeDto[];
+  allElection!: ElectionDto[];
 
-const rows = [
-  {
-    name: "Anisah Dayaan",
-    year: "4th",
-    course: "Database",
-    detail: "detail",
-  },
-  {
-    name: "Thomas Edison",
-    year: "3rd",
-    course: "Networking",
-    detail: "detail",
-  },
-  {
-    name: "Ellon Musk",
-    year: "1st",
-    course: "ComSci",
-    detail: "detail",
-  },
-];
+  getAllStudent!: () => Promise<void>;
+  allStudent!: StudentDto[];
 
-export default {
-  setup() {
-    return {
-      splitterModel: ref(30),
-      vote: ref(false),
-      submit: ref(false),
-      columns,
-      rows,
-    };
-  },
-};
+  async mounted() {
+    await this.getAllRepresentative();
+  }
+
+  filter = '';
+  showDetails = false;
+  addNewCandidate = false;
+  editRowCandidate = false;
+  dense = true;
+
+  student_type = ['Regular', 'Representative'];
+  fitModes = ['scale-down'];
+
+  columns = [
+    {
+      name: 'name',
+      required: true,
+      label: 'Name',
+      align: 'left',
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
+    },
+    {
+      name: 'level',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: any) => row.yr_admitted,
+    },
+    {
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: any) => row.course,
+    },
+  ];
+}
 </script>
 
 <style>
-.wave {
-  background-color: #e6ddd3;
-  position: fixed;
+.my-card {
   height: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: -1;
+  max-height: 700px;
+}
+.bg-img {
+  background-color: #f3eee8;
+}
+.q-carousel {
+  background-color: #f3eee8;
+}
+.my-sticky-header-table {
+  height: 200px;
+  width: 100%;
+  max-width: 1300px;
+}
+.my-sticky-table {
+  width: 250px;
 }
 </style>

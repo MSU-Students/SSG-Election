@@ -12,121 +12,118 @@
         </div>
       </div>
       <!--separator-->
-      <div class="row">
+      <div class="row q-gutter-sm">
         <div class="col-12 col-md">
-          <div class="row">
-            <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
-              <div class="col-12 col-md q-pa-xs">
-                <q-card
-                  class="my-card cursor-pointer"
-                  style="width: 300px; max-width: 70vw"
-                >
-                  <div class="q-pa-md">
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="q-pb-md text-center">
-                          <q-img
-                            square
-                            :src="`http://localhost:3000/media/${data.student?.url}`"
-                            v-for="mode in fitModes"
-                            :key="mode"
-                            style="max-width: 300px; height: 150px"
-                            :fit="mode"
-                            font-size="82px"
-                            color="teal"
-                            text-color="white"
-                            icon="account_circle"
-                          />
+          <q-card class="my-card q-pa-sm">
+            <div class="row">
+              <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
+                <div class="col-12 col-md q-pa-xs">
+                  <q-card
+                    class=" cursor-pointer"
+                    style="width: 270px; max-width: 60vw"
+                  >
+                    <div class="q-pa-md">
+                      <div class="row">
+                        <div class="col-4 q-pa-sm">
+                          <div class="text-center">
+                            <q-img
+                              square
+                              :src="`http://localhost:3000/media/${data.student?.url}`"
+                              v-for="mode in fitModes"
+                              :key="mode"
+                              style="max-width: 300px; height: 70px"
+                              :fit="mode"
+                              font-size="82px"
+                              color="teal"
+                              text-color="white"
+                              icon="account_circle"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-8 q-pa-sm">
+                          <div class="text-body text-bold">
+                            {{ data.student?.first_name }}
+                            {{ data.student?.middle_name }}.
+                            {{ data.student?.last_name }}
+                          </div>
+                          <div class="text-caption">
+                            {{ data.student?.course }}
+                          </div>
+                          <div class="text-caption">
+                            {{ data.student?.yr_admitted }}
+                          </div>
                         </div>
                       </div>
-                      <div class="col-8 q-pa-sm">
-                        <div class="text-weight-bold">
-                          {{ data.student?.first_name }}
-                          {{ data.student?.middle_name }}.
-                          {{ data.student?.last_name }}
-                        </div>
-                        <div class="text-caption">
-                          {{ data.student?.course }}
-                        </div>
-                        <div class="text-caption">
-                          {{ data.student?.yr_admitted }}
+                      <q-separator />
+                      <div class="row">
+                        <div class="col">
+                          <q-card-section class="text-overline">
+                            <q-btn
+                              unelevated
+                              square
+                              dense
+                              color="secondary"
+                              label="Vote"
+                              class="full-width absolute-bottom"
+                              @click="
+                                tempInput.first_name = data.student?.first_name;
+                                tempInput.middle_name = data.student?.middle_name;
+                                tempInput.last_name = data.student?.last_name;
+                                tempInput.course = data.student?.course;
+                                tempInput.yr_admitted = data.student?.yr_admitted;
+                                onaddBalot();
+                              "
+                            />
+                          </q-card-section>
                         </div>
                       </div>
                     </div>
-                    <q-separator />
-                    <div class="row">
-                      <div class="col">
-                        <q-card-section class="text-overline">
-                          <q-btn
-                            unelevated
-                            square
-                            dense
-                            color="secondary"
-                            label="Vote"
-                            class="full-width absolute-bottom"
-                            @click="onaddBalot()"
-                          />
-                        </q-card-section>
-                      </div>
-                    </div>
-                  </div>
-                </q-card>
+                  </q-card>
+                </div>
               </div>
             </div>
-          </div>
+          </q-card>
           <q-separator vertical />
         </div>
 
         <div class="col-12 col-md">
           <q-card>
-            <q-card-actions class="bg-deep-orange-1">
-              <div class="text-bold text-subtitle2 q-pl-md">
-                <q-icon name="people" color="primary" />
-                College Representative
-              </div>
-            </q-card-actions>
-            <q-separator />
             <q-card-actions>
               <q-table
-                :rows="allCandidate"
+                :rows="allTempRep"
                 :columns="columns"
                 class="my-sticky-header-table"
-                title="Selected Candidate"
                 :rows-per-page-options="[0]"
                 row-key="temp_tally_id"
                 hide-bottom
               />
             </q-card-actions>
-            <q-card-section>
-              <q-card-section class="text-overline" style="text-align: center">
-                <div class="row q-gutter-sm">
-                  <div class="col">
-                    <q-btn
-                      unelevated
-                      square
-                      dense
-                      push
-                      color="primary"
-                      class="full-width"
-                      label="Submit Vote"
-                      icon="check"
-                      @click="submitVote"
-                    />
-                  </div>
-                  <div class="col">
-                    <q-btn
-                      unelevated
-                      square
-                      dense
-                      outline
-                      class="text-primary full-width"
-                      label="Clear Selection"
-                      @click="resetModel"
-                    />
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card-section>
+            <div class="row q-gutter-x-sm q-pa-sm">
+              <div class="col">
+                <q-btn
+                  unelevated
+                  square
+                  dense
+                  push
+                  color="primary"
+                  class="full-width"
+                  label="Submit Vote"
+                  icon="check"
+                  @click="submitVote"
+                />
+              </div>
+              <div class="col">
+                <q-btn
+                  unelevated
+                  square
+                  dense
+                  outline
+                  class="text-primary full-width"
+                  label="Clear Selection"
+                  @click="clearSelection"
+                />
+              </div>
+            </div>
           </q-card>
         </div>
       </div>
@@ -178,31 +175,31 @@ export default class ManageElection extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
+      field: (row: TempRep) =>
+        row.last_name +
         ', ' +
-        row.student?.first_name +
+        row.first_name +
         ' ' +
-        row.student?.middle_name,
+        row.middle_name,
     },
     {
       name: 'level',
       align: 'center',
       label: 'Year Admitted',
-      field: (row: any) => row.student?.yr_admitted,
+      field: (row: any) => row.yr_admitted,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: (row: any) => row.student?.course,
+      field: (row: any) => row.course,
     },
   ];
   selected = [];
   addNewVoteRep = false;
 
-  onResetClick() {
-    this.selected = [];
+  clearSelection() {
+    window.location.reload();
   }
 
   submitVote(val: VoteRepDto) {
@@ -221,9 +218,13 @@ export default class ManageElection extends Vue {
       });
   }
 
-  tempInput: TempRep = {
-    position_type: '',
-    platform: '',
+  tempInput: any = {
+    temp_tally_id: 0,
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    course: '',
+    yr_admitted: '',
   };
 
   async onaddBalot() {

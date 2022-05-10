@@ -14,6 +14,12 @@
               flat
               class="bg-primary text-overline text-white"
               label="Home"
+              to="/R_Homepage"
+            />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Candidate List"
               to="/R_Nominee"
             />
             <q-btn
@@ -86,12 +92,20 @@
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple to="/R_Nominee">
+          <q-item active clickable v-ripple to="/R_Homepage">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
 
             <q-item-section> Home </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/R_Nominee">
+            <q-item-section avatar>
+              <q-icon name="check" />
+            </q-item-section>
+
+            <q-item-section> Candidate List </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/R_Vote">

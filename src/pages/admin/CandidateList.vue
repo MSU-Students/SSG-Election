@@ -11,7 +11,7 @@
     <div class="row q-pt-md q-pa-md">
       <q-table
         class="my-sticky-header-table"
-        title="Representative Account List"
+        title="List of Candidates for College Representative"
         :grid="$q.screen.xs"
         :columns="CandidateColumn"
         :rows="allCandidate"
