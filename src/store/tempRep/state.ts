@@ -8,11 +8,13 @@ export interface TempRep {
 }
 
 export interface TempRepStateInterface {
+  limit: number;
   allTempRep: TempRep[];
 }
 
 function state(): TempRepStateInterface {
   return {
+    limit: 2,
     allTempRep: [],
   };
 }

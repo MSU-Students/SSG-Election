@@ -340,7 +340,7 @@ export interface StudentDto {
      * @type {number}
      * @memberof StudentDto
      */
-    'url': number;
+    'url'?: number;
     /**
      * 
      * @type {UserDto}

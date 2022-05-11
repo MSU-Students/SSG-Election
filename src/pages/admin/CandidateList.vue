@@ -376,7 +376,7 @@ export default class ManageElection extends Vue {
       name: 'position',
       align: 'center',
       label: 'Student Status',
-      field: 'position_type',
+      field: (row: any) => row.student?.student_type,
     },
   ];
   filter = '';

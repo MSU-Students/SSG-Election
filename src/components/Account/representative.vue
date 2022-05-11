@@ -87,7 +87,7 @@
                       dense
                       :options="position"
                       v-model="inputRepresentative.position"
-                      label="Position to run"
+                      label="Running for: "
                     />
                   </div>
                   <div class="q-gutter-xs">

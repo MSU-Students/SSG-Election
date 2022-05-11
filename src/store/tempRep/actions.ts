@@ -14,6 +14,9 @@ const actions: ActionTree<TempRepStateInterface, StateInterface> = {
   deleteTempRep(context, payload: TempRep) {
     context.commit('deleteTempRep', payload);
   },
+  clear(context) {
+    context.commit('clear');
+  }
 };
 
 export default actions;

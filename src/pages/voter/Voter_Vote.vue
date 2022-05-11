@@ -14,18 +14,19 @@
       <!--separator-->
       <div class="row q-gutter-sm">
         <div class="col-12 col-md">
-          <q-card class="my-card q-pa-sm">
+          <q-card class="my-card q-pa-sm" style="max-width: 98vw">
             <div class="row">
               <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
                 <div class="col-12 col-md q-pa-xs">
                   <q-card
-                    class=" cursor-pointer"
-                    style="width: 270px; max-width: 60vw"
+                    class="cursor-pointer"
+                    style="width: 290px; max-width: 100vw"
                   >
                     <div class="q-pa-md">
                       <div class="row">
                         <div class="col-4 q-pa-sm">
                           <div class="text-center">
+                            <q-avatar size="70px">
                             <q-img
                               square
                               :src="`http://localhost:3000/media/${data.student?.url}`"
@@ -38,6 +39,7 @@
                               text-color="white"
                               icon="account_circle"
                             />
+                            </q-avatar>
                           </div>
                         </div>
                         <div class="col-8 q-pa-sm">
@@ -65,14 +67,7 @@
                               color="secondary"
                               label="Vote"
                               class="full-width absolute-bottom"
-                              @click="
-                                tempInput.first_name = data.student?.first_name;
-                                tempInput.middle_name = data.student?.middle_name;
-                                tempInput.last_name = data.student?.last_name;
-                                tempInput.course = data.student?.course;
-                                tempInput.yr_admitted = data.student?.yr_admitted;
-                                onaddBalot();
-                              "
+                              @click="onaddBalot(data)"
                             />
                           </q-card-section>
                         </div>
@@ -109,7 +104,7 @@
                   class="full-width"
                   label="Submit Vote"
                   icon="check"
-                  @click="submitVote"
+                  @click="submitVote()"
                 />
               </div>
               <div class="col">
@@ -146,7 +141,7 @@ import { mapActions, mapState } from 'vuex';
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
     ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
-    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep']),
+    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
   },
 })
 export default class ManageElection extends Vue {
@@ -155,6 +150,7 @@ export default class ManageElection extends Vue {
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
   allTempRep!: TempRep[];
+  clear!:() => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
   async mounted() {
     await this.getAllCandidate();
@@ -176,11 +172,7 @@ export default class ManageElection extends Vue {
       label: 'Name',
       align: 'left',
       field: (row: TempRep) =>
-        row.last_name +
-        ', ' +
-        row.first_name +
-        ' ' +
-        row.middle_name,
+        row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
     },
     {
       name: 'level',
@@ -199,10 +191,22 @@ export default class ManageElection extends Vue {
   addNewVoteRep = false;
 
   clearSelection() {
-    window.location.reload();
+    this.clear();
   }
 
-  submitVote(val: VoteRepDto) {
+  
+
+  async onaddBalot(data: CandidateDto) {
+   if (data.student) {
+     await this.addTempRep({
+       ...data.student,
+       temp_tally_id: 0,
+     } as TempRep);
+   }
+    
+  }
+
+  async submitVote() {
     this.$q
       .dialog({
         message: 'Submit vote?',
@@ -210,35 +214,15 @@ export default class ManageElection extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.addVoteRep(val.vote_rep_id as any);
+        //copy from this.allTempRep => this.inputVoteRep 
+        await this.addVoteRep(this.inputVoteRep);
+        this.addNewVoteRep = false;
+        this.resetModel();
         this.$q.notify({
           type: 'warning',
           message: 'You have successfully voted',
         });
       });
-  }
-
-  tempInput: any = {
-    temp_tally_id: 0,
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    course: '',
-    yr_admitted: '',
-  };
-
-  async onaddBalot() {
-    await this.addTempRep(this.tempInput);
-  }
-
-  async onaddVoteRep() {
-    await this.addVoteRep(this.inputVoteRep);
-    this.addNewVoteRep = false;
-    this.resetModel();
-    this.$q.notify({
-      type: 'positive',
-      message: 'An Election is succcessfully Added.',
-    });
   }
 
   inputVoteRep: VoteRepDto = {

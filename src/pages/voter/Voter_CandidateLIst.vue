@@ -16,11 +16,12 @@
       <div class="row">
         <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
           <div class="col-12 col-md q-pa-sm">
-            <q-card class="my-card cursor-pointer" style="width: 400px; max-width: 70vw">
+            <q-card class="my-card cursor-pointer" style="width: 400px; max-width: 90vw">
               <div class="q-pa-md">
                 <div class="row">
-                  <div class="col-4 q-pa-sm">
+                  <div class="col-4 q-gutter-sm">
                     <div class="text-center">
+                      <q-avatar size="90px">
                       <q-img
                         square
                         :src="`http://localhost:3000/media/${data.student?.url}`"
@@ -33,6 +34,7 @@
                         text-color="white"
                         icon="account_circle"
                       />
+                      </q-avatar>
                     </div>
                   </div>
                   <div class="col-8 q-pa-sm">

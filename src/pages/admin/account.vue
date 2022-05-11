@@ -84,7 +84,6 @@ div
                                   outlined
                                   accept=".jpg, image/*"
                                   v-model="imageAttachement"
-                                  label="Pick a Profile Pic (Max: 1mb)"
                                   style="max-width: 300px"
                                 />
                               </div>
@@ -435,54 +434,42 @@ div
                       @click="openDetailDialog(props.row)"
                     />
                     <q-dialog v-model="showDetails">
-                <q-card
-                  class="my-card"
-                  style="width: 500px; max-width: 60vw"
-                  flat
-                  bordered
-                >
-                  <q-card-section class="bg-primary text-white">
-
-                    <div class="text-h6">
-                      Student Account Information
-                      <q-btn
-                        round
+                      <q-card
+                        class="my-card"
+                        style="width: 500px; max-width: 60vw"
                         flat
-                        dense
-                        icon="close"
-                        class="float-right"
-                        color="grey-2"
-                        v-close-popup
-                      ></q-btn>
-                    </div>
-                  </q-card-section>
-                  <q-card-section horizontal>
-                    <q-card-section class="q-pt-xs col">
-                      <div class="text-caption">
-                        Student Name:
-                      </div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">
-                        {{ inputAccount.last_name }},
-                        {{ inputAccount.first_name }}
-                        {{ inputAccount.middle_name }}.
-                      </div>
-                      <div class="text-captio q-pt-sm">
-                        Username:
-                      </div>
-                      <div class="text-bold q-mt-sm q-mb-xs">
-                        fr34f
-                      </div>
-                      <div class="text-caption">
-                       Password:
-                      </div>
-                      <div class="text-bold q-mt-sm q-mb-xs">
-                        seg54
-                      </div>
-
-                    </q-card-section>
-                  </q-card-section>
-                </q-card>
-              </q-dialog>
+                        bordered
+                      >
+                        <q-card-section class="bg-primary text-white">
+                          <div class="text-h6">
+                            Student Account Information
+                            <q-btn
+                              round
+                              flat
+                              dense
+                              icon="close"
+                              class="float-right"
+                              color="grey-2"
+                              v-close-popup
+                            ></q-btn>
+                          </div>
+                        </q-card-section>
+                        <q-card-section horizontal>
+                          <q-card-section class="q-pt-xs col">
+                            <div class="text-caption">Student Name:</div>
+                            <div class="text-h5 q-mt-sm q-mb-xs">
+                              {{ inputAccount.last_name }},
+                              {{ inputAccount.first_name }}
+                              {{ inputAccount.middle_name }}.
+                            </div>
+                            <div class="text-captio q-pt-sm">Username:</div>
+                            <div class="text-bold q-mt-sm q-mb-xs">fr34f</div>
+                            <div class="text-caption">Password:</div>
+                            <div class="text-bold q-mt-sm q-mb-xs">seg54</div>
+                          </q-card-section>
+                        </q-card-section>
+                      </q-card>
+                    </q-dialog>
                   </div>
                 </q-td>
               </template>
@@ -512,6 +499,7 @@ import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 import RepresentativeAccount from 'components/Account/representative.vue';
 import SsgAccounts from 'components/Account/ssgAccount.vue';
+import { FILE } from 'dns';
 
 @Options({
   components: {
@@ -545,7 +533,7 @@ export default class ManageAccount extends Vue {
     await this.getAllStudent();
   }
   columns = [
-    { name: 'action', align: 'center',label: 'Action', field: 'action' },
+    { name: 'action', align: 'center', label: 'Action', field: 'action' },
     {
       name: 'id',
       align: 'center',
@@ -601,7 +589,7 @@ export default class ManageAccount extends Vue {
   ];
 
   filter = '';
-  imageAttachement: File[] | File = [];
+  imageAttachement: File = new File([], 'Pick a Profile Pic (Max: 2MB)');
   loading = false;
   showDetails = false;
   showSSGDetails = false;
@@ -622,7 +610,6 @@ export default class ManageAccount extends Vue {
     course: '',
     department: '',
     student_type: 'regular',
-    url: '',
   };
 
   //---------------------------------------------------for Candidate
@@ -651,19 +638,35 @@ export default class ManageAccount extends Vue {
   //------------------------------------------functions for Student Account
   async onaddAccount() {
     //upload picture
-    this.loading = true;
-    const media = await this.uploadMedia(this.imageAttachement as File);
-    const res: any = await this.addStudent({
-      ...this.inputAccount,
-      url: media.id,
-    });
+    try {
+      if (this.imageAttachement.size > 0) {
+        this.loading = true;
+        const media = await this.uploadMedia(this.imageAttachement as File);
+        await this.addStudent({
+          ...this.inputAccount,
+          url: media.id,
+        });
+        this.$q.notify({
+          type: 'positive',
+          message: 'Account is Successfully Added!.',
+        });
+      } else {
+        await this.addStudent(this.inputAccount);
+        this.$q.notify({
+          type: 'positive',
+          message: 'Account is Successfully Added!.',
+        });
+      }
+    } catch (error) {
+      this.$q.notify({
+        type: 'negative',
+        message: 'Error!.',
+      });
+    }
+
     this.addNewAccount = false;
     this.resetModel();
     this.loading = false;
-    this.$q.notify({
-      type: 'positive',
-      message: 'Account is Successfully Added!.',
-    });
   }
 
   async onEditAccount() {
@@ -716,8 +719,8 @@ export default class ManageAccount extends Vue {
       course: '',
       department: '',
       student_type: 'regular',
-      url: '',
     };
+    this.imageAttachement = new File([], 'Select File');
   }
 }
 </script>

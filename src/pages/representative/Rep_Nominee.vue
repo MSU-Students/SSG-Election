@@ -1,43 +1,45 @@
 <template>
-  <q-page>
-    <div class="q-pa-md">
-      <!--separator-->
-      <div class="row q-col-gutter-lg">
-        <div class="col">
-          <q-toolbar>
-            <q-toolbar-title class="text-overline text-weight-bold"
-              >Election Campaign</q-toolbar-title
-            >
-          </q-toolbar>
-        </div>
-      </div>
-      <!--separator-->
-      <div class="q-gutter-md">
-        <div class="row">
-          <q-table
-            :grid="$q.screen.xs"
-            title="Prime Minister"
-            :rows="allRepresentative"
-            :columns="columns"
-            row-key="name"
-            :filter="filter"
-            hide-bottom
-          />
-        </div>
-        <div class="row">
-          <q-table
-            :grid="$q.screen.xs"
-            title="Secretary General"
-            :rows="allRepresentative"
-            :columns="columns"
-            row-key="name"
-            :filter="filter"
-            hide-bottom
-          />
-        </div>
+  <div class="q-pa-md">
+    <!--separator-->
+    <div class="row q-col-gutter-lg">
+      <div class="col">
+        <q-toolbar>
+          <q-toolbar-title class="text-overline text-weight-bold"
+            >Election Campaign</q-toolbar-title
+          >
+        </q-toolbar>
       </div>
     </div>
-  </q-page>
+    <!--separator-->
+    <q-card class="my-my-card">
+      <q-tabs
+        v-model="tab"
+        dense
+        class="bg-deep-orange-1"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab name="prime" label="Prime Minister" />
+        <q-tab name="secretary" label="Secretary General" />
+      </q-tabs>
+
+      <q-separator />
+
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="prime">
+          <div class="text-h6">Mails</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+
+        <q-tab-panel name="secretary">
+          <div class="text-h6">Alarms</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+      </q-tab-panels>
+    </q-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -72,6 +74,7 @@ export default class ManageElection extends Vue {
   }
 
   filter = '';
+  tab = 'prime';
   showDetails = false;
   addNewCandidate = false;
   editRowCandidate = false;
