@@ -3,10 +3,15 @@ import { DefaultApi } from './rest-api/api';
 import { StudentDto } from './rest-api';
 
 class StudentService extends DefaultApi {
-  async create(payload: any): Promise<StudentDto> {
+  async create(payload: any) {
     const response = await ssgApiService.addStudent(payload);
-    return response.data;
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      [];
+    }
   }
+
   async getAll(): Promise<StudentDto> {
     const response = await ssgApiService.getStudents();
     return response.data;
