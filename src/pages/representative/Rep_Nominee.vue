@@ -5,7 +5,7 @@
       <div class="col">
         <q-toolbar>
           <q-toolbar-title class="text-overline text-weight-bold"
-            >Election Campaign</q-toolbar-title
+            >Candidate List</q-toolbar-title
           >
         </q-toolbar>
       </div>
@@ -43,11 +43,7 @@
 </template>
 
 <script lang="ts">
-import {
-  RepresentativeDto,
-  StudentDto,
-  ElectionDto,
-} from 'src/services/rest-api';
+import { RepresentativeDto, StudentDto, ElectionDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 

@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar>
             <q-toolbar-title class="text-overline text-weight-bold"
-              >Election Campaign</q-toolbar-title
+              >Candidate Profiles</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -21,28 +21,30 @@
                 <div class="row">
                   <div class="col-4 q-gutter-sm">
                     <div class="text-center">
-                      <q-avatar size="90px">
-                      <q-img
-                        square
-                        :src="`http://localhost:3000/media/${data.student?.url}`"
-                        v-for="mode in fitModes"
-                        :key="mode"
-                        style="max-width: 200px; height: 70px"
-                        :fit="mode"
-                        font-size="82px"
-                        color="teal"
-                        text-color="white"
-                        icon="account_circle"
-                      />
+                      <q-avatar size="93px">
+                        <q-img
+                          square
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                          v-for="mode in fitModes"
+                          :key="mode"
+                          style="max-width: 200px; height: 70px"
+                          :fit="mode"
+                          font-size="82px"
+                          color="teal"
+                          text-color="white"
+                          icon="account_circle"
+                        />
                       </q-avatar>
                     </div>
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-h6 text-bold">
-                      {{ data.student?.first_name }} {{ data.student?.middle_name }}. {{ data.student?.last_name }}
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }}
                     </div>
                     <div class="text-caption">
-                      <strong>{{data.student?.college}}</strong>
+                      <strong>{{ data.student?.college }}</strong>
                     </div>
                     <div class="text-caption">
                       {{ data.student?.course }}
@@ -112,7 +114,6 @@ export default class ManageElection extends Vue {
 
   student_type = ['Regular', 'Representative'];
   fitModes = ['scale-down'];
-  
 }
 </script>
 

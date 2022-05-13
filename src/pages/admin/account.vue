@@ -21,12 +21,7 @@ div
             label="Representatives Account"
             icon="lock"
           />
-          <q-tab
-            class="text-caption"
-            name="ssg"
-            label="SSG Account"
-            icon="lock"
-          />
+          <q-tab class="text-caption" name="ssg" label="SSG Account" icon="lock" />
         </q-tabs>
 
         <q-separator />
@@ -546,13 +541,7 @@ export default class ManageAccount extends Vue {
       label: 'Name',
       align: 'left',
       field: (row: StudentDto) =>
-        row.last_name +
-        ', ' +
-        row.first_name +
-        ' ' +
-        row.middle_name +
-        ' ' +
-        row.suffix,
+        row.last_name + ', ' + row.first_name + ' ' + row.middle_name + ' ' + row.suffix,
       format: (val: string) => `${val}`,
     },
     {
@@ -609,7 +598,7 @@ export default class ManageAccount extends Vue {
     college: '',
     course: '',
     department: '',
-    student_type: 'regular',
+    student_type: 'Regular',
   };
 
   //---------------------------------------------------for Candidate
@@ -677,7 +666,7 @@ export default class ManageAccount extends Vue {
     this.resetModel();
     this.$q.notify({
       type: 'positive',
-      message: 'Successfully Edit.',
+      message: 'Successfully Edited.',
     });
   }
 
@@ -718,7 +707,7 @@ export default class ManageAccount extends Vue {
       college: '',
       course: '',
       department: '',
-      student_type: 'regular',
+      student_type: 'Regular',
     };
     this.imageAttachement = new File([], 'Select File');
   }

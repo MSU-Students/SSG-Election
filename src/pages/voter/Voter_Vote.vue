@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar>
             <q-toolbar-title class="text-overline text-weight-bold"
-              >Election Campaign</q-toolbar-title
+              >Vote for Representatives</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -18,34 +18,30 @@
             <div class="row">
               <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
                 <div class="col-12 col-md q-pa-xs">
-                  <q-card
-                    class="cursor-pointer"
-                    style="width: 290px; max-width: 100vw"
-                  >
+                  <q-card class="cursor-pointer" style="width: 290px; max-width: 100vw">
                     <div class="q-pa-md">
                       <div class="row">
-                        <div class="col-4 q-pa-sm">
+                        <div class="col-4 q-gutter-sm">
                           <div class="text-center">
                             <q-avatar size="70px">
-                            <q-img
-                              square
-                              :src="`http://localhost:3000/media/${data.student?.url}`"
-                              v-for="mode in fitModes"
-                              :key="mode"
-                              style="max-width: 300px; height: 70px"
-                              :fit="mode"
-                              font-size="82px"
-                              color="teal"
-                              text-color="white"
-                              icon="account_circle"
-                            />
+                              <q-img
+                                square
+                                :src="`http://localhost:3000/media/${data.student?.url}`"
+                                v-for="mode in fitModes"
+                                :key="mode"
+                                style="max-width: 300px; height: 70px"
+                                :fit="mode"
+                                font-size="82px"
+                                color="teal"
+                                text-color="white"
+                                icon="account_circle"
+                              />
                             </q-avatar>
                           </div>
                         </div>
                         <div class="col-8 q-pa-sm">
-                          <div class="text-body text-bold">
+                          <div class="text-body text-bold text-uppercase">
                             {{ data.student?.first_name }}
-                            {{ data.student?.middle_name }}.
                             {{ data.student?.last_name }}
                           </div>
                           <div class="text-caption">
@@ -56,7 +52,7 @@
                           </div>
                         </div>
                       </div>
-                      <q-separator />
+                      <q-separator inset dark /><br />
                       <div class="row">
                         <div class="col">
                           <q-card-section class="text-overline">
@@ -64,10 +60,11 @@
                               unelevated
                               square
                               dense
-                              color="secondary"
+                              push
+                              color="primary"
                               label="Vote"
                               class="full-width absolute-bottom"
-                              @click="onaddBalot(data)"
+                              @click="onaddBallot(data)"
                             />
                           </q-card-section>
                         </div>
@@ -100,7 +97,7 @@
                   square
                   dense
                   push
-                  color="primary"
+                  color="positive"
                   class="full-width"
                   label="Submit Vote"
                   icon="check"
@@ -127,21 +124,21 @@
 </template>
 
 <script lang="ts">
-import { CandidateDto, VoteRepDto } from 'src/services/rest-api';
-import { TempRep } from 'src/store/tempRep/state';
-import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { CandidateDto, VoteRepDto } from "src/services/rest-api";
+import { TempRep } from "src/store/tempRep/state";
+import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
 
 @Options({
   computed: {
-    ...mapState('candidate', ['allCandidate']),
-    ...mapState('voteRep', ['allVoteRep']),
-    ...mapState('tempRep', ['allTempRep']),
+    ...mapState("candidate", ["allCandidate"]),
+    ...mapState("voteRep", ["allVoteRep"]),
+    ...mapState("tempRep", ["allTempRep"]),
   },
   methods: {
-    ...mapActions('candidate', ['getAllCandidate']),
-    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
-    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
+    ...mapActions("candidate", ["getAllCandidate"]),
+    ...mapActions("voteRep", ["addVoteRep", "getAllvoteRep"]),
+    ...mapActions("tempRep", ["addTempRep", "deleteTempRep", "clear"]),
   },
 })
 export default class ManageElection extends Vue {
@@ -150,40 +147,40 @@ export default class ManageElection extends Vue {
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
   allTempRep!: TempRep[];
-  clear!:() => Promise<void>;
+  clear!: () => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
   async mounted() {
     await this.getAllCandidate();
   }
 
-  filter = '';
+  filter = "";
   showDetails = false;
   addNewCandidate = false;
   editRowCandidate = false;
   dense = true;
 
-  student_type = ['Regular', 'Representative'];
-  fitModes = ['scale-down'];
+  student_type = ["Regular", "Representative"];
+  fitModes = ["scale-down"];
 
   columns = [
     {
-      name: 'name',
+      name: "name",
       required: true,
-      label: 'Name',
-      align: 'left',
+      label: "Name",
+      align: "left",
       field: (row: TempRep) =>
-        row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
+        row.last_name + ", " + row.first_name + " " + row.middle_name,
     },
     {
-      name: 'level',
-      align: 'center',
-      label: 'Year Admitted',
+      name: "level",
+      align: "center",
+      label: "Year Admitted",
       field: (row: any) => row.yr_admitted,
     },
     {
-      name: 'course',
-      align: 'center',
-      label: 'Course',
+      name: "course",
+      align: "center",
+      label: "Course",
       field: (row: any) => row.course,
     },
   ];
@@ -194,51 +191,48 @@ export default class ManageElection extends Vue {
     this.clear();
   }
 
-  
-
-  async onaddBalot(data: CandidateDto) {
-   if (data.student) {
-     await this.addTempRep({
-       ...data.student,
-       temp_tally_id: 0,
-     } as TempRep);
-   }
-    
+  async onaddBallot(data: CandidateDto) {
+    if (data.student) {
+      await this.addTempRep({
+        ...data.student,
+        temp_tally_id: 0,
+      } as TempRep);
+    }
   }
 
   async submitVote() {
     this.$q
       .dialog({
-        message: 'Submit vote?',
+        message: "Submit vote?",
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
-        //copy from this.allTempRep => this.inputVoteRep 
+        //copy from this.allTempRep => this.inputVoteRep
         await this.addVoteRep(this.inputVoteRep);
         this.addNewVoteRep = false;
         this.resetModel();
         this.$q.notify({
-          type: 'warning',
-          message: 'You have successfully voted',
+          type: "positive",
+          message: "You have successfully casted your voted.",
         });
       });
   }
 
   inputVoteRep: VoteRepDto = {
-    rep1_name: '',
-    rep2_name: '',
-    academic_yr: '',
-    date: '',
-    time: '',
+    rep1_name: "",
+    rep2_name: "",
+    academic_yr: "",
+    date: "",
+    time: "",
   };
   resetModel() {
     this.inputVoteRep = {
-      rep1_name: '',
-      rep2_name: '',
-      academic_yr: '',
-      date: '',
-      time: '',
+      rep1_name: "",
+      rep2_name: "",
+      academic_yr: "",
+      date: "",
+      time: "",
     };
   }
 }

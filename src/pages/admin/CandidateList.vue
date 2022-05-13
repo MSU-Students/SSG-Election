@@ -45,9 +45,18 @@
             <q-dialog v-model="addNewCandidate" persistent>
               <q-card style="width: 900px; max-width: 100vw">
                 <q-card-section class="row">
-                  <div class="text-h6">Create new Account</div>
-                  <q-space />
-                  <q-btn flat round dense icon="close" v-close-popup />
+                  <q-toolbar>
+                    <div class="text-h6">Create New Account</div>
+                    <q-space />
+                    <q-btn
+                      flat
+                      round
+                      dense
+                      icon="close"
+                      @click="resetModelCandidate()"
+                      v-close-popup
+                    />
+                  </q-toolbar>
                 </q-card-section>
 
                 <q-card-section class="q-gutter-sm">
@@ -63,6 +72,8 @@
                         dense
                         outlined
                         label="Select ID Number"
+                        lazy-rules
+                        :rules="[(val) => (val && val.length > 0) || 'Select ID number.']"
                       >
                       </q-select>
                     </div>
@@ -78,6 +89,10 @@
                         dense
                         outlined
                         label="Select Election Year"
+                        lazy-rules
+                        :rules="[
+                          (val) => (val && val.length > 0) || 'Select election year.',
+                        ]"
                       >
                       </q-select>
                     </div>
@@ -89,6 +104,8 @@
                       dense
                       outlined
                       label="Platform"
+                      lazy-rules
+                      :rules="[(val) => (val && val.length > 0) || 'Input the platform.']"
                     >
                     </q-input>
                   </div>
@@ -104,6 +121,7 @@
                       flat
                       label="Save"
                       color="primary"
+                      type="submit"
                       @click="onaddCandidateAccount()"
                     />
                   </div>
@@ -189,6 +207,7 @@
                         flat
                         label="Save"
                         color="primary"
+                        type="submit"
                         @click="onEditCandidateAccount()"
                       />
                     </div>
@@ -271,9 +290,7 @@
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">
-                      "{{ inputCandidate.platform }}"
-                    </div>
+                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
                   </q-card-section>
                 </q-card>
               </q-dialog>
@@ -322,7 +339,7 @@ export default class ManageElection extends Vue {
   }
 
   CandidateColumn = [
-    { name: 'action', align: 'center',label: 'Action', field: 'action'},
+    { name: 'action', align: 'center', label: 'Action', field: 'action' },
     {
       name: 'id',
       align: 'center',
@@ -339,8 +356,8 @@ export default class ManageElection extends Vue {
         ', ' +
         row.student?.first_name +
         ' ' +
-        row.student?.middle_name+
-        '.',
+        row.student?.middle_name +
+        ' ',
     },
     {
       name: 'email',
@@ -399,7 +416,7 @@ export default class ManageElection extends Vue {
     this.resetModelCandidate();
     this.$q.notify({
       type: 'positive',
-      message: 'Account is Successfully Added!.',
+      message: 'Account is Successfully Added.',
     });
   }
 
@@ -409,7 +426,7 @@ export default class ManageElection extends Vue {
     this.resetModelCandidate();
     this.$q.notify({
       type: 'positive',
-      message: 'Successfully Edit.',
+      message: 'Successfully edited.',
     });
   }
 
@@ -425,7 +442,7 @@ export default class ManageElection extends Vue {
   deleteSpecificCandidateAccount(val: CandidateDto) {
     this.$q
       .dialog({
-        message: 'Confirm to delete?',
+        message: 'Are you sure you want to delete?',
         cancel: true,
         persistent: true,
       })
@@ -433,7 +450,7 @@ export default class ManageElection extends Vue {
         await this.deleteCandidate(val.candidate_id as any);
         this.$q.notify({
           type: 'warning',
-          message: 'Successfully deleted',
+          message: 'Successfully deleted.',
         });
       });
   }
