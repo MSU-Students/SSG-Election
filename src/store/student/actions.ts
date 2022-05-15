@@ -8,8 +8,22 @@ const actions: ActionTree<StudentStateInterface, StateInterface> = {
     const result = await studentservice.create(payload);
     context.commit('setNewStudent', result);
     await context.dispatch('getAllStudent');
+    return result;
   },
-
+  async appointStudent(context, student_id: number) {
+    const student = await studentservice.getOne(student_id);
+    await studentservice.update(student_id, {
+      ...student,
+      student_type: 'Representative',
+    });
+  },
+  async terminateRepresentative(context, student_id: number) {
+    const student = (await studentservice.getStudent(student_id)).data;
+    await studentservice.updateStudent(student_id, {
+      ...student,
+      student_type: 'Regular',
+    });
+  },
   async editStudent(context, payload: any): Promise<any> {
     const result = await studentservice.update(payload.student_id, payload);
     context.commit('updateStudent', result);

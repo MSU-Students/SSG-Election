@@ -3,8 +3,10 @@ import { StateInterface } from '../index';
 import { CandidateStateInterface } from './state';
 
 const getters: GetterTree<CandidateStateInterface, StateInterface> = {
-  someAction (/* context */) {
-    // your code
+  representativeStatus (state) {
+    return state.allCandidate.filter((i) =>
+      /^Representative$/i.test(i.student?.student_type || '')
+    );
   }
 };
 

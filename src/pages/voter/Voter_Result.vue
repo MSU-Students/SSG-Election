@@ -15,7 +15,7 @@
                 :grid="$q.screen.xs"
                 title="College Representatives"
                 class="my-sticky-header-table"
-                :rows="allVoteRep"
+                :rows="allCandidate"
                 :columns="representative"
                 row-key="name"
                 :filter="filter"
@@ -52,25 +52,31 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
-import { VoteRepDto, StudentDto } from 'src/services/rest-api';
+import { StudentDto, CandidateDto } from 'src/services/rest-api';
 @Options({
   components: { RepresentativeResult },
   computed: {
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('candidate', ['allCandidate']),
     ...mapState('student', ['allStudent']),
+    
+    ...mapGetters("candidate", ["representativeStatus"]),
   },
   methods: {
+    ...mapActions('candidate', ['getAllCandidate']),
     ...mapActions('voteRep', ['getAllVoteRep']),
   },
 })
 export default class studentResult extends Vue {
   allStudent!: StudentDto[];
-  allVoteRep!: VoteRepDto[];
+  allCandidate!: CandidateDto[];
+  representativeStatus!: CandidateDto[];
+  getAllCandidate!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
   async mounted() {
     await this.getAllVoteRep();
+    await this.getAllCandidate();
   }
 
   tab = 'representative';

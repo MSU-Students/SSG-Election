@@ -27,18 +27,18 @@
                         <div class="col-4 q-pa-sm">
                           <div class="text-center">
                             <q-avatar size="70px">
-                            <q-img
-                              square
-                              :src="`http://localhost:3000/media/${data.student?.url}`"
-                              v-for="mode in fitModes"
-                              :key="mode"
-                              style="max-width: 300px; height: 70px"
-                              :fit="mode"
-                              font-size="82px"
-                              color="teal"
-                              text-color="white"
-                              icon="account_circle"
-                            />
+                              <q-img
+                                square
+                                :src="`http://localhost:3000/media/${data.student?.url}`"
+                                v-for="mode in fitModes"
+                                :key="mode"
+                                style="max-width: 300px; height: 70px"
+                                :fit="mode"
+                                font-size="82px"
+                                color="teal"
+                                text-color="white"
+                                icon="account_circle"
+                              />
                             </q-avatar>
                           </div>
                         </div>
@@ -150,7 +150,7 @@ export default class ManageElection extends Vue {
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
   allTempRep!: TempRep[];
-  clear!:() => Promise<void>;
+  clear!: () => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
   async mounted() {
     await this.getAllCandidate();
@@ -194,38 +194,47 @@ export default class ManageElection extends Vue {
     this.clear();
   }
 
-  
-
   async onaddBalot(data: CandidateDto) {
-   if (data.student) {
-     await this.addTempRep({
-       ...data.student,
-       temp_tally_id: 0,
-     } as TempRep);
-   }
-    
+    if (data.student) {
+      await this.addTempRep({
+        ...data.student,
+        student_id: data.student?.student_id,
+        temp_tally_id: 0,
+      } as TempRep);
+    }
   }
 
   async submitVote() {
-    this.$q
-      .dialog({
-        message: 'Submit vote?',
-        cancel: true,
-        persistent: true,
-      })
-      .onOk(async () => {
-        //copy from this.allTempRep => this.inputVoteRep 
-        await this.addVoteRep(this.inputVoteRep);
-        this.addNewVoteRep = false;
-        this.resetModel();
-        this.$q.notify({
-          type: 'warning',
-          message: 'You have successfully voted',
+    const firstRep = this.allTempRep[0];
+    const secondRep = this.allTempRep[1];
+
+    if (firstRep && secondRep) {
+      this.$q
+        .dialog({
+          message: 'Submit vote?',
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(async () => {
+          //copy from
+          this.inputVoteRep.rep1 = firstRep.student_id;
+          this.inputVoteRep.rep2 = secondRep.student_id;
+          
+          await this.addVoteRep(this.inputVoteRep);
+          this.addNewVoteRep = false;
+          this.resetModel();
+          this.$q.notify({
+            type: 'warning',
+            message: 'You have successfully voted',
+          });
+          
         });
-      });
+    }
   }
 
-  inputVoteRep: VoteRepDto = {
+  inputVoteRep: any = {
+    rep2: '',
+    rep1: '',
     rep1_name: '',
     rep2_name: '',
     academic_yr: '',
@@ -234,6 +243,8 @@ export default class ManageElection extends Vue {
   };
   resetModel() {
     this.inputVoteRep = {
+      rep2: '',
+      rep1: '',
       rep1_name: '',
       rep2_name: '',
       academic_yr: '',

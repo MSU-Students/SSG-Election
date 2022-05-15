@@ -384,6 +384,12 @@ export interface UserDto {
      * @memberof UserDto
      */
     'refreshToken'?: string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof UserDto
+     */
+    'student'?: StudentDto;
 }
 /**
  * 
@@ -397,6 +403,18 @@ export interface VoteRepDto {
      * @memberof VoteRepDto
      */
     'vote_rep_id'?: number;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteRepDto
+     */
+    'rep1': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteRepDto
+     */
+    'rep2': StudentDto;
     /**
      * 
      * @type {string}
@@ -446,6 +464,18 @@ export interface VoteSsgDto {
      * @memberof VoteSsgDto
      */
     'vote_ssg_id'?: number;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteSsgDto
+     */
+    'primeMinister': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteSsgDto
+     */
+    'Secretary': StudentDto;
     /**
      * 
      * @type {string}

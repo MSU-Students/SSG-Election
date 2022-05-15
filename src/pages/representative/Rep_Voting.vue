@@ -51,7 +51,7 @@
           <q-card-actions>
             <q-table
               class="my-sticky-header-table"
-              :rows="allVoteRep"
+              :rows="allReresentative"
               :columns="columns"
               row-key="name"
               :selected-rows-label="prime"
@@ -72,7 +72,7 @@
           <q-card-actions>
             <q-table
               class="my-sticky-header-table"
-              :rows="allVoteRep"
+              :rows="allReresentative"
               :columns="columns"
               row-key="name"
               :selected-rows-label="secretary"
@@ -87,18 +87,19 @@
 </template>
 
 <script lang="ts">
-import { StudentDto, VoteRepDto, VoteSsgDto } from 'src/services/rest-api';
+import { StudentDto, RepresentativeDto, VoteSsgDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
 @Options({
   computed: {
     ...mapState('student', ['allStudent']),
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
   },
   methods: {
-    ...mapActions('voteRep', ['addVoteRep', 'getAllVoteRep']),
+    ...mapActions('representative', ['addRepresentative', 'getAllRepresentative']),
+    ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg']),
   },
 })
 export default class studentVote extends Vue {
@@ -106,13 +107,13 @@ export default class studentVote extends Vue {
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
 
-  getAllVoteRep!: () => Promise<void>;
-  allVoteRep!: VoteRepDto[];
+  getAllRepresentative!: () => Promise<void>;
+  allReresentative!: RepresentativeDto[];
 
   allStudent!: StudentDto[];
 
   async mounted() {
-    await this.getAllVoteRep();
+    await this.getAllRepresentative();
     await this.getAllVoteSsg();
   }
 

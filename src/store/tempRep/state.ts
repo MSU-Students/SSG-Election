@@ -5,6 +5,7 @@ export interface TempRep {
   last_name: string;
   course: string;
   yr_admitted: string;
+  student_id?: string;
 }
 
 export interface TempRepStateInterface {

@@ -5,7 +5,7 @@
       title="Representative Account List"
       :grid="$q.screen.xs"
       :columns="RepresentativeColumn"
-      :rows="allVoteRep"
+      :rows="representativeStatus"
       row-key="name"
       :rows-per-page-options="[0]"
       :filter="filter"
@@ -215,11 +215,9 @@
 import {
   ElectionDto,
   StudentDto,
-  SsgMemberDto,
   MediaDto,
   RepresentativeDto,
   CandidateDto,
-  VoteRepDto,
 } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -229,17 +227,15 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
     ...mapState('representative', ['allRepresentative']),
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapGetters("candidate", ["representativeStatus"]),
   },
   methods: {
-    ...mapActions('student', ['getAllStudent']),
     ...mapActions('representative', [
       'addRepresentative',
       'editRepresentative',
       'deleteRepresentative',
       'getAllRepresentative',
     ]),
-    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
   },
 })
 export default class ManageAccount extends Vue {
@@ -247,10 +243,8 @@ export default class ManageAccount extends Vue {
   allElection!: ElectionDto[];
   getAllElection!: () => Promise<void>;
   allStudent!: StudentDto[];
-  getAllStudent!: () => Promise<void>;
+  representativeStatus!: CandidateDto[];
 
-  allVoteRep!: VoteRepDto[];
-  getAllVoteRep!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
   addRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   editRepresentative!: (payload: RepresentativeDto) => Promise<void>;
@@ -260,9 +254,7 @@ export default class ManageAccount extends Vue {
   uploadMedia!: (payload: File) => Promise<MediaDto>;
 
   async mounted() {
-    await this.getAllStudent();
     await this.getAllRepresentative();
-    await this.getAllVoteRep();
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [

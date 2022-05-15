@@ -9,6 +9,8 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     const result = await voterepservice.create(payload);
     context.commit('setNewVoteRep', result);
     await context.dispatch('getAllVoteRep');
+    await this.dispatch('student/appointStudent', payload.rep2, { root: true });
+    await this.dispatch('student/appointStudent', payload.rep1, { root: true });
   },
 
   async editVoteRep(context, payload: any): Promise<any> {

@@ -74,189 +74,226 @@ div
                       </q-card-section>
 
                       <q-card-section>
-                        <div class="row q-pl-md q-pr-lg">
-                          <!--C O L U M N-->
-                          <div class="col-12 col-md-4">
-                            <div class="text-overline text-bold">
-                              Account Type
-                              <div class="q-gutter-y-md">
-                                <q-file
-                                  outlined
-                                  accept=".jpg, image/*"
-                                  v-model="imageAttachement"
-                                  style="max-width: 300px"
+                        <q-form @submit="onaddAccount()">
+                          <div class="row">
+                            <!--C O L U M N-->
+                            <div class="col-12 col-md-4">
+                              <div class="text-overline text-bold">
+                                Account Type
+                                <div class="q-gutter-y-md">
+                                  <q-file
+                                    outlined
+                                    accept=".jpg, image/*"
+                                    v-model="imageAttachement"
+                                    style="max-width: 300px"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-8">
+                              <div class="text-overline text-bold">
+                                Student Information
+                                <div class="q-gutter-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.first_name"
+                                      dense
+                                      outlined
+                                      label="First Name"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.middle_name"
+                                      dense
+                                      outlined
+                                      label="Middle Name"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.last_name"
+                                      dense
+                                      outlined
+                                      label="Last Name"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.suffix"
+                                      dense
+                                      outlined
+                                      label="Suffix"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="q-gutter-x-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.school_id"
+                                      label="ID Number"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.email"
+                                      label="Email"
+                                      type="email"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.yr_admitted"
+                                      label="Year Admitted"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="q-gutter-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.course"
+                                      label="Course"
+                                      hint="BS Information Technology"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.department"
+                                      label="Department"
+                                      hint="Department of Information Technology"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-select
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.college"
+                                      :options="options"
+                                      label="College"
+                                      hint="College of Information and Computing Sciences"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="q-gutter-xs q-pt-md row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      :options="allAccount"
+                                      option-label="username"
+                                      option-value="user_id"
+                                      v-model="inputUser.username"
+                                      label="Username"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      :options="allAccount"
+                                      option-label="password"
+                                      option-value="user_id"
+                                      v-model="inputUser.password"
+                                      label="Password"
+                                      lazy-rules
+                                      :rules="[
+                                        (val) =>
+                                          (val && val.length > 0) ||
+                                          'Does not accept empty input',
+                                      ]"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="q-pt-md" align="right">
+                                <q-btn
+                                  flat
+                                  label="Cancel"
+                                  color="red-10"
+                                  v-close-popup
+                                  @click="resetModel()"
+                                />
+                                <q-btn
+                                  flat
+                                  label="Save"
+                                  color="primary"
+                                  type="submit"
                                 />
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 col-md-8">
-                            <div class="text-overline text-bold">
-                              Student Information
-                              <div class="q-gutter-xs row">
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    v-model="inputAccount.first_name"
-                                    dense
-                                    outlined
-                                    label="First Name"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    v-model="inputAccount.middle_name"
-                                    dense
-                                    outlined
-                                    label="Middle Initial"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    v-model="inputAccount.last_name"
-                                    dense
-                                    outlined
-                                    label="Last Name"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    v-model="inputAccount.suffix"
-                                    dense
-                                    outlined
-                                    label="Suffix"
-                                  />
-                                </div>
-                              </div>
-
-                              <div class="q-gutter-x-xs row">
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.school_id"
-                                    label="ID Number"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.email"
-                                    label="Email"
-                                    type="email"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.yr_admitted"
-                                    label="Year Admitted"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                              </div>
-
-                              <div class="q-gutter-xs row">
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.course"
-                                    label="Course"
-                                    hint="BS Information Technology"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-input
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.department"
-                                    label="Department"
-                                    hint="Department of Information Technology"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                                <div class="col-12 col-md">
-                                  <q-select
-                                    outlined
-                                    dense
-                                    v-model="inputAccount.college"
-                                    :options="options"
-                                    label="College"
-                                    hint="College of Information and Computing Sciences"
-                                    lazy-rules
-                                    :rules="[
-                                      (val) =>
-                                        (val && val.length > 0) ||
-                                        'Does not accept empty input',
-                                    ]"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        </q-form>
                       </q-card-section>
-
-                      <q-card-actions align="right">
-                        <q-btn
-                          flat
-                          label="Cancel"
-                          color="red-10"
-                          v-close-popup
-                          @click="resetModel()"
-                        />
-                        <q-btn
-                          flat
-                          label="Save"
-                          color="primary"
-                          :loading="loading"
-                          @click="onaddAccount"
-                        />
-                      </q-card-actions>
                     </q-card>
                   </q-dialog>
                 </div>
+                <q-btn color="primary" icon-right="archive" no-caps />
               </template>
 
               <template v-slot:body-cell-action="props">
@@ -302,7 +339,7 @@ div
                                 <div class="q-gutter-x-xs q-gutter-y-lg row">
                                   <div class="col-12 col-md">
                                     <q-input
-                                      v-model="inputAccount.first_name"
+                                      v-model="inputStudent.first_name"
                                       dense
                                       outlined
                                       label="First Name"
@@ -310,7 +347,7 @@ div
                                   </div>
                                   <div class="col-12 col-md">
                                     <q-input
-                                      v-model="inputAccount.middle_name"
+                                      v-model="inputStudent.middle_name"
                                       dense
                                       outlined
                                       label="Middle Initial"
@@ -318,7 +355,7 @@ div
                                   </div>
                                   <div class="col-12 col-md">
                                     <q-input
-                                      v-model="inputAccount.last_name"
+                                      v-model="inputStudent.last_name"
                                       dense
                                       outlined
                                       label="Last Name"
@@ -326,7 +363,7 @@ div
                                   </div>
                                   <div class="col-12 col-md">
                                     <q-input
-                                      v-model="inputAccount.suffix"
+                                      v-model="inputStudent.suffix"
                                       dense
                                       outlined
                                       label="Suffix"
@@ -339,7 +376,7 @@ div
                                     <q-input
                                       outlined
                                       dense
-                                      v-model="inputAccount.school_id"
+                                      v-model="inputStudent.school_id"
                                       label="ID Number"
                                     />
                                   </div>
@@ -347,7 +384,7 @@ div
                                     <q-input
                                       outlined
                                       dense
-                                      v-model="inputAccount.email"
+                                      v-model="inputStudent.email"
                                       label="Email"
                                       type="email"
                                     />
@@ -356,7 +393,7 @@ div
                                     <q-input
                                       outlined
                                       dense
-                                      v-model="inputAccount.yr_admitted"
+                                      v-model="inputStudent.yr_admitted"
                                       label="Year Admitted"
                                     />
                                   </div>
@@ -367,7 +404,7 @@ div
                                     <q-input
                                       outlined
                                       dense
-                                      v-model="inputAccount.course"
+                                      v-model="inputStudent.course"
                                       label="Course"
                                       hint="BS Information Technology"
                                     />
@@ -376,7 +413,7 @@ div
                                     <q-input
                                       outlined
                                       dense
-                                      v-model="inputAccount.department"
+                                      v-model="inputStudent.department"
                                       label="Department"
                                       hint="Department of Information Technology"
                                     />
@@ -385,7 +422,7 @@ div
                                     <q-select
                                       outlined
                                       dense
-                                      v-model="inputAccount.college"
+                                      v-model="inputStudent.college"
                                       :options="options"
                                       label="College"
                                       hint="College of Information and Computing Sciences"
@@ -458,9 +495,9 @@ div
                           <q-card-section class="q-pt-xs col">
                             <div class="text-caption">Student Name:</div>
                             <div class="text-h5 q-mt-sm q-mb-xs">
-                              {{ inputAccount.last_name }},
-                              {{ inputAccount.first_name }}
-                              {{ inputAccount.middle_name }}.
+                              {{ inputStudent.last_name }},
+                              {{ inputStudent.first_name }}
+                              {{ inputStudent.middle_name }}.
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
                             <div class="text-bold q-mt-sm q-mb-xs">fr34f</div>
@@ -494,7 +531,7 @@ div
 </template>
 
 <script lang="ts">
-import { StudentDto, MediaDto } from 'src/services/rest-api';
+import { StudentDto, MediaDto, UserDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 import RepresentativeAccount from 'components/Account/representative.vue';
@@ -508,6 +545,7 @@ import { FILE } from 'dns';
   },
   computed: {
     ...mapState('student', ['allStudent']),
+    ...mapState('account', ['allAccount']),
   },
   methods: {
     ...mapActions('student', [
@@ -516,12 +554,15 @@ import { FILE } from 'dns';
       'deleteStudent',
       'getAllStudent',
     ]),
+    ...mapActions('account', ['addAccount','getAllAccount']),
     ...mapActions('media', ['uploadMedia']),
   },
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
+  addAccount!: (payload: UserDto) => Promise<void>;
   allStudent!: StudentDto[];
+  allAccount!: UserDto[];
   addStudent!: (payload: StudentDto) => Promise<void>;
   editStudent!: (payload: StudentDto) => Promise<void>;
   deleteStudent!: (payload: StudentDto) => Promise<void>;
@@ -599,7 +640,13 @@ export default class ManageAccount extends Vue {
   editRowAccount = false;
 
   //---------------------------------------------------for student
-  inputAccount: any = {
+  inputUser: UserDto = {
+    username: '',
+    password: '',
+    userType: 'voter',
+    status: '',
+  };
+  inputStudent: any = {
     first_name: '',
     middle_name: '',
     last_name: '',
@@ -642,16 +689,21 @@ export default class ManageAccount extends Vue {
       if (this.imageAttachement.size > 0) {
         this.loading = true;
         const media = await this.uploadMedia(this.imageAttachement as File);
-        await this.addStudent({
-          ...this.inputAccount,
+        const profile: any = await this.addStudent({
+          ...this.inputStudent,
           url: media.id,
+        });
+
+        await this.addAccount({
+          ...this.inputUser,
+          student: profile.student_id,
         });
         this.$q.notify({
           type: 'positive',
           message: 'Account is Successfully Added!.',
         });
       } else {
-        await this.addStudent(this.inputAccount);
+        await this.addStudent(this.inputStudent);
         this.$q.notify({
           type: 'positive',
           message: 'Account is Successfully Added!.',
@@ -672,7 +724,7 @@ export default class ManageAccount extends Vue {
   async onEditAccount() {
     this.loading = true;
     const media = await this.uploadMedia(this.imageAttachement as File);
-    await this.editStudent({ ...this.inputAccount, url: media.id });
+    await this.editStudent({ ...this.inputStudent, url: media.id });
     this.editRowAccount = false;
     this.resetModel();
     this.$q.notify({
@@ -683,12 +735,12 @@ export default class ManageAccount extends Vue {
 
   openEditDialog(val: StudentDto) {
     this.editRowAccount = true;
-    this.inputAccount = { ...val };
+    this.inputStudent = { ...val };
   }
 
   openDetailDialog(val: StudentDto) {
     this.showDetails = true;
-    this.inputAccount = { ...val };
+    this.inputStudent = { ...val };
   }
 
   deleteSpecificAccount(val: StudentDto) {
@@ -708,7 +760,7 @@ export default class ManageAccount extends Vue {
   }
 
   resetModel() {
-    this.inputAccount = {
+    this.inputStudent = {
       first_name: '',
       middle_name: '',
       last_name: '',

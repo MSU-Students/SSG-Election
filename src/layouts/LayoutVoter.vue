@@ -28,6 +28,12 @@
               label="Vote"
               to="/V_Vote"
             />
+            <q-btn
+              flat
+              class="bg-primary text-overline text-white"
+              label="Result"
+              to="/V_Result"
+            />
           </div>
         </q-toolbar-title>
 

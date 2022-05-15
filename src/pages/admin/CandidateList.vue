@@ -339,8 +339,7 @@ export default class ManageElection extends Vue {
         ', ' +
         row.student?.first_name +
         ' ' +
-        row.student?.middle_name+
-        '.',
+        row.student?.middle_name,
     },
     {
       name: 'email',
