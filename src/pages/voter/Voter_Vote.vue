@@ -64,7 +64,7 @@
                               color="primary"
                               label="Vote"
                               class="full-width absolute-bottom"
-                              @click="onaddBalot(data)"
+                              @click="onaddBallot(data)"
                             />
                           </q-card-section>
                         </div>
@@ -124,21 +124,21 @@
 </template>
 
 <script lang="ts">
-import { CandidateDto, VoteRepDto } from "src/services/rest-api";
-import { TempRep } from "src/store/tempRep/state";
-import { Vue, Options } from "vue-class-component";
-import { mapActions, mapState } from "vuex";
+import { CandidateDto, VoteRepDto } from 'src/services/rest-api';
+import { TempRep } from 'src/store/tempRep/state';
+import { Vue, Options } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
 
 @Options({
   computed: {
-    ...mapState("candidate", ["allCandidate"]),
-    ...mapState("voteRep", ["allVoteRep"]),
-    ...mapState("tempRep", ["allTempRep"]),
+    ...mapState('candidate', ['allCandidate']),
+    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('tempRep', ['allTempRep']),
   },
   methods: {
-    ...mapActions("candidate", ["getAllCandidate"]),
-    ...mapActions("voteRep", ["addVoteRep", "getAllvoteRep"]),
-    ...mapActions("tempRep", ["addTempRep", "deleteTempRep", "clear"]),
+    ...mapActions('candidate', ['getAllCandidate']),
+    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
+    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
   },
 })
 export default class ManageElection extends Vue {
@@ -153,34 +153,34 @@ export default class ManageElection extends Vue {
     await this.getAllCandidate();
   }
 
-  filter = "";
+  filter = '';
   showDetails = false;
   addNewCandidate = false;
   editRowCandidate = false;
   dense = true;
 
-  student_type = ["Regular", "Representative"];
-  fitModes = ["scale-down"];
+  student_type = ['Regular', 'Representative'];
+  fitModes = ['scale-down'];
 
   columns = [
     {
-      name: "name",
+      name: 'name',
       required: true,
-      label: "Name",
-      align: "left",
+      label: 'Name',
+      align: 'left',
       field: (row: TempRep) =>
-        row.last_name + ", " + row.first_name + " " + row.middle_name,
+        row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
     },
     {
-      name: "level",
-      align: "center",
-      label: "Year Admitted",
+      name: 'level',
+      align: 'center',
+      label: 'Year Admitted',
       field: (row: any) => row.yr_admitted,
     },
     {
-      name: "course",
-      align: "center",
-      label: "Course",
+      name: 'course',
+      align: 'center',
+      label: 'Course',
       field: (row: any) => row.course,
     },
   ];
@@ -191,7 +191,7 @@ export default class ManageElection extends Vue {
     this.clear();
   }
 
-  async onaddBalot(data: CandidateDto) {
+  async onaddBallot(data: CandidateDto) {
     if (data.student) {
       await this.addTempRep({
         ...data.student,
@@ -216,7 +216,7 @@ export default class ManageElection extends Vue {
           //copy from
           this.inputVoteRep.rep1 = firstRep.student_id;
           this.inputVoteRep.rep2 = secondRep.student_id;
-          
+
           await this.addVoteRep(this.inputVoteRep);
           this.addNewVoteRep = false;
           this.resetModel();
@@ -224,7 +224,6 @@ export default class ManageElection extends Vue {
             type: 'warning',
             message: 'You have successfully voted',
           });
-          
         });
     }
   }

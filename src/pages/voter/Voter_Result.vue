@@ -1,51 +1,48 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <div class="q-pl-xl">
-        <div class="text-h5 q-pb-md text-bold">
-          <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
-          Election Result
-        </div>
+    <div class="q-pl-lg">
+      <div class="text-h5 q-pa-lg text-bold">
+        <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
+        Election Result
       </div>
-      <div class="">
-        <q-card>
-          <div class="q-pa-sm q-gutter-x-sm row">
-            <div class="col-12 col-md">
-              <q-table
-                :grid="$q.screen.xs"
-                title="College Representatives"
-                class="my-sticky-header-table"
-                :rows="allCandidate"
-                :columns="representative"
-                row-key="name"
-                :filter="filter"
-              >
-                <template v-slot:top-right>
-                  <q-input
-                    borderless
-                    dense
-                    debounce="300"
-                    v-model="filter"
-                    placeholder="Search"
-                  >
-                    <template v-slot:append>
-                      <q-icon name="search" />
-                    </template>
-                  </q-input>
-                </template>
-              </q-table>
-            </div>
-            <div class="col-12 col-md">
-              <q-card>
-                <div class="q-pa-md text-center text-bold text-primary">
-                  College Representative in Graph
-                </div>
-                <representative-result />
-              </q-card>
-            </div>
+      <q-card>
+        <div class="q-pa-sm q-gutter-x-sm row">
+          <div class="col-12 col-md">
+            <q-table
+              :grid="$q.screen.xs"
+              title="College Representatives"
+              class="my-sticky-header-table"
+              :rows="allCandidate"
+              :columns="representative"
+              row-key="name"
+              :filter="filter"
+            >
+              <template v-slot:top-right>
+                <q-input
+                  outlined
+                  rounded
+                  dense
+                  debounce="300"
+                  v-model="filter"
+                  placeholder="Search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template>
+            </q-table>
           </div>
-        </q-card>
-      </div>
+          <div class="col-12 col-md">
+            <q-card>
+              <div class="q-pa-md text-center text-bold text-primary">
+                College Representative in Graph
+              </div>
+              <representative-result />
+            </q-card>
+          </div>
+        </div>
+      </q-card>
     </div>
   </q-page>
 </template>
@@ -60,8 +57,8 @@ import { StudentDto, CandidateDto } from 'src/services/rest-api';
   computed: {
     ...mapState('candidate', ['allCandidate']),
     ...mapState('student', ['allStudent']),
-    
-    ...mapGetters("candidate", ["representativeStatus"]),
+
+    ...mapGetters('candidate', ['representativeStatus']),
   },
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
@@ -88,8 +85,7 @@ export default class studentResult extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: any) =>
-        row.student?.last_name + ', ' + row.student?.first_name,
+      field: (row: any) => row.student?.last_name + ', ' + row.student?.first_name,
     },
     {
       name: 'course',

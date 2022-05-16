@@ -1,12 +1,12 @@
 <template>
   <q-page>
-    <div class="q-pl-lg q-pt-lg">
-      <div class="text-h5 q-pl-md text-bold">
+    <div class="q-pl-lg">
+      <div class="text-h5 q-pa-lg text-bold">
         <q-icon name="list" color="primary" style="font-size: 3rem" />
         Candidate List
       </div>
     </div>
-    <q-separator />
+    <q-separator inset />
     <!-----------Recent Election Ballot-------------->
     <div class="row q-pt-md q-pa-md">
       <q-table
@@ -256,22 +256,23 @@
                   </q-card-section>
                   <q-card-section horizontal>
                     <q-card-section class="q-pt-xs col">
-                      <div class="text-overline">Mindanao State University</div>
-                      <div class="text-caption">
-                        {{ inputCandidate.student?.college }} -
-                        {{ inputCandidate.student?.course }}
+                      <div class="text-overline">
+                        {{ inputCandidate.student?.college }}
                       </div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">
-                        {{ inputCandidate.student?.last_name }},
+                      <div class="text-h5 q-mt-sm q-mb-xs text-bold">
                         {{ inputCandidate.student?.first_name }}
                         {{ inputCandidate.student?.middle_name }}
+                        {{ inputCandidate.student?.last_name }}
+                      </div>
+                      <div class="text-caption">
+                        {{ inputCandidate.student?.course }}
                       </div>
                       <div class="text-caption text-grey">
                         {{ inputCandidate.position_type }}
                       </div>
                     </q-card-section>
 
-                    <q-card-section class="col-5 flex flex-center">
+                    <q-card-section class="col-4 flex flex-center">
                       <q-img
                         square
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"

@@ -1,297 +1,90 @@
 <template>
   <q-page>
-    <div class="text-h4 q-pa-md q-ml-md text-bold">
-      <q-icon name="leaderboard" color="primary" style="font-size: 3rem" />
-      SSG Organizational Structure
+    <div class="bg-img row">
+      <div class="col">
+        <div
+          class="text-h2 text-weight-bolder text-primary q-pt-xl q-pb-mx"
+          style="text-align: center"
+        >
+          SSG
+        </div>
+        <div class="text-h2 text-weight-bolder text-primary" style="text-align: center">
+          Election
+        </div>
+        <div class="q-px-xl q-pb-md" align="center">
+          A web-based SSG Election Management System in Mindanao State University-Marawi
+        </div>
+        <div class="q-ml-xl">
+          <q-btn
+            clickable
+            v-ripple
+            to="/P_Structure"
+            outline
+            rounded
+            center
+            color="primary"
+            label="Get started"
+          /><br /><br />
+        </div>
+      </div>
+      <div class="col-8 gt-sm">
+        <q-img src="~assets/images/h.png" style="height: 380px" />
+      </div>
     </div>
-    <q-separator />
-    <div>
-      <q-splitter v-model="splitterModel" style="height: 400px">
-        <template v-slot:before>
-          <div class="q-pa-md">
-            <q-tree
-              :nodes="simple"
-              node-key="label"
-              selected-color="primary"
-              v-model:selected="selected"
-              default-expand-all
-            />
-          </div>
-        </template>
 
-        <template v-slot:after>
-          <q-tab-panels
-            v-model="selected"
-            animated
-            transition-prev="jump-up"
-            transition-next="jump-up"
-          >
-            <q-tab-panel name="Prime Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Arifah U. Abdulbasit</div>
-                <div class="text-caption text-grey">Prime Minister</div>
-              </div>
-
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
-              <br />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
-
-            <q-tab-panel name="Chief Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Norjehan M. Alango</div>
-                <div class="text-caption text-grey">Chief Minister</div>
-              </div>
-
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
-
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
-
-            <q-tab-panel name="Secretary General">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Najmah A. Omar</div>
-                <div class="text-caption text-grey">Minister</div>
-              </div>
-
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
-
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
-
-            <q-tab-panel name="Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Basam C. Serad</div>
-                <div class="text-caption text-grey">Prime Minister</div>
-              </div>
-
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
-
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
-          </q-tab-panels>
-        </template>
-      </q-splitter>
+    <!---------------------------------------------->
+    <!-- <div class="col-12 col-md-8 q-px-lg">
+    <div class="row">
+      <q-toolbar>
+        <q-toolbar-title class="text-weight-bold">ABOUT</q-toolbar-title>
+      </q-toolbar>
+    </div>
+  </div> -->
+    <!--separator-->
+    <div class="q-pa-md" align="justify">
+      <div class="row">
+        <!-- <div class="col-12 col-md q-pa-md q-gutter-y-md text-body1"> -->
+        <div class="col-12 col-md-8 q-px-lg">
+          <q-toolbar-title class="text-weight-bold">ABOUT</q-toolbar-title>
+          <q-separator inset="item" color="primary" /><br />
+          <p>
+            This system is a capstone project entitled “A Web-based Election Management
+            System for Supreme Student Government of Mindanao State University-Marawi”
+            developed as an online voting system in Mindanao State University-Marawi
+            campus.
+          </p>
+          <p>
+            It is a project intended to improve and promote the information technology as
+            a tool for the Division of Student Affairs to manage the election for the
+            Supreme Student Government officials. Through this project, the officials
+            elected by the students can conveniently appoint members of the SSG to help
+            with their areas of interest with the election securely and concisely
+            executed.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <q-img src="~assets/images/referral.svg" />
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
-
-@Options({})
-export default class Student_Candidate extends Vue {
-  splitterModel = 50;
-  selected = "Officer";
-
-  simple = [
-    {
-      label: "Judiciary",
-      children: [
-        {
-          label: "Chief Justice",
-          icon: "person",
-          children: [
-            {
-              label: "Associate Justice",
-              icon: "person",
-            },
-          ],
-        },
-      ],
-    },
-
-    {
-      label: "Parliament",
-      children: [
-        {
-          label: "Speaker of the House",
-          icon: "person",
-          children: [
-            {
-              label: "Chief Ministers",
-              icon: "person",
-            },
-            {
-              label: "College Representatives",
-              icon: "person",
-              children: [
-                {
-                  label: "College of Information Technology",
-                  icon: "person",
-                },
-                {
-                  label: "College of Forestry",
-                  icon: "person",
-                },
-                {
-                  label: "College of Education",
-                  icon: "person",
-                },
-                {
-                  label: "College of Engineering",
-                  icon: "person",
-                },
-                {
-                  label: "College of Agriculture",
-                  icon: "person",
-                },
-                {
-                  label: "College of Business Administration and Accountancy",
-                  icon: "person",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    //-----------------> Executive Structure
-    {
-      label: "Executive",
-      children: [
-        {
-          label: "Prime Minister",
-          icon: "person",
-          children: [
-            {
-              label: "Executive Secretary",
-              icon: "person",
-            },
-            {
-              label: "Internal Deputy Prime Minister",
-              icon: "person",
-            },
-            {
-              label: "External Deputy Prime Minister",
-              icon: "person",
-            },
-            {
-              label: "Ministry of Health and Environment",
-              icon: "person",
-            },
-            {
-              label: "Ministry of Information and Communication",
-              icon: "person",
-            },
-            {
-              label: "Ministry of Planning and Project Management",
-              icon: "person",
-            },
-            {
-              label: "Ministry of Academic Affair",
-              icon: "person",
-            },
-            {
-              label: "Minister of Finance",
-              icon: "person",
-            },
-          ],
-        },
-      ],
-    },
-
-    {
-      label: "Constitutional Commission",
-      children: [
-        {
-          label: "Commission on Audit",
-          icon: "person",
-        },
-        {
-          label: "Commission on Election",
-          icon: "person",
-        },
-        {
-          label: "Student's Right and Welfare on Commission",
-          icon: "person",
-        },
-      ],
-    },
-  ];
-}
+import { Vue, Options } from 'vue-class-component';
+import Chart from 'components/Charts/prime.result.vue';
+@Options({
+  components: { Chart },
+})
+export default class ManageAccount extends Vue {}
 </script>
+
+<style>
+.my-card {
+  height: 100%;
+  max-height: 700px;
+}
+.bg-img {
+  background-color: #f3eee8;
+}
+</style>

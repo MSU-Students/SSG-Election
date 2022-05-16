@@ -12,15 +12,11 @@
         >
           SSG
         </div>
-        <div
-          class="text-h2 text-weight-bolder text-primary"
-          style="text-align: center"
-        >
+        <div class="text-h2 text-weight-bolder text-primary" style="text-align: center">
           Election
         </div>
-        <div class="q-px-xl q-pb-md">
-          A web-based SSG Election Management System in Mindanao State
-          University-Marawi
+        <div class="q-px-xl q-pb-md" align="center">
+          A web-based SSG Election Management System in Mindanao State University-Marawi
         </div>
         <div class="q-ml-xl">
           <q-btn
@@ -31,7 +27,7 @@
             rounded
             color="primary"
             label="Get started"
-          />
+          /><br /><br />
         </div>
       </div>
       <div class="col-8 gt-sm">
@@ -61,7 +57,7 @@
             campus.
           </p>
           <p>
-            This project was intended to improve and promote the information technology as
+            It is a project intended to improve and promote the information technology as
             a tool for the Division of Student Affairs to manage the election for the
             Supreme Student Government officials. Through this project, the officials
             elected by the students can conveniently appoint members of the SSG to help
@@ -117,16 +113,13 @@ export default class ManageAccount extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
       if (distance < 0) {

@@ -6,10 +6,10 @@
         Election Page
       </div>
     </div>
-    <q-separator />
+    <q-separator inset />
 
     <!--separator-->
-    <div class="row q-col-gutter-lg">
+    <!-- <div class="row q-col-gutter-lg">
       <div class="col">
         <q-toolbar>
           <q-toolbar-title class="text-overline text-weight-bold">
@@ -17,7 +17,7 @@
           </q-toolbar-title>
         </q-toolbar>
       </div>
-    </div>
+    </div> -->
     <!--separator-->
     <!-----------Recent Election Ballot-------------->
     <div class="row q-pt-md q-pa-md">
@@ -65,8 +65,7 @@
                         :dense="dense"
                         lazy-rules
                         :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Please type something',
+                          (val) => (val && val.length > 0) || 'Please type something',
                         ]"
                       />
                     </div>
@@ -82,8 +81,7 @@
                         :dense="dense"
                         lazy-rules
                         :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Please type something',
+                          (val) => (val && val.length > 0) || 'Please type something',
                         ]"
                       />
                     </div>
@@ -101,8 +99,7 @@
                         fill-mask
                         lazy-rules
                         :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Please type something',
+                          (val) => (val && val.length > 0) || 'Please type something',
                         ]"
                       />
                     </div>
@@ -119,9 +116,7 @@
                           type="date"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the date',
+                            (val) => (val && val.length > 0) || 'Please enter the date',
                           ]"
                           hint="Native date"
                         />
@@ -134,9 +129,7 @@
                           type="time"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please enter the time',
+                            (val) => (val && val.length > 0) || 'Please enter the time',
                           ]"
                           hint="Native time"
                         />
@@ -152,12 +145,7 @@
                       v-close-popup
                       @click="resetModel()"
                     />
-                    <q-btn
-                      flat
-                      label="Submit"
-                      color="primary"
-                      @click="onaddElection()"
-                    />
+                    <q-btn flat label="Submit" color="primary" @click="onaddElection()" />
                   </div>
                 </div>
               </q-card-section>
@@ -202,9 +190,7 @@
                             :dense="dense"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
+                              (val) => (val && val.length > 0) || 'Please type something',
                             ]"
                           />
                         </div>
@@ -220,9 +206,7 @@
                             :dense="dense"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
+                              (val) => (val && val.length > 0) || 'Please type something',
                             ]"
                           />
                         </div>
@@ -240,9 +224,7 @@
                             fill-mask
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
+                              (val) => (val && val.length > 0) || 'Please type something',
                             ]"
                           />
                         </div>
@@ -260,8 +242,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the date',
+                                  (val && val.length > 0) || 'Please enter the date',
                               ]"
                               hint="Native date"
                             />
@@ -275,8 +256,7 @@
                               lazy-rules
                               :rules="[
                                 (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the time',
+                                  (val && val.length > 0) || 'Please enter the time',
                               ]"
                               hint="Native time"
                             />

@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
+    <q-header elevated class="bg-image text-white">
+      <q-toolbar class="GPL__toolbar" style="height: 60px">
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
@@ -12,31 +12,31 @@
           <div class="q-ml-md q-gutter-x-xs gt-sm">
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="push text-overline text-white no-wrap"
               label="Home"
               to="/Homepage"
             />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white no-wrap"
               label="Election"
               to="/Ballot"
             />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white no-wrap"
               label="Candidate List"
               to="/List"
             />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white no-wrap"
               label="Manage Accounts"
               to="/Accounts"
             />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="push text-overline text-white no-wrap"
               label="Election Result"
               to="/Result"
             />
@@ -107,7 +107,7 @@
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple t0="/Homepage">
+          <q-item clickable v-ripple to="/Homepage">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>

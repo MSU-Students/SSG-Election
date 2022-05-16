@@ -71,7 +71,7 @@
           developed as an online voting system in Mindanao State University-Marawi campus.
         </p>
         <p>
-          This project was intended to improve and promote the information technology as a
+          It is a project intended to improve and promote the information technology as a
           tool for the Division of Student Affairs to manage the election for the Supreme
           Student Government officials. Through this project, the officials elected by the
           students can conveniently appoint members of the SSG to help with their areas of

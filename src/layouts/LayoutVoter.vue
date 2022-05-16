@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
+    <q-header elevated class="bg-image text-white">
+      <q-toolbar class="GPL__toolbar" style="height: 60px">
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
@@ -10,30 +10,15 @@
           <q-separator vertical class="bg-deep-red-1" />
 
           <div class="q-ml-md q-gutter-x-xs gt-sm">
+            <q-btn flat class="text-overline text-white" label="Home" to="/V_Homepage" />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
-              label="Home"
-              to="/V_Homepage"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Candidate Profiles"
+              class="text-overline text-white"
+              label="Candidate List"
               to="/V_List"
             />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Vote"
-              to="/V_Vote"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Result"
-              to="/V_Result"
-            />
+            <q-btn flat class="text-overline text-white" label="Vote" to="/V_Vote" />
+            <q-btn flat class="text-overline text-white" label="Result" to="/V_Result" />
           </div>
         </q-toolbar-title>
 
@@ -113,7 +98,7 @@
               <q-icon name="check" />
             </q-item-section>
 
-            <q-item-section> Candidate Profile </q-item-section>
+            <q-item-section> Candidate List </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/V_Vote">
@@ -208,7 +193,7 @@ export default class LayoutAdmin extends Vue {
       textColor: 'primary',
       type: 'positive',
       position: 'center',
-      message: 'Your Successfully Logout.',
+      message: 'You are logged out.',
     });
   }
 }

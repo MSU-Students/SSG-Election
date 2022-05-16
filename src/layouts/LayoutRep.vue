@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
+    <q-header elevated class="bg-image text-white">
+      <q-toolbar class="GPL__toolbar" style="height: 60px">
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
@@ -10,24 +10,15 @@
           <q-separator vertical class="bg-deep-red-1" />
 
           <div class="q-ml-md q-gutter-x-xs gt-sm">
+            <q-btn flat class="text-overline text-white" label="Home" to="/R_Homepage" />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
-              label="Home"
-              to="/R_Homepage"
-            />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white"
               label="Candidate List"
               to="/R_Nominee"
             />
-            <q-btn
-              flat
-              class="bg-primary text-overline text-white"
-              label="Vote"
-              to="/R_Vote"
-            />
+            <q-btn flat class="text-overline text-white" label="Vote" to="/R_Vote" />
+            <q-btn flat class="text-overline text-white" label="Result" to="/R_Result" />
           </div>
         </q-toolbar-title>
 
@@ -44,7 +35,9 @@
               <div class="text-weight-bold" style="text-align: center">
                 {{ voter.name }}
               </div>
-              <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+              <div class="text-caption" style="text-align: center">
+                {{ voter.idNum }}
+              </div>
               <div class="row justify-center">
                 <q-btn
                   push
@@ -132,8 +125,12 @@
             <img src="~assets/images/avatar.svg" class="q-pb-sm" />
           </q-avatar>
         </div>
-        <div class="text-weight-bold" style="text-align: center">{{ voter.name }}</div>
-        <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+        <div class="text-weight-bold" style="text-align: center">
+          {{ voter.name }}
+        </div>
+        <div class="text-caption" style="text-align: center">
+          {{ voter.idNum }}
+        </div>
         <div class="row justify-center">
           <q-btn
             outline
@@ -160,12 +157,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { Vue, Options } from 'vue-class-component';
 
 export default class LayoutAdmin extends Vue {
   leftDrawerOpen = false;
-  search = "";
-  filter = "";
+  search = '';
+  filter = '';
   drawer = false;
 
   toggleLeftDrawer() {
@@ -174,8 +171,8 @@ export default class LayoutAdmin extends Vue {
 
   //this is where to put the database
   voter = {
-    name: "Arifah U. Abdulbasit",
-    idNum: "201812291",
+    name: 'Arifah U. Abdulbasit',
+    idNum: '201812291',
   };
   //---------------------------------->
 
@@ -183,7 +180,7 @@ export default class LayoutAdmin extends Vue {
   //timer,
   logout() {
     this.$q.loading.show({
-      message: "Logging out...",
+      message: 'Logging out...',
     });
 
     //this.timer = setTimeout(() => {
@@ -192,11 +189,11 @@ export default class LayoutAdmin extends Vue {
     //   }, 3000);
 
     this.$q.notify({
-      color: "accent",
-      textColor: "primary",
-      type: "positive",
-      position: "center",
-      message: "Your Successfully Logout.",
+      color: 'accent',
+      textColor: 'primary',
+      type: 'positive',
+      position: 'center',
+      message: 'You are logged out.',
     });
   }
 }
@@ -208,6 +205,6 @@ export default class LayoutAdmin extends Vue {
 }
 
 .title_name {
-  font-family: "BebasNeue";
+  font-family: 'BebasNeue';
 }
 </style>

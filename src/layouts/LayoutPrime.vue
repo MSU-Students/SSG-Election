@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
+    <q-header elevated class="bg-image text-white">
+      <q-toolbar class="GPL__toolbar" style="height: 60px">
         <q-toolbar-title class="row items-center no-wrap">
           <img src="~/assets/images/ssg.png" style="height: 40px" />
           <div class="title_name">
@@ -9,17 +9,18 @@
           </div>
           <q-separator vertical class="bg-deep-red-1" />
 
-          <!-------------Menu Botton------------->
+          <!-------------Menu Button------------->
           <div class="q-ml-md q-gutter-x-xs gt-sm">
+            <q-btn flat class="text-overline text-white" label="Home" to="/P_Homepage" />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white"
               label="Organizational Structure"
-              to="/P_Homepage"
+              to="/P_Structure"
             />
             <q-btn
               flat
-              class="bg-primary text-overline text-white"
+              class="text-overline text-white"
               label="Assign Officers"
               to="/P_Assign"
             />
@@ -105,7 +106,7 @@
             <q-item-section> Assign Officers </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple class="absolute-bottom" to="/">
+          <q-item clickable v-ripple class="absolute-bottom" to="/Login">
             <q-item-section avatar>
               <q-icon name="logout" />
             </q-item-section>
@@ -189,7 +190,7 @@ export default class LayoutAdmin extends Vue {
       textColor: 'primary',
       type: 'positive',
       position: 'center',
-      message: 'Your Successfully Logout.',
+      message: 'You are logged out.',
     });
   }
 }

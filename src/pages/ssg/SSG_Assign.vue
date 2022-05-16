@@ -1,210 +1,411 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <div class="q-pl-xl">
-        <div class="text-h5 q-pb-md text-bold">
-          <q-icon name="assignment_ind" color="primary" style="font-size: 3rem" />
-          Assign Officers
-        </div>
+    <div class="q-pl-lg">
+      <div class="text-h5 q-pa-lg text-bold">
+        <q-icon name="touch_app" color="primary" style="font-size: 3rem" />
+        Assign Officers
       </div>
     </div>
-    <!--separator-->
-    <div>
-      <q-splitter v-model="splitterModel" style="height: 100%">
-        <template v-slot:before>
-          <q-stepper v-model="step" header-nav vertical color="primary" animated>
-            <q-step :name="1" title="Chief Justice" icon="settings" :done="step > 1">
-              <q-tabs v-model="innerTab" horizontal class="text-teal">
-                <div class="q-pa-md">
-                  <q-radio v-model="shape" val="Anisah Dayaan">
-                    <q-tab name="candidate1" label="Anisah Dayaan" />
-                  </q-radio>
-                  <q-radio v-model="shape" val="Ellon Musk">
-                    <q-tab name="candidate2" label="Ellon Musk" />
-                  </q-radio>
-                  <q-radio v-model="shape" val="Thomas Edison">
-                    <q-tab name="candidate3" label="Thomas Edison" />
-                  </q-radio>
-                </div>
-              </q-tabs>
-              <div class="q-px-sm q-pt-sm">
-                Your selection is: <strong>{{ shape }}</strong>
-              </div>
-              <q-stepper-navigation>
-                <q-btn @click="step = 2" color="primary" label="Assign" />
-              </q-stepper-navigation>
-            </q-step>
+    <div class="q-pa-md">
+      <q-card>
+        <q-tabs
+          v-model="tab"
+          dense
+          active-color="white"
+          active-bg-color="primary"
+          narrow-indicator
+          align="justify"
+        >
+          <q-tab name="judiciary" label="Judiciary" />
+          <q-tab name="parliament" label="Parliament" />
+          <q-tab name="executive" label="Executive" />
+          <q-tab name="commission" label="Constitutional Commission" />
+        </q-tabs>
 
-            <q-step
-              :name="2"
-              title="Associate Justice"
-              icon="create_new_folder"
-              :done="step > 2"
-            >
-              <q-tabs v-model="innerTab" horizontal class="text-teal">
-                <div class="q-pa-md">
-                  <q-radio v-model="shape" val="Anisah Dayaan">
-                    <q-tab name="candidate1" label="Anisah Dayaan" />
-                  </q-radio>
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="judiciary">
+            <!--J U D I C I A R Y-->
+            <div class="q-pa-xs q-gutter-sm row">
+              <div class="col-12 col-md">
+                <q-card class="my-card q-pa-sm" style="max-width: 98vw">
+                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                    <q-step
+                      :name="1"
+                      title="Chief Justice"
+                      icon="person_add_alt"
+                      :done="step > 1"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="chiefJustice" val="{{ chiefJustice }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
 
-                  <q-radio v-model="shape" val="Ellon Musk">
-                    <q-tab name="candidate2" label="Ellon Musk" />
-                  </q-radio>
-
-                  <q-radio v-model="shape" val="Thomas Edison">
-                    <q-tab name="candidate3" label="Thomas Edison" />
-                  </q-radio>
-                </div>
-              </q-tabs>
-              <div class="q-px-sm q-pt-sm">
-                Your selection is: <strong>{{ shape }}</strong>
+                    <q-step
+                      :name="2"
+                      title="Associate Justice"
+                      icon="person_add_alt"
+                      :done="step > 2"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="associateJustice" val="{{ associateJustice }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step> </q-stepper
+                ></q-card>
               </div>
 
-              <q-stepper-navigation>
-                <q-btn @click="step = 3" color="primary" label="Assign" />
-                <!-- <q-btn
-                  flat
-                  @click="step = 1"
-                  color="primary"
-                  label="Back"
-                  class="q-ml-sm"
-                /> -->
-              </q-stepper-navigation>
-            </q-step>
+              <div class="col-12 col-md">
+                <q-card>
+                  <br />
+                  <q-toolbar-title class="text-weight-bold"
+                    >OFFICERS ASSIGNED</q-toolbar-title
+                  >
 
-            <q-step
-              :name="3"
-              title="Speaker of the House"
-              icon="create_new_folder"
-              :done="step > 3"
-            >
-              <q-tabs v-model="innerTab" horizontal class="text-teal">
-                <div class="q-pa-md">
-                  <q-radio v-model="shape" val="Anisah Dayaan">
-                    <q-tab name="candidate1" label="Anisah Dayaan" />
-                  </q-radio>
+                  <div class="col q-pa-md text-caption">
+                    Chief Justice: <strong>{{ chiefJustice }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Associate Justice: <strong>{{ associateJustice }}</strong>
+                  </div>
+                  <q-separator inset />
+                  <div class="row q-gutter-x-sm q-pa-sm">
+                    <!-- <div class="col">
+                      <q-btn
+                        @click="step = 3"
+                        dense
+                        class="full-width"
+                        color="primary"
+                        label="Continue"
+                      />
+                    </div> -->
+                    <div class="col">
+                      <q-btn
+                        flat
+                        dense
+                        outline
+                        color="primary"
+                        label="Reset"
+                        @click="onResetClick"
+                        class="full-width q-ml-md"
+                      />
+                    </div>
+                  </div>
+                </q-card>
+              </div>
+            </div>
+          </q-tab-panel>
 
-                  <q-radio v-model="shape" val="Ellon Musk">
-                    <q-tab name="candidate2" label="Ellon Musk" />
-                  </q-radio>
-
-                  <q-radio v-model="shape" val="Thomas Edison">
-                    <q-tab name="candidate3" label="Thomas Edison" />
-                  </q-radio>
-                </div>
-              </q-tabs>
-              <div class="q-px-sm q-pt-sm">
-                Your selection is: <strong>{{ shape }}</strong>
+          <q-tab-panel name="parliament">
+            <!--P A R L I A M E N T-->
+            <div class="q-pa-xs q-gutter-sm row">
+              <div class="col-12 col-md">
+                <q-card class="my-card q-pa-sm" style="max-width: 98vw">
+                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                    <q-step
+                      :name="3"
+                      title="Speaker of the House"
+                      icon="person_add_alt"
+                      :done="step > 3"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="speakerHouse" val="{{ speakerHouse }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step> </q-stepper
+                ></q-card>
               </div>
 
-              <q-stepper-navigation>
-                <q-btn @click="step = 4" color="primary" label="Assign" />
-              </q-stepper-navigation>
-            </q-step>
+              <div class="col-12 col-md">
+                <q-card>
+                  <br />
+                  <q-toolbar-title class="text-weight-bold"
+                    >OFFICERS ASSIGNED</q-toolbar-title
+                  >
 
-            <q-step
-              :name="4"
-              title="Internal Deputy Prime Minister"
-              icon="create_new_folder"
-              :done="step > 4"
-            >
-              <q-tabs v-model="innerTab" horizontal class="text-teal">
-                <div class="q-pa-md">
-                  <q-radio v-model="shape" val="Anisah Dayaan">
-                    <q-tab name="candidate1" label="Anisah Dayaan" />
-                  </q-radio>
+                  <div class="col q-pa-md text-caption">
+                    Speaker of the House: <strong>{{ speakerHouse }}</strong>
+                  </div>
+                  <q-separator inset />
+                  <div class="row q-gutter-x-sm q-pa-sm">
+                    <div class="col">
+                      <q-btn
+                        flat
+                        dense
+                        outline
+                        color="primary"
+                        label="Reset"
+                        @click="onResetClick"
+                        class="full-width q-ml-md"
+                      />
+                    </div>
+                  </div>
+                </q-card>
+              </div>
+            </div>
+          </q-tab-panel>
 
-                  <q-radio v-model="shape" val="Ellon Musk">
-                    <q-tab name="candidate2" label="Ellon Musk" />
-                  </q-radio>
+          <q-tab-panel name="executive">
+            <!--E X E C U T I V E-->
+            <div class="q-pa-xs q-gutter-sm row">
+              <div class="col-12 col-md">
+                <q-card class="my-card q-pa-sm" style="max-width: 98vw">
+                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                    <q-step
+                      :name="4"
+                      title="Internal Deputy Prime Minister"
+                      icon="person_add_alt"
+                      :done="step > 4"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="internalDeputy" val="{{ internalDeputy }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
 
-                  <q-radio v-model="shape" val="Thomas Edison">
-                    <q-tab name="candidate3" label="Thomas Edison" />
-                  </q-radio>
-                </div>
-              </q-tabs>
-              <div class="q-px-sm q-pt-sm">
-                Your selection is: <strong>{{ shape }}</strong>
+                    <q-step
+                      :name="5"
+                      title="External Deputy Prime Minister"
+                      icon="person_add_alt"
+                      :done="step > 5"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="externalDeputy" val="{{ externalDeputy }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+
+                    <q-step
+                      :name="6"
+                      title="Ministry on Health and Environment"
+                      icon="person_add_alt"
+                      :done="step > 6"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="ministerHealth" val="{{ ministerHealth }}">
+                          <!-- <q-tab name="representative" label="Anisah Dayaan" /> -->
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+
+                    <q-step
+                      :name="7"
+                      title="Ministry on Information and Communication"
+                      icon="person_add_alt"
+                      :done="step > 7"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="ministerInfo" val="{{ ministerInfo }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+
+                    <q-step
+                      :name="8"
+                      title="Ministry on Planning and Project Management"
+                      icon="person_add_alt"
+                      :done="step > 8"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="ministerPlanning" val="{{ ministerPlanning }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+
+                    <q-step
+                      :name="9"
+                      title="Ministry on Academic Affairs"
+                      icon="person_add_alt"
+                      :done="step > 9"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio
+                          v-model="ministerAcadAffairs"
+                          val="{{ ministerAcadAffairs }}"
+                        >
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+
+                    <q-step
+                      :name="10"
+                      title="Ministry on Finance"
+                      icon="person_add_alt"
+                      :done="step > 10"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="ministerFinance" val="{{ ministerFinance }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
+                  </q-stepper>
+                </q-card>
               </div>
 
-              <q-stepper-navigation>
-                <q-btn @click="step = 5" color="primary" label="Assign" />
-              </q-stepper-navigation>
-            </q-step>
+              <div class="col-12 col-md">
+                <q-card>
+                  <br />
+                  <q-toolbar-title class="text-weight-bold"
+                    >OFFICERS ASSIGNED</q-toolbar-title
+                  >
+                  <div class="col q-pa-md text-caption">
+                    Internal Deputy Prime Minister:
+                    <strong>{{ internalDeputy }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    External Deputy Prime Minister:
+                    <strong>{{ externalDeputy }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Ministry on Health and Environment:
+                    <strong>{{ ministerHealth }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Ministry on Information and Communication:
+                    <strong>{{ ministerInfo }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Ministry on Planning and Project Management:
+                    <strong>{{ ministerPlanning }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Ministry on Academic Affairs:
+                    <strong>{{ ministerAcadAffairs }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Ministry on Finance:
+                    <strong>{{ ministerFinance }}</strong>
+                  </div>
+                  <q-separator inset />
+                  <div class="row q-gutter-x-sm q-pa-sm">
+                    <div class="col">
+                      <q-btn
+                        flat
+                        dense
+                        outline
+                        color="primary"
+                        label="Reset"
+                        @click="onResetClick"
+                        class="full-width q-ml-md"
+                      />
+                    </div>
+                  </div>
+                </q-card>
+              </div>
+            </div>
+          </q-tab-panel>
 
-            <q-step :name="5" title="External Deputy" icon="create_new_folder">
-              <q-tabs v-model="innerTab" horizontal class="text-teal">
-                <div class="q-pa-md">
-                  <q-radio v-model="shape" val="Anisah Dayaan">
-                    <q-tab name="candidate1" label="Anisah Dayaan" />
-                  </q-radio>
+          <q-tab-panel name="commission">
+            <!--C O N S T I T U T I O N A L  C O M M I S S I O N-->
+            <div class="q-pa-xs q-gutter-sm row">
+              <div class="col-12 col-md">
+                <q-card class="my-card q-pa-sm" style="max-width: 98vw">
+                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                    <q-step
+                      :name="11"
+                      title="Commission on Audit"
+                      icon="person_add_alt"
+                      :done="step > 11"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio v-model="commissionAudit" val="{{ commissionAudit }}">
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
 
-                  <q-radio v-model="shape" val="Ellon Musk">
-                    <q-tab name="candidate2" label="Ellon Musk" />
-                  </q-radio>
+                    <q-step
+                      :name="12"
+                      title="Commission on Election"
+                      icon="person_add_alt"
+                      :done="step > 12"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio
+                          v-model="commissionElection"
+                          val="{{ commissionElection }}"
+                        >
+                        </q-radio>
+                      </q-tabs>
+                    </q-step>
 
-                  <q-radio v-model="shape" val="Thomas Edison">
-                    <q-tab name="candidate3" label="Thomas Edison" />
-                  </q-radio>
-                </div>
-              </q-tabs>
-              <div class="q-px-sm q-pt-sm">
-                Your selection is: <strong>{{ shape }}</strong>
+                    <q-step
+                      :name="13"
+                      title="Student's Right and Welfare Commission"
+                      icon="person_add_alt"
+                      :done="step > 13"
+                    >
+                      <q-tabs v-model="innerTab" horizontal class="text-teal">
+                        <q-radio
+                          v-model="commissionWelfare"
+                          val="{{ commissionWelfare }}"
+                        >
+                        </q-radio>
+                      </q-tabs>
+                    </q-step> </q-stepper
+                ></q-card>
               </div>
 
-              <q-stepper-navigation>
-                <q-btn color="primary" label="Assign" />
-              </q-stepper-navigation>
-            </q-step>
-          </q-stepper>
-        </template>
+              <div class="col-12 col-md">
+                <q-card>
+                  <br />
+                  <q-toolbar-title class="text-weight-bold"
+                    >OFFICERS ASSIGNED</q-toolbar-title
+                  >
 
-        <template v-slot:separator>
-          <q-avatar
-            color="primary"
-            text-color="white"
-            size="40px"
-            icon="drag_indicator"
-          />
-        </template>
-
-        <template v-slot:after>
-          <q-tab-panels
-            v-model="innerTab"
-            animated
-            transition-prev="slide-down"
-            transition-next="slide-up"
-          >
-            <q-tab-panel name="candidate1">
-              <div class="text-h4 q-mb-md">Anisah Dayaan</div>
-              <p>I am Anisah.</p>
-            </q-tab-panel>
-
-            <q-tab-panel name="candidate2">
-              <div class="text-h4 q-mb-md">Ellon Musk</div>
-              <p>I am Musk.</p>
-            </q-tab-panel>
-
-            <q-tab-panel name="candidate3">
-              <div class="text-h4 q-mb-md">Thomas Edison</div>
-              <p>I am Edison.</p>
-            </q-tab-panel>
-          </q-tab-panels>
-        </template>
-      </q-splitter>
+                  <div class="col q-pa-md text-caption">
+                    Commission on Audit: <strong>{{ commissionAudit }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Commission on Election:
+                    <strong>{{ commissionElection }}</strong>
+                  </div>
+                  <div class="col q-pa-md text-caption">
+                    Student's Right and Welfare Commission:
+                    <strong>{{ commissionWelfare }}</strong>
+                  </div>
+                  <q-separator inset />
+                  <div class="row q-gutter-x-sm q-pa-sm">
+                    <div class="col">
+                      <q-btn
+                        dense
+                        class="full-width"
+                        label="Assign Officers"
+                        color="primary"
+                        @click="assignOfficers"
+                      />
+                    </div>
+                    <div class="col">
+                      <q-btn
+                        flat
+                        dense
+                        outline
+                        color="primary"
+                        label="Reset"
+                        @click="onResetClick"
+                        class="full-width q-ml-md"
+                      />
+                    </div>
+                  </div>
+                </q-card>
+              </div>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
+      </q-card>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import { SsgMemberDto } from 'src/services/rest-api';
+import { RepresentativeDto, SsgMemberDto } from 'src/services/rest-api';
 import { mapActions, mapState } from 'vuex';
 
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
 
 @Options({
   computed: {
+    ...mapState('representative', ['allRepresentative']),
     ...mapState('ssgmember', ['allSsgMember']),
   },
   methods: {
@@ -214,6 +415,7 @@ const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
       'deleteSsgMember',
       'getAllSsgMember',
     ]),
+    ...mapActions('representative', ['getAllRepresentative']),
   },
 })
 export default class ManageSsgMember extends Vue {
@@ -221,17 +423,137 @@ export default class ManageSsgMember extends Vue {
   editSsgMember!: (payload: SsgMemberDto) => Promise<void>;
   deleteSsgMember!: (payload: SsgMemberDto) => Promise<void>;
   getAllSsgMember!: () => Promise<void>;
+  getAllRepresentative!: () => Promise<void>;
+  allRepresentative!: RepresentativeDto[];
   allSsgMember!: SsgMemberDto[];
 
   async mounted() {
-    await this.getAllSsgMember();
+    await this.getAllRepresentative();
   }
 
+  tab = '';
+  filter = '';
+
+  columns = [
+    {
+      name: 'name',
+      required: true,
+      label: 'Name',
+      align: 'left',
+      field: (row: any) =>
+        row.student?.last_name +
+        ', ' +
+        row.student?.first_name +
+        ' ' +
+        row.student?.middle_name,
+    },
+    {
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: any) => row.student?.course,
+    },
+    {
+      name: 'college',
+      align: 'center',
+      label: 'College',
+      field: (row: any) => row.student?.college,
+    },
+  ];
+
   options = stringOptions;
-  shape = 'Anisah Dayaan';
+  chiefJustice = [];
+  associateJustice = [];
+  speakerHouse = [];
+  internalDeputy = [];
+  externalDeputy = [];
+  ministerHealth = [];
+  ministerInfo = [];
+  ministerPlanning = [];
+  ministerAcadAffairs = [];
+  ministerFinance = [];
+  commissionAudit = [];
+  commissionElection = [];
+  commissionWelfare = [];
   innerTab = 'innerMails';
   splitterModel = 50; // start at 50%
   step = 1;
   model = null;
+
+  addNewSsgMember = false;
+
+  onResetClick() {
+    this.chiefJustice = [];
+    this.associateJustice = [];
+    this.speakerHouse = [];
+    this.internalDeputy = [];
+    this.externalDeputy = [];
+    this.ministerHealth = [];
+    this.ministerInfo = [];
+    this.ministerPlanning = [];
+    this.ministerAcadAffairs = [];
+    this.ministerFinance = [];
+    this.commissionAudit = [];
+    this.commissionElection = [];
+    this.commissionWelfare = [];
+  }
+
+  assignOfficers() {
+    this.$q
+      .dialog({
+        message: 'Are you sure you want to assign these officers?',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        // await this.addSsgMember(this.inputSsgMember);
+        // this.addNewSsgMember = false;
+        // this.resetModel();
+        this.$q.notify({
+          type: 'positive',
+          message: 'Successful role assignment.',
+        });
+      });
+  }
+
+  // inputSsgMember: SsgMemberDto = {
+  //   academic_yr: '',
+  //   prime_name: '',
+  //   secretary_name: '',
+  //   chiefJustice: '',
+  //   associateJustice: '',
+  //   speakerHouse: '',
+  //   internalDeputy: '',
+  //   externalDeputy: '',
+  //   ministerHealth: '',
+  //   ministerInfo: '',
+  //   ministerPlanning: '',
+  //   ministerAcadAffairs: '',
+  //   ministerFinance: '',
+  //   commissionAudit: '',
+  //   commissionElection: '',
+  //   commissionWelfare: '',
+  // };
+
+  // resetModel() {
+  //   this.inputSsgMember = {
+  //     academic_yr: '',
+  //     prime_name: '',
+  //     secretary_name: '',
+  //     chiefJustice: '',
+  //     associateJustice: '',
+  //     speakerHouse: '',
+  //     internalDeputy: '',
+  //     externalDeputy: '',
+  //     ministerHealth: '',
+  //     ministerInfo: '',
+  //     ministerPlanning: '',
+  //     ministerAcadAffairs: '',
+  //     ministerFinance: '',
+  //     commissionAudit: '',
+  //     commissionElection: '',
+  //     commissionWelfare: '',
+  //   };
+  // }
 }
 </script>

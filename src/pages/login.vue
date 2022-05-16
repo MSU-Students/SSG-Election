@@ -98,24 +98,24 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
-import { AUser } from "src/store/auth/state";
-import { mapActions, mapState } from "vuex";
+import { Vue, Options } from 'vue-class-component';
+import { AUser } from 'src/store/auth/state';
+import { mapActions, mapState } from 'vuex';
 
 @Options({
   methods: {
-    ...mapActions("auth", ["login", "authUser"]),
+    ...mapActions('auth', ['login', 'authUser']),
   },
   computed: {
-    ...mapState("auth", ["currentUser"]),
+    ...mapState('auth', ['currentUser']),
   },
 })
 export default class Login extends Vue {
   login!: (auth: { userName: string; password: string }) => Promise<AUser>;
   currentUser!: AUser;
 
-  username = "";
-  password = "";
+  username = '';
+  password = '';
   isPwd = true;
 
   async loginUser() {
@@ -124,39 +124,39 @@ export default class Login extends Vue {
         userName: this.username,
         password: this.password,
       });
-      if (this.currentUser.userType == "admin") {
-        await this.$router.replace("/Homepage");
+      if (this.currentUser.userType == 'admin') {
+        await this.$router.replace('/Homepage');
         this.$q.notify({
-          position: "center",
-          type: "positive",
-          message: "You are logged in",
+          position: 'bottom-right',
+          type: 'positive',
+          message: 'You are logged in',
         });
-      } else if (this.currentUser.userType == "voter") {
-        await this.$router.replace("/V_Homepage");
+      } else if (this.currentUser.userType == 'voter') {
+        await this.$router.replace('/V_Homepage');
         this.$q.notify({
-          position: "center",
-          type: "positive",
-          message: "You are logged in",
+          position: 'bottom-right',
+          type: 'positive',
+          message: 'You are logged in',
         });
-      } else if (this.currentUser.userType == "ssg") {
-        await this.$router.replace("P_Homepage");
+      } else if (this.currentUser.userType == 'ssg') {
+        await this.$router.replace('P_Homepage');
         this.$q.notify({
-          position: "center",
-          type: "positive",
-          message: "You are logged in",
+          position: 'bottom-right',
+          type: 'positive',
+          message: 'You are logged in',
         });
-      } else if (this.currentUser.userType == "rep") {
-        await this.$router.replace("/R_Nominee");
+      } else if (this.currentUser.userType == 'rep') {
+        await this.$router.replace('/R_Homepage');
         this.$q.notify({
-          position: "center",
-          type: "positive",
-          message: "You are logged in",
+          position: 'bottom-right',
+          type: 'positive',
+          message: 'You are logged in',
         });
       }
     } catch (error) {
       this.$q.notify({
-        type: "negative",
-        message: "Wrong Username or Password!",
+        type: 'negative',
+        message: 'Wrong Username or Password!',
       });
     }
   }

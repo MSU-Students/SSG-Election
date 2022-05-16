@@ -1,11 +1,9 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <div class="q-pl-xl">
-        <div class="text-h5 q-pb-md text-bold">
-          <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
-          Election Result
-        </div>
+    <div class="q-pl-lg">
+      <div class="text-h5 q-pa-lg text-bold">
+        <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
+        Election Result
       </div>
       <q-card>
         <q-tabs

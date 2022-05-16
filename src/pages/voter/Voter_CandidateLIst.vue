@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar>
             <q-toolbar-title class="text-overline text-weight-bold"
-              >Candidate Profiles</q-toolbar-title
+              >Candidate List</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -16,10 +16,13 @@
       <div class="row">
         <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
           <div class="col-12 col-md q-pa-sm">
-            <q-card class="my-card cursor-pointer" style="width: 320px; height: 400px">
-              <div class="q-pa-sm">
+            <q-card
+              class="my-card cursor-pointer"
+              style="width: 330px; max-height: 460px"
+            >
+              <div class="q-pa-md">
                 <div class="row">
-                  <div class="col-4 q-pa-sm">
+                  <div class="col-4 q-gutter-sm">
                     <div class="text-center">
                       <q-avatar size="93px">
                         <q-img
@@ -39,7 +42,9 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-subtitle1 text-bold">
-                      {{ data.student?.first_name }} {{ data.student?.middle_name }}. {{ data.student?.last_name }}
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }}
                     </div>
                     <div class="text-caption">
                       <strong>{{ data.student?.college }}</strong>

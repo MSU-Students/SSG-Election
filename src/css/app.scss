@@ -27,6 +27,15 @@ h4 {
   text-align: center;
 }
 
+.bg-image
+{
+  background-image: url(../assets/images/r2.jpg);
+  background-blend-mode: overlay;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
 #carousel {
   height: 100vh;
   float: left;
