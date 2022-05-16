@@ -14,14 +14,14 @@
             <q-btn
               flat
               class="bg-primary text-overline text-white"
-              label="Home"
+              label="Organizational Structure"
               to="/P_Homepage"
             />
             <q-btn
               flat
               class="bg-primary text-overline text-white"
-              label="Assigning Officers"
-              to="/P_Assigning"
+              label="Assign Officers"
+              to="/P_Assign"
             />
           </div>
         </q-toolbar-title>
@@ -39,7 +39,9 @@
               <div class="text-weight-bold" style="text-align: center">
                 {{ prime.name }}
               </div>
-              <div class="text-caption" style="text-align: center">{{ prime.idNum }}</div>
+              <div class="text-caption" style="text-align: center">
+                {{ prime.idNum }}
+              </div>
               <div class="row justify-center">
                 <q-btn
                   push
@@ -87,20 +89,20 @@
       >
         <q-list padding>
           <q-separator />
-          <q-item active clickable v-ripple t0="/S_Homepage">
+          <q-item active clickable v-ripple to="/P_Homepage">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
 
-            <q-item-section> Home </q-item-section>
+            <q-item-section> Organizational Structure </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/P_Assigning">
+          <q-item clickable v-ripple to="/P_Assign">
             <q-item-section avatar>
               <q-icon name="check" />
             </q-item-section>
 
-            <q-item-section> Assigning Officers </q-item-section>
+            <q-item-section> Assign Officers </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/">
@@ -119,8 +121,12 @@
             <img src="~assets/images/avatar.svg" class="q-pb-sm" />
           </q-avatar>
         </div>
-        <div class="text-weight-bold" style="text-align: center">{{ prime.name }}</div>
-        <div class="text-caption" style="text-align: center">{{ prime.idNum }}</div>
+        <div class="text-weight-bold" style="text-align: center">
+          {{ prime.name }}
+        </div>
+        <div class="text-caption" style="text-align: center">
+          {{ prime.idNum }}
+        </div>
         <div class="row justify-center">
           <q-btn
             outline
@@ -147,12 +153,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { Vue, Options } from 'vue-class-component';
 
 export default class LayoutAdmin extends Vue {
   leftDrawerOpen = false;
-  search = "";
-  filter = "";
+  search = '';
+  filter = '';
   drawer = false;
 
   toggleLeftDrawer() {
@@ -161,8 +167,8 @@ export default class LayoutAdmin extends Vue {
 
   //this is where to put the database
   prime = {
-    name: "Arifah U. Abdulbasit",
-    idNum: "201812291",
+    name: 'Arifah U. Abdulbasit',
+    idNum: '201812291',
   };
   //---------------------------------->
 
@@ -170,7 +176,7 @@ export default class LayoutAdmin extends Vue {
   //timer,
   logout() {
     this.$q.loading.show({
-      message: "Logging out...",
+      message: 'Logging out...',
     });
 
     //this.timer = setTimeout(() => {
@@ -179,11 +185,11 @@ export default class LayoutAdmin extends Vue {
     //   }, 3000);
 
     this.$q.notify({
-      color: "accent",
-      textColor: "primary",
-      type: "positive",
-      position: "center",
-      message: "Your Successfully Logout.",
+      color: 'accent',
+      textColor: 'primary',
+      type: 'positive',
+      position: 'center',
+      message: 'Your Successfully Logout.',
     });
   }
 }
@@ -195,6 +201,6 @@ export default class LayoutAdmin extends Vue {
 }
 
 .title_name {
-  font-family: "BebasNeue";
+  font-family: 'BebasNeue';
 }
 </style>

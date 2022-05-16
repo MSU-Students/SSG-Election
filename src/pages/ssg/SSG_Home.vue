@@ -43,8 +43,7 @@
                   icon="account_circle"
                 />
               </div>
-
-              <q-separator />
+              <br />
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
                 cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
@@ -167,7 +166,7 @@ import { Vue, Options } from "vue-class-component";
 @Options({})
 export default class Student_Candidate extends Vue {
   splitterModel = 50;
-  selected = "Food";
+  selected = "Officer";
 
   simple = [
     {
@@ -190,7 +189,7 @@ export default class Student_Candidate extends Vue {
       label: "Parliament",
       children: [
         {
-          label: "Secretary of the House",
+          label: "Speaker of the House",
           icon: "person",
           children: [
             {

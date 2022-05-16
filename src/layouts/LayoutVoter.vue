@@ -50,7 +50,9 @@
               <div class="text-weight-bold" style="text-align: center">
                 {{ voter.name }}
               </div>
-              <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+              <div class="text-caption" style="text-align: center">
+                {{ voter.idNum }}
+              </div>
               <div class="row justify-center">
                 <q-btn
                   push
@@ -138,8 +140,12 @@
             <img src="~assets/images/avatar.svg" class="q-pb-sm" />
           </q-avatar>
         </div>
-        <div class="text-weight-bold" style="text-align: center">{{ voter.name }}</div>
-        <div class="text-caption" style="text-align: center">{{ voter.idNum }}</div>
+        <div class="text-weight-bold" style="text-align: center">
+          {{ voter.name }}
+        </div>
+        <div class="text-caption" style="text-align: center">
+          {{ voter.idNum }}
+        </div>
         <div class="row justify-center">
           <q-btn
             outline
@@ -166,12 +172,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { Vue, Options } from 'vue-class-component';
 
 export default class LayoutAdmin extends Vue {
   leftDrawerOpen = false;
-  search = "";
-  filter = "";
+  search = '';
+  filter = '';
   drawer = false;
 
   toggleLeftDrawer() {
@@ -180,8 +186,8 @@ export default class LayoutAdmin extends Vue {
 
   //this is where to put the database
   voter = {
-    name: "Arifah U. Abdulbasit",
-    idNum: "201812291",
+    name: 'Arifah U. Abdulbasit',
+    idNum: '201812291',
   };
   //---------------------------------->
 
@@ -189,7 +195,7 @@ export default class LayoutAdmin extends Vue {
   //timer,
   logout() {
     this.$q.loading.show({
-      message: "Logging out...",
+      message: 'Logging out...',
     });
 
     //this.timer = setTimeout(() => {
@@ -198,11 +204,11 @@ export default class LayoutAdmin extends Vue {
     //   }, 3000);
 
     this.$q.notify({
-      color: "accent",
-      textColor: "primary",
-      type: "positive",
-      position: "center",
-      message: "Your Successfully Logout.",
+      color: 'accent',
+      textColor: 'primary',
+      type: 'positive',
+      position: 'center',
+      message: 'Your Successfully Logout.',
     });
   }
 }
@@ -214,6 +220,6 @@ export default class LayoutAdmin extends Vue {
 }
 
 .title_name {
-  font-family: "BebasNeue";
+  font-family: 'BebasNeue';
 }
 </style>

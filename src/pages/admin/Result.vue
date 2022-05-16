@@ -27,7 +27,7 @@
               <div class="col-12 col-md">
                 <q-table
                   :grid="$q.screen.xs"
-                  title="College Representatives"
+                  title="College Representative"
                   class="my-sticky-header-table"
                   :rows="allVoteRep"
                   :columns="representative"
@@ -60,8 +60,8 @@
                                 color="white"
                                 padding="5px"
                                 text-color="black"
-                                @click="filter = 'CIT'"
-                                label="CIT"
+                                @click="filter = 'CICS'"
+                                label="CICS"
                                 label-position="left"
                               />
                               <q-fab-action
@@ -154,7 +154,7 @@
               <div class="col-12 col-md">
                 <q-table
                   :grid="$q.screen.xs"
-                  title="Secretary General"
+                  title="Executive Secretary"
                   class="my-sticky-header-table"
                   :rows="allVoteSsg"
                   :columns="secretary"
@@ -182,7 +182,7 @@
               <div class="col-12 col-md">
                 <q-card>
                   <div class="q-pa-md text-center text-bold text-primary">
-                    Secretary General: Graph Result
+                    Executive Secretary: Graph Result
                   </div>
                   <secretary-general-chart />
                 </q-card>
