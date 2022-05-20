@@ -273,7 +273,7 @@
                     </q-card-section>
 
                     <q-card-section class="col-4 flex flex-center">
-                      <q-img
+                                 <q-img
                         square
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
                         v-for="mode in fitModes"
@@ -387,7 +387,7 @@ export default class ManageElection extends Vue {
       name: 'election_yr',
       align: 'center',
       label: 'Election Date',
-      field: (row: any) => row.election?.start_date,
+      field: (row: any) => row.election?.end_date,
     },
     {
       name: 'position',

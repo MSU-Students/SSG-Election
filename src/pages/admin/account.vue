@@ -27,7 +27,7 @@
             label="SSG Account"
             icon="lock"
           />
-        </q-tabs>
+          </q-tabs>
 
         <q-separator />
 
@@ -65,7 +65,6 @@
                     icon="add"
                     @click="addNewAccount = true"
                   />
-                  <q-btn push color="primary" icon-right="archive" no-caps />
                   <q-dialog v-model="addNewAccount" persistent>
                     <q-card style="width: 1100px; max-width: 100vw">
                       <q-card-section class="row">
@@ -76,186 +75,159 @@
 
                       <q-card-section>
                         <div class="row q-pl-md q-pr-lg">
-                          <q-form @submit="onaddAccount()">
-                            <div class="row">
-                              <!--C O L U M N-->
-                              <div class="col-12 col-md">
-                                <div class="text-overline text-bold">
-                                  Account Type
-                                  <div class="q-gutter-y-md-4">
-                                    <q-file
-                                      outlined
-                                      accept=".jpg, image/*"
-                                      v-model="imageAttachement"
-                                      style="width: 300px"
+                        <q-form @submit="onaddAccount()">
+                          <div class="row">
+                            <!--C O L U M N-->
+                            <div class="col-12 col-md">
+                              <div class="text-overline text-bold">
+                                Account Type
+                                <div class="q-gutter-y-md-4">
+                                  <q-file
+                                    outlined
+                                    accept=".jpg, image/*"
+                                    v-model="imageAttachement"
+                                    style="width: 300px"
                                       label="Pick a Profile Pic (Max: 1MB)"
                                     />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-12 col-md-8">
-                                <div class="text-overline text-bold">
-                                  Student Information
-                                  <div class="q-gutter-xs row">
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        v-model="inputStudent.first_name"
-                                        dense
-                                        outlined
-                                        label="First Name"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        v-model="inputStudent.middle_name"
-                                        dense
-                                        outlined
-                                        label="Middle Name"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        v-model="inputStudent.last_name"
-                                        dense
-                                        outlined
-                                        label="Last Name"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        v-model="inputStudent.suffix"
-                                        dense
-                                        outlined
-                                        label="Suffix"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div class="q-gutter-x-xs row">
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.school_id"
-                                        label="ID Number"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.email"
-                                        label="Email"
-                                        type="email"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.yr_admitted"
-                                        label="Year Admitted"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div class="q-gutter-xs row">
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.course"
-                                        label="Course"
-                                        hint="Ex. BS Information Technology"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.department"
-                                        label="Department"
-                                        hint="Ex. Department of Information Technology"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-select
-                                        outlined
-                                        dense
-                                        v-model="inputStudent.college"
-                                        :options="options"
-                                        label="College"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="q-gutter-xs q-pt-md row">
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        :options="allAccount"
-                                        option-label="username"
-                                        option-value="user_id"
-                                        v-model="inputUser.username"
-                                        label="Username"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                    <div class="col-12 col-md">
-                                      <q-input
-                                        outlined
-                                        dense
-                                        :options="allAccount"
-                                        option-label="password"
-                                        option-value="user_id"
-                                        v-model="inputUser.password"
-                                        label="Password"
-                                        lazy-rules
-                                        :rules="[(val) => (val && val.length > 0) || '']"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="q-pt-md" align="right">
-                                  <q-btn
-                                    flat
-                                    label="Cancel"
-                                    color="red-10"
-                                    v-close-popup
-                                    @click="resetModel()"
-                                  />
-                                  <q-btn
-                                    flat
-                                    label="Save"
-                                    color="primary"
-                                    type="submit"
-                                  />
                                 </div>
                               </div>
                             </div>
-                          </q-form>
+                            <div class="col-12 col-md-8">
+                              <div class="text-overline text-bold">
+                                Student Information
+                                <div class="q-gutter-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.first_name"
+                                      dense
+                                      outlined
+                                      label="First Name"
+                                      lazy-rules
+                                      :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.middle_name"
+                                      dense
+                                      outlined
+                                      label="Middle Name"
+                                    />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.last_name"
+                                      dense
+                                      outlined
+                                      label="Last Name"
+                                      lazy-rules
+                                      :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      v-model="inputStudent.suffix"
+                                      dense
+                                      outlined
+                                      label="Suffix"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="q-gutter-x-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.school_id"
+                                      label="ID Number"
+                                      lazy-rules
+                                      :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.email"
+                                      label="Email"
+                                      type="email"
+                                      lazy-rules
+                                      :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.yr_admitted"
+                                      label="Year Admitted"
+                                      lazy-rules
+                                      :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                </div>
+
+                                <div class="q-gutter-xs row">
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.course"
+                                      label="Course"
+                                      hint="Ex. BS Information Technology"
+                                        lazy-rules
+                                        :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-input
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.department"
+                                      label="Department"
+                                      hint="Ex. Department of Information Technology"
+                                        lazy-rules
+                                        :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                  <div class="col-12 col-md">
+                                    <q-select
+                                      outlined
+                                      dense
+                                      v-model="inputStudent.college"
+                                      :options="options"
+                                      label="College"
+                                      lazy-rules
+                                        :rules="[(val) => (val && val.length > 0) || '']"
+                                      />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="q-pt-md" align="right">
+                                <q-btn
+                                  flat
+                                  label="Cancel"
+                                  color="red-10"
+                                  v-close-popup
+                                  @click="resetModel()"
+                                />
+                                <q-btn
+                                  flat
+                                  label="Save"
+                                  color="primary"
+                                  type="submit"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </q-form>
                         </div>
                       </q-card-section>
                     </q-card>
                   </q-dialog>
                 </div>
+                <q-btn color="primary" icon-right="archive" no-caps />
               </template>
 
               <template v-slot:body-cell-action="props">
@@ -284,13 +256,12 @@
                             <div class="col-12 col-md">
                               <div class="text-overline text-bold">
                                 Account Type
-                                <div cclass="q-gutter-y-md-4">
+                                <div class="q-gutter-y-md-4">
                                   <q-file
                                     outlined
                                     v-model="imageAttachement"
                                     accept=".jpg, image/*"
                                     style="width: 300px"
-                                    label="Pick a Profile Pic (Max: 1MB)"
                                   />
                                 </div>
                               </div>
@@ -299,7 +270,7 @@
                               <div class="text-overline text-bold">
                                 Student Information
 
-                                <div class="q-gutter-xs q-gutter-y-lg row">
+                                <div class="q-gutter-x-xs q-gutter-y-lg row">
                                   <div class="col-12 col-md">
                                     <q-input
                                       v-model="inputStudent.first_name"
@@ -390,7 +361,7 @@
                                       dense
                                       v-model="inputStudent.department"
                                       label="Department"
-                                      hint="Ex. Department of Information Technology"
+                                       hint="Ex. Department of Information Technology"
                                       lazy-rules
                                       :rules="[(val) => (val && val.length > 0) || '']"
                                     />
@@ -402,7 +373,7 @@
                                       v-model="inputStudent.college"
                                       :options="options"
                                       label="College"
-                                      lazy-rules
+                                       lazy-rules
                                       :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
@@ -478,9 +449,9 @@
                               {{ inputStudent.middle_name }}
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
-                            <div class="text-bold q-mt-sm q-mb-xs">fr34f</div>
+                            <div class="text-bold q-mt-sm q-mb-xs">{{inputUser.username}}</div>
                             <div class="text-caption">Password:</div>
-                            <div class="text-bold q-mt-sm q-mb-xs">seg54</div>
+                            <div class="text-bold q-mt-sm q-mb-xs">{{inputUser.password}}</div>
                           </q-card-section>
                         </q-card-section>
                       </q-card>
@@ -532,7 +503,7 @@ import { FILE } from 'dns';
       'deleteStudent',
       'getAllStudent',
     ]),
-    ...mapActions('account', ['addAccount', 'getAllAccount']),
+    ...mapActions('account', ['addAccount','getAllAccount']),
     ...mapActions('media', ['uploadMedia']),
   },
 })
@@ -597,6 +568,19 @@ export default class ManageAccount extends Vue {
       align: 'center',
       label: 'Status',
       field: 'student_type',
+      color: 'green',
+    },
+    {
+      name: 'username',
+      align: 'center',
+      label: 'username',
+      field: (row: UserDto) => row.username,
+    },
+    {
+      name: 'password',
+      align: 'center',
+      label: 'password',
+      field: (row: UserDto) => row.password,
       color: 'green',
     },
   ];

@@ -127,83 +127,76 @@
               dense
               @click="deleteSpecificCandidateAccount(props.row)"
             />
-          </div>
-        </q-td>
-      </template>
+          
 
-      <template v-slot:body-cell-Details="props">
-        <q-td :props="props">
-          <div class="q-gutter-sm">
-            <q-btn
-              round
-              color="blue"
-              icon="more_vert"
-              size="md"
+          <q-btn
+            round
+            color="blue"
+            icon="more_vert"
+            size="md"
+            flat
+            dense
+            @click="openDetailDialog(props.row)"
+          />
+          <q-dialog v-model="showDetails">
+            <q-card
+              class="my-card"
+              style="width: 700px; max-width: 60vw"
               flat
-              dense
-              @click="openDetailDialog(props.row)"
-            />
-            <q-dialog v-model="showDetails">
-              <q-card
-                class="my-card"
-                style="width: 700px; max-width: 60vw"
-                flat
-                bordered
-              >
-                <q-card-section>
-                  <div class="text-h6">
-                    Representative Information
-                    <q-btn
-                      round
-                      flat
-                      dense
-                      icon="close"
-                      class="float-right"
-                      color="grey-8"
-                      v-close-popup
-                    ></q-btn>
+              bordered
+            >
+              <q-card-section>
+                <div class="text-h6">
+                  Representative Information
+                  <q-btn
+                    round
+                    flat
+                    dense
+                    icon="close"
+                    class="float-right"
+                    color="grey-8"
+                    v-close-popup
+                  ></q-btn>
+                </div>
+              </q-card-section>
+              <q-card-section horizontal>
+                <q-card-section class="q-pt-xs col">
+                  <div class="text-overline">Mindanao State University</div>
+                  <div class="text-caption">
+                    {{ inputRepresentative.voterep?.student?.college }}
+                    -
+                    {{ inputRepresentative.voterep?.student?.course }}
+                  </div>
+                  <div class="text-h5 q-mt-sm q-mb-xs">
+                    {{ inputRepresentative.voterep?.student?.last_name }},
+                    {{ inputRepresentative.voterep?.student?.first_name }}
+                    {{ inputRepresentative.voterep?.student?.middle_name }}
+                  </div>
+                  <div class="text-caption text-grey">
+                    {{ inputRepresentative.position }}
                   </div>
                 </q-card-section>
-                <q-card-section horizontal>
-                  <q-card-section class="q-pt-xs col">
-                    <div class="text-overline">Mindanao State University</div>
-                    <div class="text-caption">
-                      {{ inputRepresentative.voterep?.student?.college }}
-                      -
-                      {{ inputRepresentative.voterep?.student?.course }}
-                    </div>
-                    <div class="text-h5 q-mt-sm q-mb-xs">
-                      {{ inputRepresentative.voterep?.student?.last_name }},
-                      {{ inputRepresentative.voterep?.student?.first_name }}
-                      {{ inputRepresentative.voterep?.student?.middle_name }}
-                    </div>
-                    <div class="text-caption text-grey">
-                      {{ inputRepresentative.position }}
-                    </div>
-                  </q-card-section>
 
-                  <q-card-section class="col-5 flex flex-center">
-                    <q-img
-                      square
-                      :src="`http://localhost:3000/media/${inputRepresentative.voterep?.student?.url}`"
-                      size="120px"
-                      font-size="82px"
-                      color="teal"
-                      text-color="white"
-                      icon="account_circle"
-                    />
-                  </q-card-section>
+                <q-card-section class="col-5 flex flex-center">
+                  <q-img
+                    square
+                    :src="`http://localhost:3000/media/${inputRepresentative.voterep?.student?.url}`"
+                    size="120px"
+                    font-size="82px"
+                    color="teal"
+                    text-color="white"
+                    icon="account_circle"
+                  />
                 </q-card-section>
+              </q-card-section>
 
-                <q-separator />
+              <q-separator />
 
-                <q-card-section>
-                  <div class="text-italic text-h5">
-                    Platform Here
-                  </div> </q-card-section
-                >F
-              </q-card>
-            </q-dialog>
+              <q-card-section>
+                <div class="text-italic text-h5">Platform Here</div>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
           </div>
         </q-td>
       </template>
@@ -227,7 +220,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
     ...mapState('representative', ['allRepresentative']),
-    ...mapGetters("candidate", ["representativeStatus"]),
+    ...mapGetters('candidate', ['representativeStatus']),
   },
   methods: {
     ...mapActions('representative', [
@@ -258,7 +251,7 @@ export default class ManageAccount extends Vue {
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
-    { name: 'action', align: 'center', field: 'action' },
+    { name: 'action', align: 'center', label: 'Action', field: 'action' },
     {
       name: 'id',
       align: 'center',
@@ -305,15 +298,14 @@ export default class ManageAccount extends Vue {
       name: 'election_yr',
       align: 'center',
       label: 'Year Elected',
-      field: (row: any) => row.election?.start_date,
+      field: (row: any) => row.election?.end_date,
     },
     {
       name: 'position',
       align: 'center',
       label: 'Student Status',
-      field: 'position_type',
+      field: (row: any) => row.student?.student_type,
     },
-    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
   ];
 
   filter = '';

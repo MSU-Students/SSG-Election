@@ -149,8 +149,8 @@ export default class studentVote extends Vue {
       field: (row: any) => row.student?.department,
     },
   ];
-  prime = [];
-  secretary = [];
+  prime = [0];
+  secretary = [1];
 
   onResetClick() {
     this.prime = [];
@@ -158,13 +158,23 @@ export default class studentVote extends Vue {
   }
 
   submitVote(val: VoteSsgDto) {
+    const prime = this.prime[0];
+    const secretary = this.secretary[1];
     this.$q
       .dialog({
         message: 'Submit vote?',
         cancel: true,
         persistent: true,
       })
-      .onOk(async () => {
+      .onOk(async (data: RepresentativeDto) => {
+        if(data.voterep?.student){
+          await this.inputVoteSsg({
+            ...data.voterep.student,
+            student_id: data.voterep.student.student_id,
+          })
+        }
+        this.inputVoteSsg.prime_name = prime;
+        this.inputVoteSsg.secretary_name = secretary;
         await this.addVoteSsg(val.vote_ssg_id as any);
         this.$q.notify({
           type: 'warning',
@@ -172,6 +182,14 @@ export default class studentVote extends Vue {
         });
       });
   }
+
+  inputVoteSsg: any = {
+    prime_name: '',
+    secretary_name: '',
+    academic_yr: '',
+    date: '',
+    time:'',
+  };
 }
 </script>
 

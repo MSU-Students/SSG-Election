@@ -1,3 +1,4 @@
+import { ElectionDto } from 'src/services/rest-api';
 import { Election } from 'src/interfaces/election.interface';
 import { MutationTree } from 'vuex';
 import { ElectionStateInterface } from './state';
@@ -21,6 +22,9 @@ const mutation: MutationTree<ElectionStateInterface> = {
   getOneElection(state, payload) {
     state.allElection = payload;
   },
+  setActiveElection(state, active?: ElectionDto) {
+    state.activeElection = active;
+  }
 };
 
 export default mutation;

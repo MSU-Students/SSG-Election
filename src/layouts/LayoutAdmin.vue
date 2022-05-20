@@ -87,6 +87,14 @@
           />
         </div>
       </q-toolbar>
+      <q-separator />
+      <!---- Election HEader------>
+      <div class="q-pa-sm bg-white text-primary text-center">
+        <div>Election Name: {{ electionInfo.election_name }}</div>
+        <div>
+          Timer: <strong>{{ electionTimer }}</strong>
+        </div>
+      </div>
     </q-header>
 
     <q-drawer
@@ -176,19 +184,78 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-
+import Chart from 'components/Charts/prime.result.vue';
+import { ElectionDto } from 'src/services/rest-api';
+import { mapActions, mapState } from 'vuex';
+@Options({
+  components: { Chart },
+  computed: {
+    ...mapState('election', ['allElection', 'activeElection']),
+  },
+  methods: {
+    ...mapActions('election', ['getAllElection', 'getActiveElection']),
+  },
+})
 export default class LayoutAdmin extends Vue {
+  getAllElection!: () => Promise<void>;
+  getActiveElection!: () => Promise<void>;
+  allElection!: ElectionDto[];
+  electionTimer: any = '';
+  activeElection!: ElectionDto;
+
   leftDrawerOpen = false;
   search = '';
   filter = '';
   drawer = false;
+
+  created() {
+    this.onElectionTimer();
+  }
+
+  onElectionTimer() {
+    // end date + end time
+    // Update the count down every 1 second
+    const SECOND = 1000;
+    setInterval(async () => {
+      await this.getActiveElection();
+      if (!this.activeElection) {
+        this.electionTimer = 'No Active Election';
+        return;
+      }
+      // Get today's date and time
+      let countDownDate = new Date(
+        `${this.activeElection?.end_date} ${this.activeElection?.end_time}`
+      ).getTime();
+
+      let now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      let distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      // document.getElementById('demo').innerHTML =
+      this.electionTimer =
+        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+      // If the count down is finished, write some text
+    }, SECOND);
+  }
 
   toggleLeftDrawer() {
     this.leftDrawerOpen = !this.leftDrawerOpen;
@@ -199,20 +266,11 @@ export default class LayoutAdmin extends Vue {
     name: 'Arifah U. Abdulbasit',
     idNum: '201812291',
   };
-  //---------------------------------->
 
-  //---loading for logout
-  //timer,
   logout() {
     this.$q.loading.show({
       message: 'Logging out...',
     });
-
-    //this.timer = setTimeout(() => {
-    //  this.$q.loading.hide()
-    //  this.timer = void 0
-    //   }, 3000);
-
     this.$q.notify({
       color: 'accent',
       textColor: 'primary',
@@ -221,6 +279,16 @@ export default class LayoutAdmin extends Vue {
       message: 'You are logged out.',
     });
   }
+
+  electionInfo: ElectionDto = {
+    election_name: '',
+    academic_yr: '',
+    election_type: '',
+    start_date: '',
+    start_time: '',
+    end_date: '',
+    end_time: '',
+  };
 }
 </script>
 <style>

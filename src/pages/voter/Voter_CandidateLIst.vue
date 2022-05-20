@@ -42,9 +42,7 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-subtitle1 text-bold">
-                      {{ data.student?.first_name }}
-                      {{ data.student?.middle_name }}
-                      {{ data.student?.last_name }}
+                      {{ data.student?.first_name }} {{ data.student?.middle_name }} {{ data.student?.last_name }}
                     </div>
                     <div class="text-caption">
                       <strong>{{ data.student?.college }}</strong>
@@ -71,6 +69,11 @@
         </div>
       </div>
     </div>
+
+    <!-------------------------->
+  <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+    <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
+  </q-page-scroller>
   </q-page>
 </template>
 

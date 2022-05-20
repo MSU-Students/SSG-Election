@@ -1,9 +1,5 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <div>Timer: {{ electionTimer }}</div>
-    </div>
-
     <div class="bg-img row">
       <div class="col">
         <div
@@ -12,11 +8,15 @@
         >
           SSG
         </div>
-        <div class="text-h2 text-weight-bolder text-primary" style="text-align: center">
+        <div
+          class="text-h2 text-weight-bolder text-primary"
+          style="text-align: center"
+        >
           Election
         </div>
-        <div class="q-px-xl q-pb-md" align="center">
-          A web-based SSG Election Management System in Mindanao State University-Marawi
+        <div class="q-px-xl q-pb-md">
+          A web-based SSG Election Management System in Mindanao State
+          University-Marawi
         </div>
         <div class="q-ml-xl">
           <q-btn
@@ -63,7 +63,7 @@
             elected by the students can conveniently appoint members of the SSG to help
             with their areas of interest with the election securely and concisely
             executed.
-          </p>
+              </p>
         </div>
         <div class="col-md-4">
           <q-img src="~assets/images/referral.svg" />
@@ -75,60 +75,8 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import Chart from 'components/Charts/prime.result.vue';
-import { ElectionDto } from 'src/services/rest-api';
-import { mapActions, mapState } from 'vuex';
-@Options({
-  components: { Chart },
-  computed: {
-    ...mapState('election', ['allElection']),
-  },
-  methods: {
-    ...mapActions('election', ['getAllElection']),
-  },
-})
-export default class ManageAccount extends Vue {
-  getAllElection!: () => Promise<void>;
-  allElection!: ElectionDto[];
-  electionTimer: any = '';
-  election?: ElectionDto;
 
-  created() {
-    this.onElectionTimer();
-  }
-
-  onElectionTimer() {
-    // end date + end time
-    let countDownDate = new Date(
-      `${this.election?.end_date} ${this.election?.end_time}`
-    ).getTime();
-
-    // Update the count down every 1 second
-    let x = setInterval(() => {
-      // Get today's date and time
-      let now = new Date().getTime();
-
-      // Find the distance between now and the count down date
-      let distance = countDownDate - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result in the element with id="demo"
-      // document.getElementById('demo').innerHTML =
-      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
-
-      // If the count down is finished, write some text
-      if (distance < 0) {
-        clearInterval(x);
-        // document.getElementById('demo').innerHTML = 'EXPIRED';
-      }
-    }, 1000);
-  }
-}
+export default class AdminHomepage extends Vue {}
 </script>
 
 <style>
