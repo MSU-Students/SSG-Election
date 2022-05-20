@@ -11,7 +11,7 @@ const mutation: MutationTree<ElectionStateInterface> = {
     state.newElection = payload;
   },
   deleteElection(state, payload: any) {
-    state.allElection.push(payload);
+    state.allElection?.push(payload);
   },
 
   getAllElection(state, payload) {

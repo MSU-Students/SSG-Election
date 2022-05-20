@@ -23,7 +23,10 @@ const actions: ActionTree<AccountStateInterface, StateInterface> = {
   },
 
   async getAllUser(context): Promise<any> {
-    const res = await userService.getAll();
+    const res = (await userService.getAll()).map(u => ({
+      ...u,
+      password: u.username + String(u.student?.school_id)
+    }));
     context.commit('getAllUser', res);
   },
 

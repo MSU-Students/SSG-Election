@@ -30,17 +30,17 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
   },
 
   async getActiveElection(context) {
-    if (!context.state.allElection || context.state.allElection.length == 0) {
+    if (!context.state.allElection) {
       await context.dispatch('getAllElection');
     }
-    const active = context.state.allElection.find(election => {
+    const active = context.state.allElection?.find(election => {
       const now = new Date();
       const startDate = (election.start_date && election.start_time)
         ? new Date(election.start_date + ' ' + election.start_time)
         : now;
       if ((election.end_date && election.end_time)) {
         const endDate = new Date(election.end_date + ' ' + election.end_time);
-        return startDate >= now && now < endDate; 
+        return startDate <= now && now < endDate; 
       } else {
         return false;
       }

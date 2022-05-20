@@ -38,6 +38,7 @@ const actions: ActionTree<StudentStateInterface, StateInterface> = {
 
   async getAllStudent(context): Promise<any> {
     const res = await studentservice.getAll();
+    
     context.commit('getAllStudent', res);
   },
 

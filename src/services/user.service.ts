@@ -7,7 +7,7 @@ class UserService extends DefaultApi {
     const response = await ssgApiService.addUsers(payload);
     return response.data;
   }
-  async getAll(): Promise<UserDto> {
+  async getAll() {
     const response = await ssgApiService.getUserss();
     return response.data;
   }

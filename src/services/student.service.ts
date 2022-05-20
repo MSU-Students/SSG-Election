@@ -12,7 +12,7 @@ class StudentService extends DefaultApi {
     }
   }
 
-  async getAll(): Promise<StudentDto> {
+  async getAll() {
     const response = await ssgApiService.getStudents();
     return response.data;
   }
