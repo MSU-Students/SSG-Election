@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-ma-md">
+    <div>
       <div style="width:100%, max-width: 1200px">
         <q-tabs
           v-model="tab"
@@ -484,9 +484,10 @@
                           <q-card-section class="q-pt-xs col">
                             <div class="text-caption">Student Name:</div>
                             <div class="text-h5 q-mt-sm q-mb-xs">
-                              {{ inputStudent.last_name }},
-                              {{ inputStudent.first_name }}
-                              {{ inputStudent.middle_name }}
+                              {{ inputUser.student?.last_name }},
+                              {{ inputUser.student?.first_name }}
+                              {{ inputUser.student?.middle_name }}
+                              {{ inputUser.student?.suffix }}
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
                             <div class="text-bold q-mt-sm q-mb-xs">
@@ -544,21 +545,26 @@ import { FILE } from 'dns';
     ...mapActions('student', [
       'addStudent',
       'editStudent',
-      'deleteStudent',
       'getAllStudent',
     ]),
-    ...mapActions('account', ['addAccount', 'getAllUser']),
+    ...mapActions('account', [
+      'addAccount',
+      'editAccount',
+      'deleteAccount',
+      'getAllUser',
+    ]),
     ...mapActions('media', ['uploadMedia']),
   },
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
   addAccount!: (payload: UserDto) => Promise<void>;
+  editAccount!: (payload: UserDto) => Promise<void>;
+  deleteAccount!: (payload: UserDto) => Promise<void>;
   allStudent!: StudentDto[];
   allAccount!: UserDto[];
   addStudent!: (payload: StudentDto) => Promise<void>;
   editStudent!: (payload: StudentDto) => Promise<void>;
-  deleteStudent!: (payload: StudentDto) => Promise<void>;
   getAllStudent!: () => Promise<void>;
   getAllUser!: () => Promise<void>;
 
@@ -620,19 +626,6 @@ export default class ManageAccount extends Vue {
       label: 'Status',
       field: (row: UserDto) => row.student?.student_type,
       color: 'green',
-    },
-    {
-      name: 'username',
-      align: 'center',
-      label: 'username',
-      field: 'username',
-    },
-
-    {
-      name: 'password',
-      align: 'center',
-      label: 'Password',
-      field: 'password',
     },
   ];
 
@@ -713,7 +706,7 @@ export default class ManageAccount extends Vue {
         await this.addStudent(this.inputStudent);
         this.$q.notify({
           type: 'positive',
-          message: 'Account is successfully added.',
+          message: 'Student has been added without account.',
         });
       }
     } catch (error) {
@@ -745,20 +738,20 @@ export default class ManageAccount extends Vue {
     this.inputStudent = { ...val };
   }
 
-  openDetailDialog(val: StudentDto) {
+  openDetailDialog(val: UserDto) {
     this.showDetails = true;
-    this.inputStudent = { ...val };
+    this.inputUser = { ...val };
   }
 
-  deleteSpecificAccount(val: StudentDto) {
+  deleteSpecificAccount(val: UserDto) {
     this.$q
       .dialog({
-        message: 'Are you sure you want to delete?',
+        message: 'Are you sure you want to delete the account?',
         cancel: true,
         persistent: true,
       })
       .onOk(async () => {
-        await this.deleteStudent(val.student_id as any);
+        await this.deleteAccount(val.account_id as any);
         this.$q.notify({
           type: 'warning',
           message: 'Successfully deleted.',

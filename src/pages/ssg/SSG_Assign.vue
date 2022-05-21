@@ -85,6 +85,14 @@
                         dense
                         outline
                         color="primary"
+                        label="Assign Officer"
+                        class="full-width q-ml-md"
+                      />
+                      <q-btn
+                        flat
+                        dense
+                        outline
+                        color="primary"
                         label="Reset"
                         @click="onResetClick"
                         class="full-width q-ml-md"
@@ -431,7 +439,7 @@ export default class ManageSsgMember extends Vue {
     await this.getAllRepresentative();
   }
 
-  tab = '';
+  tab = 'judiciary';
   filter = '';
 
   columns = [

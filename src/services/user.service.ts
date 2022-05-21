@@ -21,7 +21,11 @@ class UserService extends DefaultApi {
   }
   async delete(account_id: number) {
     const response = await ssgApiService.deleteUsers(account_id);
-    return response.data;
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      [];
+    }
   }
   async getUserProfile() {
     const response = await ssgApiService.getProfile();

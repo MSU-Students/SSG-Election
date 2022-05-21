@@ -11,11 +11,29 @@
         <q-card>
           <div class="q-pa-sm q-gutter-x-sm row">
             <div class="col-12 col-md">
+              <!--
+              <q-card>
+                <div class="row q-pa-sm">
+                  <div class="col-4">Name</div>
+                  <div class="col-4 text-center">Course</div>
+                  <div class="col text-center">Level</div>
+                  <div class="col text-center">Total Vote</div>
+                  
+                </div>
+                <q-separator/>
+                <div class="row q-pa-sm q-pt-md">
+                  <div class="col-4">Najmah Omar</div>
+                  <div class="col-4 text-center ">BS Information Technology</div>
+                  <div class="col text-center">2018</div>
+                  <div class="col text-center">4</div>
+                </div>
+              </q-card>
+              -->
               <q-table
                 :grid="$q.screen.xs"
                 title="College Representatives"
                 class="my-sticky-header-table"
-                :rows="allCandidate"
+                :rows="allVoteRep"
                 :columns="representative"
                 row-key="name"
                 :filter="filter"
@@ -49,9 +67,13 @@
     </div>
 
     <!-------------------------->
-  <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-    <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
-  </q-page-scroller>
+    <q-page-scroller
+      position="bottom-right"
+      :scroll-offset="150"
+      :offset="[18, 18]"
+    >
+      <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
+    </q-page-scroller>
   </q-page>
 </template>
 
@@ -59,14 +81,15 @@
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState, mapGetters } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
-import { StudentDto, CandidateDto } from 'src/services/rest-api';
+import { StudentDto, CandidateDto, VoteRepDto } from 'src/services/rest-api';
 @Options({
   components: { RepresentativeResult },
   computed: {
     ...mapState('candidate', ['allCandidate']),
+    ...mapState('voteRep', ['allVoteRep']),
     ...mapState('student', ['allStudent']),
-    
-    ...mapGetters("candidate", ["representativeStatus"]),
+
+    ...mapGetters('candidate', ['representativeStatus']),
   },
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
@@ -76,6 +99,7 @@ import { StudentDto, CandidateDto } from 'src/services/rest-api';
 export default class studentResult extends Vue {
   allStudent!: StudentDto[];
   allCandidate!: CandidateDto[];
+  allVoteRep!: VoteRepDto[];
   representativeStatus!: CandidateDto[];
   getAllCandidate!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
@@ -93,29 +117,32 @@ export default class studentResult extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: any) =>
-        row.student?.last_name + ', ' + row.student?.first_name,
+      field: 'name',
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: (row: any) => row.student?.course,
+      field: 'course',
     },
-
     {
       name: 'level',
       align: 'center',
-      label: 'Year Level',
-      field: (row: any) => row.student?.yr_admitted,
+      label: 'Admitted',
+      field: 'admitted',
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
-      field: (row: any) => row.student?.department,
+      field: 'department',
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'vote' },
+    {
+      name: 'totalVote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: 'totalVote',
+    },
   ];
 }
 </script>

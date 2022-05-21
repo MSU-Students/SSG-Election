@@ -1,110 +1,108 @@
 <template>
-    <div>
-        <q-table
-              class="my-sticky-header-table"
-              title="SSG Account List"
-              :grid="$q.screen.xs"
-              :columns="SSG_Column"
-              :rows="allSsgMember"
-              row-key="name"
-              :rows-per-page-options="[0]"
-              :filter="filter"
-            >
-              <template v-slot:top-right>
-                <div class="q-pa-md q-gutter-sm row">
-                  <q-input
-                    outlined
-                    rounded
-                    dense
-                    debounce="300"
-                    v-model="filter"
-                    placeholder="Search"
-                  >
-                    <template v-slot:append>
-                      <q-icon name="search" />
-                    </template>
-                  </q-input>
-                </div>
-              </template>
+  <div>
+    <q-table
+      class="my-sticky-header-table"
+      title="SSG Account List"
+      :grid="$q.screen.xs"
+      :columns="SSG_Column"
+      :rows="allCandidate"
+      row-key="name"
+      :rows-per-page-options="[0]"
+      :filter="filter"
+    >
+      <template v-slot:top-right>
+        <div class="q-pa-md q-gutter-sm row">
+          <q-input
+            outlined
+            rounded
+            dense
+            debounce="300"
+            v-model="filter"
+            placeholder="Search"
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </div>
+      </template>
 
-              <template v-slot:body-cell-Details="props">
-                <q-td :props="props">
-                  <div class="q-gutter-sm">
+      <template v-slot:body-cell-Details="props">
+        <q-td :props="props">
+          <div class="q-gutter-sm">
+            <q-btn
+              round
+              color="blue"
+              icon="description"
+              size="md"
+              flat
+              dense
+              @click="openSsgDetailDialog(props.row)"
+            />
+            <q-dialog v-model="showSSGDetails">
+              <q-card
+                class="my-card"
+                style="width: 700px; max-width: 60vw"
+                flat
+                bordered
+              >
+                <q-card-section>
+                  <div class="text-h6">
+                    SSG Member Information
                     <q-btn
                       round
-                      color="blue"
-                      icon="description"
-                      size="md"
                       flat
                       dense
-                      @click="openSsgDetailDialog(props.row)"
-                    />
-                    <q-dialog v-model="showSSGDetails">
-                      <q-card
-                        class="my-card"
-                        style="width: 700px; max-width: 60vw"
-                        flat
-                        bordered
-                      >
-                        <q-card-section>
-                          <div class="text-h6">
-                            SSG Member Information
-                            <q-btn
-                              round
-                              flat
-                              dense
-                              icon="close"
-                              class="float-right"
-                              color="grey-8"
-                              v-close-popup
-                            ></q-btn>
-                          </div>
-                        </q-card-section>
-                        <q-card-section horizontal>
-                          <q-card-section class="q-pt-xs col">
-                            <div class="text-overline">
-                              Mindanao State University
-                            </div>
-                            <div class="text-caption">
-                              {{ inputSsg.votessg?.student?.college }} -
-                              {{ inputSsg.votessg?.student?.course }}
-                            </div>
-                            <div class="text-h5 q-mt-sm q-mb-xs">
-                              {{ inputSsg.votessg?.student?.last_name }},
-                              {{ inputSsg.votessg?.student?.first_name }}
-                              {{ inputSsg.votessg?.student?.middle_name }}
-                            </div>
-                            <div class="text-caption text-grey">
-                              {{ inputSsg.position }}
-                            </div>
-                          </q-card-section>
-
-                          <q-card-section class="col-5 flex flex-center">
-                            <q-avatar
-                              square
-                              size="120px"
-                              font-size="82px"
-                              color="teal"
-                              text-color="white"
-                              icon="account_circle"
-                            />
-                          </q-card-section>
-                        </q-card-section>
-
-                        <q-separator />
-
-                        <q-card-section>
-                          <div class="text-italic text-h5">
-                            "{{ inputSsg.academic_yr }}"
-                          </div>
-                        </q-card-section>
-                      </q-card>
-                    </q-dialog>
+                      icon="close"
+                      class="float-right"
+                      color="grey-8"
+                      v-close-popup
+                    ></q-btn>
                   </div>
-                </q-td>
-              </template>
-            </q-table>
-    </div>
+                </q-card-section>
+                <q-card-section horizontal>
+                  <q-card-section class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="text-caption">
+                      {{ inputSsg.votessg?.student?.college }} -
+                      {{ inputSsg.votessg?.student?.course }}
+                    </div>
+                    <div class="text-h5 q-mt-sm q-mb-xs">
+                      {{ inputSsg.votessg?.student?.last_name }},
+                      {{ inputSsg.votessg?.student?.first_name }}
+                      {{ inputSsg.votessg?.student?.middle_name }}
+                    </div>
+                    <div class="text-caption text-grey">
+                      {{ inputSsg.position }}
+                    </div>
+                  </q-card-section>
+
+                  <q-card-section class="col-5 flex flex-center">
+                    <q-avatar
+                      square
+                      size="120px"
+                      font-size="82px"
+                      color="teal"
+                      text-color="white"
+                      icon="account_circle"
+                    />
+                  </q-card-section>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section>
+                  <div class="text-italic text-h5">
+                    "{{ inputSsg.academic_yr }}"
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-dialog>
+          </div>
+        </q-td>
+      </template>
+    </q-table>
+  </div>
 </template>
 
 <script lang="ts">
@@ -118,7 +116,7 @@ import {
 } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
-import RepresentativeAccount from 'components/Account/representative.vue'
+import RepresentativeAccount from 'components/Account/representative.vue';
 
 @Options({
   components: {

@@ -24,9 +24,14 @@ class StudentService extends DefaultApi {
     const response = await ssgApiService.updateStudent(student_id, payload);
     return response.data;
   }
-  async delete(student_id: number) {
+  async delete(student_id: number): Promise<any> {
+    
     const response = await ssgApiService.deleteStudent(student_id);
-    return response.data;
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      [];
+    }
   }
 }
 

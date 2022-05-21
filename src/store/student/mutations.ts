@@ -9,7 +9,7 @@ const mutation: MutationTree<StudentStateInterface> = {
   updateStudent(state, payload: Student) {
     state.newStudent = payload;
   },
-  deleteStudent(state, payload: any) {
+  deleteStudent(state, payload) {
     state.allStudent.push(payload);
   },
 

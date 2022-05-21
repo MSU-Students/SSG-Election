@@ -103,10 +103,6 @@ const routes: RouteRecordRaw[] = [
         path: '/P_Profile',
         component: () => import('src/pages/ssg/SSG_Profile.vue'),
       },
-      {
-        path: '/P_Assigning',
-        component: () => import('src/pages/ssg/SSG_Assigning.vue'),
-      },
     ],
   },
 

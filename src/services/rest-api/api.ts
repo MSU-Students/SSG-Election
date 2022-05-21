@@ -444,6 +444,18 @@ export interface StudentDto {
      * @memberof StudentDto
      */
     'user'?: UserDto;
+    /**
+     * 
+     * @type {VoteRepDto}
+     * @memberof StudentDto
+     */
+    'rep1'?: VoteRepDto;
+    /**
+     * 
+     * @type {VoteRepDto}
+     * @memberof StudentDto
+     */
+    'rep2'?: VoteRepDto;
 }
 /**
  * 
@@ -451,6 +463,12 @@ export interface StudentDto {
  * @interface UserDto
  */
 export interface UserDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserDto
+     */
+    'account_id'?: number;
     /**
      * 
      * @type {string}

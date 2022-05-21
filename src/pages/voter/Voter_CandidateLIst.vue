@@ -2,11 +2,11 @@
   <q-page>
     <div class="q-pa-md">
       <!--separator-->
-      <div class="row q-col-gutter-lg">
+      <div class="row q-col-gutter-lg ">
         <div class="col">
           <q-toolbar>
-            <q-toolbar-title class="text-overline text-weight-bold"
-              >Candidate List</q-toolbar-title
+            <q-toolbar-title class="text-h6 text-weight-bold"
+              >LIST OF CANDIDATES</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -18,7 +18,7 @@
           <div class="col-12 col-md q-pa-sm">
             <q-card
               class="my-card cursor-pointer"
-              style="width: 330px; max-height: 460px"
+              style="width: 330px; max-height: 700px"
             >
               <div class="q-pa-md">
                 <div class="row">

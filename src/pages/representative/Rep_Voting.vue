@@ -14,7 +14,7 @@
           <div class="col q-pa-md text-caption">
             Secretary General: <strong>{{ secretary }}</strong>
           </div>
-          <q-separator />
+          <q-separator inset/>
           <div class="row justify-end q-pa-sm q-pr-md">
             <q-btn
               dense
@@ -149,8 +149,8 @@ export default class studentVote extends Vue {
       field: (row: any) => row.student?.department,
     },
   ];
-  prime = [0];
-  secretary = [1];
+  prime = [];
+  secretary = [];
 
   onResetClick() {
     this.prime = [];
