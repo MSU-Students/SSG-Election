@@ -10,48 +10,31 @@
       <div class="">
         <q-card>
           <div class="q-pa-sm q-gutter-x-sm row">
-            <div class="col-12 col-md">
-              <!--
-              <q-card>
-                <div class="row q-pa-sm">
-                  <div class="col-4">Name</div>
-                  <div class="col-4 text-center">Course</div>
-                  <div class="col text-center">Level</div>
-                  <div class="col text-center">Total Vote</div>
-                  
-                </div>
-                <q-separator/>
-                <div class="row q-pa-sm q-pt-md">
-                  <div class="col-4">Najmah Omar</div>
-                  <div class="col-4 text-center ">BS Information Technology</div>
-                  <div class="col text-center">2018</div>
-                  <div class="col text-center">4</div>
-                </div>
+            <div class="col-12 row justify-center items-center q-gutter-x-md col-md">
+              <q-card v-if="rep1">
+                <q-card-section>
+                  <div>Representative 1</div>
+                  <div>Total Votes: {{ rep1.totalVote || 0 }}</div>
+                </q-card-section>
+                <q-card-section>
+                  <q-icon name="person" />
+                </q-card-section>
+                <q-card-section>
+                  <div>Name: {{ rep1.name }}</div>
+                </q-card-section>
               </q-card>
-              -->
-              <q-table
-                :grid="$q.screen.xs"
-                title="College Representatives"
-                class="my-sticky-header-table"
-                :rows="allVoteRep"
-                :columns="representative"
-                row-key="name"
-                :filter="filter"
-              >
-                <template v-slot:top-right>
-                  <q-input
-                    borderless
-                    dense
-                    debounce="300"
-                    v-model="filter"
-                    placeholder="Search"
-                  >
-                    <template v-slot:append>
-                      <q-icon name="search" />
-                    </template>
-                  </q-input>
-                </template>
-              </q-table>
+              <q-card v-if="rep2">
+                <q-card-section>
+                  <div>Representative 2</div>
+                  <div>Total Votes: {{ rep2.totalVote || 0 }}</div>
+                </q-card-section>
+                <q-card-section>
+                  <q-icon name="person" />
+                </q-card-section>
+                <q-card-section>
+                  <div>Name: {{ rep2.name }}</div>
+                </q-card-section>
+              </q-card>
             </div>
             <div class="col-12 col-md">
               <q-card>
@@ -86,7 +69,7 @@ import { StudentDto, CandidateDto, VoteRepDto } from 'src/services/rest-api';
   components: { RepresentativeResult },
   computed: {
     ...mapState('candidate', ['allCandidate']),
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('voteRep', ['allVoteRep', 'rep1', 'rep2']),
     ...mapState('student', ['allStudent']),
 
     ...mapGetters('candidate', ['representativeStatus']),
@@ -100,12 +83,15 @@ export default class studentResult extends Vue {
   allStudent!: StudentDto[];
   allCandidate!: CandidateDto[];
   allVoteRep!: VoteRepDto[];
+  rep1!: any;
+  rep2!: any;
   representativeStatus!: CandidateDto[];
   getAllCandidate!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
-  async mounted() {
+  async created() {
     await this.getAllVoteRep();
     await this.getAllCandidate();
+    console.log(this.rep1, this.rep2)
   }
 
   tab = 'representative';

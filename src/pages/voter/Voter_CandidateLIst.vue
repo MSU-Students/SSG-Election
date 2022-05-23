@@ -2,12 +2,11 @@
   <q-page>
     <div class="q-pa-md">
       <!--separator-->
-      <div class="row q-col-gutter-lg ">
+      <div class="row q-col-gutter-lg">
         <div class="col">
-          <q-toolbar>
-            <q-toolbar-title class="text-h6 text-weight-bold"
-              >LIST OF CANDIDATES</q-toolbar-title
-            >
+          <q-toolbar class="text-primary">
+            <q-toolbar-title> List of Candidates </q-toolbar-title>
+            <q-btn push color="white" text-color="primary" icon-right="touch_app" label="Click to vote" to="/V_Vote" />
           </q-toolbar>
         </div>
       </div>
@@ -42,7 +41,9 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-subtitle1 text-bold">
-                      {{ data.student?.first_name }} {{ data.student?.middle_name }} {{ data.student?.last_name }}
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }}
                     </div>
                     <div class="text-caption">
                       <strong>{{ data.student?.college }}</strong>
@@ -71,9 +72,13 @@
     </div>
 
     <!-------------------------->
-  <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-    <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
-  </q-page-scroller>
+    <q-page-scroller
+      position="bottom-right"
+      :scroll-offset="150"
+      :offset="[18, 18]"
+    >
+      <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
+    </q-page-scroller>
   </q-page>
 </template>
 

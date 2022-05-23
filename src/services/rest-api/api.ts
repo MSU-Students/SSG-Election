@@ -160,6 +160,25 @@ export interface ElectionDto {
 /**
  * 
  * @export
+ * @interface LoginUserDto
+ */
+export interface LoginUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginUserDto
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginUserDto
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
  * @interface MediaDto
  */
 export interface MediaDto {
@@ -2080,16 +2099,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Login User
-         * @param {string} username 
-         * @param {string} password 
+         * @param {LoginUserDto} loginUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        login: async (username: string, password: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'username' is not null or undefined
-            assertParamExists('login', 'username', username)
-            // verify required parameter 'password' is not null or undefined
-            assertParamExists('login', 'password', password)
+        login: async (loginUserDto: LoginUserDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'loginUserDto' is not null or undefined
+            assertParamExists('login', 'loginUserDto', loginUserDto)
             const localVarPath = `/auth/login`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2102,19 +2118,14 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (username !== undefined) {
-                localVarQueryParameter['username'] = username;
-            }
-
-            if (password !== undefined) {
-                localVarQueryParameter['password'] = password;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(loginUserDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3145,13 +3156,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Login User
-         * @param {string} username 
-         * @param {string} password 
+         * @param {LoginUserDto} loginUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async login(username: string, password: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessTokenDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.login(username, password, options);
+        async login(loginUserDto: LoginUserDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessTokenDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.login(loginUserDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3749,13 +3759,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Login User
-         * @param {string} username 
-         * @param {string} password 
+         * @param {LoginUserDto} loginUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        login(username: string, password: string, options?: any): AxiosPromise<AccessTokenDto> {
-            return localVarFp.login(username, password, options).then((request) => request(axios, basePath));
+        login(loginUserDto: LoginUserDto, options?: any): AxiosPromise<AccessTokenDto> {
+            return localVarFp.login(loginUserDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4424,14 +4433,13 @@ export class DefaultApi extends BaseAPI {
     /**
      * 
      * @summary Login User
-     * @param {string} username 
-     * @param {string} password 
+     * @param {LoginUserDto} loginUserDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public login(username: string, password: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).login(username, password, options).then((request) => request(this.axios, this.basePath));
+    public login(loginUserDto: LoginUserDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).login(loginUserDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

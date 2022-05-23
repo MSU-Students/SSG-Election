@@ -4,10 +4,9 @@
       <!--separator-->
       <div class="row q-col-gutter-lg">
         <div class="col">
-          <q-toolbar>
-            <q-toolbar-title class="text-overline text-weight-bold"
-              >Candidate List</q-toolbar-title
-            >
+          <q-toolbar class="text-primary">
+            <q-toolbar-title> List of Candidates </q-toolbar-title>
+            <q-btn push color="white" text-color="primary" icon-right="touch_app" label="Click to vote" to="/V_Vote" />
           </q-toolbar>
         </div>
       </div>

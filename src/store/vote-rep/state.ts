@@ -3,6 +3,8 @@ import { VoteRepDto } from 'src/services/rest-api';
 
 export interface VoteRepStateInterface {
   allVoteRep: VoteRepDto[];
+  rep1?: VoteRepDto;
+  rep2?: VoteRepDto;
   newVoteRep?: VoteRep;
 }
 

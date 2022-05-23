@@ -10,6 +10,14 @@ const actions: ActionTree<AccountStateInterface, StateInterface> = {
     await context.dispatch('getAllUser');
   },
 
+  async changeStatus(context, account_id: number) {
+    const user = await userService.getOne(account_id);
+    await userService.update(account_id, {
+      ...user,
+      userType: 'rep',
+    });
+  },
+
   async editAccount(context, payload: any): Promise<any> {
     const result = await userService.update(payload.account_id, payload);
     context.commit('updateAccount', result);

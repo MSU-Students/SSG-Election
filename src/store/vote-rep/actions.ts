@@ -23,29 +23,27 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     const result = await voterepservice.delete(voterep_id);
     context.commit('deleteVoteRep', result);
     await context.dispatch('getAllVoteRep');
-    
   },
 
   async getAllVoteRep(context): Promise<any> {
     const res = (await voterepservice.getAll()) as unknown as VoteRepDto[];
-    const rep1 = res.map((i) => ({
-      name: `${i.rep1.last_name}, ${i.rep1.first_name} ${i.rep1.middle_name}`,
-      course: i.rep1.course,
-      admitted: i.rep1.yr_admitted,
-      department: i.rep1.department,
-      totalVote: res.filter((s) => s.rep1.school_id === i.rep1.school_id)
-        .length,
-    }));
-    const rep2 = res.map((i) => ({
-      name: `${i.rep2.last_name}, ${i.rep2.first_name} ${i.rep2.middle_name}`,
-      course: i.rep2.course,
-      admitted: i.rep2.yr_admitted,
-      department: i.rep2.department,
-      totalVote: res.filter((s) => s.rep2.school_id === i.rep2.school_id)
-        .length,
-    }));
-    // const newRes = [...rep1, ...rep2];
-    // context.commit('getAllVoteRep', newRes);
+    await context.dispatch('candidate/getAllCandidate', undefined, {
+      root: true,
+    });
+    // top 2 with highest vote will return
+    const candidates = context.rootState.candidate.allCandidate;
+    const reps = res.map((rep) => {
+      const can = candidates.map((can, i) => {
+        if (can.student?.student_id == rep.rep1.student_id) {
+          console.log(can.student?.student_id, can.student?.first_name);
+        } else if (can.student?.student_id == rep.rep2.student_id) {
+          console.log(can.student?.student_id, can.student?.first_name);
+        }
+      });
+      console.log(can);
+    });
+    console.log('res', res);
+    context.commit('getAllVoteRep', res);
     await this.dispatch('student/getAllStudent');
   },
 

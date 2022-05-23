@@ -1,3 +1,4 @@
+import { LoginUserDto } from './rest-api/api';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Configuration, DefaultApi } from './rest-api';
 
@@ -54,8 +55,10 @@ class SsgApiService extends DefaultApi {
     super(new Configuration(), localBasePath, getAxiosInstance());
   }
 
-  async loginUser(userName: string, password: string) {
-    const response = await ssgApiService.login(userName, password);
+  async loginUser(payload: { userName: string; password: string }) {
+    const response = await ssgApiService.login(
+      payload as unknown as LoginUserDto
+    );
     if (response.status == 201) {
       sessionStorage.setItem('access-token', response.data.accessToken || '');
       sessionStorage.setItem(
