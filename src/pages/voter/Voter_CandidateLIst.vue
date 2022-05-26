@@ -5,15 +5,25 @@
       <div class="row q-col-gutter-lg">
         <div class="col">
           <q-toolbar class="text-primary">
-            <q-toolbar-title> List of Candidates </q-toolbar-title>
-            <q-btn push color="white" text-color="primary" icon-right="touch_app" label="Click to vote" to="/V_Vote" />
+            <q-toolbar-title>
+              List of Candidates:
+              <strong>{{ collegeName }}</strong></q-toolbar-title
+            >
+            <q-btn
+              push
+              color="white"
+              text-color="primary"
+              icon-right="touch_app"
+              label="Click to vote"
+              to="/V_Vote"
+            />
           </q-toolbar>
         </div>
       </div>
       <!--separator-->
 
       <div class="row">
-        <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
+        <div v-for="rep in collegeCandidates" :key="rep.candidate_id">
           <div class="col-12 col-md q-pa-sm">
             <q-card
               class="my-card cursor-pointer"
@@ -26,7 +36,7 @@
                       <q-avatar size="93px">
                         <q-img
                           square
-                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                          :src="`http://localhost:3000/media/${rep.student?.url}`"
                           v-for="mode in fitModes"
                           :key="mode"
                           style="max-width: 200px; height: 70px"
@@ -41,18 +51,18 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-subtitle1 text-bold">
-                      {{ data.student?.first_name }}
-                      {{ data.student?.middle_name }}
-                      {{ data.student?.last_name }}
+                      {{ rep.student?.first_name }}
+                      {{ rep.student?.middle_name }}
+                      {{ rep.student?.last_name }}
                     </div>
                     <div class="text-caption">
-                      <strong>{{ data.student?.college }}</strong>
+                      <strong>{{ rep.student?.college }}</strong>
                     </div>
                     <div class="text-caption">
-                      {{ data.student?.course }}
+                      {{ rep.student?.course }}
                     </div>
                     <div class="text-caption">
-                      {{ data.student?.yr_admitted }}
+                      {{ rep.student?.yr_admitted }}
                     </div>
                   </div>
                 </div>
@@ -60,7 +70,7 @@
                 <div class="row">
                   <div class="col">
                     <q-card-section class="text-italic">
-                      "{{ data.platform }}"
+                      "{{ rep.platform }}"
                     </q-card-section>
                   </div>
                 </div>
@@ -86,12 +96,16 @@
 import { CandidateDto, StudentDto, ElectionDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
+import { ICandidateVote } from 'src/store/vote-rep/state';
+import { AUser } from 'src/store/auth/state';
 
 @Options({
   computed: {
     ...mapState('candidate', ['allCandidate']),
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
+
+    ...mapState('auth', ['currentUser']),
   },
   methods: {
     ...mapActions('candidate', [
@@ -112,9 +126,19 @@ export default class ManageElection extends Vue {
 
   getAllStudent!: () => Promise<void>;
   allStudent!: StudentDto[];
+  currentUser!: AUser;
 
   async mounted() {
     await this.getAllCandidate();
+  }
+
+  get collegeName() {
+    return this.currentUser?.student.college || '';
+  }
+  get collegeCandidates() {
+    return this.allCandidate.filter(
+      (c) => c.student?.college == this.collegeName
+    );
   }
 
   filter = '';

@@ -5,8 +5,8 @@ import { ssgApiService } from 'src/services/ssg-api.service';
 
 const actions: ActionTree<IAuthState, StateInterface> = {
   async login(context, payload: { userName: string; password: string }) {
-    const user = await ssgApiService.loginUser(payload);
-    context.commit('setCurrentUser', user);
+      await ssgApiService.loginUser(payload);
+      await context.dispatch('authUser');
   },
   async authUser(context) {
     try {

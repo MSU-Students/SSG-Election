@@ -1,7 +1,7 @@
 import { VoteRep } from 'src/interfaces/vote-rep.interface';
 import { VoteRepDto } from 'src/services/rest-api';
 import { MutationTree } from 'vuex';
-import { VoteRepStateInterface } from './state';
+import { VoteRepStateInterface, ICandidateVote } from './state';
 
 const mutation: MutationTree<VoteRepStateInterface> = {
   setNewVoteRep(state, payload: VoteRep) {
@@ -31,7 +31,7 @@ const mutation: MutationTree<VoteRepStateInterface> = {
       totalVote: payload.filter((s) => s.rep2.school_id === i.rep2.school_id)
         .length,
     }));
-  // console.log(rep1, rep2);
+    // console.log(rep1, rep2);
     // const newRes = [...rep1, ...rep2];
     state.allVoteRep = [];
     state.allVoteRep.push(...payload);
@@ -41,6 +41,14 @@ const mutation: MutationTree<VoteRepStateInterface> = {
 
   getOneVoteRep(state, payload) {
     state.allVoteRep = payload;
+  },
+
+  addVote(state, payload) {},
+  addCandidateSummry(state, summary: ICandidateVote) {
+    state.summary.push(summary);
+  },
+  clearSummary(state) {
+    state.summary = [];
   },
 };
 

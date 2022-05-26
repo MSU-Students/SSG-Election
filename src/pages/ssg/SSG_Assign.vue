@@ -28,7 +28,13 @@
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm" style="max-width: 98vw">
-                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                  <q-stepper
+                    v-model="step"
+                    header-nav
+                    vertical
+                    color="primary"
+                    animated
+                  >
                     <q-step
                       :name="1"
                       title="Chief Justice"
@@ -36,7 +42,10 @@
                       :done="step > 1"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="chiefJustice" val="{{ chiefJustice }}">
+                        <q-radio
+                          v-model="chiefJustice"
+                          val="{{ chiefJustice }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -48,7 +57,10 @@
                       :done="step > 2"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="associateJustice" val="{{ associateJustice }}">
+                        <q-radio
+                          v-model="associateJustice"
+                          val="{{ associateJustice }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step> </q-stepper
@@ -109,7 +121,13 @@
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm" style="max-width: 98vw">
-                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                  <q-stepper
+                    v-model="step"
+                    header-nav
+                    vertical
+                    color="primary"
+                    animated
+                  >
                     <q-step
                       :name="3"
                       title="Speaker of the House"
@@ -117,7 +135,10 @@
                       :done="step > 3"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="speakerHouse" val="{{ speakerHouse }}">
+                        <q-radio
+                          v-model="speakerHouse"
+                          val="{{ speakerHouse }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step> </q-stepper
@@ -158,7 +179,13 @@
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm" style="max-width: 98vw">
-                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                  <q-stepper
+                    v-model="step"
+                    header-nav
+                    vertical
+                    color="primary"
+                    animated
+                  >
                     <q-step
                       :name="4"
                       title="Internal Deputy Prime Minister"
@@ -166,7 +193,10 @@
                       :done="step > 4"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="internalDeputy" val="{{ internalDeputy }}">
+                        <q-radio
+                          v-model="internalDeputy"
+                          val="{{ internalDeputy }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -178,7 +208,10 @@
                       :done="step > 5"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="externalDeputy" val="{{ externalDeputy }}">
+                        <q-radio
+                          v-model="externalDeputy"
+                          val="{{ externalDeputy }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -190,7 +223,10 @@
                       :done="step > 6"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="ministerHealth" val="{{ ministerHealth }}">
+                        <q-radio
+                          v-model="ministerHealth"
+                          val="{{ ministerHealth }}"
+                        >
                           <!-- <q-tab name="representative" label="Anisah Dayaan" /> -->
                         </q-radio>
                       </q-tabs>
@@ -203,7 +239,10 @@
                       :done="step > 7"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="ministerInfo" val="{{ ministerInfo }}">
+                        <q-radio
+                          v-model="ministerInfo"
+                          val="{{ ministerInfo }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -215,7 +254,10 @@
                       :done="step > 8"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="ministerPlanning" val="{{ ministerPlanning }}">
+                        <q-radio
+                          v-model="ministerPlanning"
+                          val="{{ ministerPlanning }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -242,7 +284,10 @@
                       :done="step > 10"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="ministerFinance" val="{{ ministerFinance }}">
+                        <q-radio
+                          v-model="ministerFinance"
+                          val="{{ ministerFinance }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -308,7 +353,13 @@
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm" style="max-width: 98vw">
-                  <q-stepper v-model="step" header-nav vertical color="primary" animated>
+                  <q-stepper
+                    v-model="step"
+                    header-nav
+                    vertical
+                    color="primary"
+                    animated
+                  >
                     <q-step
                       :name="11"
                       title="Commission on Audit"
@@ -316,7 +367,10 @@
                       :done="step > 11"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio v-model="commissionAudit" val="{{ commissionAudit }}">
+                        <q-radio
+                          v-model="commissionAudit"
+                          val="{{ commissionAudit }}"
+                        >
                         </q-radio>
                       </q-tabs>
                     </q-step>
@@ -406,7 +460,11 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import { RepresentativeDto, SsgMemberDto } from 'src/services/rest-api';
+import {
+  PositionDto,
+  RepresentativeDto,
+  SsgMemberDto,
+} from 'src/services/rest-api';
 import { mapActions, mapState } from 'vuex';
 
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
@@ -524,44 +582,38 @@ export default class ManageSsgMember extends Vue {
       });
   }
 
-  // inputSsgMember: SsgMemberDto = {
-  //   academic_yr: '',
-  //   prime_name: '',
-  //   secretary_name: '',
-  //   chiefJustice: '',
-  //   associateJustice: '',
-  //   speakerHouse: '',
-  //   internalDeputy: '',
-  //   externalDeputy: '',
-  //   ministerHealth: '',
-  //   ministerInfo: '',
-  //   ministerPlanning: '',
-  //   ministerAcadAffairs: '',
-  //   ministerFinance: '',
-  //   commissionAudit: '',
-  //   commissionElection: '',
-  //   commissionWelfare: '',
-  // };
+  inputPosition: PositionDto = {
+    chiefJustice: '',
+    associateJustice: '',
+    speakerHouse: '',
+    internalDeputy: '',
+    externalDeputy: '',
+    ministerHealth: '',
+    ministerInfo: '',
+    ministerPlanning: '',
+    ministerAcadAffairs: '',
+    ministerFinance: '',
+    commissionAudit: '',
+    commissionElection: '',
+    commissionWelfare: '',
+  };
 
-  // resetModel() {
-  //   this.inputSsgMember = {
-  //     academic_yr: '',
-  //     prime_name: '',
-  //     secretary_name: '',
-  //     chiefJustice: '',
-  //     associateJustice: '',
-  //     speakerHouse: '',
-  //     internalDeputy: '',
-  //     externalDeputy: '',
-  //     ministerHealth: '',
-  //     ministerInfo: '',
-  //     ministerPlanning: '',
-  //     ministerAcadAffairs: '',
-  //     ministerFinance: '',
-  //     commissionAudit: '',
-  //     commissionElection: '',
-  //     commissionWelfare: '',
-  //   };
-  // }
+  resetModel() {
+    this.inputPosition = {
+      chiefJustice: '',
+      associateJustice: '',
+      speakerHouse: '',
+      internalDeputy: '',
+      externalDeputy: '',
+      ministerHealth: '',
+      ministerInfo: '',
+      ministerPlanning: '',
+      ministerAcadAffairs: '',
+      ministerFinance: '',
+      commissionAudit: '',
+      commissionElection: '',
+      commissionWelfare: '',
+    };
+  }
 }
 </script>

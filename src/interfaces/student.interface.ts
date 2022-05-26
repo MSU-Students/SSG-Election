@@ -11,5 +11,4 @@ export interface Student {
   course: string;
   department: string;
   student_type: 'regular' | 'representative';
-  url?: Number;
 }

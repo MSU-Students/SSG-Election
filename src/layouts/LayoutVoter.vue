@@ -23,7 +23,7 @@
         </q-toolbar-title>
 
         <!------------------------profile----------------------------->
-        <div class="q-gutter-sm row items-center no-wrap gt-sm">
+        <div class="q-gutter-sm row items-center no-wrap gt-sm" v-if="!loading">
           <q-tooltip>Account</q-tooltip>
           <q-btn-dropdown round flat dropdown-icon="account_circle" size="20px">
             <div class="q-pa-md">
@@ -33,10 +33,10 @@
                 </q-avatar>
               </div>
               <div class="text-weight-bold" style="text-align: center">
-                {{ currentProfile.student?.first_name }}
+                {{ currentUser.student?.last_name }}, {{ currentUser.student?.first_name }} {{ currentUser.student?.middle_name }} {{ currentUser.student?.suffix }}
               </div>
               <div class="text-caption" style="text-align: center">
-                {{ currentProfile.student?.school_id }}
+                {{ currentUser.student?.school_id }}
               </div>
               <div class="row justify-center">
                 <q-btn
@@ -126,17 +126,17 @@
         </q-list>
       </q-scroll-area>
 
-      <div class="q-pa-sm absolute-top" style="height: 150px">
-        <div class="row justify-center">
+      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
+        <div class="row justify-center" >
           <q-avatar size="80px" class="q-mb-sm">
             <img src="~assets/images/avatar.svg" class="q-pb-sm" />
           </q-avatar>
         </div>
         <div class="text-weight-bold" style="text-align: center">
-          {{ currentProfile.student?.first_name }}
+          {{ currentUser.student?.last_name }}, {{ currentUser.student?.first_name }} {{ currentUser.student?.middle_name }} {{ currentUser.student?.suffix }}
         </div>
         <div class="text-caption" style="text-align: center">
-          {{ currentProfile.student?.school_id }}
+          {{ currentUser.student?.school_id }}
         </div>
         <div class="row justify-center">
           <q-btn
@@ -169,7 +169,6 @@ import Chart from 'components/Charts/prime.result.vue';
 import { ElectionDto, UserDto } from 'src/services/rest-api';
 import { AUser } from "src/store/auth/state";
 import { mapActions, mapState } from 'vuex';
-import { ssgApiService } from "src/services/ssg-api.service";
 @Options({
   components: { Chart },
   computed: {
@@ -178,7 +177,7 @@ import { ssgApiService } from "src/services/ssg-api.service";
   },
   methods: {
     ...mapActions('election', ['getAllElection', 'getActiveElection']),
-    ...mapActions("auth", ["getProfile"]),
+    ...mapActions("auth", [ 'authUser']),
   },
 })
 export default class LayoutVoter extends Vue {
@@ -192,7 +191,7 @@ export default class LayoutVoter extends Vue {
   search = '';
   filter = '';
   drawer = false;
-
+  loading = true;
   created() {
     this.onElectionTimer();
   }
@@ -239,18 +238,16 @@ export default class LayoutVoter extends Vue {
   }
 
   //this is where to put the database
-  getProfile!: () => Promise<AUser>;
+  authUser!: () => Promise<AUser>;
+  
   currentUser!: AUser;
-  currentProfile: UserDto = {
-  username: '',
-  password: '',
-  userType: '',
-  status: '',
-  };
+ 
 
   async mounted() {
-    const res = await ssgApiService.getProfile();
-    this.currentProfile = res.data;
+    //const res = await ssgApiService.getProfile();
+    await this.authUser();
+
+    this.loading = false;
   }
 
   logout() {

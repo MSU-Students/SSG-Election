@@ -524,6 +524,12 @@ export interface UserDto {
      * @memberof UserDto
      */
     'student'?: StudentDto;
+    /**
+     * 
+     * @type {VoteRepDto}
+     * @memberof UserDto
+     */
+    'vote'?: VoteRepDto;
 }
 /**
  * 

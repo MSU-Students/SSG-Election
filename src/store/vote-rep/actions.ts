@@ -2,11 +2,13 @@ import { VoteRepDto } from '../../services/rest-api/api';
 import voterepservice from 'src/services/vote-rep.service';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
-import { VoteRepStateInterface } from './state';
+import { VoteRepStateInterface, IRepVote, ICandidateVote } from './state';
 
 const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
   async addVoteRep(context, payload: VoteRepDto): Promise<void> {
+    payload.student = this.state.auth.currentUser?.student;
     const result = await voterepservice.create(payload);
+    
     context.commit('setNewVoteRep', result);
     await context.dispatch('getAllVoteRep');
     await this.dispatch('student/appointStudent', payload.rep2, { root: true });
@@ -32,24 +34,59 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     });
     // top 2 with highest vote will return
     const candidates = context.rootState.candidate.allCandidate;
+    let votes = 0;
     const reps = res.map((rep) => {
-      const can = candidates.map((can, i) => {
+      candidates.map((can, i) => {
         if (can.student?.student_id == rep.rep1.student_id) {
-          console.log(can.student?.student_id, can.student?.first_name);
+          context.dispatch('addVote', { vote: 1, repId: rep.rep1.student_id });
         } else if (can.student?.student_id == rep.rep2.student_id) {
-          console.log(can.student?.student_id, can.student?.first_name);
+          context.dispatch('addVote', { vote: 1, repId: rep.rep2.student_id });
         }
       });
-      console.log(can);
     });
     console.log('res', res);
     context.commit('getAllVoteRep', res);
     await this.dispatch('student/getAllStudent');
+    await this.dispatch('candidate/getAllCandidate');
+    context.commit('clearSummary');
+    this.state.candidate.allCandidate.forEach(candiate => {
+      const matchingVotes = context.state.allVoteRep.filter(v => (
+        v.rep1.student_id == candiate.student?.student_id ||
+        v.rep2.student_id == candiate.student?.student_id
+      ));
+      const votes = matchingVotes.map(v => ({
+        voteId: v.vote_rep_id,
+        repPlace: (v.rep1.student_id == candiate.student?.student_id) ? 'rep1' : 'rep2'
+      } as IRepVote));
+      context.commit('addCandidateSummry', {
+        candidate: candiate,
+        votes: votes
+      } as ICandidateVote)
+    })
+    console.log('summary:', context.state.summary);
+
   },
 
   async getOneVoteRep(context, voterep_id: number): Promise<any> {
     const res = await voterepservice.getOne(voterep_id);
     context.commit('getOneVoteRep', res);
+  },
+
+  async addVote(context, payload) {
+    // const { vote, repId } = payload;
+    // await context.dispatch('candidate/getAllCandidate', undefined, {
+    //   root: true,
+    // });
+    // const candidates = context.rootState.candidate.allCandidate;
+    // const canWithVotes = candidates.map((c: any) => {
+    //   if (c.student?.student_id === repId) {
+    //     return {
+    //       ...c,
+    //       totalVotes: (vote + (c.totalVotes)) || vote
+    //     }
+    //   }
+    // })
+    // console.log('canWithVotes', canWithVotes)
   },
 };
 

@@ -378,10 +378,10 @@ export default class ManageElection extends Vue {
       field: (row: any) => row.student?.course,
     },
     {
-      name: 'department',
+      name: 'college',
       align: 'center',
-      label: 'Department',
-      field: (row: any) => row.student?.department,
+      label: 'College',
+      field: (row: any) => row.student?.college,
     },
     {
       name: 'election_yr',

@@ -111,7 +111,7 @@ import { mapActions, mapState } from 'vuex';
   },
 })
 export default class Login extends Vue {
-  login!: (auth: { userName: string; password: string }) => Promise<AUser>;
+  login!: (auth: { username: string; password: string }) => Promise<AUser>;
   currentUser!: AUser;
 
   username = '';
@@ -121,7 +121,7 @@ export default class Login extends Vue {
   async loginUser() {
     try {
       await this.login({
-        userName: this.username,
+        username: this.username,
         password: this.password,
       });
       if (this.currentUser.userType == 'admin') {
