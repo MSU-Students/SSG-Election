@@ -38,7 +38,7 @@
               title="Student Account List"
               :grid="$q.screen.xs"
               :columns="columns"
-              :rows="allAccount"
+              :rows="allStudent"
               row-key="name"
               :rows-per-page-options="[0]"
               :filter="filter"
@@ -173,6 +173,8 @@
                                         outlined
                                         dense
                                         v-model="inputStudent.yr_admitted"
+                                        mask="####"
+                                        fill-mask
                                         label="Year Admitted"
                                         lazy-rules
                                         :rules="[
@@ -251,7 +253,13 @@
                     </q-card>
                   </q-dialog>
                 </div>
-                <q-btn color="primary" icon-right="archive" no-caps />
+                <q-btn
+                  color="primary"
+                  name="Export"
+                  icon="archive"
+                  label="Export to csv"
+                  @click="exportTable"
+                />
               </template>
 
               <template v-slot:body-cell-action="props">
@@ -368,6 +376,8 @@
                                       outlined
                                       dense
                                       v-model="inputStudent.yr_admitted"
+                                      mask="####"
+                                      fill-mask
                                       label="Year Admitted"
                                       lazy-rules
                                       :rules="[
@@ -484,18 +494,23 @@
                           <q-card-section class="q-pt-xs col">
                             <div class="text-caption">Student Name:</div>
                             <div class="text-h5 q-mt-sm q-mb-xs">
-                              {{ inputUser.student?.last_name }},
-                              {{ inputUser.student?.first_name }}
-                              {{ inputUser.student?.middle_name }}
-                              {{ inputUser.student?.suffix }}
+                              {{ inputStudent.last_name }},
+                              {{ inputStudent.first_name }}
+                              {{ inputStudent.middle_name }}
+                              {{ inputStudent.suffix }}
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
-                            <div class="text-bold q-mt-sm q-mb-xs">
-                              {{ inputUser.username }}
+                            <div
+                              class="text-bold q-mt-sm q-mb-xs text-uppercase"
+                            >
+                              {{}}
                             </div>
                             <div class="text-caption">Password:</div>
-                            <div class="text-bold q-mt-sm q-mb-xs">
-                              {{ inputUser.password }}
+                           
+                            <div
+                              class="text-bold q-mt-sm q-mb-xs text-uppercase"
+                            >
+                              {{ inputStudent.user?.password }}
                             </div>
                           </q-card-section>
                         </q-card-section>
@@ -525,12 +540,31 @@
 </template>
 
 <script lang="ts">
+import { exportFile } from 'quasar';
 import { StudentDto, MediaDto, UserDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 import RepresentativeAccount from 'components/Account/representative.vue';
 import SsgAccounts from 'components/Account/ssgAccount.vue';
-import { FILE } from 'dns';
+import studentResult from './Result.vue';
+
+function wrapCsvValue(
+  val: string,
+  formatFn?: (v: string, r: any) => string,
+  row?: any
+) {
+  let formatted = formatFn !== void 0 ? formatFn(val, row) : val;
+  formatted =
+    formatted === void 0 || formatted === null ? '' : String(formatted);
+  formatted = formatted.split('"').join('""');
+  /**
+   * Excel accepts \n and \r in strings, but some other CSV parsers do not
+   * Uncomment the next two lines to escape new lines
+   */
+  // .split('\n').join('\\n')
+  // .split('\r').join('\\r')
+  return `"${formatted}"`;
+}
 
 @Options({
   components: {
@@ -545,6 +579,7 @@ import { FILE } from 'dns';
     ...mapActions('student', [
       'addStudent',
       'editStudent',
+      'deleteStudent',
       'getAllStudent',
     ]),
     ...mapActions('account', [
@@ -565,6 +600,7 @@ export default class ManageAccount extends Vue {
   allAccount!: UserDto[];
   addStudent!: (payload: StudentDto) => Promise<void>;
   editStudent!: (payload: StudentDto) => Promise<void>;
+  deleteStudent!: (payload: UserDto) => Promise<void>;
   getAllStudent!: () => Promise<void>;
   getAllUser!: () => Promise<void>;
 
@@ -580,51 +616,51 @@ export default class ManageAccount extends Vue {
       name: 'id',
       align: 'center',
       label: 'School ID',
-      field: (row: UserDto) => row.student?.school_id,
+      field: (row: StudentDto) => row.school_id,
     },
     {
       name: 'name',
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: UserDto) =>
-        row.student?.last_name +
+      field: (row: StudentDto) =>
+        row.last_name +
         ', ' +
-        row.student?.first_name +
+        row.first_name +
         ' ' +
-        row.student?.middle_name +
+        row.middle_name +
         ' ' +
-        row.student?.suffix,
+        row.suffix,
     },
     {
       name: 'email',
       align: 'center',
       label: 'Email',
-      field: (row: UserDto) => row.student?.email,
+      field: (row: StudentDto) => row.email,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: (row: UserDto) => row.student?.course,
+      field: (row: StudentDto) => row.course,
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
-      field: (row: UserDto) => row.student?.department,
+      field: (row: StudentDto) => row.department,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
-      field: (row: UserDto) => row.student?.college,
+      field: (row: StudentDto) => row.college,
     },
     {
       name: 'status',
       align: 'center',
       label: 'Status',
-      field: (row: UserDto) => row.student?.student_type,
+      field: (row: StudentDto) => row.student_type,
       color: 'green',
     },
   ];
@@ -646,7 +682,7 @@ export default class ManageAccount extends Vue {
     userType: 'voter',
     status: '',
   };
-  inputStudent: any = {
+  inputStudent: StudentDto = {
     first_name: '',
     middle_name: '',
     last_name: '',
@@ -686,17 +722,13 @@ export default class ManageAccount extends Vue {
   async onaddAccount() {
     //upload picture
     try {
+      //if there is a profile picture
       if (this.imageAttachement.size > 0) {
         this.loading = true;
         const media = await this.uploadMedia(this.imageAttachement as File);
         const profile: any = await this.addStudent({
           ...this.inputStudent,
           url: media.id,
-        });
-
-        await this.addAccount({
-          ...this.inputUser,
-          student: profile.student_id,
         });
         this.$q.notify({
           type: 'positive',
@@ -706,7 +738,7 @@ export default class ManageAccount extends Vue {
         await this.addStudent(this.inputStudent);
         this.$q.notify({
           type: 'positive',
-          message: 'Student has been added without account.',
+          message: 'Account has been save (No Profile)',
         });
       }
     } catch (error) {
@@ -722,15 +754,30 @@ export default class ManageAccount extends Vue {
   }
 
   async onEditAccount() {
-    this.loading = true;
-    const media = await this.uploadMedia(this.imageAttachement as File);
-    await this.editStudent({ ...this.inputStudent, url: media.id });
+    try {
+      if (this.imageAttachement.size > 0) {
+        this.loading = true;
+        const media = await this.uploadMedia(this.imageAttachement as File);
+        await this.editStudent({ ...this.inputStudent, url: media.id });
+        this.$q.notify({
+          type: 'positive',
+          message: 'Successfully edited.',
+        });
+      }
+      await this.editStudent(this.inputStudent);
+      this.$q.notify({
+        type: 'positive',
+        message: 'Successfully edited.',
+      });
+    } catch (error: any) {
+      this.$q.notify({
+        type: 'positive',
+        message: error.message,
+      });
+    }
+
     this.editRowAccount = false;
     this.resetModel();
-    this.$q.notify({
-      type: 'positive',
-      message: 'Successfully edited.',
-    });
   }
 
   openEditDialog(val: StudentDto) {
@@ -738,12 +785,17 @@ export default class ManageAccount extends Vue {
     this.inputStudent = { ...val };
   }
 
-  openDetailDialog(val: UserDto) {
+  openDetailDialog(val: StudentDto) {
     this.showDetails = true;
-    this.inputUser = { ...val };
+    this.inputStudent = { ...val };
+  }
+  mapUserProfile(user: StudentDto) {
+    return this.allAccount.filter(
+      (s) => user.student_id === s.student?.student_id
+    );
   }
 
-  deleteSpecificAccount(val: UserDto) {
+  deleteSpecificAccount(val: StudentDto) {
     this.$q
       .dialog({
         message: 'Are you sure you want to delete the account?',
@@ -751,7 +803,7 @@ export default class ManageAccount extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.deleteAccount(val.account_id as any);
+        await this.deleteStudent(val.student_id as any);
         this.$q.notify({
           type: 'warning',
           message: 'Successfully deleted.',
@@ -773,6 +825,51 @@ export default class ManageAccount extends Vue {
       student_type: 'Regular',
     };
     this.imageAttachement = new File([], 'Select File');
+  }
+
+  //---------------Export Table
+  exportTable() {
+    // naive encoding to csv format
+    const header = [
+      wrapCsvValue('Student ID'),
+      wrapCsvValue('Name'),
+      wrapCsvValue('College'),
+      wrapCsvValue('Username'),
+      wrapCsvValue('Password'),
+    ];
+    const rows = [header.join(',')].concat(
+      this.allAccount.map((c) =>
+        [
+          wrapCsvValue(String(c.account_id)),
+          wrapCsvValue(
+            String(
+              c.student?.last_name +
+                ', ' +
+                c.student?.last_name +
+                ' ' +
+                c.student?.middle_name +
+                ' ' +
+                c.student?.suffix
+            )
+          ),
+          wrapCsvValue(String(c.student?.college)),
+          wrapCsvValue(c.username),
+          wrapCsvValue(c.password),
+        ].join(',')
+      )
+    );
+    const status = exportFile(
+      'category-export.csv',
+      rows.join('\r\n'),
+      'text/csv'
+    );
+    if (status !== true) {
+      this.$q.notify({
+        message: 'Browser denied file download...',
+        color: 'negative',
+        icon: 'warning',
+      });
+    }
   }
 }
 </script>
