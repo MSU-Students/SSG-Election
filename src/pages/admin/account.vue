@@ -78,15 +78,14 @@
                           <q-form @submit="onaddAccount()">
                             <div class="row">
                               <!--C O L U M N-->
-                              <div class="col-12 col-md">
+                              <div class="col-12 col-md q-pr-sm">
                                 <div class="text-overline text-bold">
-                                  Account Type
+                                  Profile Picture
                                   <div class="q-gutter-y-md-4">
                                     <q-file
                                       outlined
                                       accept=".jpg, image/*"
                                       v-model="imageAttachement"
-                                      style="width: 300px"
                                       label="Pick a Profile Pic (Max: 1MB)"
                                     />
                                   </div>
@@ -285,15 +284,15 @@
                         <q-card-section>
                           <div class="row q-pl-md q-pr-lg">
                             <!--C O L U M N-->
-                            <div class="col-12 col-md">
+                            <div class="col-12 col-md q-pr-sm">
                               <div class="text-overline text-bold">
-                                Account Type
+                                Profile Picture
                                 <div class="q-gutter-y-md-4">
                                   <q-file
                                     outlined
                                     v-model="imageAttachement"
                                     accept=".jpg, image/*"
-                                    style="width: 300px"
+                                    label="Pick a Profile Pic (Max: 1MB)"
                                   />
                                 </div>
                               </div>
@@ -503,10 +502,10 @@
                             <div
                               class="text-bold q-mt-sm q-mb-xs text-uppercase"
                             >
-                              {{}}
+                              {{inputUser.username}}
                             </div>
                             <div class="text-caption">Password:</div>
-                           
+
                             <div
                               class="text-bold q-mt-sm q-mb-xs text-uppercase"
                             >
@@ -530,7 +529,7 @@
 
           <!---------------------------------------S S G MEMBER Panel-------------------------------->
           <q-tab-panel name="ssg" class="bg-white">
-            <ssg-account />
+            <SsgAccounts/>
           </q-tab-panel>
         </q-tab-panels>
         <br />
@@ -729,6 +728,10 @@ export default class ManageAccount extends Vue {
         const profile: any = await this.addStudent({
           ...this.inputStudent,
           url: media.id,
+        });
+        await this.addAccount({
+          ...this.inputUser,
+          student: profile.student_id,
         });
         this.$q.notify({
           type: 'positive',

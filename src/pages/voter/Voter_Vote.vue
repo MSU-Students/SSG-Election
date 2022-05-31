@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar>
             <q-toolbar-title class="text-overline text-weight-bold"
-              >Vote for Representatives</q-toolbar-title
+              >Vote for {{collegeName}} Representative</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -16,9 +16,12 @@
         <div class="col-12 col-md">
           <q-card class="my-card q-pa-sm" style="max-width: 98vw">
             <div class="row">
-              <div v-for="data in allCandidate" v-bind:key="data.candidate_id">
+              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
                 <div class="col-12 col-md q-pa-xs">
-                  <q-card class="cursor-pointer" style="width: 290px; max-width: 100vw">
+                  <q-card
+                    class="cursor-pointer"
+                    style="width: 290px; max-width: 100vw"
+                  >
                     <div class="q-pa-md">
                       <div class="row">
                         <div class="col-4 q-gutter-sm">
@@ -26,7 +29,7 @@
                             <q-avatar size="70px">
                               <q-img
                                 square
-                                :src="`http://localhost:3000/media/${data.student?.url}`"
+                                :src="`http://localhost:3000/media/${rep.student?.url}`"
                                 v-for="mode in fitModes"
                                 :key="mode"
                                 style="max-width: 300px; height: 70px"
@@ -41,14 +44,14 @@
                         </div>
                         <div class="col-8 q-pa-sm">
                           <div class="text-body text-bold text-uppercase">
-                            {{ data.student?.first_name }}
-                            {{ data.student?.last_name }}
+                            {{ rep.student?.first_name }}
+                            {{ rep.student?.last_name }}
                           </div>
                           <div class="text-caption">
-                            {{ data.student?.course }}
+                            {{ rep.student?.course }}
                           </div>
                           <div class="text-caption">
-                            {{ data.student?.yr_admitted }}
+                            {{ rep.student?.yr_admitted }}
                           </div>
                         </div>
                       </div>
@@ -64,7 +67,7 @@
                               color="primary"
                               label="Vote"
                               class="full-width absolute-bottom"
-                              @click="onaddBallot(data)"
+                              @click="onaddBallot(rep)"
                             />
                           </q-card-section>
                         </div>
@@ -125,6 +128,7 @@
 
 <script lang="ts">
 import { CandidateDto, VoteRepDto } from 'src/services/rest-api';
+import { AUser } from 'src/store/auth/state';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
@@ -134,6 +138,7 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('candidate', ['allCandidate']),
     ...mapState('voteRep', ['allVoteRep']),
     ...mapState('tempRep', ['allTempRep']),
+    ...mapState('auth', ['currentUser']),
   },
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
@@ -144,13 +149,28 @@ import { mapActions, mapState } from 'vuex';
 export default class ManageElection extends Vue {
   addVoteRep!: (payload: VoteRepDto) => Promise<void>;
   allVoteRep!: VoteRepDto[];
+
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
+
   allTempRep!: TempRep[];
   clear!: () => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
+
+  currentUser!: AUser;
+
   async mounted() {
     await this.getAllCandidate();
+  }
+
+  //filter by college
+  get collegeName() {
+    return this.currentUser?.student.college || '';
+  }
+  get collegeCandidates() {
+    return this.allCandidate.filter(
+      (c) => c.student?.college == this.collegeName
+    );
   }
 
   filter = '';

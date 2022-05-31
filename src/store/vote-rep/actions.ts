@@ -11,8 +11,6 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     
     context.commit('setNewVoteRep', result);
     await context.dispatch('getAllVoteRep');
-    await this.dispatch('student/appointStudent', payload.rep2, { root: true });
-    await this.dispatch('student/appointStudent', payload.rep1, { root: true });
   },
 
   async editVoteRep(context, payload: any): Promise<any> {
@@ -32,7 +30,7 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     await context.dispatch('candidate/getAllCandidate', undefined, {
       root: true,
     });
-    // top 2 with highest vote will return
+    // map
     const candidates = context.rootState.candidate.allCandidate;
     let votes = 0;
     const reps = res.map((rep) => {
@@ -44,7 +42,7 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
         }
       });
     });
-    console.log('res', res);
+
     context.commit('getAllVoteRep', res);
     await this.dispatch('student/getAllStudent');
     await this.dispatch('candidate/getAllCandidate');
@@ -63,8 +61,6 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
         votes: votes
       } as ICandidateVote)
     })
-    console.log('summary:', context.state.summary);
-
   },
 
   async getOneVoteRep(context, voterep_id: number): Promise<any> {

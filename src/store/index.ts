@@ -24,6 +24,9 @@ import { RepresentativeStateInterface } from './representative/state';
 import voteSsg from './vote-ssg';
 import { VoteSsgStateInterface } from './vote-ssg/state';
 
+import position from './position';
+import { PositionStateInterface } from './position/state';
+
 import ssgMember from './ssg-member';
 import { SsgMemberStateInterface } from './ssg-member/state';
 
@@ -52,6 +55,7 @@ export interface StateInterface {
   voteRep: VoteRepStateInterface;
   representative: RepresentativeStateInterface;
   voteSsg: VoteSsgStateInterface;
+  position: PositionStateInterface;
   ssgMmber: SsgMemberStateInterface;
   candidate: CandidateStateInterface;
   election: ElectionStateInterface;
@@ -79,6 +83,7 @@ export default store(function (/* { ssrContext } */) {
       voteRep,
       representative,
       voteSsg,
+      position,
       ssgMember,
       student,
       candidate,

@@ -10,15 +10,30 @@
           <q-separator vertical class="bg-deep-red-1" />
 
           <div class="q-ml-md q-gutter-x-xs gt-sm">
-            <q-btn flat class="text-overline text-white" label="Home" to="/V_Homepage" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Home"
+              to="/V_Homepage"
+            />
             <q-btn
               flat
               class="text-overline text-white"
               label="Candidate List"
               to="/V_List"
             />
-            <q-btn flat class="text-overline text-white" label="Vote" to="/V_Vote" />
-            <q-btn flat class="text-overline text-white" label="Result" to="/V_Result" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Vote"
+              to="/V_Vote"
+            />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Result"
+              to="/V_Result"
+            />
           </div>
         </q-toolbar-title>
 
@@ -29,11 +44,23 @@
             <div class="q-pa-md">
               <div class="row justify-center">
                 <q-avatar size="80px" class="q-mb-sm">
-                  <img src="~assets/images/avatar.svg" class="q-pb-sm" />
+                  <img
+                    v-if="currentUser.student?.url"
+                    class="avatar"
+                    :src="`http://localhost:3000/media/${currentUser.student?.url}`"
+                  />
+                  <img
+                    v-if="!currentUser.student?.url"
+                    src="~assets/images/avatar.svg"
+                    class="q-pb-sm"
+                  />
                 </q-avatar>
               </div>
               <div class="text-weight-bold" style="text-align: center">
-                {{ currentUser.student?.last_name }}, {{ currentUser.student?.first_name }} {{ currentUser.student?.middle_name }} {{ currentUser.student?.suffix }}
+                {{ currentUser.student?.last_name }},
+                {{ currentUser.student?.first_name }}
+                {{ currentUser.student?.middle_name }}
+                {{ currentUser.student?.suffix }}
               </div>
               <div class="text-caption" style="text-align: center">
                 {{ currentUser.student?.school_id }}
@@ -65,7 +92,7 @@
           />
         </div>
       </q-toolbar>
-<!--timer-->
+      <!--timer-->
       <div class="q-pa-sm bg-white text-primary text-center">
         <div>Election Name: {{ electionInfo.election_name }}</div>
         <div>
@@ -126,14 +153,30 @@
         </q-list>
       </q-scroll-area>
 
-      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
-        <div class="row justify-center" >
+      <div
+        class="q-pa-sm absolute-top"
+        style="height: 150px"
+        v-if="currentUser"
+      >
+        <div class="row justify-center">
           <q-avatar size="80px" class="q-mb-sm">
-            <img src="~assets/images/avatar.svg" class="q-pb-sm" />
+            <img
+              v-if="currentUser.student?.url"
+              class="avatar"
+              :src="`http://localhost:3000/media/${currentUser.student?.url}`"
+            />
+            <img
+              v-if="!currentUser.student?.url"
+              src="~assets/images/avatar.svg"
+              class="q-pb-sm"
+            />
           </q-avatar>
         </div>
         <div class="text-weight-bold" style="text-align: center">
-          {{ currentUser.student?.last_name }}, {{ currentUser.student?.first_name }} {{ currentUser.student?.middle_name }} {{ currentUser.student?.suffix }}
+          {{ currentUser.student?.last_name }},
+          {{ currentUser.student?.first_name }}
+          {{ currentUser.student?.middle_name }}
+          {{ currentUser.student?.suffix }}
         </div>
         <div class="text-caption" style="text-align: center">
           {{ currentUser.student?.school_id }}
@@ -158,26 +201,25 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import Chart from 'components/Charts/prime.result.vue';
 import { ElectionDto, UserDto } from 'src/services/rest-api';
-import { AUser } from "src/store/auth/state";
+import { AUser } from 'src/store/auth/state';
 import { mapActions, mapState } from 'vuex';
 @Options({
-  components: { Chart },
   computed: {
     ...mapState('election', ['allElection', 'activeElection']),
-    ...mapState("auth", ["currentUser"]),
+    ...mapState('auth', ['currentUser']),
   },
   methods: {
     ...mapActions('election', ['getAllElection', 'getActiveElection']),
-    ...mapActions("auth", [ 'authUser']),
+    ...mapActions('auth', ['authUser']),
   },
 })
 export default class LayoutVoter extends Vue {
@@ -239,9 +281,8 @@ export default class LayoutVoter extends Vue {
 
   //this is where to put the database
   authUser!: () => Promise<AUser>;
-  
+
   currentUser!: AUser;
- 
 
   async mounted() {
     //const res = await ssgApiService.getProfile();

@@ -104,7 +104,6 @@ import { AUser } from 'src/store/auth/state';
     ...mapState('candidate', ['allCandidate']),
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
-
     ...mapState('auth', ['currentUser']),
   },
   methods: {

@@ -4,40 +4,42 @@
       <div class="q-pl-xl">
         <div class="text-h5 q-pb-md text-bold">
           <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
-          {{ collegeName }} Election Result
+          Election Result
         </div>
       </div>
       <div class="">
         <q-card>
-          <div class="q-pa-sm q-gutter-x-sm row">
+          <div class="q-pa-sm q-col-gutter-x-xs row">
             <div
-              class="col-12 row justify-center items-center q-gutter-x-md col-md"
+              class="col-12 row justify-center items-center col-md"
             >
-              <q-card class="my-card q-pa-md">
-                <div v-for="rep in collegeCandidates"
-                :key="rep.candidate.candidate_id">
-                <q-card-section>
-                  <div class="text-green text-overline">Representative</div>
-                  <div>
-                    Name:
-                    <strong>
-                      {{ rep.candidate.student?.last_name }},
-                      {{ rep.candidate.student?.first_name }}
-                      {{ rep.candidate.student?.middle_name }}
-                      {{ rep.candidate.student?.suffix }}
-                    </strong>
-                  </div>
-                  <div>
-                    Course:
-                    <strong>
-                      {{ rep.candidate.student?.course }}
-                    </strong>
-                  </div>
-                  <div>
-                    Total Votes: <strong>{{ rep.votes.length }}</strong>
-                  </div>
-                  <q-separator/>
-                </q-card-section>
+              <q-card class="my-card q-pa-sm">
+                <div
+                  v-for="rep in collegeCandidates"
+                  :key="rep.candidate.candidate_id"
+                >
+                  <q-card-section>
+                    <div class="text-green text-overline">Representative</div>
+                    <div>
+                      Name:
+                      <strong>
+                        {{ rep.candidate.student?.last_name }},
+                        {{ rep.candidate.student?.first_name }}
+                        {{ rep.candidate.student?.middle_name }}
+                        {{ rep.candidate.student?.suffix }}
+                      </strong>
+                    </div>
+                    <div>
+                      Course:
+                      <strong>
+                        {{ rep.candidate.student?.course }}
+                      </strong>
+                    </div>
+                    <div>
+                      Total Votes: <strong>{{ rep.votes.length }}</strong>
+                    </div>
+                    <q-separator />
+                  </q-card-section>
                 </div>
               </q-card>
             </div>
@@ -76,9 +78,8 @@ import { AUser } from 'src/store/auth/state';
   components: { RepresentativeResult },
   computed: {
     ...mapState('candidate', ['allCandidate']),
-    ...mapState('voteRep', ['allVoteRep', 'rep1', 'rep2', 'summary']),
+    ...mapState('voteRep', ['allVoteRep', 'summary']),
     ...mapState('student', ['allStudent']),
-    ...mapGetters('candidate', ['representativeStatus']),
     ...mapState('auth', ['currentUser']),
   },
   methods: {
@@ -94,13 +95,11 @@ export default class studentResult extends Vue {
   currentUser!: AUser;
   rep1!: any;
   rep2!: any;
-  representativeStatus!: CandidateDto[];
   getAllCandidate!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
   async created() {
     await this.getAllVoteRep();
     await this.getAllCandidate();
-    console.log(this.rep1, this.rep2);
   }
   get collegeName() {
     return this.currentUser?.student.college || '';

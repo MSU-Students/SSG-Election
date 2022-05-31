@@ -73,7 +73,10 @@
                         outlined
                         label="Select ID Number"
                         lazy-rules
-                        :rules="[(val) => (val && val.length > 0) || 'Select ID number.']"
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) || 'Select ID number.',
+                        ]"
                       >
                       </q-select>
                     </div>
@@ -88,10 +91,11 @@
                         v-model="inputCandidate.election"
                         dense
                         outlined
-                        label="Select Election Year"
+                        label="Select Election Type"
                         lazy-rules
                         :rules="[
-                          (val) => (val && val.length > 0) || 'Select election year.',
+                          (val) =>
+                            (val && val.length > 0) || 'Select election Type.',
                         ]"
                       >
                       </q-select>
@@ -105,7 +109,10 @@
                       outlined
                       label="Platform"
                       lazy-rules
-                      :rules="[(val) => (val && val.length > 0) || 'Input the platform.']"
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) || 'Input the platform.',
+                      ]"
                     >
                     </q-input>
                   </div>
@@ -242,7 +249,7 @@
                 >
                   <q-card-section>
                     <div class="text-h6">
-                      Representative Information
+                      Candidate Information
                       <q-btn
                         round
                         flat
@@ -268,12 +275,13 @@
                         {{ inputCandidate.student?.course }}
                       </div>
                       <div class="text-caption text-grey">
-                        {{ inputCandidate.position_type }}
+                        Running as:
+                        <strong>{{ inputCandidate.position_type }}</strong>
                       </div>
                     </q-card-section>
 
                     <q-card-section class="col-4 flex flex-center">
-                                 <q-img
+                      <q-img
                         square
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
                         v-for="mode in fitModes"
@@ -291,7 +299,9 @@
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
+                    <div class="text-italic text-h5">
+                      "{{ inputCandidate.platform }}"
+                    </div>
                   </q-card-section>
                 </q-card>
               </q-dialog>

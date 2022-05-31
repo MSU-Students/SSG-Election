@@ -337,6 +337,18 @@ export interface RepresentativeDto {
     'position': string;
     /**
      * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'platform': string;
+    /**
+     * 
+     * @type {CandidateDto}
+     * @memberof RepresentativeDto
+     */
+    'candidate'?: CandidateDto;
+    /**
+     * 
      * @type {VoteRepDto}
      * @memberof RepresentativeDto
      */
@@ -463,18 +475,6 @@ export interface StudentDto {
      * @memberof StudentDto
      */
     'user'?: UserDto;
-    /**
-     * 
-     * @type {VoteRepDto}
-     * @memberof StudentDto
-     */
-    'rep1'?: VoteRepDto;
-    /**
-     * 
-     * @type {VoteRepDto}
-     * @memberof StudentDto
-     */
-    'rep2'?: VoteRepDto;
 }
 /**
  * 
@@ -530,6 +530,12 @@ export interface UserDto {
      * @memberof UserDto
      */
     'vote'?: VoteRepDto;
+    /**
+     * 
+     * @type {VoteSsgDto}
+     * @memberof UserDto
+     */
+    'votessg'?: VoteSsgDto;
 }
 /**
  * 
@@ -555,18 +561,6 @@ export interface VoteRepDto {
      * @memberof VoteRepDto
      */
     'rep2': StudentDto;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteRepDto
-     */
-    'rep1_name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteRepDto
-     */
-    'rep2_name': string;
     /**
      * 
      * @type {string}
@@ -609,25 +603,13 @@ export interface VoteSsgDto {
      * @type {StudentDto}
      * @memberof VoteSsgDto
      */
-    'primeMinister': StudentDto;
+    'prime': StudentDto;
     /**
      * 
      * @type {StudentDto}
      * @memberof VoteSsgDto
      */
-    'Secretary': StudentDto;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteSsgDto
-     */
-    'prime_name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteSsgDto
-     */
-    'secretary_name': string;
+    'secretary': StudentDto;
     /**
      * 
      * @type {string}

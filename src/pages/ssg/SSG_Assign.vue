@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pl-lg">
-      <div class="text-h5 q-pa-lg text-bold">
+      <div class="text-h5 q-pa-md text-bold">
         <q-icon name="touch_app" color="primary" style="font-size: 3rem" />
         Assign Officers
       </div>
@@ -82,24 +82,16 @@
                   </div>
                   <q-separator inset />
                   <div class="row q-gutter-x-sm q-pa-sm">
-                    <!-- <div class="col">
-                      <q-btn
-                        @click="step = 3"
-                        dense
-                        class="full-width"
-                        color="primary"
-                        label="Continue"
-                      />
-                    </div> -->
                     <div class="col">
                       <q-btn
-                        flat
                         dense
-                        outline
+                        class="full-width"
+                        label="Assign Officers"
                         color="primary"
-                        label="Assign Officer"
-                        class="full-width q-ml-md"
+                        @click="assignOfficers"
                       />
+                    </div>
+                    <div class="col">
                       <q-btn
                         flat
                         dense
@@ -157,6 +149,15 @@
                   </div>
                   <q-separator inset />
                   <div class="row q-gutter-x-sm q-pa-sm">
+                    <div class="col">
+                      <q-btn
+                        dense
+                        class="full-width"
+                        label="Assign Officers"
+                        color="primary"
+                        @click="assignOfficers"
+                      />
+                    </div>
                     <div class="col">
                       <q-btn
                         flat
@@ -333,6 +334,15 @@
                   <div class="row q-gutter-x-sm q-pa-sm">
                     <div class="col">
                       <q-btn
+                        dense
+                        class="full-width"
+                        label="Assign Officers"
+                        color="primary"
+                        @click="assignOfficers"
+                      />
+                    </div>
+                    <div class="col">
+                      <q-btn
                         flat
                         dense
                         outline
@@ -460,11 +470,7 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import {
-  PositionDto,
-  RepresentativeDto,
-  SsgMemberDto,
-} from 'src/services/rest-api';
+import { PositionDto, RepresentativeDto } from 'src/services/rest-api';
 import { mapActions, mapState } from 'vuex';
 
 const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
@@ -472,26 +478,19 @@ const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
 @Options({
   computed: {
     ...mapState('representative', ['allRepresentative']),
-    ...mapState('ssgmember', ['allSsgMember']),
+    ...mapState('position', ['allPosition']),
   },
   methods: {
-    ...mapActions('ssgmember', [
-      'addSsgMember',
-      'editSsgMember',
-      'deleteSsgMember',
-      'getAllSsgMember',
-    ]),
+    ...mapActions('position', ['addPosition', 'getAllPosition']),
     ...mapActions('representative', ['getAllRepresentative']),
   },
 })
-export default class ManageSsgMember extends Vue {
-  addSsgMember!: (payload: SsgMemberDto) => Promise<void>;
-  editSsgMember!: (payload: SsgMemberDto) => Promise<void>;
-  deleteSsgMember!: (payload: SsgMemberDto) => Promise<void>;
-  getAllSsgMember!: () => Promise<void>;
+export default class ManageOfficer extends Vue {
+  addPosition!: (payload: PositionDto) => Promise<void>;
+  getAllPosition!: () => Promise<void>;
   getAllRepresentative!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
-  allSsgMember!: SsgMemberDto[];
+  allPosition!: PositionDto[];
 
   async mounted() {
     await this.getAllRepresentative();
@@ -546,22 +545,24 @@ export default class ManageSsgMember extends Vue {
   step = 1;
   model = null;
 
-  addNewSsgMember = false;
+  addNewPosition = false;
 
   onResetClick() {
-    this.chiefJustice = [];
-    this.associateJustice = [];
-    this.speakerHouse = [];
-    this.internalDeputy = [];
-    this.externalDeputy = [];
-    this.ministerHealth = [];
-    this.ministerInfo = [];
-    this.ministerPlanning = [];
-    this.ministerAcadAffairs = [];
-    this.ministerFinance = [];
-    this.commissionAudit = [];
-    this.commissionElection = [];
-    this.commissionWelfare = [];
+    this.inputPosition = {
+      chiefJustice: '',
+      associateJustice: '',
+      speakerHouse: '',
+      internalDeputy: '',
+      externalDeputy: '',
+      ministerHealth: '',
+      ministerInfo: '',
+      ministerPlanning: '',
+      ministerAcadAffairs: '',
+      ministerFinance: '',
+      commissionAudit: '',
+      commissionElection: '',
+      commissionWelfare: '',
+    };
   }
 
   assignOfficers() {
@@ -572,9 +573,9 @@ export default class ManageSsgMember extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        // await this.addSsgMember(this.inputSsgMember);
-        // this.addNewSsgMember = false;
-        // this.resetModel();
+        await this.addPosition(this.inputPosition);
+        this.addNewPosition = false;
+        this.resetModel();
         this.$q.notify({
           type: 'positive',
           message: 'Successful role assignment.',

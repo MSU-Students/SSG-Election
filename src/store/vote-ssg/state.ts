@@ -3,6 +3,8 @@ import { VoteSsgDto } from 'src/services/rest-api';
 
 export interface VoteSsgStateInterface {
   allVoteSsg: VoteSsgDto[];
+  prime?: VoteSsgDto;
+  secretary?: VoteSsgDto;
   newVoteSsg?: VoteSsg;
 }
 

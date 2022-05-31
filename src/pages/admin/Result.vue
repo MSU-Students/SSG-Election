@@ -27,7 +27,7 @@
                   :grid="$q.screen.xs"
                   title="College Representative"
                   class="my-sticky-header-table"
-                  :rows="allVoteRep"
+                  :rows="summary"
                   :columns="representative"
                   row-key="name"
                   :filter="filter"
@@ -199,7 +199,13 @@ import { mapActions, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
-import { VoteRepDto, StudentDto, VoteSsgDto } from 'src/services/rest-api';
+import {
+  VoteRepDto,
+  StudentDto,
+  VoteSsgDto,
+  CandidateDto,
+} from 'src/services/rest-api';
+import { ICandidateVote } from 'src/store/vote-rep/state';
 @Options({
   components: {
     RepresentativeResult,
@@ -207,7 +213,7 @@ import { VoteRepDto, StudentDto, VoteSsgDto } from 'src/services/rest-api';
     PrimeMinisterChart,
   },
   computed: {
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('voteRep', ['allVoteRep', 'summary']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('student', ['allStudent']),
   },
@@ -220,6 +226,8 @@ export default class studentResult extends Vue {
   allStudent!: StudentDto[];
   allVoteRep!: VoteRepDto[];
   getAllVoteRep!: () => Promise<void>;
+  allCandidate!: CandidateDto[];
+  summary!: ICandidateVote[];
 
   allVoteSsg!: VoteSsgDto[];
   getAllVoteSsg!: () => Promise<void>;
@@ -238,33 +246,38 @@ export default class studentResult extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
+      field: (row: ICandidateVote) =>
+        row.candidate.student?.last_name +
         ', ' +
-        row.student?.first_name +
+        row.candidate.student?.first_name +
         ' ' +
-        row.student?.middle_name,
+        row.candidate.student?.middle_name,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: (row: any) => row.student?.course,
+      field: (row: ICandidateVote) => row.candidate.student?.course,
     },
 
     {
       name: 'level',
       align: 'center',
       label: 'Year Level',
-      field: (row: any) => row.student?.yr_admitted,
+      field: (row: ICandidateVote) => row.candidate.student?.yr_admitted,
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
-      field: (row: any) => row.student?.department,
+      field: (row: ICandidateVote) => row.candidate.student?.department,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
+    {
+      name: 'vote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: (row: ICandidateVote) => row.votes.length
+    },
   ];
 
   prime = [
@@ -343,7 +356,7 @@ export default class studentResult extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 100%
-  max-height: 700px
+  max-height: 600px
   width: 100%
   max-width: 1500px
 </style>

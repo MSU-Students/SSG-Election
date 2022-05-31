@@ -1,19 +1,33 @@
 import { Representative } from 'src/interfaces/representative.interface';
 import representativeservice from 'src/services/representative.service';
-import { RepresentativeDto } from 'src/services/rest-api';
+import { CandidateDto, RepresentativeDto } from 'src/services/rest-api';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { RepresentativeStateInterface } from './state';
 
 const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
-  async addRepresentative(context, payload: RepresentativeDto): Promise<void> {
-    const result = await representativeservice.create(payload);
-    context.commit('setNewRepresentative', result);
-    await context.dispatch('getAllRepresentative');
+  async addRepresentative(context, payload: any): Promise<void> {
+    console.log(payload)
+    payload.map(async (i: any) => {
+      const newPayload = {
+        candidate: i.candidate.candidate_id,
+        academic_yr: i.candidate.student?.yr_admitted,
+        position: i.candidate.position_type,
+      };
+      console.log('newPayload', newPayload);
+      const result = await representativeservice.create(newPayload);
+      console.log('result', result);
+      context.commit('setNewRepresentative', result);
+      await context.dispatch('getAllRepresentative');
+      await this.dispatch('student/appointStudent', payload.rep2, { root: true });
+    });
   },
 
   async editRepresentative(context, payload: any): Promise<any> {
-    const result = await representativeservice.update(payload.representative_id, payload);
+    const result = await representativeservice.update(
+      payload.representative_id,
+      payload
+    );
     context.commit('updateRepresentative', result);
     await this.dispatch('getAllRepresentative');
   },
