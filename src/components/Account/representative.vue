@@ -322,7 +322,7 @@ export default class ManageAccount extends Vue {
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteRep();
-    await this.addRepresentative(this.allCollegeRepresentative);
+    //await this.addRepresentative(this.allCollegeRepresentative);
     console.log('getAllRepresentative', this.allCollegeRepresentative);
   }
   //-----------------------------------------------Table Column for candidate account

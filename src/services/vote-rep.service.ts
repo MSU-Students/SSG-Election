@@ -3,9 +3,13 @@ import { DefaultApi } from './rest-api/api';
 import { VoteRepDto } from './rest-api';
 
 class VoteRepService extends DefaultApi {
-  async create(payload: any): Promise<VoteRepDto> {
+  async create(payload: any) {
     const response = await ssgApiService.addVoteRep(payload);
-    return response.data;
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      [];
+    }
   }
   async getAll(): Promise<VoteRepDto> {
     const response = await ssgApiService.getVoteReps();

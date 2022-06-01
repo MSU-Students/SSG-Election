@@ -27,7 +27,7 @@
                   :grid="$q.screen.xs"
                   title="College Representative"
                   class="my-sticky-header-table"
-                  :rows="summary"
+                  :rows="allCollegeRepresentative"
                   :columns="representative"
                   row-key="name"
                   :filter="filter"
@@ -195,7 +195,7 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
@@ -216,6 +216,7 @@ import { ICandidateVote } from 'src/store/vote-rep/state';
     ...mapState('voteRep', ['allVoteRep', 'summary']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('student', ['allStudent']),
+    ...mapGetters('voteRep', ['collegeRepresentatives']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
@@ -226,7 +227,8 @@ export default class studentResult extends Vue {
   allStudent!: StudentDto[];
   allVoteRep!: VoteRepDto[];
   getAllVoteRep!: () => Promise<void>;
-  allCandidate!: CandidateDto[];
+
+  collegeRepresentatives!: ICandidateVote[];
   summary!: ICandidateVote[];
 
   allVoteSsg!: VoteSsgDto[];
@@ -349,6 +351,10 @@ export default class studentResult extends Vue {
     },
     { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
   ];
+
+  get allCollegeRepresentative() {
+    return this.collegeRepresentatives.filter((i) => !!i.votes.length);
+  }
 }
 </script>
 

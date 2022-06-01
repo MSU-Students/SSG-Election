@@ -94,6 +94,8 @@
         <div>
           Timer: <strong>{{ electionTimer }}</strong>
         </div>
+        <!----
+        <q-btn outline style="color: goldenrod;" label="Officially Closed" />-->
       </div>
     </q-header>
 

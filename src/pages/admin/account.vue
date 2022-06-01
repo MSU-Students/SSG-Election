@@ -38,7 +38,7 @@
               title="Student Account List"
               :grid="$q.screen.xs"
               :columns="columns"
-              :rows="allStudent"
+              :rows="allAccount"
               row-key="name"
               :rows-per-page-options="[0]"
               :filter="filter"
@@ -252,13 +252,40 @@
                     </q-card>
                   </q-dialog>
                 </div>
-                <q-btn
-                  color="primary"
-                  name="Export"
-                  icon="archive"
-                  label="Export to csv"
-                  @click="exportTable"
-                />
+                <q-btn-dropdown
+                  outline
+                  color="white"
+                  text-color="primary"
+                  dropdown-icon="import_export"
+                >
+                  <q-list>
+                    <q-item clickable v-close-popup>
+                      <q-item-section avatar>
+                        <q-avatar
+                          icon="file_upload"
+                          color="white"
+                          text-color="primary"
+                        />
+                      </q-item-section>
+                      <q-item-section>
+                        <q-item-label>Import</q-item-label>
+                      </q-item-section>
+                    </q-item>
+
+                    <q-item clickable v-close-popup @click="exportTable"
+                      ><q-item-section avatar>
+                        <q-avatar
+                          icon="file_download"
+                          color="white"
+                          text-color="primary"
+                        />
+                      </q-item-section>
+                      <q-item-section>
+                        <q-item-label>Export</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-btn-dropdown>
               </template>
 
               <template v-slot:body-cell-action="props">
@@ -271,7 +298,7 @@
                       size="sm"
                       flat
                       dense
-                      @click="openEditDialog(props.row)"
+                      @click="openEditDialog(props.row.student)"
                     />
                     <q-dialog v-model="editRowAccount" persistent>
                       <q-card style="width: 1100px; max-width: 100vw">
@@ -493,23 +520,23 @@
                           <q-card-section class="q-pt-xs col">
                             <div class="text-caption">Student Name:</div>
                             <div class="text-h5 q-mt-sm q-mb-xs">
-                              {{ inputStudent.last_name }},
-                              {{ inputStudent.first_name }}
-                              {{ inputStudent.middle_name }}
-                              {{ inputStudent.suffix }}
+                              {{ inputUser.student?.last_name }},
+                              {{ inputUser.student?.first_name }}
+                              {{ inputUser.student?.middle_name }}
+                              {{ inputUser.student?.suffix }}
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
                             <div
                               class="text-bold q-mt-sm q-mb-xs text-uppercase"
                             >
-                              {{inputUser.username}}
+                              {{ inputUser.username }}
                             </div>
                             <div class="text-caption">Password:</div>
 
                             <div
                               class="text-bold q-mt-sm q-mb-xs text-uppercase"
                             >
-                              {{ inputStudent.user?.password }}
+                              {{ inputUser.password }}
                             </div>
                           </q-card-section>
                         </q-card-section>
@@ -529,7 +556,7 @@
 
           <!---------------------------------------S S G MEMBER Panel-------------------------------->
           <q-tab-panel name="ssg" class="bg-white">
-            <SsgAccounts/>
+            <SsgAccounts />
           </q-tab-panel>
         </q-tab-panels>
         <br />
@@ -615,52 +642,59 @@ export default class ManageAccount extends Vue {
       name: 'id',
       align: 'center',
       label: 'School ID',
-      field: (row: StudentDto) => row.school_id,
+      field: (row: UserDto) => row.student?.school_id,
+      sortable: true,
     },
     {
       name: 'name',
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: StudentDto) =>
-        row.last_name +
+      field: (row: UserDto) =>
+        row.student?.last_name +
         ', ' +
-        row.first_name +
+        row.student?.first_name +
         ' ' +
-        row.middle_name +
+        row.student?.middle_name +
         ' ' +
-        row.suffix,
+        row.student?.suffix,
+      sortable: true,
     },
     {
       name: 'email',
       align: 'center',
       label: 'Email',
-      field: (row: StudentDto) => row.email,
+      field: (row: UserDto) => row.student?.email,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
-      field: (row: StudentDto) => row.course,
+      field: (row: UserDto) => row.student?.course,
+      sortable: true,
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
-      field: (row: StudentDto) => row.department,
+      field: (row: UserDto) => row.student?.department,
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
-      field: (row: StudentDto) => row.college,
+      field: (row: UserDto) => row.student?.college,
+      sortable: true,
     },
     {
       name: 'status',
       align: 'center',
       label: 'Status',
-      field: (row: StudentDto) => row.student_type,
+      field: (row: UserDto) => row.student?.student_type,
       color: 'green',
+      sortable: true,
     },
   ];
 
@@ -737,13 +771,18 @@ export default class ManageAccount extends Vue {
           type: 'positive',
           message: 'Account is successfully added.',
         });
-      } else {
-        await this.addStudent(this.inputStudent);
-        this.$q.notify({
-          type: 'positive',
-          message: 'Account has been save (No Profile)',
-        });
       }
+      const profile: any = await this.addStudent({
+        ...this.inputStudent,
+      });
+      await this.addAccount({
+        ...this.inputUser,
+        student: profile.student_id,
+      });
+      this.$q.notify({
+        type: 'positive',
+        message: 'Account has been save (No Profile)',
+      });
     } catch (error) {
       this.$q.notify({
         type: 'negative',
@@ -788,9 +827,9 @@ export default class ManageAccount extends Vue {
     this.inputStudent = { ...val };
   }
 
-  openDetailDialog(val: StudentDto) {
+  openDetailDialog(val: UserDto) {
     this.showDetails = true;
-    this.inputStudent = { ...val };
+    this.inputUser = { ...val };
   }
   mapUserProfile(user: StudentDto) {
     return this.allAccount.filter(
@@ -798,7 +837,7 @@ export default class ManageAccount extends Vue {
     );
   }
 
-  deleteSpecificAccount(val: StudentDto) {
+  deleteSpecificAccount(val: UserDto) {
     this.$q
       .dialog({
         message: 'Are you sure you want to delete the account?',
@@ -806,7 +845,7 @@ export default class ManageAccount extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.deleteStudent(val.student_id as any);
+        await this.deleteAccount(val.account_id as any);
         this.$q.notify({
           type: 'warning',
           message: 'Successfully deleted.',
@@ -836,6 +875,9 @@ export default class ManageAccount extends Vue {
     const header = [
       wrapCsvValue('Student ID'),
       wrapCsvValue('Name'),
+      wrapCsvValue('Email'),
+      wrapCsvValue('Course'),
+      wrapCsvValue('Department'),
       wrapCsvValue('College'),
       wrapCsvValue('Username'),
       wrapCsvValue('Password'),
@@ -855,6 +897,9 @@ export default class ManageAccount extends Vue {
                 c.student?.suffix
             )
           ),
+          wrapCsvValue(String(c.student?.email)),
+          wrapCsvValue(String(c.student?.course)),
+          wrapCsvValue(String(c.student?.department)),
           wrapCsvValue(String(c.student?.college)),
           wrapCsvValue(c.username),
           wrapCsvValue(c.password),

@@ -566,7 +566,7 @@ export interface VoteRepDto {
      * @type {string}
      * @memberof VoteRepDto
      */
-    'academic_yr': string;
+    'voter_status': string;
     /**
      * 
      * @type {string}
@@ -585,6 +585,12 @@ export interface VoteRepDto {
      * @memberof VoteRepDto
      */
     'student'?: StudentDto;
+    /**
+     * 
+     * @type {ElectionDto}
+     * @memberof VoteRepDto
+     */
+    'election'?: ElectionDto;
 }
 /**
  * 

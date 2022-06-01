@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar>
             <q-toolbar-title class="text-overline text-weight-bold"
-              >Vote for {{collegeName}} Representative</q-toolbar-title
+              >Vote for {{ collegeName }} Representative</q-toolbar-title
             >
           </q-toolbar>
         </div>
@@ -16,7 +16,10 @@
         <div class="col-12 col-md">
           <q-card class="my-card q-pa-sm" style="max-width: 98vw">
             <div class="row">
-              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
+              <div
+                v-for="rep in collegeCandidates"
+                v-bind:key="rep.candidate_id"
+              >
                 <div class="col-12 col-md q-pa-xs">
                   <q-card
                     class="cursor-pointer"
@@ -132,6 +135,11 @@ import { AUser } from 'src/store/auth/state';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
+import { date } from 'quasar';
+import routes from 'src/router/routes';
+
+const timeStamp = Date.now();
+const currentDate = date.formatDate('YYYY-MM-DD');
 
 @Options({
   computed: {
@@ -219,13 +227,19 @@ export default class ManageElection extends Vue {
         temp_tally_id: 0,
       } as TempRep);
     }
+    if (this.allTempRep.length >= 2) {
+      this.$q.notify({
+        type: 'warning',
+        message: 'You have reach the maximum vote!',
+      });
+    }
   }
 
   async submitVote() {
     const firstRep = this.allTempRep[0];
     const secondRep = this.allTempRep[1];
 
-    if (firstRep && secondRep) {
+    if (firstRep && secondRep && this.allTempRep.length === 2) {
       this.$q
         .dialog({
           message: 'Submit vote?',
@@ -238,6 +252,7 @@ export default class ManageElection extends Vue {
           this.inputVoteRep.rep2 = secondRep.student_id;
 
           await this.addVoteRep(this.inputVoteRep);
+          await this.$router.replace('/V_Result')
           this.addNewVoteRep = false;
           this.resetModel();
           this.$q.notify({
@@ -245,27 +260,29 @@ export default class ManageElection extends Vue {
             message: 'You have successfully voted',
           });
         });
+        
+    } else {
+      this.$q.notify({
+        type: 'negative',
+        message: 'You to vote two represntative',
+      });
     }
   }
 
   inputVoteRep: any = {
     rep2: '',
     rep1: '',
-    rep1_name: '',
-    rep2_name: '',
     academic_yr: '',
-    date: '',
-    time: '',
+    date: currentDate,
+    time: timeStamp,
   };
   resetModel() {
     this.inputVoteRep = {
       rep2: '',
       rep1: '',
-      rep1_name: '',
-      rep2_name: '',
       academic_yr: '',
-      date: '',
-      time: '',
+      date: currentDate,
+      time: timeStamp,
     };
   }
 }

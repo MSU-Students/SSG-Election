@@ -1,12 +1,11 @@
 <template>
   <q-page>
-    <div class="q-pl-lg">
+    <div class="q-pl-md">
       <div class="text-h5 q-pa-lg text-bold">
         <q-icon name="list" color="primary" style="font-size: 3rem" />
         Candidate List
       </div>
     </div>
-    <q-separator inset />
     <!-----------Recent Election Ballot-------------->
     <div class="row q-pt-md q-pa-md">
       <q-table
@@ -356,6 +355,7 @@ export default class ManageElection extends Vue {
       align: 'center',
       label: 'ID Number',
       field: (row: any) => row.student?.school_id,
+      sortable: true
     },
     {
       name: 'name',
@@ -368,42 +368,49 @@ export default class ManageElection extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+        sortable: true
     },
     {
       name: 'email',
       align: 'center',
       label: 'Email',
       field: (row: any) => row.student?.email,
+      sortable: true
     },
     {
       name: 'level',
       align: 'center',
       label: 'Year Admitted',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.college,
+      sortable: true
     },
     {
       name: 'election_yr',
       align: 'center',
       label: 'Election Date',
       field: (row: any) => row.election?.end_date,
+      sortable: true
     },
     {
       name: 'position',
       align: 'center',
       label: 'Student Status',
       field: (row: any) => row.student?.student_type,
+      sortable: true
     },
   ];
   filter = '';
