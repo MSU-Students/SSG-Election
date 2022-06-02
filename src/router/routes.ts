@@ -7,6 +7,11 @@ const routes: RouteRecordRaw[] = [
   },
 
   //----> LayoutAdmin
+
+  {
+    path: '/AdminAccount',
+    component: () => import('../pages/admin/ManageAdmin.vue'),
+  },
   {
     path: '/admin',
     component: () => import('layouts/LayoutAdmin.vue'),

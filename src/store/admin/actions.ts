@@ -6,10 +6,11 @@ import { StateInterface } from '../index';
 import { AdminStateInterface } from './state';
 
 const actions: ActionTree<AdminStateInterface, StateInterface> = {
-  async addAdmin(context, payload: AdminDto): Promise<void> {
+  async addAdmin(context, payload: AdminDto): Promise<any> {
     const result = await adminservice.create(payload);
     context.commit('setNewAdmin', result);
     await context.dispatch('getAllAdmin');
+    return result;
   },
 
   async editAdmin(context, payload: any): Promise<any> {

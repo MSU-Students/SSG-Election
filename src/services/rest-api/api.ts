@@ -48,6 +48,12 @@ export interface AccessTokenDto {
 export interface AdminDto {
     /**
      * 
+     * @type {number}
+     * @memberof AdminDto
+     */
+    'admin_id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof AdminDto
      */
@@ -64,6 +70,12 @@ export interface AdminDto {
      * @memberof AdminDto
      */
     'position': string;
+    /**
+     * 
+     * @type {UserDto}
+     * @memberof AdminDto
+     */
+    'user'?: UserDto;
 }
 /**
  * 
@@ -156,6 +168,12 @@ export interface ElectionDto {
      * @memberof ElectionDto
      */
     'end_time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElectionDto
+     */
+    'status': string;
 }
 /**
  * 
@@ -526,6 +544,12 @@ export interface UserDto {
     'student'?: StudentDto;
     /**
      * 
+     * @type {AdminDto}
+     * @memberof UserDto
+     */
+    'admin'?: AdminDto;
+    /**
+     * 
      * @type {VoteRepDto}
      * @memberof UserDto
      */
@@ -561,12 +585,6 @@ export interface VoteRepDto {
      * @memberof VoteRepDto
      */
     'rep2': StudentDto;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteRepDto
-     */
-    'voter_status': string;
     /**
      * 
      * @type {string}

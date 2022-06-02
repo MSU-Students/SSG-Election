@@ -18,6 +18,7 @@ class StudentService extends DefaultApi {
   }
   async getOne(student_id: number): Promise<StudentDto> {
     const response = await ssgApiService.getStudent(student_id);
+    console.log('response', response);
     return response.data;
   }
   async update(student_id: number, payload: StudentDto) {
@@ -25,7 +26,6 @@ class StudentService extends DefaultApi {
     return response.data;
   }
   async delete(student_id: number): Promise<any> {
-    
     const response = await ssgApiService.deleteStudent(student_id);
     if (response.status === 200) {
       return response.data;

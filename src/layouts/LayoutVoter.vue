@@ -10,15 +10,30 @@
           <q-separator vertical class="bg-deep-red-1" />
 
           <div class="q-ml-md q-gutter-x-xs gt-sm">
-            <q-btn flat class="text-overline text-white" label="Home" to="/V_Homepage" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Home"
+              to="/V_Homepage"
+            />
             <q-btn
               flat
               class="text-overline text-white"
               label="Candidate List"
               to="/V_List"
             />
-            <q-btn flat class="text-overline text-white" label="Vote" to="/V_Vote" />
-            <q-btn flat class="text-overline text-white" label="Result" to="/V_Result" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Vote"
+              to="/V_Vote"
+            />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Result"
+              to="/V_Result"
+            />
           </div>
         </q-toolbar-title>
 
@@ -54,7 +69,7 @@
                 <q-btn
                   push
                   dense
-                  class="q-mt-sm full-width"
+                  class="q-mt-sm"
                   color="primary"
                   label="Logout"
                   @click="logout"
@@ -138,7 +153,11 @@
         </q-list>
       </q-scroll-area>
 
-      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
+      <div
+        class="q-pa-sm absolute-top"
+        style="height: 150px"
+        v-if="currentUser"
+      >
         <div class="row justify-center">
           <q-avatar size="80px" class="q-mb-sm">
             <img
@@ -154,9 +173,9 @@
           </q-avatar>
         </div>
         <div class="text-weight-bold" style="text-align: center">
+          {{ currentUser.student?.last_name }},
           {{ currentUser.student?.first_name }}
           {{ currentUser.student?.middle_name }}
-          {{ currentUser.student?.last_name }}
           {{ currentUser.student?.suffix }}
         </div>
         <div class="text-caption" style="text-align: center">
@@ -182,7 +201,8 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
@@ -240,13 +260,16 @@ export default class LayoutVoter extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer =
+        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
     }, SECOND);
@@ -289,6 +312,7 @@ export default class LayoutVoter extends Vue {
     start_time: '',
     end_date: '',
     end_time: '',
+    status: '',
   };
 }
 </script>

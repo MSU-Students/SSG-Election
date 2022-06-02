@@ -429,6 +429,15 @@ export default class ManageElection extends Vue {
       format: (val: string) => `${val}`,
       sortable: true,
     },
+    {
+      name: 'status',
+      required: true,
+      label: 'Election Status',
+      align: 'left',
+      field: (row: ElectionDto) => row.status,
+      format: (val: string) => `${val}`,
+      sortable: true,
+    },
   ];
   addNewElection = false;
   editRowElection = false;
@@ -445,6 +454,7 @@ export default class ManageElection extends Vue {
     start_time: '',
     end_date: '',
     end_time: '',
+    status: '',
   };
 
   async onaddElection() {
@@ -497,6 +507,7 @@ export default class ManageElection extends Vue {
       start_time: '',
       end_date: '',
       end_time: '',
+      status: '',
     };
   }
 }

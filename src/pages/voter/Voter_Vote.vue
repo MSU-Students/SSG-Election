@@ -264,16 +264,16 @@ export default class ManageElection extends Vue {
     rep2: '',
     rep1: '',
     academic_yr: '',
-    date: currentDate,
-    time: timeStamp,
+    date: '',
+    time: '',
   };
   resetModel() {
     this.inputVoteRep = {
       rep2: '',
       rep1: '',
       academic_yr: '',
-      date: currentDate,
-      time: timeStamp,
+      date:'',
+      time: '',
     };
   }
 }

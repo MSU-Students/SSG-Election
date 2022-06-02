@@ -715,7 +715,7 @@ export default class ManageAccount extends Vue {
     'College of Sports, Physical Education and Recreation',
     'King Faisal Center for Islamic, Arabic and Asian Studies',
   ];
-
+  
   //------------------------------------------functions for Student Account
   async onaddAccount() {
     //upload picture
@@ -731,23 +731,25 @@ export default class ManageAccount extends Vue {
         await this.addAccount({
           ...this.inputUser,
           student: profile.student_id,
+        
         });
         this.$q.notify({
           type: 'positive',
           message: 'Account is successfully added.',
         });
+      } else {
+        const profile: any = await this.addStudent({
+          ...this.inputStudent,
+        });
+        await this.addAccount({
+          ...this.inputUser,
+          student: profile.student_id,
+        });
+        this.$q.notify({
+          type: 'positive',
+          message: 'Account has been save (No Profile)',
+        });
       }
-      const profile: any = await this.addStudent({
-        ...this.inputStudent,
-      });
-      await this.addAccount({
-        ...this.inputUser,
-        student: profile.student_id,
-      });
-      this.$q.notify({
-        type: 'positive',
-        message: 'Account has been save (No Profile)',
-      });
     } catch (error) {
       this.$q.notify({
         type: 'negative',
@@ -770,12 +772,13 @@ export default class ManageAccount extends Vue {
           type: 'positive',
           message: 'Successfully edited.',
         });
+      } else {
+        await this.editStudent(this.inputStudent);
+        this.$q.notify({
+          type: 'positive',
+          message: 'Successfully edited.',
+        });
       }
-      await this.editStudent(this.inputStudent);
-      this.$q.notify({
-        type: 'positive',
-        message: 'Successfully edited.',
-      });
     } catch (error: any) {
       this.$q.notify({
         type: 'positive',
@@ -797,7 +800,9 @@ export default class ManageAccount extends Vue {
     this.inputUser = { ...val };
   }
   mapUserProfile(user: StudentDto) {
-    return this.allAccount.filter((s) => user.student_id === s.student?.student_id);
+    return this.allAccount.filter(
+      (s) => user.student_id === s.student?.student_id
+    );
   }
 
   deleteSpecificAccount(val: UserDto) {
@@ -848,7 +853,7 @@ export default class ManageAccount extends Vue {
     const rows = [header.join(',')].concat(
       this.allAccount.map((c) =>
         [
-          wrapCsvValue(String(c.account_id)),
+          wrapCsvValue(String(c.student?.school_id)),
           wrapCsvValue(
             String(
               c.student?.last_name +
@@ -869,7 +874,11 @@ export default class ManageAccount extends Vue {
         ].join(',')
       )
     );
-    const status = exportFile('category-export.csv', rows.join('\r\n'), 'text/csv');
+    const status = exportFile(
+      'category-export.csv',
+      rows.join('\r\n'),
+      'text/csv'
+    );
     if (status !== true) {
       this.$q.notify({
         message: 'Browser denied file download...',

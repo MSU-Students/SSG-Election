@@ -1,13 +1,23 @@
-import { Representative } from 'src/interfaces/representative.interface';
 import representativeservice from 'src/services/representative.service';
-import { CandidateDto, RepresentativeDto } from 'src/services/rest-api';
+import studentservice from 'src/services/student.service';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
+import { ICandidateVote } from '../vote-rep/state';
 import { RepresentativeStateInterface } from './state';
 
 const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
+  async proclaimAllCanditates(context, payload: ICandidateVote[]) {
+    payload.map(async (c) => {
+      await context.dispatch(
+        'student/appointStudent',
+        c.candidate.student?.student_id,
+        { root: true }
+      );
+    });
+  },
+
   async addRepresentative(context, payload: any): Promise<void> {
-    console.log(payload)
+    console.log(payload);
     payload.map(async (i: any) => {
       const newPayload = {
         candidate: i.candidate.candidate_id,
@@ -19,7 +29,6 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
       console.log('result', result);
       context.commit('setNewRepresentative', result);
       await context.dispatch('getAllRepresentative');
-      await this.dispatch('student/appointStudent', payload.rep2, { root: true });
     });
   },
 

@@ -65,6 +65,17 @@
                   dense
                   class="q-mt-sm text-caption full-width"
                   color="primary"
+                  label="Accounts"
+                  icon="admin_panel_settings"
+                  to="/AdminAccount"
+                />
+              </div>
+              <div class="row justify-center">
+                <q-btn
+                  push
+                  dense
+                  class="q-mt-sm text-caption full-width"
+                  color="primary"
                   label="Logout"
                   icon="logout"
                   @click="logout"
@@ -94,6 +105,8 @@
         <div>
           Timer: <strong>{{ electionTimer }}</strong>
         </div>
+        <!----
+        <q-btn outline style="color: goldenrod;" label="Officially Closed" />-->
       </div>
     </q-header>
 
@@ -174,7 +187,17 @@
         <div class="text-weight-bold" style="text-align: center">
           {{ admin.name }}
         </div>
-        <div class="text-caption" style="text-align: center">Admin</div>
+        <div class="row justify-center">
+          <q-btn
+             outline rounded 
+            dense
+            color="primary"
+            class="q-mt-sm text-caption"
+            label="Manage Account"
+            icon="admin_panel_settings"
+            to="/AdminAccount"
+          />
+        </div>
         <div class="row justify-center"></div>
       </div>
     </q-drawer>
@@ -184,7 +207,8 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
@@ -241,13 +265,16 @@ export default class LayoutAdmin extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer =
+        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
     }, SECOND);
@@ -284,6 +311,7 @@ export default class LayoutAdmin extends Vue {
     start_time: '',
     end_date: '',
     end_time: '',
+    status: '',
   };
 }
 </script>

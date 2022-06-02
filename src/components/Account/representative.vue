@@ -33,6 +33,13 @@
             icon="add"
             @click="addNewCandidate = true"
           />
+          <q-btn
+            label="Proclaim Candidate"
+            color="primary"
+            dense
+            :disable="allCollegeRepresentative.length < 0"
+            @click="onProclaimAllCanditates()"
+          />
           <q-dialog v-model="addNewCandidate" persistent>
             <q-card style="width: 900px; max-width: 100vw">
               <q-card-section class="row">
@@ -300,6 +307,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
       'editRepresentative',
       'deleteRepresentative',
       'getAllRepresentative',
+      'proclaimAllCanditates'
     ]),
   },
 })
@@ -309,6 +317,7 @@ export default class ManageAccount extends Vue {
   allElection!: ElectionDto[];
   getAllElection!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
+  proclaimAllCanditates!: (payload: ICandidateVote[]) => Promise<void>;
 
   collegeRepresentatives!: ICandidateVote[];
   summary!: ICandidateVote[];
@@ -386,9 +395,16 @@ export default class ManageAccount extends Vue {
   //---------------------------------------------------for Candidate
 
   position = ['Prime Minister', 'Executive Sectretary'];
+  isLoading = true;
 
   get allCollegeRepresentative() {
     return this.collegeRepresentatives.filter((i) => !!i.votes.length);
+  }
+
+  async onProclaimAllCanditates() {
+    this.isLoading = true;
+    await this.proclaimAllCanditates(this.allCollegeRepresentative);
+    this.isLoading = false;
   }
 
   async onaddCandidateAccount() {
