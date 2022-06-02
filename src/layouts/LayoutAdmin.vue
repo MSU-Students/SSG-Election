@@ -63,7 +63,7 @@
                 <q-btn
                   push
                   dense
-                  class="q-mt-sm text-caption"
+                  class="q-mt-sm text-caption full-width"
                   color="primary"
                   label="Logout"
                   icon="logout"
@@ -94,8 +94,6 @@
         <div>
           Timer: <strong>{{ electionTimer }}</strong>
         </div>
-        <!----
-        <q-btn outline style="color: goldenrod;" label="Officially Closed" />-->
       </div>
     </q-header>
 
@@ -186,8 +184,7 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
-      UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
@@ -244,16 +241,13 @@ export default class LayoutAdmin extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
     }, SECOND);

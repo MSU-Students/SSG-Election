@@ -157,12 +157,14 @@ export default class studentResult extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true,
     },
 
     {
@@ -170,14 +172,22 @@ export default class studentResult extends Vue {
       align: 'center',
       label: 'Year Level',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.College,
+      sortable: true,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
+    {
+      name: 'vote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: 'length',
+      sortable: true,
+    },
   ];
 
   secretary = [
@@ -192,12 +202,14 @@ export default class studentResult extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true,
     },
 
     {
@@ -205,14 +217,22 @@ export default class studentResult extends Vue {
       align: 'center',
       label: 'Year Level',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.College,
+      sortable: true,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
+    {
+      name: 'vote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: 'length',
+      sortable: true,
+    },
   ];
 }
 </script>

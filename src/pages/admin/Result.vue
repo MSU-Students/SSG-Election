@@ -199,12 +199,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
-import {
-  VoteRepDto,
-  StudentDto,
-  VoteSsgDto,
-  CandidateDto,
-} from 'src/services/rest-api';
+import { VoteRepDto, StudentDto, VoteSsgDto, CandidateDto } from 'src/services/rest-api';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 @Options({
   components: {
@@ -254,12 +249,14 @@ export default class studentResult extends Vue {
         row.candidate.student?.first_name +
         ' ' +
         row.candidate.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: ICandidateVote) => row.candidate.student?.course,
+      sortable: true,
     },
 
     {
@@ -267,18 +264,21 @@ export default class studentResult extends Vue {
       align: 'center',
       label: 'Year Level',
       field: (row: ICandidateVote) => row.candidate.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
       field: (row: ICandidateVote) => row.candidate.student?.department,
+      sortable: true,
     },
     {
       name: 'vote',
-      align: 'vote',
+      align: 'center',
       label: 'Total Vote',
-      field: (row: ICandidateVote) => row.votes.length
+      field: (row: ICandidateVote) => row.votes.length,
+      sortable: true,
     },
   ];
 
@@ -294,12 +294,14 @@ export default class studentResult extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true,
     },
 
     {
@@ -307,14 +309,22 @@ export default class studentResult extends Vue {
       align: 'center',
       label: 'Year Level',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.College,
+      sortable: true,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
+    {
+      name: 'vote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: 'length',
+      sortable: true,
+    },
   ];
 
   secretary = [
@@ -329,12 +339,14 @@ export default class studentResult extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true,
     },
 
     {
@@ -342,14 +354,22 @@ export default class studentResult extends Vue {
       align: 'center',
       label: 'Year Level',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.College,
+      sortable: true,
     },
-    { name: 'vote', align: 'vote', label: 'Total Vote', field: 'length' },
+    {
+      name: 'vote',
+      align: 'vote',
+      label: 'Total Vote',
+      field: 'length',
+      sortable: true,
+    },
   ];
 
   get allCollegeRepresentative() {

@@ -52,6 +52,7 @@
                       round
                       dense
                       icon="close"
+                      color="primary"
                       @click="resetModelCandidate()"
                       v-close-popup
                     />
@@ -72,10 +73,7 @@
                         outlined
                         label="Select ID Number"
                         lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Select ID number.',
-                        ]"
+                        :rules="[(val) => (val && val.length > 0) || '']"
                       >
                       </q-select>
                     </div>
@@ -83,19 +81,16 @@
                     <div class="col">
                       <q-select
                         :options="allElection"
-                        option-label="academic_yr"
+                        option-label="election_name"
                         option-value="election_id"
                         map-options
                         emit-value
                         v-model="inputCandidate.election"
                         dense
                         outlined
-                        label="Select Election Type"
+                        label="Select Election Name"
                         lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val && val.length > 0) || 'Select election Type.',
-                        ]"
+                        :rules="[(val) => (val && val.length > 0) || '']"
                       >
                       </q-select>
                     </div>
@@ -108,10 +103,7 @@
                       outlined
                       label="Platform"
                       lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) || 'Input the platform.',
-                      ]"
+                      :rules="[(val) => (val && val.length > 0) || '']"
                     >
                     </q-input>
                   </div>
@@ -142,7 +134,7 @@
             <div class="q-gutter-sm">
               <q-btn
                 round
-                color="blue"
+                color="green"
                 icon="edit"
                 size="sm"
                 flat
@@ -156,7 +148,7 @@
                   <q-card-section class="row">
                     <div class="text-h6">Edit Account</div>
                     <q-space />
-                    <q-btn flat round dense icon="close" v-close-popup />
+                    <q-btn flat round dense icon="close" color="primary" v-close-popup />
                   </q-card-section>
 
                   <q-card-section class="q-gutter-sm">
@@ -232,7 +224,7 @@
               />
               <q-btn
                 round
-                color="blue"
+                color="warning"
                 icon="more_vert"
                 size="md"
                 flat
@@ -255,7 +247,7 @@
                         dense
                         icon="close"
                         class="float-right"
-                        color="grey-8"
+                        color="primary"
                         v-close-popup
                       ></q-btn>
                     </div>
@@ -298,9 +290,7 @@
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">
-                      "{{ inputCandidate.platform }}"
-                    </div>
+                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
                   </q-card-section>
                 </q-card>
               </q-dialog>
@@ -349,13 +339,13 @@ export default class ManageElection extends Vue {
   }
 
   CandidateColumn = [
-    { name: 'action', align: 'center', label: 'Action', field: 'action' },
+    { name: 'action', align: 'center', label: '', field: 'action' },
     {
       name: 'id',
       align: 'center',
       label: 'ID Number',
       field: (row: any) => row.student?.school_id,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'name',
@@ -368,49 +358,49 @@ export default class ManageElection extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
-        sortable: true
+      sortable: true,
     },
     {
       name: 'email',
       align: 'center',
       label: 'Email',
       field: (row: any) => row.student?.email,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'level',
       align: 'center',
       label: 'Year Admitted',
       field: (row: any) => row.student?.yr_admitted,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: any) => row.student?.college,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'election_yr',
       align: 'center',
       label: 'Election Date',
       field: (row: any) => row.election?.end_date,
-      sortable: true
+      sortable: true,
     },
     {
       name: 'position',
       align: 'center',
-      label: 'Student Status',
+      label: 'Type',
       field: (row: any) => row.student?.student_type,
-      sortable: true
+      sortable: true,
     },
   ];
   filter = '';
@@ -433,7 +423,7 @@ export default class ManageElection extends Vue {
     this.resetModelCandidate();
     this.$q.notify({
       type: 'positive',
-      message: 'Account is Successfully Added.',
+      message: 'Account is successfully added.',
     });
   }
 

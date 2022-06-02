@@ -23,7 +23,7 @@
     <div class="row q-pt-md q-pa-md">
       <q-table
         class="my-sticky-header-table"
-        title="Recent Election"
+        title="Election List"
         :grid="$q.screen.xs"
         :rows="allElection"
         :columns="columns"
@@ -62,6 +62,7 @@
                     round
                     dense
                     icon="close"
+                    color="primary"
                     v-close-popup
                     @click="resetModel()"
                   />
@@ -78,9 +79,7 @@
                           :dense="dense"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please type something',
+                            (val) => (val && val.length > 0) || 'Please type something',
                           ]"
                         />
                       </div>
@@ -96,9 +95,7 @@
                           :dense="dense"
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please type something',
+                            (val) => (val && val.length > 0) || 'Please type something',
                           ]"
                         />
                       </div>
@@ -116,9 +113,7 @@
                           fill-mask
                           lazy-rules
                           :rules="[
-                            (val) =>
-                              (val && val.length > 0) ||
-                              'Please type something',
+                            (val) => (val && val.length > 0) || 'Please type something',
                           ]"
                         />
                       </div>
@@ -135,9 +130,7 @@
                             type="date"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please enter the date',
+                              (val) => (val && val.length > 0) || 'Please enter the date',
                             ]"
                             hint="Native date"
                           />
@@ -150,9 +143,7 @@
                             type="time"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please enter the time',
+                              (val) => (val && val.length > 0) || 'Please enter the time',
                             ]"
                             hint="Native time"
                           />
@@ -171,9 +162,7 @@
                             type="date"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please enter the date',
+                              (val) => (val && val.length > 0) || 'Please enter the date',
                             ]"
                             hint="Native date"
                           />
@@ -186,9 +175,7 @@
                             type="time"
                             lazy-rules
                             :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please enter the time',
+                              (val) => (val && val.length > 0) || 'Please enter the time',
                             ]"
                             hint="Native time"
                           />
@@ -223,7 +210,7 @@
             <div class="q-gutter-sm">
               <q-btn
                 round
-                color="blue"
+                color="green"
                 icon="edit"
                 size="sm"
                 flat
@@ -240,6 +227,7 @@
                       round
                       dense
                       icon="close"
+                      color="primary"
                       v-close-popup
                       @click="resetModel()"
                     />
@@ -254,11 +242,7 @@
                             v-model="inputElection.election_name"
                             :dense="dense"
                             lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
+                            :rules="[(val) => (val && val.length > 0) || '']"
                           />
                         </div>
                       </div>
@@ -272,11 +256,7 @@
                             :options="election_type"
                             :dense="dense"
                             lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
+                            :rules="[(val) => (val && val.length > 0) || '']"
                           />
                         </div>
                       </div>
@@ -292,11 +272,7 @@
                             mask="#### - ####"
                             fill-mask
                             lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
+                            :rules="[(val) => (val && val.length > 0) || '']"
                           />
                         </div>
                       </div>
@@ -311,11 +287,7 @@
                               filled
                               type="date"
                               lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the date',
-                              ]"
+                              :rules="[(val) => (val && val.length > 0) || '']"
                               hint="Native date"
                             />
                           </div>
@@ -326,11 +298,7 @@
                               filled
                               type="time"
                               lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the time',
-                              ]"
+                              :rules="[(val) => (val && val.length > 0) || '']"
                               hint="Native time"
                             />
                           </div>
@@ -347,11 +315,7 @@
                               filled
                               type="date"
                               lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the date',
-                              ]"
+                              :rules="[(val) => (val && val.length > 0) || '']"
                               hint="Native date"
                             />
                           </div>
@@ -362,11 +326,7 @@
                               filled
                               type="time"
                               lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) ||
-                                  'Please enter the time',
-                              ]"
+                              :rules="[(val) => (val && val.length > 0) || '']"
                               hint="Native time"
                             />
                           </div>

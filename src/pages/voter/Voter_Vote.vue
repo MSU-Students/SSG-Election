@@ -16,15 +16,9 @@
         <div class="col-12 col-md">
           <q-card class="my-card q-pa-sm" style="max-width: 98vw">
             <div class="row">
-              <div
-                v-for="rep in collegeCandidates"
-                v-bind:key="rep.candidate_id"
-              >
+              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
                 <div class="col-12 col-md q-pa-xs">
-                  <q-card
-                    class="cursor-pointer"
-                    style="width: 290px; max-width: 100vw"
-                  >
+                  <q-card class="cursor-pointer" style="width: 290px; max-width: 100vw">
                     <div class="q-pa-md">
                       <div class="row">
                         <div class="col-4 q-gutter-sm">
@@ -176,9 +170,7 @@ export default class ManageElection extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.allCandidate.filter(
-      (c) => c.student?.college == this.collegeName
-    );
+    return this.allCandidate.filter((c) => c.student?.college == this.collegeName);
   }
 
   filter = '';
@@ -252,19 +244,18 @@ export default class ManageElection extends Vue {
           this.inputVoteRep.rep2 = secondRep.student_id;
 
           await this.addVoteRep(this.inputVoteRep);
-          await this.$router.replace('/V_Result')
+          await this.$router.replace('/V_Result');
           this.addNewVoteRep = false;
           this.resetModel();
           this.$q.notify({
             type: 'warning',
-            message: 'You have successfully voted',
+            message: 'You have successfully voted.',
           });
         });
-        
     } else {
       this.$q.notify({
         type: 'negative',
-        message: 'You to vote two represntative',
+        message: 'You need to vote two represntatives.',
       });
     }
   }

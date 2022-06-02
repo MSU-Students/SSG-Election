@@ -11,12 +11,7 @@
 
           <!-------------Menu Button------------->
           <div class="q-ml-md q-gutter-x-xs gt-sm">
-            <q-btn
-              flat
-              class="text-overline text-white"
-              label="Home"
-              to="/P_Homepage"
-            />
+            <q-btn flat class="text-overline text-white" label="Home" to="/P_Homepage" />
             <q-btn
               flat
               class="text-overline text-white"
@@ -64,7 +59,7 @@
                 <q-btn
                   push
                   dense
-                  class="q-mt-sm text-caption"
+                  class="q-mt-sm text-caption full-width"
                   color="primary"
                   label="Logout"
                   @click="logout"
@@ -133,11 +128,7 @@
         </q-list>
       </q-scroll-area>
 
-      <div
-        class="q-pa-sm absolute-top"
-        style="height: 150px"
-        v-if="currentUser"
-      >
+      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
         <div class="row justify-center">
           <q-avatar size="80px" class="q-mb-sm">
             <img
@@ -181,8 +172,7 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
-      UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
