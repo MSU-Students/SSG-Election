@@ -25,21 +25,27 @@
             </template>
           </q-input>
 
-          <q-btn
-            label="Add Account"
-            color="primary"
-            dense
-            flat
-            icon="add"
-            @click="addNewCandidate = true"
-          />
-          <q-btn
-            label="Proclaim Candidate"
-            color="primary"
-            dense
-            :disable="allCollegeRepresentative.length < 0"
-            @click="onProclaimAllCanditates()"
-          />
+          <div>
+            <q-btn
+              color="primary"
+              dense
+              flat
+              icon="add"
+              @click="addNewCandidate = true"
+            />
+            <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+          </div>
+          <div>
+            <q-btn
+              color="primary"
+              dense
+              flat
+              icon="verified"
+              :disable="allCollegeRepresentative.length < 0"
+              @click="onProclaimAllCanditates()"
+            />
+            <q-tooltip :offset="[0, 8]">Proclaim Candidates</q-tooltip>
+          </div>
           <q-dialog v-model="addNewCandidate" persistent>
             <q-card style="width: 900px; max-width: 100vw">
               <q-card-section class="row">
@@ -51,6 +57,7 @@
                     round
                     dense
                     icon="close"
+                    color="primary"
                     @click="resetModelCandidate()"
                     v-close-popup
                   />
@@ -98,13 +105,16 @@
           <div class="q-gutter-sm">
             <q-btn
               round
-              color="blue"
+              color="warning"
               icon="edit"
               size="sm"
               flat
               dense
               @click="openEditCandidateDialog(props.row)"
-            />
+              ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                Edit
+              </q-tooltip></q-btn
+            >
 
             <!---------EDIT CANDIDATE----------->
             <q-dialog v-model="editRowCandidate" persistent>
@@ -112,7 +122,7 @@
                 <q-card-section class="row">
                   <div class="text-h6">Edit Account</div>
                   <q-space />
-                  <q-btn flat round dense icon="close" v-close-popup />
+                  <q-btn flat round dense icon="close" color="primary" v-close-popup />
                 </q-card-section>
 
                 <q-card-section class="q-gutter-sm">
@@ -202,24 +212,23 @@
               round
               dense
               @click="deleteSpecificCandidateAccount(props.row)"
-            />
+              ><q-tooltip class="bg-red-10" :offset="[10, 10]"> Delete </q-tooltip></q-btn
+            >
 
             <q-btn
               round
-              color="blue"
+              color="primary"
               icon="more_vert"
               size="md"
               flat
               dense
               @click="openDetailDialog(props.row)"
-            />
+              ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                Details
+              </q-tooltip></q-btn
+            >
             <q-dialog v-model="showDetails">
-              <q-card
-                class="my-card"
-                style="width: 700px; max-width: 60vw"
-                flat
-                bordered
-              >
+              <q-card class="my-card" style="width: 700px; max-width: 60vw" flat bordered>
                 <q-card-section>
                   <div class="text-h6">
                     Representative Information
@@ -229,7 +238,7 @@
                       dense
                       icon="close"
                       class="float-right"
-                      color="grey-8"
+                      color="primary"
                       v-close-popup
                     ></q-btn>
                   </div>
@@ -261,7 +270,10 @@
                       color="teal"
                       text-color="white"
                       icon="account_circle"
-                    />
+                      ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                        Account
+                      </q-tooltip></q-img
+                    >
                   </q-card-section>
                 </q-card-section>
 
@@ -269,7 +281,7 @@
 
                 <q-card-section>
                   <div class="text-italic text-h5">
-                    {{ inputRepresentative }}
+                    {{ inputRepresentative.candidate?.platform }}
                   </div>
                 </q-card-section>
               </q-card>
@@ -307,7 +319,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
       'editRepresentative',
       'deleteRepresentative',
       'getAllRepresentative',
-      'proclaimAllCanditates'
+      'proclaimAllCanditates',
     ]),
   },
 })
@@ -336,12 +348,13 @@ export default class ManageAccount extends Vue {
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
-    { name: 'action', align: 'center', label: 'Action', field: 'action' },
+    { name: 'action', align: 'center', label: '', field: 'action' },
     {
       name: 'id',
-      align: 'center',
+      align: 'left',
       label: 'ID Number',
       field: (row: ICandidateVote) => row.candidate.student?.school_id,
+      sortable: true,
     },
     {
       name: 'name',
@@ -354,6 +367,7 @@ export default class ManageAccount extends Vue {
         row.candidate.student?.first_name +
         ' ' +
         row.candidate.student?.middle_name,
+      sortable: true,
     },
 
     {
@@ -361,18 +375,21 @@ export default class ManageAccount extends Vue {
       align: 'center',
       label: 'College',
       field: (row: ICandidateVote) => row.candidate.student?.college,
+      sortable: true,
     },
     {
       name: 'position',
       align: 'center',
-      label: 'Student Status',
+      label: 'Position',
       field: (row: ICandidateVote) => row.candidate.student?.student_type,
+      sortable: true,
     },
     {
       name: 'votes',
       align: 'center',
       label: 'Votes',
       field: (row: ICandidateVote) => row.votes.length,
+      sortable: true,
     },
   ];
 

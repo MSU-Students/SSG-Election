@@ -1,10 +1,6 @@
 <template>
   <div>
-    <canvas
-      class="q-pl-sm"
-      id="myChart"
-      style="height: 350px; width: 50px"
-    ></canvas>
+    <canvas class="q-pl-sm" id="myChart" style="height: 350px; width: 50px"></canvas>
   </div>
 </template>
 
@@ -33,8 +29,7 @@ export default class ChartComponent extends Vue {
   async mounted() {
     await this.getAllVoteRep();
     const labels = this.collegeCandidates.map(
-      (i) =>
-        `${i.candidate.student?.last_name}, ${i.candidate.student?.first_name}`
+      (i) => `${i.candidate.student?.last_name}, ${i.candidate.student?.first_name}`
     );
     const data = {
       labels: labels,
@@ -45,6 +40,9 @@ export default class ChartComponent extends Vue {
             'rgb(179,0,0)',
             'rgb(33,186,69)',
             'rgb(231,200,24)',
+            'rgb(3,87,142)',
+            'rgb(232,65,44)',
+            'rgb(46,109,86)',
           ],
           data: this.collegeCandidates.map((i) => i.votes.length),
           hoverOffset: 40,
@@ -69,9 +67,7 @@ export default class ChartComponent extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.summary.filter(
-      (c) => c.candidate.student?.college == this.collegeName
-    );
+    return this.summary.filter((c) => c.candidate.student?.college == this.collegeName);
   }
 }
 </script>

@@ -222,7 +222,7 @@ export default class ManageElection extends Vue {
     if (this.allTempRep.length >= 2) {
       this.$q.notify({
         type: 'warning',
-        message: 'You have reach the maximum vote!',
+        message: 'You have reached the maximum votes allowed!',
       });
     }
   }
@@ -272,7 +272,7 @@ export default class ManageElection extends Vue {
       rep2: '',
       rep1: '',
       academic_yr: '',
-      date:'',
+      date: '',
       time: '',
     };
   }

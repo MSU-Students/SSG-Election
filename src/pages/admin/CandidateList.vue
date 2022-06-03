@@ -33,14 +33,16 @@
               </template>
             </q-input>
 
-            <q-btn
-              label="Add Account"
-              color="primary"
-              dense
-              flat
-              icon="add"
-              @click="addNewCandidate = true"
-            />
+            <div>
+              <q-btn
+                color="primary"
+                dense
+                flat
+                icon="add"
+                @click="addNewCandidate = true"
+              />
+              <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+            </div>
             <q-dialog v-model="addNewCandidate" persistent>
               <q-card style="width: 900px; max-width: 100vw">
                 <q-card-section class="row">
@@ -134,13 +136,16 @@
             <div class="q-gutter-sm">
               <q-btn
                 round
-                color="green"
+                color="warning"
                 icon="edit"
                 size="sm"
                 flat
                 dense
                 @click="openEditCandidateDialog(props.row)"
-              />
+                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                  Edit
+                </q-tooltip></q-btn
+              >
 
               <!---------EDIT CANDIDATE----------->
               <q-dialog v-model="editRowCandidate" persistent>
@@ -221,16 +226,22 @@
                 round
                 dense
                 @click="deleteSpecificCandidateAccount(props.row)"
-              />
+                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                  Delete
+                </q-tooltip></q-btn
+              >
               <q-btn
                 round
-                color="warning"
+                color="primary"
                 icon="more_vert"
                 size="md"
                 flat
                 dense
                 @click="openDetailDialog(props.row)"
-              />
+                ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                  Details
+                </q-tooltip></q-btn
+              >
               <q-dialog v-model="showDetails">
                 <q-card
                   class="my-card"
@@ -283,7 +294,10 @@
                         color="teal"
                         text-color="white"
                         icon="account_circle"
-                      />
+                        ><q-tooltip class="bg-gray" :offset="[10, 10]">
+                          Account
+                        </q-tooltip></q-img
+                      >
                     </q-card-section>
                   </q-card-section>
 

@@ -43,14 +43,16 @@
                 <q-icon name="search" />
               </template>
             </q-input>
-            <q-btn
-              color="primary"
-              icon-right="add"
-              label="Add new election"
-              no-caps
-              to="/Ballot"
-              @click="addNewElection = true"
-            />
+            <div>
+              <q-btn
+                color="primary"
+                dense
+                flat
+                icon="add"
+                @click="addNewElection = true"
+              />
+              <q-tooltip :offset="[0, 10]">Add Election</q-tooltip>
+            </div>
 
             <q-dialog v-model="addNewElection" persistent>
               <q-card style="width: 700px; max-width: 100vw" class="q-pa-sm">
@@ -210,13 +212,16 @@
             <div class="q-gutter-sm">
               <q-btn
                 round
-                color="green"
+                color="warning"
                 icon="edit"
                 size="sm"
                 flat
                 dense
                 @click="openEditDialog(props.row)"
-              />
+                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                  Edit
+                </q-tooltip></q-btn
+              >
               <q-dialog v-model="editRowElection" persistent>
                 <q-card style="width: 800px; max-width: 100vw" class="q-pa-md">
                   <q-card-section class="row">
@@ -361,7 +366,10 @@
                 round
                 dense
                 @click="deleteSpecificElection(props.row)"
-              />
+                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                  Delete
+                </q-tooltip></q-btn
+              >
             </div>
           </q-td>
         </template>

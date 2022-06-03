@@ -10,16 +10,13 @@
       <div class="">
         <q-card>
           <div class="q-pa-sm q-col-gutter-x-xs row">
-            <div
-              class="col-12 row justify-center items-center col-md"
-            >
+            <div class="col-12 row justify-center items-center col-md">
               <q-card class="my-card q-pa-sm">
-                <div
-                  v-for="rep in collegeCandidates"
-                  :key="rep.candidate.candidate_id"
-                >
+                <div v-for="rep in collegeCandidates" :key="rep.candidate.candidate_id">
                   <q-card-section>
-                    <div class="text-green text-overline">Representative</div>
+                    <div class="text-green text-overline">
+                      Candidate {{ rep.candidate.candidate_id }}
+                    </div>
                     <div>
                       Name:
                       <strong>
@@ -38,6 +35,7 @@
                     <div>
                       Total Votes: <strong>{{ rep.votes.length }}</strong>
                     </div>
+                    <br />
                     <q-separator />
                   </q-card-section>
                 </div>
@@ -57,11 +55,7 @@
     </div>
 
     <!-------------------------->
-    <q-page-scroller
-      position="bottom-right"
-      :scroll-offset="150"
-      :offset="[18, 18]"
-    >
+    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
     </q-page-scroller>
   </q-page>
@@ -105,9 +99,7 @@ export default class studentResult extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.summary.filter(
-      (c) => c.candidate.student?.college == this.collegeName
-    );
+    return this.summary.filter((c) => c.candidate.student?.college == this.collegeName);
   }
   tab = 'representative';
   filter = '';

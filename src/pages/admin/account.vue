@@ -57,14 +57,16 @@
                       <q-icon name="search" />
                     </template>
                   </q-input>
-                  <q-btn
-                    label="Add Account"
-                    color="primary"
-                    dense
-                    flat
-                    icon="add"
-                    @click="addNewAccount = true"
-                  />
+                  <div>
+                    <q-btn
+                      color="primary"
+                      dense
+                      flat
+                      icon="add"
+                      @click="addNewAccount = true"
+                    />
+                    <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+                  </div>
                   <q-dialog v-model="addNewAccount" persistent>
                     <q-card style="width: 1100px; max-width: 100vw">
                       <q-card-section class="row">
@@ -150,6 +152,7 @@
                                         dense
                                         v-model="inputStudent.school_id"
                                         label="ID Number"
+                                        new-value-mode="add-unique"
                                         lazy-rules
                                         :rules="[(val) => (val && val.length > 0) || '']"
                                       />
@@ -247,20 +250,16 @@
                   <q-list>
                     <q-item clickable v-close-popup>
                       <q-item-section avatar>
-                        <q-avatar icon="file_upload" color="white" text-color="primary" />
+                        <q-avatar icon="file_download" color="white" text-color="green" />
                       </q-item-section>
                       <q-item-section>
                         <q-item-label>Import</q-item-label>
                       </q-item-section>
                     </q-item>
-
+                    <q-separator inset />
                     <q-item clickable v-close-popup @click="exportTable"
                       ><q-item-section avatar>
-                        <q-avatar
-                          icon="file_download"
-                          color="white"
-                          text-color="primary"
-                        />
+                        <q-avatar icon="file_upload" color="white" text-color="primary" />
                       </q-item-section>
                       <q-item-section>
                         <q-item-label>Export</q-item-label>
@@ -275,13 +274,16 @@
                   <div class="q-gutter-sm">
                     <q-btn
                       round
-                      color="green"
+                      color="warning"
                       icon="edit"
                       size="sm"
                       flat
                       dense
                       @click="openEditDialog(props.row.student)"
-                    />
+                      ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                        Edit
+                      </q-tooltip></q-btn
+                    >
                     <q-dialog v-model="editRowAccount" persistent>
                       <q-card style="width: 1100px; max-width: 100vw">
                         <q-card-section class="row">
@@ -366,6 +368,7 @@
                                       dense
                                       v-model="inputStudent.school_id"
                                       label="ID Number"
+                                      new-value-mode="add-unique"
                                       lazy-rules
                                       :rules="[(val) => (val && val.length > 0) || '']"
                                     />
@@ -461,16 +464,22 @@
                       round
                       dense
                       @click="deleteSpecificAccount(props.row)"
-                    />
+                      ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                        Delete
+                      </q-tooltip></q-btn
+                    >
                     <q-btn
                       round
-                      color="warning"
+                      color="primary"
                       icon="more_vert"
                       size="md"
                       flat
                       dense
                       @click="openDetailDialog(props.row)"
-                    />
+                      ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                        Details
+                      </q-tooltip></q-btn
+                    >
                     <q-dialog v-model="showDetails">
                       <q-card
                         class="my-card"
@@ -607,8 +616,8 @@ export default class ManageAccount extends Vue {
     { name: 'action', align: 'center', label: '', field: 'action' },
     {
       name: 'id',
-      align: 'center',
-      label: 'School ID',
+      align: 'left',
+      label: 'ID Number',
       field: (row: UserDto) => row.student?.school_id,
       sortable: true,
     },
@@ -715,7 +724,7 @@ export default class ManageAccount extends Vue {
     'College of Sports, Physical Education and Recreation',
     'King Faisal Center for Islamic, Arabic and Asian Studies',
   ];
-  
+
   //------------------------------------------functions for Student Account
   async onaddAccount() {
     //upload picture
@@ -731,13 +740,15 @@ export default class ManageAccount extends Vue {
         await this.addAccount({
           ...this.inputUser,
           student: profile.student_id,
-        
         });
         this.$q.notify({
           type: 'positive',
           message: 'Account is successfully added.',
         });
-      } else {
+      }
+
+      // if the student have no picture
+      else {
         const profile: any = await this.addStudent({
           ...this.inputStudent,
         });
@@ -800,9 +811,7 @@ export default class ManageAccount extends Vue {
     this.inputUser = { ...val };
   }
   mapUserProfile(user: StudentDto) {
-    return this.allAccount.filter(
-      (s) => user.student_id === s.student?.student_id
-    );
+    return this.allAccount.filter((s) => user.student_id === s.student?.student_id);
   }
 
   deleteSpecificAccount(val: UserDto) {
@@ -874,11 +883,7 @@ export default class ManageAccount extends Vue {
         ].join(',')
       )
     );
-    const status = exportFile(
-      'category-export.csv',
-      rows.join('\r\n'),
-      'text/csv'
-    );
+    const status = exportFile('category-export.csv', rows.join('\r\n'), 'text/csv');
     if (status !== true) {
       this.$q.notify({
         message: 'Browser denied file download...',

@@ -32,20 +32,18 @@
           <div class="q-gutter-sm">
             <q-btn
               round
-              color="blue"
-              icon="description"
+              color="primary"
+              icon="more_vert"
               size="md"
               flat
               dense
               @click="openSsgDetailDialog(props.row)"
-            />
+              ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                Details
+              </q-tooltip></q-btn
+            >
             <q-dialog v-model="showSSGDetails">
-              <q-card
-                class="my-card"
-                style="width: 700px; max-width: 60vw"
-                flat
-                bordered
-              >
+              <q-card class="my-card" style="width: 700px; max-width: 60vw" flat bordered>
                 <q-card-section>
                   <div class="text-h6">
                     SSG Member Information
@@ -92,9 +90,7 @@
                 <q-separator />
 
                 <q-card-section>
-                  <div class="text-italic text-h5">
-                    "{{ inputSsg.academic_yr }}"
-                  </div>
+                  <div class="text-italic text-h5">"{{ inputSsg.academic_yr }}"</div>
                 </q-card-section>
               </q-card>
             </q-dialog>
@@ -179,9 +175,10 @@ export default class ManageAccount extends Vue {
     { name: 'action', align: 'center', field: 'action' },
     {
       name: 'id',
-      align: 'center',
+      align: 'left',
       label: 'ID Number',
       field: (row: any) => row.student?.school_id,
+      sortable: true,
     },
     {
       name: 'name',
@@ -194,44 +191,51 @@ export default class ManageAccount extends Vue {
         row.student?.first_name +
         ' ' +
         row.student?.middle_name,
+      sortable: true,
     },
     {
       name: 'email',
       align: 'center',
       label: 'Email',
       field: (row: any) => row.student?.email,
+      sortable: true,
     },
     {
       name: 'level',
       align: 'center',
       label: 'Year Admitted',
       field: (row: any) => row.student?.yr_admitted,
+      sortable: true,
     },
     {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: any) => row.student?.course,
+      sortable: true,
     },
     {
       name: 'department',
       align: 'center',
       label: 'Department',
       field: (row: any) => row.student?.department,
+      sortable: true,
     },
     {
       name: 'election_yr',
       align: 'center',
       label: 'Year Elected',
       field: (row: any) => row.election?.start_date,
+      sortable: true,
     },
     {
       name: 'position',
       align: 'center',
-      label: 'Student Status',
+      label: 'SSG Position',
       field: 'position_type',
+      sortable: true,
     },
-    { name: 'Details', align: 'center', label: 'Details', field: 'Details' },
+    { name: 'Details', align: 'center', label: '', field: 'Details' },
   ];
 
   filter = '';
