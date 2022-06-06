@@ -346,12 +346,6 @@ export interface RepresentativeDto {
      * @type {string}
      * @memberof RepresentativeDto
      */
-    'academic_yr': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof RepresentativeDto
-     */
     'position': string;
     /**
      * 
@@ -365,6 +359,18 @@ export interface RepresentativeDto {
      * @memberof RepresentativeDto
      */
     'candidate'?: CandidateDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof RepresentativeDto
+     */
+    'student'?: StudentDto;
+    /**
+     * 
+     * @type {ElectionDto}
+     * @memberof RepresentativeDto
+     */
+    'election'?: ElectionDto;
     /**
      * 
      * @type {VoteRepDto}

@@ -73,21 +73,6 @@
                 <q-card-section>
                   <div>
                     <div class="row">
-                      <div class="col-12 col-md-3">Election Name *</div>
-                      <div class="col-12 col-md-9">
-                        <q-input
-                          filled
-                          v-model="inputElection.election_name"
-                          :dense="dense"
-                          lazy-rules
-                          :rules="[
-                            (val) => (val && val.length > 0) || 'Please type something',
-                          ]"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="row">
                       <div class="col-12 col-md-3">Election type *</div>
                       <div class="col-12 col-md-9">
                         <q-select
@@ -97,7 +82,9 @@
                           :dense="dense"
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please type something',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please type something',
                           ]"
                         />
                       </div>
@@ -115,7 +102,9 @@
                           fill-mask
                           lazy-rules
                           :rules="[
-                            (val) => (val && val.length > 0) || 'Please type something',
+                            (val) =>
+                              (val && val.length > 0) ||
+                              'Please type something',
                           ]"
                         />
                       </div>
@@ -132,7 +121,9 @@
                             type="date"
                             lazy-rules
                             :rules="[
-                              (val) => (val && val.length > 0) || 'Please enter the date',
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Please enter the date',
                             ]"
                             hint="Native date"
                           />
@@ -145,7 +136,9 @@
                             type="time"
                             lazy-rules
                             :rules="[
-                              (val) => (val && val.length > 0) || 'Please enter the time',
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Please enter the time',
                             ]"
                             hint="Native time"
                           />
@@ -164,7 +157,9 @@
                             type="date"
                             lazy-rules
                             :rules="[
-                              (val) => (val && val.length > 0) || 'Please enter the date',
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Please enter the date',
                             ]"
                             hint="Native date"
                           />
@@ -177,7 +172,9 @@
                             type="time"
                             lazy-rules
                             :rules="[
-                              (val) => (val && val.length > 0) || 'Please enter the time',
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Please enter the time',
                             ]"
                             hint="Native time"
                           />
@@ -218,7 +215,7 @@
                 flat
                 dense
                 @click="openEditDialog(props.row)"
-                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+              ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
                   Edit
                 </q-tooltip></q-btn
               >
@@ -239,19 +236,6 @@
                   </q-card-section>
                   <q-card-section>
                     <div>
-                      <div class="row">
-                        <div class="col-12 col-md-3">Election Name *</div>
-                        <div class="col-12 col-md-9">
-                          <q-input
-                            filled
-                            v-model="inputElection.election_name"
-                            :dense="dense"
-                            lazy-rules
-                            :rules="[(val) => (val && val.length > 0) || '']"
-                          />
-                        </div>
-                      </div>
-
                       <div class="row">
                         <div class="col-12 col-md-3">Election type *</div>
                         <div class="col-12 col-md-9">
@@ -366,7 +350,7 @@
                 round
                 dense
                 @click="deleteSpecificElection(props.row)"
-                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+              ><q-tooltip class="bg-red-10" :offset="[10, 10]">
                   Delete
                 </q-tooltip></q-btn
               >
@@ -415,7 +399,7 @@ export default class ManageElection extends Vue {
       required: true,
       label: 'Election Name',
       align: 'left',
-      field: (row: ElectionDto) => row.election_name,
+      field: (row: ElectionDto) => row.election_type + ' ' + row.academic_yr,
       format: (val: string) => `${val}`,
       sortable: true,
     },

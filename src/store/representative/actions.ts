@@ -13,6 +13,11 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
         c.candidate.student?.student_id,
         { root: true }
       );
+      // await context.dispatch(
+      //   'account/changeStatus',
+      //   c.candidate?.student?.user?.userType,
+      //   { root: true }
+      // );
     });
   },
 

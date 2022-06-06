@@ -6,16 +6,26 @@
         <div class="col">
           <q-toolbar class="text-primary">
             <q-toolbar-title> List of Candidates </q-toolbar-title>
-            <q-btn push color="white" text-color="primary" icon-right="touch_app" label="Click to vote" to="/V_Vote" />
+            <q-btn
+              push
+              color="white"
+              text-color="primary"
+              icon-right="touch_app"
+              label="Click to vote"
+              to="/V_Vote"
+            />
           </q-toolbar>
         </div>
       </div>
       <!--separator-->
 
       <div class="row">
-        <div v-for="data in representativeStatus" v-bind:key="data.student">
+        <div v-for="data in allRepresentative" v-bind:key="data.representative_id">
           <div class="col-12 col-md q-pa-sm">
-            <q-card class="my-card cursor-pointer" style="width: 320px; height: 400px">
+            <q-card
+              class="my-card cursor-pointer"
+              style="width: 320px; height: 400px"
+            >
               <div class="q-pa-md">
                 <div class="row">
                   <div class="col-4 q-gutter-sm">
@@ -23,7 +33,7 @@
                       <q-avatar size="90px">
                         <q-img
                           square
-                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                          :src="`http://localhost:3000/media/${data.candidate?.student?.url}`"
                           v-for="mode in fitModes"
                           :key="mode"
                           style="max-width: 200px; height: 70px"
@@ -38,18 +48,18 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-h6 text-bold">
-                      {{ data.student?.first_name }}
-                      {{ data.student?.middle_name }}
-                      {{ data.student?.last_name }}
+                      {{ data.candidate?.student?.first_name }}
+                      {{ data.candidate?.student?.middle_name }}
+                      {{ data.candidate?.student?.last_name }}
                     </div>
                     <div class="text-caption">
                       <strong>{{ data.student?.college }}</strong>
                     </div>
                     <div class="text-caption">
-                      {{ data.student?.course }}
+                      {{ data.candidate?.student?.course }}
                     </div>
                     <div class="text-caption">
-                      {{ data.student?.yr_admitted }}
+                      {{ data.candidate?.student?.yr_admitted }}
                     </div>
                   </div>
                 </div>
@@ -82,34 +92,21 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 
 @Options({
   computed: {
-    ...mapState('candidate', ['allCandidate']),
-    ...mapState('student', ['allStudent']),
-    ...mapState('election', ['allElection']),
-    ...mapGetters('candidate', ['representativeStatus']),
+    ...mapState('representative', ['allRepresentative']),
   },
   methods: {
-    ...mapActions('candidate', [
-      'addCandidate',
-      'editCandidate',
-      'deleteCandidate',
-      'getAllCandidate',
-    ]),
+    ...mapActions('representative', ['getAllRepresentative']),
   },
 })
 export default class ManageElection extends Vue {
-  addCandidate!: (payload: CandidateDto) => Promise<void>;
-  editCandidate!: (payload: CandidateDto) => Promise<void>;
-  deleteCandidate!: (payload: CandidateDto) => Promise<void>;
-  getAllCandidate!: () => Promise<void>;
-  allCandidate!: CandidateDto[];
-  allElection!: ElectionDto[];
-  representativeStatus!: CandidateDto[];
+  getAllRepresentative!: () => Promise<void>;
+  allRepresentative!: RepresentativeDto[];
 
   getAllStudent!: () => Promise<void>;
   allStudent!: StudentDto[];
 
   async mounted() {
-    await this.getAllCandidate();
+    await this.getAllRepresentative();
   }
 
   filter = '';

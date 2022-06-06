@@ -1,13 +1,13 @@
 <template>
   <q-page>
     <div class="q-pl-md">
-      <div class="text-h5 q-pa-lg text-bold">
+      <div class="text-h5 q-pa-sm q-pt-md text-bold">
         <q-icon name="list" color="primary" style="font-size: 3rem" />
         Candidate List
       </div>
     </div>
     <!-----------Recent Election Ballot-------------->
-    <div class="row q-pt-md q-pa-md">
+    <div class="row q-pt-md q-pa-sm">
       <q-table
         class="my-sticky-header-table"
         title="List of Candidates for College Representative"
@@ -19,7 +19,7 @@
         :filter="filter"
       >
         <template v-slot:top-right>
-          <div class="q-pa-md q-gutter-sm row">
+          <div class="q-gutter-sm row">
             <q-input
               outlined
               rounded
@@ -83,14 +83,31 @@
                     <div class="col">
                       <q-select
                         :options="allElection"
-                        option-label="election_name"
+                        option-label="academic_yr"
                         option-value="election_id"
                         map-options
                         emit-value
                         v-model="inputCandidate.election"
                         dense
                         outlined
-                        label="Select Election Name"
+                        label="Select Election Year"
+                        lazy-rules
+                        :rules="[(val) => (val && val.length > 0) || '']"
+                      >
+                      </q-select>
+                    </div>
+
+                    <div class="col">
+                      <q-select
+                        :options="allElection"
+                        option-label="election_type"
+                        option-value="election_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.election"
+                        dense
+                        outlined
+                        label="Academic Tyoe"
                         lazy-rules
                         :rules="[(val) => (val && val.length > 0) || '']"
                       >
@@ -142,7 +159,7 @@
                 flat
                 dense
                 @click="openEditCandidateDialog(props.row)"
-                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+               ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
                   Edit
                 </q-tooltip></q-btn
               >
@@ -153,7 +170,14 @@
                   <q-card-section class="row">
                     <div class="text-h6">Edit Account</div>
                     <q-space />
-                    <q-btn flat round dense icon="close" color="primary" v-close-popup />
+                    <q-btn
+                      flat
+                      round
+                      dense
+                      icon="close"
+                      color="primary"
+                      v-close-popup
+                    />
                   </q-card-section>
 
                   <q-card-section class="q-gutter-sm">
@@ -226,10 +250,9 @@
                 round
                 dense
                 @click="deleteSpecificCandidateAccount(props.row)"
-                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+              ><q-tooltip class="bg-red-10" :offset="[10, 10]">
                   Delete
-                </q-tooltip></q-btn
-              >
+                </q-tooltip></q-btn>
               <q-btn
                 round
                 color="primary"
@@ -238,14 +261,14 @@
                 flat
                 dense
                 @click="openDetailDialog(props.row)"
-                ><q-tooltip class="bg-primary" :offset="[10, 10]">
+              ><q-tooltip class="bg-primary" :offset="[10, 10]">
                   Details
                 </q-tooltip></q-btn
               >
               <q-dialog v-model="showDetails">
                 <q-card
-                  class="my-card"
-                  style="width: 700px; max-width: 60vw"
+                  class="my-card q-pa-md"
+                  style="width: 600px; max-width: 60vw"
                   flat
                   bordered
                 >
@@ -294,7 +317,7 @@
                         color="teal"
                         text-color="white"
                         icon="account_circle"
-                        ><q-tooltip class="bg-gray" :offset="[10, 10]">
+                      ><q-tooltip class="bg-gray" :offset="[10, 10]">
                           Account
                         </q-tooltip></q-img
                       >
@@ -304,7 +327,9 @@
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
+                    <div class="text-italic text-h5">
+                      "{{ inputCandidate.platform }}"
+                    </div>
                   </q-card-section>
                 </q-card>
               </q-dialog>
@@ -409,13 +434,6 @@ export default class ManageElection extends Vue {
       field: (row: any) => row.election?.end_date,
       sortable: true,
     },
-    {
-      name: 'position',
-      align: 'center',
-      label: 'Type',
-      field: (row: any) => row.student?.student_type,
-      sortable: true,
-    },
   ];
   filter = '';
   showDetails = false;
@@ -428,7 +446,6 @@ export default class ManageElection extends Vue {
   inputCandidate: any = {
     position_type: 'Representative',
     platform: '',
-    url: '',
   };
 
   async onaddCandidateAccount() {
@@ -478,7 +495,7 @@ export default class ManageElection extends Vue {
 
   resetModelCandidate() {
     this.inputCandidate = {
-      position_type: '',
+      position_type: 'Representative',
       platform: '',
     };
   }
@@ -488,8 +505,28 @@ export default class ManageElection extends Vue {
 <style>
 .my-sticky-header-table {
   height: 100%;
-  max-height: 700px;
+  max-height: 450px;
   width: 100%;
   max-width: 1500px;
+}
+
+.thead tr:first-child th {
+  /* bg color is important for th; just specify one */
+  background-color: white;
+}
+
+.thead tr th {
+  position: sticky;
+  z-index: 1;
+}
+
+.thead tr:first-child th {
+  top: 0;
+}
+
+/* this is when the loading indicator appears */
+.q-table--loading thead tr:last-child th {
+  /* height of all previous header rows */
+  top: 48px;
 }
 </style>

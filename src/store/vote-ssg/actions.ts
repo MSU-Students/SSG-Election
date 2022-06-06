@@ -2,7 +2,7 @@ import { VoteSsgDto } from '../../services/rest-api/api';
 import votessgservice from 'src/services/vote-ssg.service';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
-import { VoteSsgStateInterface } from './state';
+import { VoteSsgStateInterface, ISsgVote, IRepVote } from './state';
 
 const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   async addVoteSsg(context, payload: VoteSsgDto): Promise<void> {
@@ -24,8 +24,45 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   },
 
   async getAllVoteSsg(context): Promise<any> {
-    const res = await votessgservice.getAll();
+    const res = (await votessgservice.getAll()) as unknown as VoteSsgDto[];
+
+    await context.dispatch('representative/getAllRepresentative', undefined, {
+      root: true,
+    });
+
+    const representative = context.rootState.representative.allRepresentative;
+    let votes = 0;
+    const reps = res.map((rep) => {
+      representative.map((pm, i) => {
+        if(pm.student?.student_id == rep.prime.student_id) {
+          context.dispatch('addVote', { vote: 1, repId: rep.prime.student_id });
+        }
+      });
+      representative.map((es, i) => {
+        if (es.student?.student_id == rep.secretary.student_id) {
+          context.dispatch('addVote', { vote: 1, repId: rep.secretary.student_id });
+        }
+      });
+    });
+
     context.commit('getAllVoteSsg', res);
+    await this.dispatch('student/getAllStudent');
+    await this.dispatch('representative/getAllRepresentative');
+    context.commit('clearSummary');
+    this.state.representative.allRepresentative.forEach(reps => {
+      const matchingVotes = context.state.allVoteSsg.filter(v => (
+        v.prime.student_id == reps.student?.student_id ||
+        v.secretary.student_id == reps.student?.student_id
+      ));
+      const votes = matchingVotes.map(v => ({
+        voteId: v.vote_ssg_id,
+      } as ISsgVote));
+      context.commit('addRepSummry', {
+        representative: reps,
+        votes: votes
+      } as IRepVote)
+    })
+
   },
 
   async getOneVoteSsg(context, votessg_id: number): Promise<any> {

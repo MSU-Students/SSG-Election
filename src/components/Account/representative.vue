@@ -168,15 +168,6 @@
                   </div>
                   <div class="q-gutter-xs">
                     <q-input
-                      v-model="inputRepresentative.academic_yr"
-                      dense
-                      outlined
-                      label="Year"
-                    >
-                    </q-input>
-                  </div>
-                  <div class="q-gutter-xs">
-                    <q-input
                       v-model="inputRepresentative.platform"
                       type="textarea"
                       dense
@@ -406,7 +397,6 @@ export default class ManageAccount extends Vue {
   inputRepresentative: RepresentativeDto = {
     platform: '',
     position: '',
-    academic_yr: '',
   };
 
   //---------------------------------------------------for Candidate
@@ -473,7 +463,6 @@ export default class ManageAccount extends Vue {
     this.inputRepresentative = {
       platform: '',
       position: '',
-      academic_yr: '',
     };
   }
 }

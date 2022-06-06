@@ -196,7 +196,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
-import RepresentativeResult from 'components/Charts/representativeResult.vue';
+import RepresentativeResult from 'components/Charts/collegerep.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
 import { VoteRepDto, StudentDto, VoteSsgDto, CandidateDto } from 'src/services/rest-api';
