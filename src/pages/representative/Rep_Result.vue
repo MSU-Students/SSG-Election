@@ -22,36 +22,37 @@
             <div class="q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card>
-          <q-card class="my-card q-pa-sm">
-                <div v-for="rep in allRepresentative" :key="rep.representative_id">
-                  <q-card-section>
-                    <div class="text-green text-overline">
-                      Candidate {{ rep.representative_id }}
+                  <q-card class="my-card q-pa-sm">
+                    <div
+                      v-for="rep in primePosition"
+                      :key="rep.representative_id"
+                    >
+                      <q-card-section>
+                        <div class="text-green text-overline">
+                          Candidate {{ rep.representative_id }}
+                        </div>
+                        <div>
+                          Name:
+                          <strong>
+                            {{ rep.student?.last_name }},
+                            {{ rep.student?.first_name }}
+                            {{ rep.student?.middle_name }}
+                            {{ rep.student?.suffix }}
+                          </strong>
+                        </div>
+                        <div>
+                          Course:
+                          <strong>
+                            {{ rep.student?.course }}
+                          </strong>
+                        </div>
+                        <div>Total Votes: <strong></strong></div>
+                        <br />
+                        <q-separator />
+                      </q-card-section>
                     </div>
-                    <div>
-                      Name:
-                      <strong>
-                        {{ rep.student?.last_name }},
-                        {{ rep.student?.first_name }}
-                        {{ rep.student?.middle_name }}
-                        {{ rep.student?.suffix }}
-                      </strong>
-                    </div>
-                    <div>
-                      Course:
-                      <strong>
-                        {{ rep.student?.course }}
-                      </strong>
-                    </div>
-                    <div>
-                      Total Votes: <strong></strong>
-                    </div>
-                    <br />
-                    <q-separator />
-                  </q-card-section>
-                </div>
-              </q-card>
-        </q-card>
+                  </q-card>
+                </q-card>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -69,34 +70,35 @@
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm">
-                <div v-for="rep in allRepresentative" :key="rep.representative_id">
-                  <q-card-section>
-                    <div class="text-green text-overline">
-                      Candidate {{ rep.representative_id }}
-                    </div>
-                    <div>
-                      Name:
-                      <strong>
-                        {{ rep.student?.last_name }},
-                        {{ rep.student?.first_name }}
-                        {{ rep.student?.middle_name }}
-                        {{ rep.student?.suffix }}
-                      </strong>
-                    </div>
-                    <div>
-                      Course:
-                      <strong>
-                        {{ rep.student?.course }}
-                      </strong>
-                    </div>
-                    <div>
-                      Total Votes: <strong></strong>
-                    </div>
-                    <br />
-                    <q-separator />
-                  </q-card-section>
-                </div>
-              </q-card>
+                  <div
+                    v-for="rep in secretaryPosition"
+                    :key="rep.representative_id"
+                  >
+                    <q-card-section>
+                      <div class="text-green text-overline">
+                        Candidate {{ rep.representative_id }}
+                      </div>
+                      <div>
+                        Name:
+                        <strong>
+                          {{ rep.student?.last_name }},
+                          {{ rep.student?.first_name }}
+                          {{ rep.student?.middle_name }}
+                          {{ rep.student?.suffix }}
+                        </strong>
+                      </div>
+                      <div>
+                        Course:
+                        <strong>
+                          {{ rep.student?.course }}
+                        </strong>
+                      </div>
+                      <div>Total Votes: <strong></strong></div>
+                      <br />
+                      <q-separator />
+                    </q-card-section>
+                  </div>
+                </q-card>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -116,11 +118,16 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
-import { VoteRepDto, StudentDto, VoteSsgDto, RepresentativeDto } from 'src/services/rest-api';
+import {
+  VoteRepDto,
+  StudentDto,
+  VoteSsgDto,
+  RepresentativeDto,
+} from 'src/services/rest-api';
 @Options({
   components: {
     RepresentativeResult,
@@ -131,6 +138,7 @@ import { VoteRepDto, StudentDto, VoteSsgDto, RepresentativeDto } from 'src/servi
     ...mapState('representative', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('student', ['allStudent']),
+    ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
@@ -144,6 +152,9 @@ export default class studentResult extends Vue {
 
   allVoteSsg!: VoteSsgDto[];
   getAllVoteSsg!: () => Promise<void>;
+
+  primePosition!: RepresentativeDto[];
+  secretaryPosition!: RepresentativeDto[];
 
   async mounted() {
     await this.getAllVoteRep();

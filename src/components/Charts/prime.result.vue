@@ -1,16 +1,33 @@
 <template>
   <div>
-    <canvas class="q-pl-sm" id="myChart" style="height: 350px; width: 50px"></canvas>
+    <canvas
+      class="q-pl-sm"
+      id="myChart"
+      style="height: 350px; width: 50px"
+    ></canvas>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Chart from 'chart.js/auto';
-@Options({})
+import { mapActions, mapGetters, mapState } from 'vuex';
+import { RepresentativeDto } from 'src/services/rest-api';
+@Options({
+  computed: {
+    ...mapState('representative', ['allRepresentative']),
+    ...mapGetters('representative', ['primePosition']),
+  },
+  methods: {
+    ...mapActions('representative', ['getAllRepresentative']),
+  },
+})
 export default class ChartComponent extends Vue {
+  getAllRepresentative!: RepresentativeDto[];
+  primePosition!: RepresentativeDto[];
   chart?: Chart;
-  mounted() {
+
+  async mounted() {
     const labels = [
       'Ayaon, Norhani A.',
       'Solaiman, Abdul Moiz M.',

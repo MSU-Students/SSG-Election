@@ -32,13 +32,139 @@
 
             <q-tab-panels v-model="tab" animated>
               <q-tab-panel name="prime">
-                <div class="text-h6">Prime Minister</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <div class="row">
+                  <div
+                    v-for="rep in primePosition"
+                    v-bind:key="rep.representative_id"
+                  >
+                    <div class="col-12 col-md q-pa-xs">
+                      <q-card
+                        class="cursor-pointer"
+                        style="width: 290px; max-width: 100vw"
+                      >
+                        <div class="q-pa-md">
+                          <div class="row">
+                            <div class="col-4 q-gutter-sm">
+                              <div class="text-center">
+                                <q-avatar size="70px">
+                                  <q-img
+                                    square
+                                    :src="`http://localhost:3000/media/${rep.student?.url}`"
+                                    v-for="mode in fitModes"
+                                    :key="mode"
+                                    style="max-width: 300px; height: 70px"
+                                    :fit="mode"
+                                    font-size="82px"
+                                    color="teal"
+                                    text-color="white"
+                                    icon="account_circle"
+                                  />
+                                </q-avatar>
+                              </div>
+                            </div>
+                            <div class="col-8 q-pa-sm">
+                              <div class="text-body text-bold text-uppercase">
+                                {{ rep.student?.first_name }}
+                                {{ rep.student?.last_name }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.student?.course }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.student?.yr_admitted }}
+                              </div>
+                            </div>
+                          </div>
+                          <q-separator inset dark /><br />
+                          <div class="row">
+                            <div class="col">
+                              <q-card-section class="text-overline">
+                                <q-btn
+                                  unelevated
+                                  square
+                                  dense
+                                  push
+                                  color="primary"
+                                  label="Vote"
+                                  class="full-width absolute-bottom"
+                                  @click="onaddBallot(rep)"
+                                />
+                              </q-card-section>
+                            </div>
+                          </div>
+                        </div>
+                      </q-card>
+                    </div>
+                  </div>
+                </div>
               </q-tab-panel>
 
               <q-tab-panel name="secretary">
-                <div class="text-h6">Secretary</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <div class="row">
+                  <div
+                    v-for="rep in secretaryPosition"
+                    v-bind:key="rep.representative_id"
+                  >
+                    <div class="col-12 col-md q-pa-xs">
+                      <q-card
+                        class="cursor-pointer"
+                        style="width: 290px; max-width: 100vw"
+                      >
+                        <div class="q-pa-md">
+                          <div class="row">
+                            <div class="col-4 q-gutter-sm">
+                              <div class="text-center">
+                                <q-avatar size="70px">
+                                  <q-img
+                                    square
+                                    :src="`http://localhost:3000/media/${rep.student?.url}`"
+                                    v-for="mode in fitModes"
+                                    :key="mode"
+                                    style="max-width: 300px; height: 70px"
+                                    :fit="mode"
+                                    font-size="82px"
+                                    color="teal"
+                                    text-color="white"
+                                    icon="account_circle"
+                                  />
+                                </q-avatar>
+                              </div>
+                            </div>
+                            <div class="col-8 q-pa-sm">
+                              <div class="text-body text-bold text-uppercase">
+                                {{ rep.student?.first_name }}
+                                {{ rep.student?.last_name }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.student?.course }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.student?.yr_admitted }}
+                              </div>
+                            </div>
+                          </div>
+                          <q-separator inset dark /><br />
+                          <div class="row">
+                            <div class="col">
+                              <q-card-section class="text-overline">
+                                <q-btn
+                                  unelevated
+                                  square
+                                  dense
+                                  push
+                                  color="primary"
+                                  label="Vote"
+                                  class="full-width absolute-bottom"
+                                  @click="onaddBallot(rep)"
+                                />
+                              </q-card-section>
+                            </div>
+                          </div>
+                        </div>
+                      </q-card>
+                    </div>
+                  </div>
+                </div>
               </q-tab-panel>
             </q-tab-panels>
           </q-card>
@@ -96,7 +222,7 @@ import {
 } from 'src/services/rest-api';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 @Options({
   computed: {
@@ -104,6 +230,7 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('tempRep', ['allTempRep']),
+    ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
   },
   methods: {
     ...mapActions('representative', [
@@ -127,44 +254,38 @@ export default class studentVote extends Vue {
   clear!: () => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
 
+  primePosition!: RepresentativeDto[];
+  secretaryPosition!: RepresentativeDto[];
+
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
   }
 
-  columns = [
+columns = [
     {
       name: 'name',
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
-        ', ' +
-        row.student?.first_name +
-        ' ' +
-        row.student?.middle_name,
+      field: (row: TempRep) =>
+        row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
     },
     {
       name: 'level',
       align: 'center',
       label: 'Year Admitted',
-      field: (row: any) => row.student?.yr_admitted,
+      field: (row: any) => row.yr_admitted,
     },
     {
-      name: 'course',
+      name: 'collge',
       align: 'center',
-      label: 'Course',
-      field: (row: any) => row.student?.course,
-    },
-    {
-      name: 'department',
-      align: 'center',
-      label: 'Department',
-      field: (row: any) => row.student?.department,
+      label: 'college',
+      field: (row: any) => row.college,
     },
   ];
   tab = 'prime';
+  fitModes = ['scale-down'];
   prime = [];
   secretary = [];
 

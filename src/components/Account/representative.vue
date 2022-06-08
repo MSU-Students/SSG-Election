@@ -65,19 +65,53 @@
               </q-card-section>
 
               <q-card-section class="q-gutter-sm">
-                <div class="q-gutter-xs">
-                  <q-select
-                    :options="allStudent"
-                    option-label="school_id"
-                    option-value="student_id"
-                    map-options
-                    emit-value
-                    v-model="inputRepresentative.student"
-                    dense
-                    outlined
-                    label="Select ID Number"
-                  >
-                  </q-select>
+                <div class="row q-gutter-xs">
+                  <div class="col">
+                    <q-select
+                      :options="allStudent"
+                      option-label="school_id"
+                      option-value="student_id"
+                      map-options
+                      emit-value
+                      v-model="inputRepresentative.student"
+                      dense
+                      outlined
+                      label="Select ID Number"
+                    >
+                    </q-select>
+                  </div>
+                  <div class="col">
+                    <q-select
+                      :options="allStudent"
+                      option-label="first_name"
+                      disable
+                      readonly
+                      option-value="student_id"
+                      map-options
+                      emit-value
+                      v-model="inputRepresentative.student"
+                      dense
+                      outlined
+                      label="First Name (Disable and Read Only)"
+                    >
+                    </q-select>
+                  </div>
+                  <div class="col">
+                    <q-select
+                      :options="allStudent"
+                      option-label="last_name"
+                      disable
+                      readonly
+                      option-value="student_id"
+                      map-options
+                      emit-value
+                      v-model="inputRepresentative.student"
+                      dense
+                      outlined
+                      label="Last Name (Disable and Read Only)"
+                    >
+                    </q-select>
+                  </div>
                 </div>
                 <div align="right">
                   <q-btn
@@ -122,26 +156,71 @@
                 <q-card-section class="row">
                   <div class="text-h6">Edit Account</div>
                   <q-space />
-                  <q-btn flat round dense icon="close" color="primary" v-close-popup />
+                  <q-btn
+                    flat
+                    round
+                    dense
+                    icon="close"
+                    color="primary"
+                    v-close-popup
+                  />
                 </q-card-section>
 
                 <q-card-section class="q-gutter-sm">
+                  <div class="q-pl-md text-overline text-grey">
+                    Representative Information
+                  </div>
                   <div class="row q-gutter-xs">
                     <div class="col">
                       <q-select
                         :options="allStudent"
                         option-label="school_id"
                         option-value="student_id"
+                        disable
+                        readonly
                         map-options
                         emit-value
                         v-model="inputRepresentative.student"
                         dense
                         outlined
-                        label="Select ID Number"
                       >
                       </q-select>
                     </div>
-
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="first_name"
+                        option-value="student_id"
+                        disable
+                        readonly
+                        map-options
+                        emit-value
+                        v-model="inputRepresentative.student"
+                        dense
+                        outlined
+                      >
+                      </q-select>
+                    </div>
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="last_name"
+                        option-value="student_id"
+                        disable
+                        readonly
+                        map-options
+                        emit-value
+                        v-model="inputRepresentative.student"
+                        dense
+                        outlined
+                      >
+                      </q-select>
+                    </div>
+                  </div>
+                  <div class="q-pl-md text-overline text-grey">
+                    Election Registration
+                  </div>
+                  <div class="row q-gutter-xs">
                     <div class="col">
                       <q-select
                         :options="allElection"
@@ -153,6 +232,22 @@
                         dense
                         outlined
                         label="Select Year Elected"
+                      />
+                    </div>
+
+                    <div class="col">
+                      <q-select
+                        :options="allElection"
+                        option-label="election_type"
+                        option-value="election_id"
+                        disable
+                        readonly
+                        map-options
+                        emit-value
+                        v-model="inputRepresentative.election"
+                        dense
+                        outlined
+                        label="Election Type (Disable and Read only)"
                       >
                       </q-select>
                     </div>
@@ -203,7 +298,9 @@
               round
               dense
               @click="deleteSpecificCandidateAccount(props.row)"
-              ><q-tooltip class="bg-red-10" :offset="[10, 10]"> Delete </q-tooltip></q-btn
+              ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                Delete
+              </q-tooltip></q-btn
             >
 
             <q-btn
@@ -219,7 +316,12 @@
               </q-tooltip></q-btn
             >
             <q-dialog v-model="showDetails">
-              <q-card class="my-card" style="width: 700px; max-width: 60vw" flat bordered>
+              <q-card
+                class="my-card"
+                style="width: 700px; max-width: 60vw"
+                flat
+                bordered
+              >
                 <q-card-section>
                   <div class="text-h6">
                     Representative Information
@@ -338,7 +440,7 @@ export default class ManageAccount extends Vue {
     await this.getAllVoteRep();
     //await this.addRepresentative(this.allCollegeRepresentative);
     console.log('getAllRepresentative', this.allCollegeRepresentative);
-    console.log(this.allRepresentative)
+    console.log(this.allRepresentative);
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -370,7 +472,7 @@ export default class ManageAccount extends Vue {
       field: (row: RepresentativeDto) => row.student?.yr_admitted,
       sortable: true,
     },
-{
+    {
       name: 'course',
       align: 'center',
       label: 'Course',
@@ -426,13 +528,23 @@ export default class ManageAccount extends Vue {
 
   async onProclaimAllCanditates() {
     this.isLoading = true;
-    await this.proclaimAllCanditates(this.allCollegeRepresentative);
-    await this.addProclaimRepresentative(this.allCollegeRepresentative);
-    this.isLoading = false;
-    this.$q.notify({
-      type: 'positive',
-      message: 'Candidates has been confirmed!.',
-    });
+    this.$q
+      .dialog({
+        title: 'Do you want to proclaim the final candidates?',
+        message: 'Make sure that the Election for College Representative is over',
+        color: 'negative',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        await this.proclaimAllCanditates(this.allCollegeRepresentative);
+        await this.addProclaimRepresentative(this.allCollegeRepresentative);
+        this.isLoading = false;
+        this.$q.notify({
+          type: 'positive',
+          message: 'Candidates has been proclaimed!.',
+        });
+      });
   }
 
   async onaddCandidateAccount() {

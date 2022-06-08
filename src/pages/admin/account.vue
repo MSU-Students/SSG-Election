@@ -556,7 +556,7 @@
                               dense
                               icon="close"
                               class="float-right"
-                              color="primary"
+                              color="grey"
                               v-close-popup
                             ></q-btn>
                           </div>

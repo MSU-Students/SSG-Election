@@ -74,12 +74,44 @@
                         dense
                         outlined
                         label="Select ID Number"
-                        lazy-rules
-                        :rules="[(val) => (val && val.length > 0) || '']"
                       >
                       </q-select>
                     </div>
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="first_name"
+                        disable
+                        readonly
+                        option-value="student_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.student"
+                        dense
+                        outlined
+                        label="First Name (Disable and Read Only)"
+                      >
+                      </q-select>
+                    </div>
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="last_name"
+                        disable
+                        readonly
+                        option-value="student_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.student"
+                        dense
+                        outlined
+                        label="Last Name (Disable and Read Only)"
+                      >
+                      </q-select>
+                    </div>
+                  </div>
 
+                  <div class="row q-gutter-xs">
                     <div class="col">
                       <q-select
                         :options="allElection"
@@ -90,13 +122,10 @@
                         v-model="inputCandidate.election"
                         dense
                         outlined
-                        label="Select Election Year"
-                        lazy-rules
-                        :rules="[(val) => (val && val.length > 0) || '']"
+                        label="Select Year Elected"
                       >
                       </q-select>
                     </div>
-
                     <div class="col">
                       <q-select
                         :options="allElection"
@@ -107,7 +136,7 @@
                         v-model="inputCandidate.election"
                         dense
                         outlined
-                        label="Academic Tyoe"
+                        label="Academic Type"
                         lazy-rules
                         :rules="[(val) => (val && val.length > 0) || '']"
                       >
@@ -121,8 +150,6 @@
                       dense
                       outlined
                       label="Platform"
-                      lazy-rules
-                      :rules="[(val) => (val && val.length > 0) || '']"
                     >
                     </q-input>
                   </div>
@@ -159,7 +186,7 @@
                 flat
                 dense
                 @click="openEditCandidateDialog(props.row)"
-               ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
                   Edit
                 </q-tooltip></q-btn
               >
@@ -196,7 +223,41 @@
                         >
                         </q-select>
                       </div>
+                      <div class="col">
+                        <q-select
+                          :options="allStudent"
+                          option-label="first_name"
+                          option-value="student_id"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
+                          v-model="inputCandidate.student"
+                          dense
+                          outlined
+                          label="First Name (Disable and Read Only)"
+                        >
+                        </q-select>
+                      </div>
+                      <div class="col">
+                        <q-select
+                          :options="allStudent"
+                          option-label="last_name"
+                          option-value="student_id"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
+                          v-model="inputCandidate.student"
+                          dense
+                          outlined
+                          label="Last Name (Disable and Read Only)"
+                        >
+                        </q-select>
+                      </div>
+                    </div>
 
+                    <div class="row q-gutter-xs">
                       <div class="col">
                         <q-select
                           :options="allElection"
@@ -208,6 +269,22 @@
                           dense
                           outlined
                           label="Select Year Elected"
+                        >
+                        </q-select>
+                      </div>
+                      <div class="col">
+                        <q-select
+                          :options="allElection"
+                          option-label="election_type"
+                          option-value="election_id"
+                          map-options
+                          emit-value
+                          v-model="inputCandidate.election"
+                          dense
+                          outlined
+                          label="Academic Tyoe"
+                          lazy-rules
+                          :rules="[(val) => (val && val.length > 0) || '']"
                         >
                         </q-select>
                       </div>
@@ -250,9 +327,10 @@
                 round
                 dense
                 @click="deleteSpecificCandidateAccount(props.row)"
-              ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
                   Delete
-                </q-tooltip></q-btn>
+                </q-tooltip></q-btn
+              >
               <q-btn
                 round
                 color="primary"
@@ -261,7 +339,7 @@
                 flat
                 dense
                 @click="openDetailDialog(props.row)"
-              ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                ><q-tooltip class="bg-primary" :offset="[10, 10]">
                   Details
                 </q-tooltip></q-btn
               >
@@ -317,7 +395,7 @@
                         color="teal"
                         text-color="white"
                         icon="account_circle"
-                      ><q-tooltip class="bg-gray" :offset="[10, 10]">
+                        ><q-tooltip class="bg-gray" :offset="[10, 10]">
                           Account
                         </q-tooltip></q-img
                       >
