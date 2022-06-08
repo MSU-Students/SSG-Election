@@ -21,32 +21,37 @@
             <!--S S G - P R I M E - M I N I S T E R-->
             <div class="q-gutter-sm row">
               <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="Prime Minister"
-                  class="my-sticky-header-table"
-                  :rows="allVoteSsg"
-                  :columns="prime"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                        </template>
-                      </q-input>
+                <q-card>
+          <q-card class="my-card q-pa-sm">
+                <div v-for="rep in allRepresentative" :key="rep.representative_id">
+                  <q-card-section>
+                    <div class="text-green text-overline">
+                      Candidate {{ rep.representative_id }}
                     </div>
-                  </template>
-                </q-table>
+                    <div>
+                      Name:
+                      <strong>
+                        {{ rep.student?.last_name }},
+                        {{ rep.student?.first_name }}
+                        {{ rep.student?.middle_name }}
+                        {{ rep.student?.suffix }}
+                      </strong>
+                    </div>
+                    <div>
+                      Course:
+                      <strong>
+                        {{ rep.student?.course }}
+                      </strong>
+                    </div>
+                    <div>
+                      Total Votes: <strong></strong>
+                    </div>
+                    <br />
+                    <q-separator />
+                  </q-card-section>
+                </div>
+              </q-card>
+        </q-card>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -63,32 +68,35 @@
             <!--S S G - P R I M E - M I N I S T E R-->
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="Secretary General"
-                  class="my-sticky-header-table"
-                  :rows="allVoteSsg"
-                  :columns="secretary"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                        </template>
-                      </q-input>
+                <q-card class="my-card q-pa-sm">
+                <div v-for="rep in allRepresentative" :key="rep.representative_id">
+                  <q-card-section>
+                    <div class="text-green text-overline">
+                      Candidate {{ rep.representative_id }}
                     </div>
-                  </template>
-                </q-table>
+                    <div>
+                      Name:
+                      <strong>
+                        {{ rep.student?.last_name }},
+                        {{ rep.student?.first_name }}
+                        {{ rep.student?.middle_name }}
+                        {{ rep.student?.suffix }}
+                      </strong>
+                    </div>
+                    <div>
+                      Course:
+                      <strong>
+                        {{ rep.student?.course }}
+                      </strong>
+                    </div>
+                    <div>
+                      Total Votes: <strong></strong>
+                    </div>
+                    <br />
+                    <q-separator />
+                  </q-card-section>
+                </div>
+              </q-card>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -112,7 +120,7 @@ import { mapActions, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/representativeResult.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
-import { VoteRepDto, StudentDto, VoteSsgDto } from 'src/services/rest-api';
+import { VoteRepDto, StudentDto, VoteSsgDto, RepresentativeDto } from 'src/services/rest-api';
 @Options({
   components: {
     RepresentativeResult,
@@ -120,7 +128,7 @@ import { VoteRepDto, StudentDto, VoteSsgDto } from 'src/services/rest-api';
     PrimeMinisterChart,
   },
   computed: {
-    ...mapState('voteRep', ['allVoteRep']),
+    ...mapState('representative', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('student', ['allStudent']),
   },
@@ -131,7 +139,7 @@ import { VoteRepDto, StudentDto, VoteSsgDto } from 'src/services/rest-api';
 })
 export default class studentResult extends Vue {
   allStudent!: StudentDto[];
-  allVoteRep!: VoteRepDto[];
+  allRepresentative!: RepresentativeDto[];
   getAllVoteRep!: () => Promise<void>;
 
   allVoteSsg!: VoteSsgDto[];

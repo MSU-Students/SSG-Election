@@ -270,13 +270,17 @@
                   </q-dialog>
                 </div>
                 <q-btn-dropdown
-                  outline
+                  flat
                   color="white"
                   text-color="primary"
                   dropdown-icon="import_export"
                 >
                   <q-list>
-                    <q-item clickable v-close-popup>
+                    <q-item
+                      clickable
+                      v-close-popup
+                      @click="showAccountDialog(false)"
+                    >
                       <q-item-section avatar>
                         <q-avatar
                           icon="file_upload"
@@ -284,11 +288,11 @@
                           text-color="primary"
                         />
                       </q-item-section>
-                      <q-item-section>
+                      <q-item-section @update:model-value="fileChoose($event)">
                         <q-item-label>Import</q-item-label>
                       </q-item-section>
                     </q-item>
-<q-separator inset />
+                    <q-separator inset />
                     <q-item clickable v-close-popup @click="exportTable"
                       ><q-item-section avatar>
                         <q-avatar
@@ -316,7 +320,10 @@
                       flat
                       dense
                       @click="openEditDialog(props.row.student)"
-                    ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                      ><q-tooltip
+                        class="bg-warning text-black"
+                        :offset="[10, 10]"
+                      >
                         Edit
                       </q-tooltip></q-btn
                     >
@@ -517,7 +524,7 @@
                       round
                       dense
                       @click="deleteSpecificAccount(props.row)"
-                    ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                      ><q-tooltip class="bg-red-10" :offset="[10, 10]">
                         Delete
                       </q-tooltip></q-btn
                     >
@@ -529,7 +536,7 @@
                       flat
                       dense
                       @click="openDetailDialog(props.row)"
-                    ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                      ><q-tooltip class="bg-primary" :offset="[10, 10]">
                         Details
                       </q-tooltip></q-btn
                     >
@@ -956,6 +963,34 @@ export default class ManageAccount extends Vue {
         icon: 'warning',
       });
     }
+  }
+
+  //----------------Import
+  file = [];
+  isUpload = false;
+  showAccount!: boolean;
+  showAccountDialog!: (show: boolean) => void;
+
+  hideDialog() {
+    this.file = [];
+  }
+
+  fileChoose(val: any) {
+    this.file = val;
+  }
+
+  async upload() {
+    this.isUpload = true;
+    const profile: any = await this.addStudent({
+      ...this.inputStudent,
+      ...this.file,
+    });
+    await this.addAccount({
+      ...this.inputUser,
+      student: profile.student_id,
+    });
+    this.isUpload = false;
+    this.showAccountDialog(false);
   }
 }
 </script>

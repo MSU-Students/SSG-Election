@@ -355,12 +355,6 @@ export interface RepresentativeDto {
     'platform': string;
     /**
      * 
-     * @type {CandidateDto}
-     * @memberof RepresentativeDto
-     */
-    'candidate'?: CandidateDto;
-    /**
-     * 
      * @type {StudentDto}
      * @memberof RepresentativeDto
      */
@@ -371,12 +365,6 @@ export interface RepresentativeDto {
      * @memberof RepresentativeDto
      */
     'election'?: ElectionDto;
-    /**
-     * 
-     * @type {VoteRepDto}
-     * @memberof RepresentativeDto
-     */
-    'voterep'?: VoteRepDto;
 }
 /**
  * 

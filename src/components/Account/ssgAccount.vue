@@ -5,7 +5,7 @@
       title="SSG Account List"
       :grid="$q.screen.xs"
       :columns="SSG_Column"
-      :rows="allCandidate"
+      :rows="allRepresentative"
       row-key="name"
       :rows-per-page-options="[0]"
       :filter="filter"

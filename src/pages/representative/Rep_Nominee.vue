@@ -33,7 +33,7 @@
                       <q-avatar size="90px">
                         <q-img
                           square
-                          :src="`http://localhost:3000/media/${data.candidate?.student?.url}`"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
                           v-for="mode in fitModes"
                           :key="mode"
                           style="max-width: 200px; height: 70px"
@@ -48,18 +48,18 @@
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="text-h6 text-bold">
-                      {{ data.candidate?.student?.first_name }}
-                      {{ data.candidate?.student?.middle_name }}
-                      {{ data.candidate?.student?.last_name }}
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }}
                     </div>
                     <div class="text-caption">
                       <strong>{{ data.student?.college }}</strong>
                     </div>
                     <div class="text-caption">
-                      {{ data.candidate?.student?.course }}
+                      {{ data.student?.course }}
                     </div>
                     <div class="text-caption">
-                      {{ data.candidate?.student?.yr_admitted }}
+                      {{ data.student?.yr_admitted }}
                     </div>
                   </div>
                 </div>

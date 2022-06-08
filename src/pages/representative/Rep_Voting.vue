@@ -1,93 +1,100 @@
 <template>
   <q-page>
-    <div class="row q-pa-md">
-      <div class="col-12 col-md-4 q-pa-md">
-        <div class="q-pa-md text-overline text-bold">
-          Voting Information
-          <q-separator />
+    <div class="q-pa-sm">
+      <!--separator-->
+      <div class="row q-col-gutter-lg">
+        <div class="col">
+          <q-toolbar>
+            <q-toolbar-title class="text-overline text-weight-bold"
+              >Select your Candidates</q-toolbar-title
+            >
+          </q-toolbar>
         </div>
-        <q-card>
-          <div class="col q-pa-md text-caption">
-            Prime Minister: <strong>{{ prime }}</strong>
-          </div>
-
-          <div class="col q-pa-md text-caption">
-            Secretary General: <strong>{{ secretary }}</strong>
-          </div>
-          <q-separator inset/>
-          <div class="row justify-end q-pa-sm q-pr-md">
-            <q-btn
-              dense
-              class="text-overline"
-              label="Submit Vote"
-              color="primary"
-              @click="submitVote"
-            />
-
-            <q-btn
-              flat
-              dense
-              style="color: maroon"
-              label="Reset"
-              @click="onResetClick"
-              class="text-overline q-ml-md"
-            />
-          </div>
-        </q-card>
       </div>
-      <div class="col-12 col-md-8 q-px-lg q-gutter-y-md">
-        <div class="q-pt-lg q-mt-lg text-overline text-bold">
-          Select Candidates
-          <q-separator />
-        </div>
-        <q-card>
-          <q-card-actions class="bg-deep-orange-1">
-            <div class="text-bold text-subtitle2 q-pl-md">
-              <q-icon name="people" color="primary" />
-              Prime Minister
-            </div>
-          </q-card-actions>
-          <q-separator />
-          <q-card-actions>
-            <q-table
-              class="my-sticky-header-table"
-              :rows="allReresentative"
-              :columns="columns"
-              row-key="name"
-              :selected-rows-label="prime"
-              selection="single"
-              v-model:selected="prime"
-            />
-          </q-card-actions>
-        </q-card>
+      <!--separator-->
+      <div class="row q-gutter-sm">
+        <div class="col-12 col-md">
+          <q-card>
+            <q-tabs
+              v-model="tab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator
+            >
+              <q-tab name="prime" label="Prime Minister" />
+              <q-tab name="secretary" label="Secretary General" />
+            </q-tabs>
 
-        <q-card>
-          <q-card-actions class="bg-deep-orange-1">
-            <div class="text-bold text-subtitle2 q-pl-md">
-              <q-icon name="people" color="primary" />
-              Secretary General
+            <q-separator />
+
+            <q-tab-panels v-model="tab" animated>
+              <q-tab-panel name="prime">
+                <div class="text-h6">Prime Minister</div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </q-tab-panel>
+
+              <q-tab-panel name="secretary">
+                <div class="text-h6">Secretary</div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </q-tab-panel>
+            </q-tab-panels>
+          </q-card>
+          <q-separator vertical />
+        </div>
+
+        <div class="col-12 col-md">
+          <q-card>
+            <q-card-actions>
+              <q-table
+                :rows="allTempRep"
+                :columns="columns"
+                class="my-sticky-header-table"
+                :rows-per-page-options="[0]"
+                row-key="temp_tally_id"
+                hide-bottom
+              />
+            </q-card-actions>
+            <div class="row q-gutter-x-sm q-pa-sm">
+              <div class="col">
+                <q-btn
+                  unelevated
+                  square
+                  dense
+                  push
+                  color="positive"
+                  class="full-width"
+                  label="Submit Vote"
+                  icon="check"
+                />
+              </div>
+              <div class="col">
+                <q-btn
+                  unelevated
+                  square
+                  dense
+                  outline
+                  class="text-primary full-width"
+                  label="Clear Selection"
+                />
+              </div>
             </div>
-          </q-card-actions>
-          <q-separator />
-          <q-card-actions>
-            <q-table
-              class="my-sticky-header-table"
-              :rows="allReresentative"
-              :columns="columns"
-              row-key="name"
-              :selected-rows-label="secretary"
-              selection="single"
-              v-model:selected="secretary"
-            />
-          </q-card-actions>
-        </q-card>
+          </q-card>
+        </div>
       </div>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { StudentDto, RepresentativeDto, VoteSsgDto } from 'src/services/rest-api';
+import {
+  StudentDto,
+  RepresentativeDto,
+  VoteSsgDto,
+} from 'src/services/rest-api';
+import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
@@ -96,10 +103,15 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
+    ...mapState('tempRep', ['allTempRep']),
   },
   methods: {
-    ...mapActions('representative', ['addRepresentative', 'getAllRepresentative']),
+    ...mapActions('representative', [
+      'addRepresentative',
+      'getAllRepresentative',
+    ]),
     ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg']),
+    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
   },
 })
 export default class studentVote extends Vue {
@@ -108,9 +120,12 @@ export default class studentVote extends Vue {
   allVoteSsg!: VoteSsgDto[];
 
   getAllRepresentative!: () => Promise<void>;
-  allReresentative!: RepresentativeDto[];
+  allRepresentative!: RepresentativeDto[];
 
   allStudent!: StudentDto[];
+  allTempRep!: TempRep[];
+  clear!: () => Promise<void>;
+  addTempRep!: (payload: TempRep) => Promise<void>;
 
   async mounted() {
     await this.getAllRepresentative();
@@ -149,6 +164,7 @@ export default class studentVote extends Vue {
       field: (row: any) => row.student?.department,
     },
   ];
+  tab = 'prime';
   prime = [];
   secretary = [];
 
@@ -157,9 +173,29 @@ export default class studentVote extends Vue {
     this.secretary = [];
   }
 
+  clearSelection() {
+    this.clear();
+  }
+
+  async onaddBallot(data: RepresentativeDto) {
+    if (data.student) {
+      await this.addTempRep({
+        ...data.student,
+        student_id: data.student?.student_id,
+        temp_tally_id: 0,
+      } as TempRep);
+    }
+    if (this.allTempRep.length >= 2) {
+      this.$q.notify({
+        type: 'warning',
+        message: 'You have reached the maximum vote!',
+      });
+    }
+  }
+
   submitVote(val: VoteSsgDto) {
-    const prime = this.prime[0];
-    const secretary = this.secretary[1];
+    const prime = this.allTempRep[0];
+    const secretary = this.allTempRep[1];
     this.$q
       .dialog({
         message: 'Submit vote?',
@@ -167,18 +203,19 @@ export default class studentVote extends Vue {
         persistent: true,
       })
       .onOk(async (data: RepresentativeDto) => {
-        if(data.voterep?.student){
+        if (data.student) {
           await this.inputVoteSsg({
-            ...data.voterep.student,
-            student_id: data.voterep.student.student_id,
-          })
+            ...data.student,
+            student_id: data.student.student_id,
+          });
         }
         this.inputVoteSsg.prime_name = prime;
         this.inputVoteSsg.secretary_name = secretary;
         await this.addVoteSsg(val.vote_ssg_id as any);
+        await this.$router.replace('/r_result');
         this.$q.notify({
-          type: 'warning',
-          message: 'Successfully deleted',
+          type: 'positive',
+          message: 'You have successfully voted.',
         });
       });
   }
@@ -188,8 +225,18 @@ export default class studentVote extends Vue {
     secretary_name: '',
     academic_yr: '',
     date: '',
-    time:'',
+    time: '',
   };
+
+  resetModel() {
+    this.inputVoteSsg = {
+      rep2: '',
+      rep1: '',
+      academic_yr: '',
+      date: '',
+      time: '',
+    };
+  }
 }
 </script>
 

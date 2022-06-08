@@ -5,7 +5,7 @@
       title="Representative Account List"
       :grid="$q.screen.xs"
       :columns="RepresentativeColumn"
-      :rows="allCollegeRepresentative"
+      :rows="allRepresentative"
       row-key="name"
       :rows-per-page-options="[0]"
       :filter="filter"
@@ -72,7 +72,7 @@
                     option-value="student_id"
                     map-options
                     emit-value
-                    v-model="inputRepresentative.voterep"
+                    v-model="inputRepresentative.student"
                     dense
                     outlined
                     label="Select ID Number"
@@ -134,7 +134,7 @@
                         option-value="student_id"
                         map-options
                         emit-value
-                        v-model="inputRepresentative.voterep"
+                        v-model="inputRepresentative.student"
                         dense
                         outlined
                         label="Select ID Number"
@@ -149,7 +149,7 @@
                         option-value="election_id"
                         map-options
                         emit-value
-                        v-model="inputRepresentative.voterep"
+                        v-model="inputRepresentative.election"
                         dense
                         outlined
                         label="Select Year Elected"
@@ -238,14 +238,14 @@
                   <q-card-section class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
                     <div class="text-caption">
-                      {{ inputRepresentative.candidate?.student?.college }}
+                      {{ inputRepresentative.student?.college }}
                       -
-                      {{ inputRepresentative.candidate?.student?.course }}
+                      {{ inputRepresentative.student?.course }}
                     </div>
                     <div class="text-h5 q-mt-sm q-mb-xs">
-                      {{ inputRepresentative.candidate?.student?.last_name }},
-                      {{ inputRepresentative.candidate?.student?.first_name }}
-                      {{ inputRepresentative.candidate?.student?.middle_name }}
+                      {{ inputRepresentative.student?.last_name }},
+                      {{ inputRepresentative.student?.first_name }}
+                      {{ inputRepresentative.student?.middle_name }}
                     </div>
                     <div class="text-caption text-grey">
                       {{ inputRepresentative.position }}
@@ -255,7 +255,7 @@
                   <q-card-section class="col-5 flex flex-center">
                     <q-img
                       square
-                      :src="`http://localhost:3000/media/${inputRepresentative.candidate?.student?.url}`"
+                      :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
                       size="120px"
                       font-size="82px"
                       color="teal"
@@ -272,7 +272,7 @@
 
                 <q-card-section>
                   <div class="text-italic text-h5">
-                    {{ inputRepresentative.candidate?.platform }}
+                    {{ inputRepresentative.platform }}
                   </div>
                 </q-card-section>
               </q-card>
@@ -307,6 +307,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
     ...mapActions('voteRep', ['getAllVoteRep']),
     ...mapActions('representative', [
       'addRepresentative',
+      'addProclaimRepresentative',
       'editRepresentative',
       'deleteRepresentative',
       'getAllRepresentative',
@@ -327,6 +328,7 @@ export default class ManageAccount extends Vue {
 
   allRepresentative!: RepresentativeDto[];
   addRepresentative!: (payload: any) => Promise<void>;
+  addProclaimRepresentative!: (payload: any) => Promise<void>;
   editRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   deleteRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   getAllRepresentative!: () => Promise<void>;
@@ -336,6 +338,7 @@ export default class ManageAccount extends Vue {
     await this.getAllVoteRep();
     //await this.addRepresentative(this.allCollegeRepresentative);
     console.log('getAllRepresentative', this.allCollegeRepresentative);
+    console.log(this.allRepresentative)
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -344,7 +347,7 @@ export default class ManageAccount extends Vue {
       name: 'id',
       align: 'left',
       label: 'ID Number',
-      field: (row: ICandidateVote) => row.candidate.student?.school_id,
+      field: (row: RepresentativeDto) => row.student?.school_id,
       sortable: true,
     },
     {
@@ -352,34 +355,47 @@ export default class ManageAccount extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: ICandidateVote) =>
-        row.candidate.student?.last_name +
+      field: (row: RepresentativeDto) =>
+        row.student?.last_name +
         ', ' +
-        row.candidate.student?.first_name +
+        row.student?.first_name +
         ' ' +
-        row.candidate.student?.middle_name,
+        row.student?.middle_name,
       sortable: true,
     },
-
+    {
+      name: 'year_ad',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: RepresentativeDto) => row.student?.yr_admitted,
+      sortable: true,
+    },
+{
+      name: 'course',
+      align: 'center',
+      label: 'Course',
+      field: (row: RepresentativeDto) => row.student?.course,
+      sortable: true,
+    },
     {
       name: 'college',
       align: 'center',
       label: 'College',
-      field: (row: ICandidateVote) => row.candidate.student?.college,
+      field: (row: RepresentativeDto) => row.student?.college,
       sortable: true,
     },
     {
       name: 'position',
       align: 'center',
       label: 'Position',
-      field: (row: ICandidateVote) => row.candidate.student?.student_type,
+      field: (row: RepresentativeDto) => row.student?.student_type,
       sortable: true,
     },
     {
-      name: 'votes',
+      name: 'year',
       align: 'center',
-      label: 'Votes',
-      field: (row: ICandidateVote) => row.votes.length,
+      label: 'Academic Year',
+      field: (row: RepresentativeDto) => row.election?.election_type,
       sortable: true,
     },
   ];
@@ -411,7 +427,12 @@ export default class ManageAccount extends Vue {
   async onProclaimAllCanditates() {
     this.isLoading = true;
     await this.proclaimAllCanditates(this.allCollegeRepresentative);
+    await this.addProclaimRepresentative(this.allCollegeRepresentative);
     this.isLoading = false;
+    this.$q.notify({
+      type: 'positive',
+      message: 'Candidates has been confirmed!.',
+    });
   }
 
   async onaddCandidateAccount() {

@@ -1,3 +1,4 @@
+import { StudentDto } from './../../services/rest-api/api';
 import representativeservice from 'src/services/representative.service';
 import studentservice from 'src/services/student.service';
 import { ActionTree } from 'vuex';
@@ -22,16 +23,21 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
   },
 
   async addRepresentative(context, payload: any): Promise<void> {
-    console.log(payload);
+    const result = await representativeservice.create(payload);
+    context.commit('setNewRepresentative', result);
+    await context.dispatch('getAllRepresentative');
+  },
+
+  async addProclaimRepresentative(context, payload: any): Promise<void> {
     payload.map(async (i: any) => {
       const newPayload = {
-        candidate: i.candidate.candidate_id,
+        student: i.candidate.student?.student_id,
         academic_yr: i.candidate.student?.yr_admitted,
         position: i.candidate.position_type,
       };
-      console.log('newPayload', newPayload);
+
       const result = await representativeservice.create(newPayload);
-      console.log('result', result);
+
       context.commit('setNewRepresentative', result);
       await context.dispatch('getAllRepresentative');
     });
