@@ -12,6 +12,14 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
     await context.dispatch('getAllElection');
   },
 
+  async electionStatus(context, student_id: number) {
+    const electionStatus = await electionservice.getOne(student_id);
+    await electionservice.update(student_id, {
+      ...electionStatus,
+      status: 'Active',
+    });
+  },
+
   async editElection(context, payload: any): Promise<any> {
     const result = await electionservice.update(payload.election_id, payload);
     context.commit('updateElection', result);

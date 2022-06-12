@@ -24,29 +24,31 @@
                 <q-card>
                   <q-card class="my-card q-pa-sm">
                     <div
-                      v-for="rep in primePosition"
-                      :key="rep.representative_id"
+                      v-for="rep in primeMinister"
+                      :key="rep.representative.representative_id"
                     >
                       <q-card-section>
                         <div class="text-green text-overline">
-                          Candidate {{ rep.representative_id }}
+                          Candidate {{ rep.representative.representative_id }}
                         </div>
                         <div>
                           Name:
                           <strong>
-                            {{ rep.student?.last_name }},
-                            {{ rep.student?.first_name }}
-                            {{ rep.student?.middle_name }}
-                            {{ rep.student?.suffix }}
+                            {{ rep.representative.student?.last_name }},
+                            {{ rep.representative.student?.first_name }}
+                            {{ rep.representative.student?.middle_name }}
+                            {{ rep.representative.student?.suffix }}
                           </strong>
                         </div>
                         <div>
                           Course:
                           <strong>
-                            {{ rep.student?.course }}
+                            {{ rep.representative.student?.course }}
                           </strong>
                         </div>
-                        <div>Total Votes: <strong></strong></div>
+                        <div>
+                          Total Votes: <strong>{{ rep.votes.length }}</strong>
+                        </div>
                         <br />
                         <q-separator />
                       </q-card-section>
@@ -71,29 +73,31 @@
               <div class="col-12 col-md">
                 <q-card class="my-card q-pa-sm">
                   <div
-                    v-for="rep in secretaryPosition"
-                    :key="rep.representative_id"
+                    v-for="rep in executiveSecretary"
+                    :key="rep.representative.representative_id"
                   >
                     <q-card-section>
                       <div class="text-green text-overline">
-                        Candidate {{ rep.representative_id }}
+                        Candidate {{ rep.representative.representative_id }}
                       </div>
                       <div>
                         Name:
                         <strong>
-                          {{ rep.student?.last_name }},
-                          {{ rep.student?.first_name }}
-                          {{ rep.student?.middle_name }}
-                          {{ rep.student?.suffix }}
+                          {{ rep.representative.student?.last_name }},
+                          {{ rep.representative.student?.first_name }}
+                          {{ rep.representative.student?.middle_name }}
+                          {{ rep.representative.student?.suffix }}
                         </strong>
                       </div>
                       <div>
                         Course:
                         <strong>
-                          {{ rep.student?.course }}
+                          {{ rep.representative.student?.course }}
                         </strong>
                       </div>
-                      <div>Total Votes: <strong></strong></div>
+                      <div>
+                        Total Votes: <strong>{{ rep.votes.length }}</strong>
+                      </div>
                       <br />
                       <q-separator />
                     </q-card-section>
@@ -128,6 +132,8 @@ import {
   VoteSsgDto,
   RepresentativeDto,
 } from 'src/services/rest-api';
+import { IRepVote } from 'src/store/vote-rep/state';
+import { IRepresentativeVote } from 'src/store/vote-ssg/state';
 @Options({
   components: {
     RepresentativeResult,
@@ -136,7 +142,7 @@ import {
   },
   computed: {
     ...mapState('representative', ['allRepresentative']),
-    ...mapState('voteSsg', ['allVoteSsg']),
+    ...mapState('voteSsg', ['allVoteSsg', 'summary']),
     ...mapState('student', ['allStudent']),
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
   },
@@ -150,15 +156,29 @@ export default class studentResult extends Vue {
   allRepresentative!: RepresentativeDto[];
   getAllVoteRep!: () => Promise<void>;
 
+  summary!: IRepresentativeVote[];
+
   allVoteSsg!: VoteSsgDto[];
   getAllVoteSsg!: () => Promise<void>;
 
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
 
-  async mounted() {
+  async created() {
     await this.getAllVoteRep();
     await this.getAllVoteSsg();
+  }
+
+  get primeMinister() {
+    return this.summary.filter(
+      (pm) => pm.representative.position == 'Prime Minister'
+    );
+  }
+
+  get executiveSecretary() {
+    return this.summary.filter(
+      (es) => es.representative.position == 'Executive Secretary'
+    );
   }
 
   tab = 'prime';

@@ -1,17 +1,31 @@
 <template>
   <div>
-    <canvas class="q-pl-sm" id="myChart" style="height: 350px; width: 50px"></canvas>
+    <canvas
+      class="q-pl-sm"
+      id="myChart"
+      style="height: 350px; width: 50px"
+    ></canvas>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Chart from 'chart.js/auto';
-@Options({})
+import { IRepresentativeVote } from 'src/store/vote-ssg/state';
+import { mapState } from 'vuex';
+@Options({
+  computed: {
+    ...mapState('voteSsg', ['summary']),
+  },
+})
 export default class ChartComponent extends Vue {
+  summary!: IRepresentativeVote[];
   chart?: Chart;
   mounted() {
-    const labels = ['Serad, Basam C.', 'Alango, Norjehan M.', 'Mangcol, Naeem Jr. M.'];
+    const labels = this.executiveSecretary.map(
+      (i) =>
+        `${i.representative.student?.last_name}, ${i.representative.student?.first_name}`
+    );
     const data = {
       labels: labels,
       datasets: [
@@ -25,7 +39,7 @@ export default class ChartComponent extends Vue {
             'rgb(232,65,44)',
             'rgb(46,109,86)',
           ],
-          data: [15, 21, 17],
+          data: this.executiveSecretary.map((i) => i.votes.length),
           hoverOffset: 40,
         },
       ],
@@ -43,6 +57,12 @@ export default class ChartComponent extends Vue {
         maintainAspectRatio: false,
       },
     });
+  }
+
+  get executiveSecretary() {
+    return this.summary.filter(
+      (es) => es.representative.position == 'Executive Secretary'
+    );
   }
 }
 </script>

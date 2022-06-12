@@ -2,7 +2,7 @@ import { VoteSsgDto } from '../../services/rest-api/api';
 import votessgservice from 'src/services/vote-ssg.service';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
-import { VoteSsgStateInterface, ISsgVote, IRepVote } from './state';
+import { VoteSsgStateInterface, ISsgVote, IRepresentativeVote } from './state';
 
 const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   async addVoteSsg(context, payload: VoteSsgDto): Promise<void> {
@@ -34,7 +34,7 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     let votes = 0;
     const reps = res.map((rep) => {
       representative.map((pm, i) => {
-        if(pm.student?.student_id == rep.prime.student_id) {
+        if (pm.student?.student_id == rep.prime.student_id) {
           context.dispatch('addVote', { vote: 1, repId: rep.prime.student_id });
         }
       });
@@ -60,7 +60,7 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
       context.commit('addRepSummry', {
         representative: reps,
         votes: votes
-      } as IRepVote)
+      } as IRepresentativeVote)
     })
 
   },
@@ -68,6 +68,23 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   async getOneVoteSsg(context, votessg_id: number): Promise<any> {
     const res = await votessgservice.getOne(votessg_id);
     context.commit('getOneVoteSsg', res);
+  },
+
+  async addVote(context, payload) {
+    // const { vote, repId } = payload;
+    // await context.dispatch('candidate/getAllCandidate', undefined, {
+    //   root: true,
+    // });
+    // const candidates = context.rootState.candidate.allCandidate;
+    // const canWithVotes = candidates.map((c: any) => {
+    //   if (c.student?.student_id === repId) {
+    //     return {
+    //       ...c,
+    //       totalVotes: (vote + (c.totalVotes)) || vote
+    //     }
+    //   }
+    // })
+    // console.log('canWithVotes', canWithVotes)
   },
 };
 

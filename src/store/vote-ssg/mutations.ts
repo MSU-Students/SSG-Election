@@ -1,7 +1,7 @@
 import { VoteSsgDto } from './../../services/rest-api/api';
 import { VoteSsg } from 'src/interfaces/vote-ssg.interface';
 import { MutationTree } from 'vuex';
-import { VoteSsgStateInterface, IRepVote } from './state';
+import { VoteSsgStateInterface, IRepresentativeVote } from './state';
 
 const mutation: MutationTree<VoteSsgStateInterface> = {
   setNewVoteSsg(state, payload: VoteSsg) {
@@ -43,7 +43,7 @@ const mutation: MutationTree<VoteSsgStateInterface> = {
   },
 
   addVote(state, payload) {},
-  addRepSummry(state, summary: IRepVote) {
+  addRepSummry(state, summary: IRepresentativeVote) {
     state.summary.push(summary);
   },
   clearSummary(state) {

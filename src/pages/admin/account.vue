@@ -914,6 +914,15 @@ export default class ManageAccount extends Vue {
     this.imageAttachement = new File([], 'Select File');
   }
 
+  colorManipulation(student_type: string) {
+    if (student_type === "Regular") {
+      return "warning";
+    }
+    if (student_type === "Representative") {
+      return "positive";
+    }
+  }
+
   //---------------Export Table
   exportTable() {
     // naive encoding to csv format

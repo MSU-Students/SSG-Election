@@ -6,7 +6,7 @@ export interface ISsgVote {
   voteId: number;
   repPlace: string; //rep1 | rep2
 }
-export interface IRepVote {
+export interface IRepresentativeVote {
   representative: RepresentativeDto,
   votes: ISsgVote[]
 }
@@ -15,7 +15,7 @@ export interface VoteSsgStateInterface {
   prime?: VoteSsgDto;
   secretary?: VoteSsgDto;
   newVoteSsg?: VoteSsg;
-  summary:IRepVote[];
+  summary:IRepresentativeVote[];
 }
 
 function state(): VoteSsgStateInterface {

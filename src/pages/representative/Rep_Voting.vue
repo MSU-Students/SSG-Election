@@ -194,6 +194,7 @@
                   class="full-width"
                   label="Submit Vote"
                   icon="check"
+                  @click="submitVote()"
                 />
               </div>
               <div class="col">
@@ -237,7 +238,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
       'addRepresentative',
       'getAllRepresentative',
     ]),
-    ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg']),
+    ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg', 'getAllVoteSsg']),
     ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
   },
 })
@@ -245,6 +246,7 @@ export default class studentVote extends Vue {
   addVoteSsg!: (payload: VoteSsgDto) => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
+
 
   getAllRepresentative!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
@@ -260,9 +262,10 @@ export default class studentVote extends Vue {
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
+    console.log(this.allTempRep);
   }
 
-columns = [
+  columns = [
     {
       name: 'name',
       required: true,
@@ -272,10 +275,10 @@ columns = [
         row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
     },
     {
-      name: 'level',
+      name: 'position',
       align: 'center',
-      label: 'Year Admitted',
-      field: (row: any) => row.yr_admitted,
+      label: 'Candidacy',
+      field: (row: RepresentativeDto) => row.position,
     },
     {
       name: 'collge',
@@ -306,39 +309,33 @@ columns = [
         temp_tally_id: 0,
       } as TempRep);
     }
-    if (this.allTempRep.length >= 2) {
-      this.$q.notify({
-        type: 'warning',
-        message: 'You have reached the maximum vote!',
-      });
-    }
   }
+  addNewVoteSsg = false;
 
-  submitVote(val: VoteSsgDto) {
+  async submitVote() {
     const prime = this.allTempRep[0];
     const secretary = this.allTempRep[1];
-    this.$q
-      .dialog({
-        message: 'Submit vote?',
-        cancel: true,
-        persistent: true,
-      })
-      .onOk(async (data: RepresentativeDto) => {
-        if (data.student) {
-          await this.inputVoteSsg({
-            ...data.student,
-            student_id: data.student.student_id,
+
+      this.$q
+        .dialog({
+          message: 'Submit vote?',
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(async () => {
+          //copy from
+          this.inputVoteSsg.prime = prime.student_id;
+          this.inputVoteSsg.secretary = secretary.student_id;
+
+          await this.addVoteSsg(this.inputVoteSsg);
+          await this.$router.replace('/R_Result');
+          this.addNewVoteSsg = false;
+          this.resetModel();
+          this.$q.notify({
+            type: 'positive',
+            message: 'You have successfully voted.',
           });
-        }
-        this.inputVoteSsg.prime_name = prime;
-        this.inputVoteSsg.secretary_name = secretary;
-        await this.addVoteSsg(val.vote_ssg_id as any);
-        await this.$router.replace('/r_result');
-        this.$q.notify({
-          type: 'positive',
-          message: 'You have successfully voted.',
         });
-      });
   }
 
   inputVoteSsg: any = {

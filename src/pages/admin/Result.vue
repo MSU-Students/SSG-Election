@@ -58,31 +58,8 @@
                                 color="white"
                                 padding="5px"
                                 text-color="black"
-                                @click="filter = 'CICS'"
+                                @click="filter"
                                 label="CICS"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter = 'CBAA'"
-                                label="CBAA"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter = 'CHARM'"
-                                label="CHARM"
-                                label-position="left"
-                              />
-                              <q-fab-action
-                                color="white"
-                                text-color="black"
-                                @click="filter = ''"
-                                icon="clear"
                                 label-position="left"
                               />
                             </q-fab>
@@ -108,32 +85,7 @@
             <!--S S G - P R I M E - M I N I S T E R-->
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="Prime Minister"
-                  class="my-sticky-header-table"
-                  :rows="allVoteSsg"
-                  :columns="prime"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                        </template>
-                      </q-input>
-                    </div>
-                  </template>
-                </q-table>
+                <prime-table-result/>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -147,35 +99,10 @@
           </q-tab-panel>
 
           <q-tab-panel name="secretary">
-            <!--S S G - P R I M E - M I N I S T E R-->
+            <!--S S G - E X E C U T I V E - S E C R E T A R Y-->
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="Executive Secretary"
-                  class="my-sticky-header-table"
-                  :rows="allVoteSsg"
-                  :columns="secretary"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                        </template>
-                      </q-input>
-                    </div>
-                  </template>
-                </q-table>
+                <secretary-table-result/>
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -199,6 +126,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeResult from 'components/Charts/collegerep.vue';
 import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
+import PrimeTableResult from 'components/Election Result/primeResult.vue';
+import SecretaryTableResult from 'components/Election Result/secretaryResult.vue';
 import { VoteRepDto, StudentDto, VoteSsgDto, CandidateDto } from 'src/services/rest-api';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 @Options({
@@ -206,6 +135,8 @@ import { ICandidateVote } from 'src/store/vote-rep/state';
     RepresentativeResult,
     SecretaryGeneralChart,
     PrimeMinisterChart,
+    PrimeTableResult,
+    SecretaryTableResult,
   },
   computed: {
     ...mapState('voteRep', ['allVoteRep', 'summary']),
@@ -281,52 +212,6 @@ export default class studentResult extends Vue {
       sortable: true,
     },
   ];
-
-  prime = [
-    {
-      name: 'name',
-      required: true,
-      label: 'Name',
-      align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
-        ', ' +
-        row.student?.first_name +
-        ' ' +
-        row.student?.middle_name,
-      sortable: true,
-    },
-    {
-      name: 'course',
-      align: 'center',
-      label: 'Course',
-      field: (row: any) => row.student?.course,
-      sortable: true,
-    },
-
-    {
-      name: 'level',
-      align: 'center',
-      label: 'Year Level',
-      field: (row: any) => row.student?.yr_admitted,
-      sortable: true,
-    },
-    {
-      name: 'college',
-      align: 'center',
-      label: 'College',
-      field: (row: any) => row.student?.College,
-      sortable: true,
-    },
-    {
-      name: 'vote',
-      align: 'vote',
-      label: 'Total Vote',
-      field: 'length',
-      sortable: true,
-    },
-  ];
-
   secretary = [
     {
       name: 'name',

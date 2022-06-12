@@ -11,42 +11,36 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Chart from 'chart.js/auto';
-import { mapActions, mapGetters, mapState } from 'vuex';
-import { RepresentativeDto } from 'src/services/rest-api';
+import { mapState } from 'vuex';
+import { IRepresentativeVote } from 'src/store/vote-ssg/state';
 @Options({
   computed: {
-    ...mapState('representative', ['allRepresentative']),
-    ...mapGetters('representative', ['primePosition']),
-  },
-  methods: {
-    ...mapActions('representative', ['getAllRepresentative']),
+    ...mapState('voteSsg', ['summary']),
   },
 })
 export default class ChartComponent extends Vue {
-  getAllRepresentative!: RepresentativeDto[];
-  primePosition!: RepresentativeDto[];
+  summary!: IRepresentativeVote[];
   chart?: Chart;
 
   async mounted() {
-    const labels = [
-      'Ayaon, Norhani A.',
-      'Solaiman, Abdul Moiz M.',
-      'Hadji Ali, Nahed M.',
-    ];
+    const labels = this.primeMinister.map(
+      (i) =>
+        `${i.representative.student?.last_name}, ${i.representative.student?.first_name}`
+    );
     const data = {
       labels: labels,
       datasets: [
         {
           label: 'Result',
           backgroundColor: [
-            'rgb(179,0,0)',
-            'rgb(33,186,69)',
             'rgb(231,200,24)',
             'rgb(3,87,142)',
             'rgb(232,65,44)',
             'rgb(46,109,86)',
+            'rgb(179,0,0)',
+            'rgb(33,186,69)',
           ],
-          data: [15000, 4000, 5000],
+          data: this.primeMinister.map((i) => i.votes.length),
           hoverOffset: 40,
         },
       ],
@@ -64,6 +58,12 @@ export default class ChartComponent extends Vue {
         maintainAspectRatio: false,
       },
     });
+  }
+
+  get primeMinister() {
+    return this.summary.filter(
+      (pm) => pm.representative.position == 'Prime Minister'
+    );
   }
 }
 </script>

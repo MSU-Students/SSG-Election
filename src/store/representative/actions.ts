@@ -26,11 +26,8 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
     const result = await representativeservice.create(payload);
     context.commit('setNewRepresentative', result);
     await context.dispatch('getAllRepresentative');
-    // await context.dispatch(
-    //   'student/appointStudent',
-    //   c.candidate.student?.student_id,
-    //   { root: true }
-    // );
+
+  
   },
 
   async addProclaimRepresentative(context, payload: any): Promise<void> {
@@ -64,6 +61,8 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
   async getAllRepresentative(context): Promise<any> {
     const res = await representativeservice.getAll();
     context.commit('getAllRepresentative', res);
+    await this.dispatch('student/getAllStudent');
+    await this.dispatch('election/getAllElection');
   },
 
   async getOneRepresentative(context, representative_id: number): Promise<any> {

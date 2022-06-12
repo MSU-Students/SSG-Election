@@ -240,8 +240,6 @@
                         :options="allElection"
                         option-label="election_type"
                         option-value="election_id"
-                        disable
-                        readonly
                         map-options
                         emit-value
                         v-model="inputRepresentative.election"
@@ -493,13 +491,6 @@ export default class ManageAccount extends Vue {
       field: (row: RepresentativeDto) => row.student?.student_type,
       sortable: true,
     },
-    {
-      name: 'year',
-      align: 'center',
-      label: 'Academic Year',
-      field: (row: RepresentativeDto) => row.election?.election_type,
-      sortable: true,
-    },
   ];
 
   filter = '';
@@ -519,7 +510,7 @@ export default class ManageAccount extends Vue {
 
   //---------------------------------------------------for Candidate
 
-  position = ['Prime Minister', 'Executive Sectretary'];
+  position = ['Prime Minister', 'Executive Secretary'];
   isLoading = true;
 
   get allCollegeRepresentative() {
@@ -531,7 +522,8 @@ export default class ManageAccount extends Vue {
     this.$q
       .dialog({
         title: 'Do you want to proclaim the final candidates?',
-        message: 'Make sure that the Election for College Representative is over',
+        message:
+          'Make sure that the Election for College Representative is over',
         color: 'negative',
         cancel: true,
         persistent: true,
@@ -548,7 +540,10 @@ export default class ManageAccount extends Vue {
   }
 
   async onaddCandidateAccount() {
-    await this.addRepresentative(this.inputRepresentative);
+    await this.addRepresentative({
+      ...this.inputRepresentative,
+      student_type: 'Representative',
+    });
     this.addNewCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
