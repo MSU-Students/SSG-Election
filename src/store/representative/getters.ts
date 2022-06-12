@@ -10,7 +10,7 @@ const getters: GetterTree<RepresentativeStateInterface, StateInterface> = {
   },
   secretaryPosition(state) {
     return state.allRepresentative.filter((i) =>
-      /^Executive Sectretary$/i.test(i.position || '')
+      /^Executive Secretary$/i.test(i.position || '')
     );
   },
 };

@@ -8,7 +8,6 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
   async addVoteRep(context, payload: VoteRepDto): Promise<void> {
     payload.student = this.state.auth.currentUser?.student;
     const result = await voterepservice.create(payload);
-    
     context.commit('setNewVoteRep', result);
     await context.dispatch('getAllVoteRep');
   },
@@ -82,7 +81,6 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     //     }
     //   }
     // })
-    // console.log('canWithVotes', canWithVotes)
   },
 };
 

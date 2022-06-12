@@ -18,7 +18,6 @@ class StudentService extends DefaultApi {
   }
   async getOne(student_id: number): Promise<StudentDto> {
     const response = await ssgApiService.getStudent(student_id);
-    console.log('response', response);
     return response.data;
   }
   async update(student_id: number, payload: StudentDto) {

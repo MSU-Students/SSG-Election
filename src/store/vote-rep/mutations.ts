@@ -31,7 +31,6 @@ const mutation: MutationTree<VoteRepStateInterface> = {
       totalVote: payload.filter((s) => s.rep2.school_id === i.rep2.school_id)
         .length,
     }));
-    // console.log(rep1, rep2);
     // const newRes = [...rep1, ...rep2];
     state.allVoteRep = [];
     state.allVoteRep.push(...payload);

@@ -65,9 +65,9 @@
                   dense
                   class="q-mt-sm text-caption full-width"
                   color="primary"
-                  label="Accounts"
-                  icon="admin_panel_settings"
-                  to="/AdminAccount"
+                  label="Settings"
+                  icon="settings"
+                  to="/setting"
                 />
               </div>
               <div class="row justify-center">
@@ -194,8 +194,8 @@
             color="primary"
             class="q-mt-sm text-caption"
             label="Manage Account"
-            icon="admin_panel_settings"
-            to="/AdminAccount"
+            icon="settings"
+            to="/setting"
           />
         </div>
         <div class="row justify-center"></div>

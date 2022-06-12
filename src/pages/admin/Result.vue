@@ -212,51 +212,6 @@ export default class studentResult extends Vue {
       sortable: true,
     },
   ];
-  secretary = [
-    {
-      name: 'name',
-      required: true,
-      label: 'Name',
-      align: 'left',
-      field: (row: any) =>
-        row.student?.last_name +
-        ', ' +
-        row.student?.first_name +
-        ' ' +
-        row.student?.middle_name,
-      sortable: true,
-    },
-    {
-      name: 'course',
-      align: 'center',
-      label: 'Course',
-      field: (row: any) => row.student?.course,
-      sortable: true,
-    },
-
-    {
-      name: 'level',
-      align: 'center',
-      label: 'Year Level',
-      field: (row: any) => row.student?.yr_admitted,
-      sortable: true,
-    },
-    {
-      name: 'college',
-      align: 'center',
-      label: 'College',
-      field: (row: any) => row.student?.College,
-      sortable: true,
-    },
-    {
-      name: 'vote',
-      align: 'vote',
-      label: 'Total Vote',
-      field: 'length',
-      sortable: true,
-    },
-  ];
-
   get allCollegeRepresentative() {
     return this.collegeRepresentatives.filter((i) => !!i.votes.length);
   }

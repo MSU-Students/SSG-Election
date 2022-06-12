@@ -6,6 +6,7 @@ import { VoteSsgStateInterface, ISsgVote, IRepresentativeVote } from './state';
 
 const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   async addVoteSsg(context, payload: VoteSsgDto): Promise<void> {
+    payload.student = this.state.auth.currentUser?.student;
     const result = await votessgservice.create(payload);
     context.commit('setNewVoteSsg', result);
     await context.dispatch('getAllVoteSsg');
@@ -25,7 +26,6 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
 
   async getAllVoteSsg(context): Promise<any> {
     const res = (await votessgservice.getAll()) as unknown as VoteSsgDto[];
-
     await context.dispatch('representative/getAllRepresentative', undefined, {
       root: true,
     });
@@ -51,7 +51,7 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     context.commit('clearSummary');
     this.state.representative.allRepresentative.forEach(reps => {
       const matchingVotes = context.state.allVoteSsg.filter(v => (
-        v.prime.student_id == reps.student?.student_id ||
+        v.prime.student_id == reps.student?.student_id &&
         v.secretary.student_id == reps.student?.student_id
       ));
       const votes = matchingVotes.map(v => ({
@@ -84,7 +84,6 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     //     }
     //   }
     // })
-    // console.log('canWithVotes', canWithVotes)
   },
 };
 

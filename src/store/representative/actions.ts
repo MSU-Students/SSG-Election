@@ -26,7 +26,7 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
     const result = await representativeservice.create(payload);
     context.commit('setNewRepresentative', result);
     await context.dispatch('getAllRepresentative');
-
+    //await this.dispatch('student/appointStudent', payload.student.student_id, { root: true });
   
   },
 

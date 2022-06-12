@@ -84,6 +84,9 @@
                             <div class="text-caption">
                               {{ data.student?.yr_admitted }}
                             </div>
+                            <div class="text-caption">
+                              Running for: <strong>{{ data.position }}</strong>
+                            </div>
                           </div>
                         </div>
                         <q-separator />
@@ -147,6 +150,9 @@
                             </div>
                             <div class="text-caption">
                               {{ data.student?.yr_admitted }}
+                            </div>
+                            <div class="text-caption">
+                              Running for: <strong>{{ data.position }}</strong>
                             </div>
                           </div>
                         </div>

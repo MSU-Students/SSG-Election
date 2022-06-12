@@ -392,10 +392,10 @@ export interface SsgMemberDto {
     'position': string;
     /**
      * 
-     * @type {VoteSsgDto}
+     * @type {StudentDto}
      * @memberof SsgMemberDto
      */
-    'votessg'?: VoteSsgDto;
+    'student'?: StudentDto;
 }
 /**
  * 

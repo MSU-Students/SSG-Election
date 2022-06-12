@@ -1,3 +1,4 @@
+import { IRepresentativeVote } from './../vote-ssg/state';
 import { SsgMember } from 'src/interfaces/ssg-member.interface';
 import ssgmemberservice from 'src/services/ssg-member.service';
 import { SsgMemberDto } from 'src/services/rest-api';
@@ -6,7 +7,19 @@ import { StateInterface } from '../index';
 import { SsgMemberStateInterface } from './state';
 
 const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
-  async addSsgMember(context, payload: SsgMemberDto): Promise<void> {
+  async addProclaimSsgMember(context, payload: any): Promise<void> {
+    payload.map(async (i: IRepresentativeVote) => {
+      const newPayload = {
+        student: i.representative.student?.student_id,
+        position: i.representative.position,
+      };
+      const result = await ssgmemberservice.create(payload);
+      context.commit('setNewSsgMember', result);
+      await context.dispatch('getAllSsgMember');
+    });
+  },
+
+  async addSsgMember(context, payload: any): Promise<void> {
     const result = await ssgmemberservice.create(payload);
     context.commit('setNewSsgMember', result);
     await context.dispatch('getAllSsgMember');

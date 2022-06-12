@@ -32,8 +32,9 @@
               flat
               icon="add"
               @click="addNewCandidate = true"
-            />
+            >
             <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+            </q-btn>
           </div>
           <div>
             <q-btn
@@ -43,8 +44,9 @@
               icon="verified"
               :disable="allCollegeRepresentative.length < 0"
               @click="onProclaimAllCanditates()"
-            />
+            >
             <q-tooltip :offset="[0, 8]">Proclaim Candidates</q-tooltip>
+            </q-btn>
           </div>
           <q-dialog v-model="addNewCandidate" persistent>
             <q-card style="width: 900px; max-width: 100vw">
@@ -356,7 +358,7 @@
                     <q-img
                       square
                       :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
-                      size="120px"
+                      style="max-width: 300px; height: 150px"
                       font-size="82px"
                       color="teal"
                       text-color="white"
@@ -436,9 +438,6 @@ export default class ManageAccount extends Vue {
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteRep();
-    //await this.addRepresentative(this.allCollegeRepresentative);
-    console.log('getAllRepresentative', this.allCollegeRepresentative);
-    console.log(this.allRepresentative);
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [

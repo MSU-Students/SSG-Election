@@ -1,21 +1,5 @@
 <template>
-  <q-layout>
-    <q-header reveal elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn
-          class="q-py-sm"
-          to="/Homepage"
-          icon="logout"
-          label="Back"
-          flat
-          dense
-        />
-        <q-toolbar-title class="text-center text-overline"
-          >Admin Account</q-toolbar-title
-        >
-      </q-toolbar>
-    </q-header>
-    <q-page-container>
+  <q-page>
       <!-----------Recent Election Ballot-------------->
       <div class="row q-pt-md q-pa-md">
         <q-table
@@ -146,8 +130,8 @@
         </q-table>
       </div>
       <!----------------------------------------------->
-    </q-page-container>
-  </q-layout>
+    
+  </q-page>
 </template>
 
 <script lang="ts">

@@ -5,7 +5,7 @@
       title="SSG Account List"
       :grid="$q.screen.xs"
       :columns="SSG_Column"
-      :rows="allRepresentative"
+      :rows="allSsgMember"
       row-key="name"
       :rows-per-page-options="[0]"
       :filter="filter"
@@ -25,6 +25,18 @@
             </template>
           </q-input>
         </div>
+        <div>
+          <q-btn
+            color="primary"
+            dense
+            flat
+            icon="verified"
+            :disable="allOfficers.length < 0"
+            @click="onProclaimAllOfficers()"
+          >
+            <q-tooltip :offset="[0, 8]">Proclaim Candidates</q-tooltip>
+          </q-btn>
+        </div>
       </template>
 
       <template v-slot:body-cell-Details="props">
@@ -43,7 +55,12 @@
               </q-tooltip></q-btn
             >
             <q-dialog v-model="showSSGDetails">
-              <q-card class="my-card" style="width: 700px; max-width: 60vw" flat bordered>
+              <q-card
+                class="my-card"
+                style="width: 700px; max-width: 60vw"
+                flat
+                bordered
+              >
                 <q-card-section>
                   <div class="text-h6">
                     SSG Member Information
@@ -62,13 +79,13 @@
                   <q-card-section class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
                     <div class="text-caption">
-                      {{ inputSsg.votessg?.student?.college }} -
-                      {{ inputSsg.votessg?.student?.course }}
+                      {{ inputSsg.student?.college }} -
+                      {{ inputSsg.student?.course }}
                     </div>
                     <div class="text-h5 q-mt-sm q-mb-xs">
-                      {{ inputSsg.votessg?.student?.last_name }},
-                      {{ inputSsg.votessg?.student?.first_name }}
-                      {{ inputSsg.votessg?.student?.middle_name }}
+                      {{ inputSsg.student?.last_name }},
+                      {{ inputSsg.student?.first_name }}
+                      {{ inputSsg.student?.middle_name }}
                     </div>
                     <div class="text-caption text-grey">
                       {{ inputSsg.position }}
@@ -90,7 +107,9 @@
                 <q-separator />
 
                 <q-card-section>
-                  <div class="text-italic text-h5">"{{ inputSsg.academic_yr }}"</div>
+                  <div class="text-italic text-h5">
+                    "{{ inputSsg.academic_yr }}"
+                  </div>
                 </q-card-section>
               </q-card>
             </q-dialog>
@@ -113,60 +132,36 @@ import {
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeAccount from 'components/Account/representative.vue';
+import { IRepresentativeVote } from 'src/store/vote-ssg/state';
 
 @Options({
   components: {
     RepresentativeAccount,
   },
   computed: {
-    ...mapState('student', ['allStudent']),
-    ...mapState('election', ['allElection']),
-    ...mapState('representative', ['allRepresentative']),
     ...mapState('ssgMember', ['allSsgMember']),
-    ...mapState('candidate', ['allCandidate']),
+    ...mapState('voteSsg', ['allVoteSsg', 'summary']),
+    ...mapGetters('voteSsg', ['SsgOfficials']),
   },
   methods: {
-    ...mapActions('student', [
-      'addStudent',
-      'editStudent',
-      'deleteStudent',
-      'getAllStudent',
+    ...mapActions('ssgMember', [
+      'addSsgMember',
+      'addProclaimSsgMember',
+      'getAllSsgMember',
     ]),
-    ...mapActions('representative', [
-      'addRepresentative',
-      'editRepresentative',
-      'deleteRepresentative',
-      'getAllRepresentative',
-    ]),
-    ...mapActions('ssgMember', ['getAllSsgMember']),
-    ...mapActions('candidate', ['getAllCandidate']),
-    ...mapActions('media', ['uploadMedia']),
   },
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
-  allElection!: ElectionDto[];
-  allStudent!: StudentDto[];
-  addStudent!: (payload: StudentDto) => Promise<void>;
-  editStudent!: (payload: StudentDto) => Promise<void>;
-  deleteStudent!: (payload: StudentDto) => Promise<void>;
-  getAllStudent!: () => Promise<void>;
-
-  allCandidate!: CandidateDto[];
-  allRepresentative!: RepresentativeDto[];
-  addRepresentative!: (payload: RepresentativeDto) => Promise<void>;
-  editRepresentative!: (payload: RepresentativeDto) => Promise<void>;
-  deleteRepresentative!: (payload: RepresentativeDto) => Promise<void>;
-  getAllRepresentative!: () => Promise<void>;
-
+  summary!: IRepresentativeVote[];
   allSsgMember!: SsgMemberDto[];
   getAllSsgMember!: () => Promise<void>;
 
-  uploadMedia!: (payload: File) => Promise<MediaDto>;
-
+  addProclaimSsgMember!: (payload: any) => Promise<void>;
+  addSsgMember!: (payload: any) => Promise<void>;
+  proclaimAllOfficers!: (payload: IRepresentativeVote[]) => Promise<void>;
+  SsgOfficials!: IRepresentativeVote[];
   async mounted() {
-    await this.getAllStudent();
-    await this.getAllRepresentative();
     await this.getAllSsgMember();
   }
 
@@ -264,29 +259,35 @@ export default class ManageAccount extends Vue {
 
   //---------------------------------------------------for Candidate
 
-  position = ['Prime Minister', 'Executive Sectretary'];
-  statusOptions = ['Active', 'Inactive'];
-  options = [
-    'College of Agriculture',
-    'College of Business Administration and Accounting',
-    'College of Education',
-    'College of Engineering',
-    'College of Fisheries',
-    'College of Forestry and Environmental Studies',
-    'College of Health Science',
-    'College of Hotel and Restaurant Management',
-    'College of Information and Computing Science',
-    'College of Law',
-    'College of Medicine',
-    'College of Natural Science and Mathematics',
-    'College of Public Affair',
-    'College of Social Science and Humanities',
-    'College of Sports, Physical Education and Recreation',
-    'King Faisal Center for Islamic, Arabic and Asian Studies',
-  ];
-
+  
   openSsgDetailDialog(val: SsgMemberDto) {
     this.showSSGDetails = true;
+  }
+
+  get allOfficers() {
+    return this.SsgOfficials.filter((i) => !!i.votes.length);
+  }
+
+  isLoading = true;
+  async onProclaimAllOfficers() {
+    this.isLoading = true;
+    this.$q
+      .dialog({
+        title: 'Do you want to proclaim the final candidates?',
+        message:
+          'Make sure that the Election for Prime Minister and Executive Secretary is over',
+        color: 'negative',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        await this.addProclaimSsgMember(this.allOfficers);
+        this.isLoading = false;
+        this.$q.notify({
+          type: 'positive',
+          message: 'Candidates has been proclaimed!.',
+        });
+      });
   }
 }
 </script>

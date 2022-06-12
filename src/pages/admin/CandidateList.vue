@@ -389,7 +389,7 @@
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
                         v-for="mode in fitModes"
                         :key="mode"
-                        style="max-width: 300px; height: 150px"
+                        style="max-width: 192px; height: 192px"
                         :fit="mode"
                         font-size="82px"
                         color="teal"

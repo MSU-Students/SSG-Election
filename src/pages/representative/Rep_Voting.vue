@@ -205,6 +205,7 @@
                   outline
                   class="text-primary full-width"
                   label="Clear Selection"
+                  @click="clearSelection"
                 />
               </div>
             </div>
@@ -262,7 +263,6 @@ export default class studentVote extends Vue {
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
-    console.log(this.allTempRep);
   }
 
   columns = [
