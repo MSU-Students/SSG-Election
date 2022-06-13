@@ -45,19 +45,17 @@
                         <div class="q-pa-md">
                           <div class="row">
                             <div class="col-4 q-gutter-sm">
-                              <div class="text-center">
+                              <div class="text-center" v-if="rep">
                                 <q-avatar size="70px">
                                   <q-img
                                     square
+                                    v-if="rep.student?.url"
                                     :src="`http://localhost:3000/media/${rep.student?.url}`"
-                                    v-for="mode in fitModes"
-                                    :key="mode"
-                                    style="max-width: 300px; height: 70px"
-                                    :fit="mode"
-                                    font-size="82px"
-                                    color="teal"
-                                    text-color="white"
-                                    icon="account_circle"
+                                  />
+                                  <q-img
+                                    v-if="!rep.student?.url"
+                                    src="~assets/images/MSU.jpg"
+                                    class="q-pb-sm"
                                   />
                                 </q-avatar>
                               </div>
@@ -115,7 +113,7 @@
                             <div class="col-4 q-gutter-sm">
                               <div class="text-center">
                                 <q-avatar size="70px">
-                                  <q-img
+                                  <!-- <q-img
                                     square
                                     :src="`http://localhost:3000/media/${rep.student?.url}`"
                                     v-for="mode in fitModes"
@@ -126,6 +124,16 @@
                                     color="teal"
                                     text-color="white"
                                     icon="account_circle"
+                                  /> -->
+                                  <q-img
+                                    square
+                                    v-if="rep.student?.url"
+                                    :src="`http://localhost:3000/media/${rep.student?.url}`"
+                                  />
+                                  <q-img
+                                    v-if="!rep.student?.url"
+                                    src="~assets/images/MSU.jpg"
+                                    class="q-pb-sm"
                                   />
                                 </q-avatar>
                               </div>
@@ -205,7 +213,6 @@
                   outline
                   class="text-primary full-width"
                   label="Clear Selection"
-                  @click="clearSelection"
                 />
               </div>
             </div>
@@ -247,7 +254,6 @@ export default class studentVote extends Vue {
   addVoteSsg!: (payload: VoteSsgDto) => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
-
 
   getAllRepresentative!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
@@ -316,26 +322,26 @@ export default class studentVote extends Vue {
     const prime = this.allTempRep[0];
     const secretary = this.allTempRep[1];
 
-      this.$q
-        .dialog({
-          message: 'Submit vote?',
-          cancel: true,
-          persistent: true,
-        })
-        .onOk(async () => {
-          //copy from
-          this.inputVoteSsg.prime = prime.student_id;
-          this.inputVoteSsg.secretary = secretary.student_id;
+    this.$q
+      .dialog({
+        message: 'Submit vote?',
+        cancel: true,
+        persistent: true,
+      })
+      .onOk(async () => {
+        //copy from
+        this.inputVoteSsg.prime = prime.student_id;
+        this.inputVoteSsg.secretary = secretary.student_id;
 
-          await this.addVoteSsg({...this.inputVoteSsg, voter_status: 'Voted'});
-          await this.$router.replace('/R_Result');
-          this.addNewVoteSsg = false;
-          this.resetModel();
-          this.$q.notify({
-            type: 'positive',
-            message: 'You have successfully voted.',
-          });
+        await this.addVoteSsg(this.inputVoteSsg);
+        await this.$router.replace('/R_Result');
+        this.addNewVoteSsg = false;
+        this.resetModel();
+        this.$q.notify({
+          type: 'positive',
+          message: 'You have successfully voted.',
         });
+      });
   }
 
   inputVoteSsg: any = {

@@ -37,12 +37,12 @@ export default class ChartComponent extends Vue {
         {
           label: 'Result',
           backgroundColor: [
-            'rgb(179,0,0)',
-            'rgb(33,186,69)',
             'rgb(231,200,24)',
             'rgb(3,87,142)',
-            'rgb(232,65,44)',
+            'rgb(179,0,0)',
             'rgb(46,109,86)',
+            'rgb(232,65,44)',
+            'rgb(33,186,69)',
           ],
           data: this.collegeCandidates.map((i) => i.votes.length),
           hoverOffset: 40,

@@ -116,10 +116,7 @@
                                         outlined
                                         label="First Name"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -137,10 +134,7 @@
                                         outlined
                                         label="Last Name"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -163,10 +157,7 @@
                                         fill-mask
                                         label="ID Number"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -177,10 +168,7 @@
                                         label="Email"
                                         type="email"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -192,10 +180,7 @@
                                         fill-mask
                                         label="Year Admitted"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                   </div>
@@ -209,10 +194,7 @@
                                         label="Course"
                                         hint="Ex. BS Information Technology"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -223,10 +205,7 @@
                                         label="Department"
                                         hint="Ex. Department of Information Technology"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                     <div class="col-12 col-md">
@@ -237,10 +216,7 @@
                                         :options="options"
                                         label="College"
                                         lazy-rules
-                                        :rules="[
-                                          (val) =>
-                                            (val && val.length > 0) || '',
-                                        ]"
+                                        :rules="[(val) => (val && val.length > 0) || '']"
                                       />
                                     </div>
                                   </div>
@@ -276,17 +252,9 @@
                   dropdown-icon="import_export"
                 >
                   <q-list>
-                    <q-item
-                      clickable
-                      v-close-popup
-                      @click="showAccountDialog(false)"
-                    >
+                    <q-item clickable v-close-popup @click="showAccountDialog(false)">
                       <q-item-section avatar>
-                        <q-avatar
-                          icon="file_upload"
-                          color="white"
-                          text-color="primary"
-                        />
+                        <q-avatar icon="file_upload" color="white" text-color="primary" />
                       </q-item-section>
                       <q-item-section @update:model-value="fileChoose($event)">
                         <q-item-label>Import</q-item-label>
@@ -320,10 +288,7 @@
                       flat
                       dense
                       @click="openEditDialog(props.row.student)"
-                      ><q-tooltip
-                        class="bg-warning text-black"
-                        :offset="[10, 10]"
-                      >
+                      ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
                         Edit
                       </q-tooltip></q-btn
                     >
@@ -373,9 +338,7 @@
                                       outlined
                                       label="First Name"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -393,9 +356,7 @@
                                       outlined
                                       label="Last Name"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -418,9 +379,7 @@
                                       fill-mask
                                       label="ID Number"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -431,9 +390,7 @@
                                       label="Email"
                                       type="email"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -445,9 +402,7 @@
                                       fill-mask
                                       label="Year Admitted"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                 </div>
@@ -461,9 +416,7 @@
                                       label="Course"
                                       hint="Ex. BS Information Technology"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -474,9 +427,7 @@
                                       label="Department"
                                       hint="Ex. Department of Information Technology"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                   <div class="col-12 col-md">
@@ -487,9 +438,7 @@
                                       :options="options"
                                       label="College"
                                       lazy-rules
-                                      :rules="[
-                                        (val) => (val && val.length > 0) || '',
-                                      ]"
+                                      :rules="[(val) => (val && val.length > 0) || '']"
                                     />
                                   </div>
                                 </div>
@@ -541,12 +490,75 @@
                       </q-tooltip></q-btn
                     >
                     <q-dialog v-model="showDetails">
-                      <q-card
-                        class="my-card"
+                      <div
+                        v-bind:class="{
+                          'justify-center': $q.screen.md || $q.screen.sm || $q.screen.xs,
+                        }"
+                        class="col-12 col-md-6 flex content-center q-pt-lg"
+                        v-if="inputUser"
+                      >
+                        <q-card
+                          class="shadow-10"
+                          color="primary"
+                          v-bind:style="
+                            $q.screen.lt.sm ? { width: '100%' } : { height: '100%' }
+                          "
+                        >
+                          <q-card-section>
+                            <q-avatar size="80px" class="absolute-center shadow-4">
+                              <q-img
+                                square
+                                v-if="inputUser.student?.url"
+                                :src="`http://localhost:3000/media/${inputUser.student?.url}`"
+                              />
+                              <q-img
+                                v-if="!inputUser.student?.url"
+                                src="~assets/images/MSU.jpg"
+                                class="q-pb-sm"
+                              />
+                            </q-avatar>
+                          </q-card-section>
+                          <q-card-section>
+                            <div class="q-pt-lg">
+                              <div class="col text-h6 ellipsis flex justify-center">
+                                <div
+                                  class="text-h4 text-warning q-my-none text-weight-bold"
+                                >
+                                  <div
+                                    class="text-h5 q-mt-sm q-mb-xs text-weight-bold text-uppercase"
+                                  >
+                                    {{ inputUser.student?.first_name }}
+                                    {{ inputUser.student?.middle_name }}
+                                    {{ inputUser.student?.last_name }}
+                                    {{ inputUser.student?.suffix }}
+                                  </div>
+                                </div>
+                              </div>
+                              <q-separator />
+                              <div class="q-gutter-sm row">
+                                <div class="col-md-4 q-pa-sm">
+                                  <div class="text-caption q-pt-sm">Username:</div>
+                                  <div
+                                    class="text-bold q-mt-sm q-mb-xs text-uppercase text-primary"
+                                  >
+                                    {{ inputUser.username }}
+                                  </div>
+                                </div>
+                                <div class="col-md-4 q-pa-sm">
+                                  <div class="text-caption q-pt-sm">Password:</div>
+                                  <div
+                                    class="text-bold q-mt-sm q-mb-xs text-uppercase text-primary"
+                                  >
+                                    {{ inputUser.password }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </q-card-section>
+                          <!-- <q-card class="my-card"
                         style="width: 500px; max-width: 60vw"
                         flat
-                        bordered
-                      >
+                        bordered>
                         <q-card-section class="bg-primary text-white">
                           <div class="text-h6">
                             Student Account Information
@@ -564,28 +576,25 @@
                         <q-card-section horizontal>
                           <q-card-section class="q-pt-xs col">
                             <div class="text-caption">Student Name:</div>
-                            <div class="text-h5 q-mt-sm q-mb-xs">
+                            <div class="text-h5 q-mt-sm q-mb-xs bold">
                               {{ inputUser.student?.last_name }},
                               {{ inputUser.student?.first_name }}
                               {{ inputUser.student?.middle_name }}
                               {{ inputUser.student?.suffix }}
                             </div>
                             <div class="text-captio q-pt-sm">Username:</div>
-                            <div
-                              class="text-bold q-mt-sm q-mb-xs text-uppercase"
-                            >
+                            <div class="text-bold q-mt-sm q-mb-xs text-uppercase">
                               {{ inputUser.username }}
                             </div>
                             <div class="text-caption">Password:</div>
 
-                            <div
-                              class="text-bold q-mt-sm q-mb-xs text-uppercase"
-                            >
+                            <div class="text-bold q-mt-sm q-mb-xs text-uppercase">
                               {{ inputUser.password }}
                             </div>
                           </q-card-section>
-                        </q-card-section>
-                      </q-card>
+                        </q-card-section> -->
+                        </q-card>
+                      </div>
                     </q-dialog>
                   </div>
                 </q-td>
@@ -619,14 +628,9 @@ import RepresentativeAccount from 'components/Account/representative.vue';
 import SsgAccounts from 'components/Account/ssgAccount.vue';
 import studentResult from './Result.vue';
 
-function wrapCsvValue(
-  val: string,
-  formatFn?: (v: string, r: any) => string,
-  row?: any
-) {
+function wrapCsvValue(val: string, formatFn?: (v: string, r: any) => string, row?: any) {
   let formatted = formatFn !== void 0 ? formatFn(val, row) : val;
-  formatted =
-    formatted === void 0 || formatted === null ? '' : String(formatted);
+  formatted = formatted === void 0 || formatted === null ? '' : String(formatted);
   formatted = formatted.split('"').join('""');
   /**
    * Excel accepts \n and \r in strings, but some other CSV parsers do not
@@ -877,9 +881,7 @@ export default class ManageAccount extends Vue {
     this.inputUser = { ...val };
   }
   mapUserProfile(user: StudentDto) {
-    return this.allAccount.filter(
-      (s) => user.student_id === s.student?.student_id
-    );
+    return this.allAccount.filter((s) => user.student_id === s.student?.student_id);
   }
 
   deleteSpecificAccount(val: UserDto) {
@@ -915,11 +917,11 @@ export default class ManageAccount extends Vue {
   }
 
   colorManipulation(student_type: string) {
-    if (student_type === "Regular") {
-      return "warning";
+    if (student_type === 'Regular') {
+      return 'warning';
     }
-    if (student_type === "Representative") {
-      return "positive";
+    if (student_type === 'Representative') {
+      return 'positive';
     }
   }
 
@@ -960,11 +962,7 @@ export default class ManageAccount extends Vue {
         ].join(',')
       )
     );
-    const status = exportFile(
-      'category-export.csv',
-      rows.join('\r\n'),
-      'text/csv'
-    );
+    const status = exportFile('category-export.csv', rows.join('\r\n'), 'text/csv');
     if (status !== true) {
       this.$q.notify({
         message: 'Browser denied file download...',

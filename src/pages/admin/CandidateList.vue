@@ -81,7 +81,6 @@
                       <q-select
                         :options="allStudent"
                         option-label="first_name"
-                        disable
                         readonly
                         option-value="student_id"
                         map-options
@@ -89,7 +88,7 @@
                         v-model="inputCandidate.student"
                         dense
                         outlined
-                        label="First Name (Disable and Read Only)"
+                        label="First Name (Read Only)"
                       >
                       </q-select>
                     </div>
@@ -97,7 +96,6 @@
                       <q-select
                         :options="allStudent"
                         option-label="last_name"
-                        disable
                         readonly
                         option-value="student_id"
                         map-options
@@ -105,7 +103,7 @@
                         v-model="inputCandidate.student"
                         dense
                         outlined
-                        label="Last Name (Disable and Read Only)"
+                        label="Last Name (Read Only)"
                       >
                       </q-select>
                     </div>
@@ -177,7 +175,7 @@
 
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
-            <div class="q-gutter-sm">
+            <div class="q-gutter-sm" v-if="inputCandidate">
               <q-btn
                 round
                 color="warning"
@@ -197,14 +195,7 @@
                   <q-card-section class="row">
                     <div class="text-h6">Edit Account</div>
                     <q-space />
-                    <q-btn
-                      flat
-                      round
-                      dense
-                      icon="close"
-                      color="primary"
-                      v-close-popup
-                    />
+                    <q-btn flat round dense icon="close" color="primary" v-close-popup />
                   </q-card-section>
 
                   <q-card-section class="q-gutter-sm">
@@ -228,14 +219,13 @@
                           :options="allStudent"
                           option-label="first_name"
                           option-value="student_id"
-                          disable
                           readonly
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
                           dense
                           outlined
-                          label="First Name (Disable and Read Only)"
+                          label="First Name (Read Only)"
                         >
                         </q-select>
                       </div>
@@ -244,14 +234,13 @@
                           :options="allStudent"
                           option-label="last_name"
                           option-value="student_id"
-                          disable
                           readonly
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
                           dense
                           outlined
-                          label="Last Name (Disable and Read Only)"
+                          label="Last Name (Read Only)"
                         >
                         </q-select>
                       </div>
@@ -386,28 +375,19 @@
                     <q-card-section class="col-4 flex flex-center">
                       <q-img
                         square
+                        v-if="inputCandidate.student?.url"
                         :src="`http://localhost:3000/media/${inputCandidate.student?.url}`"
-                        v-for="mode in fitModes"
-                        :key="mode"
-                        style="max-width: 192px; height: 192px"
-                        :fit="mode"
-                        font-size="82px"
-                        color="teal"
-                        text-color="white"
-                        icon="account_circle"
-                        ><q-tooltip class="bg-gray" :offset="[10, 10]">
-                          Account
-                        </q-tooltip></q-img
-                      >
+                      /><q-img
+                        v-if="!inputCandidate.student?.url"
+                        src="~assets/images/MSU.jpg"
+                      />
                     </q-card-section>
                   </q-card-section>
 
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">
-                      "{{ inputCandidate.platform }}"
-                    </div>
+                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
                   </q-card-section>
                 </q-card>
               </q-dialog>

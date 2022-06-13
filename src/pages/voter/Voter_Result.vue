@@ -9,31 +9,33 @@
       </div>
       <div class="">
         <q-card>
-          <div class="q-pa-sm q-col-gutter-x-xs row">
-            <div class="col-12 row justify-center items-center col-md">
+          <div class="q-pa-sm q-col-gutter-x-xs q-pa-md row">
+            <div class="col-12 col-md row q-gutter-xs justify-center items-center">
               <q-card class="my-card q-pa-sm">
                 <div v-for="rep in collegeCandidates" :key="rep.candidate.candidate_id">
-                  <q-card-section>
+                  <q-card-section class="q-pa-sm">
                     <div class="text-green text-overline">
                       Candidate {{ rep.candidate.candidate_id }}
                     </div>
-                    <div>
-                      Name:
-                      <strong>
-                        {{ rep.candidate.student?.last_name }},
-                        {{ rep.candidate.student?.first_name }}
-                        {{ rep.candidate.student?.middle_name }}
-                        {{ rep.candidate.student?.suffix }}
-                      </strong>
+                    <div class="row">
+                      <div class="col-12 col-md">
+                        Name:
+                        <strong>
+                          {{ rep.candidate.student?.last_name }},
+                          {{ rep.candidate.student?.first_name }}
+                          {{ rep.candidate.student?.middle_name }}
+                          {{ rep.candidate.student?.suffix }}
+                        </strong>
+                      </div>
+                      <div class="col-12 col-md">
+                        Total Votes: <strong>{{ rep.votes.length }}</strong>
+                      </div>
                     </div>
                     <div>
                       Course:
                       <strong>
                         {{ rep.candidate.student?.course }}
                       </strong>
-                    </div>
-                    <div>
-                      Total Votes: <strong>{{ rep.votes.length }}</strong>
                     </div>
                     <br />
                     <q-separator />
@@ -46,7 +48,7 @@
                 <div class="q-pa-md text-center text-bold text-primary">
                   College Representative in Graph
                 </div>
-                <representative-result />
+                <representative-result class="q-pa-md" />
               </q-card>
             </div>
           </div>

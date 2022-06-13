@@ -25,22 +25,20 @@
                     class="cursor-pointer"
                     style="width: 290px; max-width: 100vw"
                   >
-                    <div class="q-pa-md">
+                    <div class="q-pa-sm">
                       <div class="row">
                         <div class="col-4 q-gutter-sm">
-                          <div class="text-center">
+                          <div class="text-center" v-if="rep">
                             <q-avatar size="70px">
                               <q-img
                                 square
+                                v-if="rep.student?.url"
                                 :src="`http://localhost:3000/media/${rep.student?.url}`"
-                                v-for="mode in fitModes"
-                                :key="mode"
-                                style="max-width: 300px; height: 70px"
-                                :fit="mode"
-                                font-size="82px"
-                                color="teal"
-                                text-color="white"
-                                icon="account_circle"
+                              />
+                              <q-img
+                                v-if="!rep.student?.url"
+                                src="~assets/images/MSU.jpg"
+                                class="q-pb-sm"
                               />
                             </q-avatar>
                           </div>
@@ -270,7 +268,10 @@ export default class ManageElection extends Vue {
           this.inputVoteRep.rep1 = firstRep.student_id;
           this.inputVoteRep.rep2 = secondRep.student_id;
 
-          await this.addVoteRep({...this.inputVoteRep, voter_status: 'Voted'});
+          await this.addVoteRep({
+            ...this.inputVoteRep,
+            voter_status: 'Voted',
+          });
           await this.$router.replace('/V_Result');
           this.addNewVoteRep = false;
           this.resetModel();

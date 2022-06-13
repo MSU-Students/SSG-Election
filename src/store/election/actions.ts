@@ -62,10 +62,10 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
     });
     if (active && active.status == 'Inactive') {
       await context.dispatch('editElection', { ...active, status: 'Active' });
-    } else if (active && active.status != 'ELection Done') {
+    } else if (active && active.status != 'Election Done') {
       await context.dispatch('editElection', {
         ...active,
-        status: 'ELection Done',
+        status: 'Election Done',
       });
     }
     context.commit('setActiveElection', active);
