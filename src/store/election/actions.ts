@@ -41,18 +41,33 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
     if (!context.state.allElection) {
       await context.dispatch('getAllElection');
     }
-    const active = context.state.allElection?.find(election => {
+    const active = context.state.allElection?.find((election) => {
       const now = new Date();
-      const startDate = (election.start_date && election.start_time)
-        ? new Date(election.start_date + ' ' + election.start_time)
-        : now;
-      if ((election.end_date && election.end_time)) {
+      const startDate =
+        election.start_date && election.start_time
+          ? new Date(election.start_date + ' ' + election.start_time)
+          : now;
+      if (election.end_date && election.end_time) {
         const endDate = new Date(election.end_date + ' ' + election.end_time);
-        return startDate <= now && now < endDate; 
+        if (startDate <= now && now < endDate) {
+          return startDate <= now && now < endDate;
+        } else {
+          if (election.status == 'Active') {
+            return true;
+          }
+        }
       } else {
         return false;
       }
-    })
+    });
+    if (active && active.status == 'Inactive') {
+      await context.dispatch('editElection', { ...active, status: 'Active' });
+    } else if (active && active.status != 'ELection Done') {
+      await context.dispatch('editElection', {
+        ...active,
+        status: 'ELection Done',
+      });
+    }
     context.commit('setActiveElection', active);
   },
   async getOneElection(context, election_id: number): Promise<any> {

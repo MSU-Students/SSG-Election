@@ -327,7 +327,7 @@ export default class studentVote extends Vue {
           this.inputVoteSsg.prime = prime.student_id;
           this.inputVoteSsg.secretary = secretary.student_id;
 
-          await this.addVoteSsg(this.inputVoteSsg);
+          await this.addVoteSsg({...this.inputVoteSsg, voter_status: 'Voted'});
           await this.$router.replace('/R_Result');
           this.addNewVoteSsg = false;
           this.resetModel();

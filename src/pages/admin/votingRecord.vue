@@ -42,7 +42,7 @@ import { mapActions, mapState } from 'vuex';
     ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
   },
 })
-export default class ManageElection extends Vue {
+export default class VotingRecord extends Vue {
   allVoteRep!: VoteRepDto[];
   getAllvoteRep!: () => Promise<void>;
   async mounted() {
@@ -56,6 +56,7 @@ export default class ManageElection extends Vue {
       align: 'center',
       label: 'ID Number',
       field: (row: VoteRepDto) => row.student?.school_id,
+      sortable: true,
     },
     {
       name: 'name',
@@ -72,6 +73,14 @@ export default class ManageElection extends Vue {
       align: 'center',
       label: 'College',
       field: (row: VoteRepDto) => row.student?.college,
+      sortable: true,
+    },
+    {
+      name: 'action',
+      align: 'center',
+      label: 'Voting Status',
+      field: (row: VoteRepDto) => row.student?.college,
+      sortable: true,
     },
   ];
 }

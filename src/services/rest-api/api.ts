@@ -593,6 +593,12 @@ export interface VoteRepDto {
     'time': string;
     /**
      * 
+     * @type {string}
+     * @memberof VoteRepDto
+     */
+    'voter_status': string;
+    /**
+     * 
      * @type {StudentDto}
      * @memberof VoteRepDto
      */
@@ -633,7 +639,7 @@ export interface VoteSsgDto {
      * @type {string}
      * @memberof VoteSsgDto
      */
-    'academic_yr': string;
+    'voter_status': string;
     /**
      * 
      * @type {string}

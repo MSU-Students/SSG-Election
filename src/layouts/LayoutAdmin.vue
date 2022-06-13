@@ -67,7 +67,7 @@
                   color="primary"
                   label="Settings"
                   icon="settings"
-                  to="/setting"
+                  to="/manageAdmin"
                 />
               </div>
               <div class="row justify-center">
@@ -195,7 +195,7 @@
             class="q-mt-sm text-caption"
             label="Manage Account"
             icon="settings"
-            to="/setting"
+            to="/manageAdmin"
           />
         </div>
         <div class="row justify-center"></div>

@@ -51,7 +51,7 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     context.commit('clearSummary');
     this.state.representative.allRepresentative.forEach(reps => {
       const matchingVotes = context.state.allVoteSsg.filter(v => (
-        v.prime.student_id == reps.student?.student_id &&
+        v.prime.student_id == reps.student?.student_id ||
         v.secretary.student_id == reps.student?.student_id
       ));
       const votes = matchingVotes.map(v => ({

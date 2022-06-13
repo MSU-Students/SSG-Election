@@ -215,7 +215,7 @@
                 flat
                 dense
                 @click="openEditDialog(props.row)"
-              ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
+                ><q-tooltip class="bg-warning text-black" :offset="[10, 10]">
                   Edit
                 </q-tooltip></q-btn
               >
@@ -350,7 +350,7 @@
                 round
                 dense
                 @click="deleteSpecificElection(props.row)"
-              ><q-tooltip class="bg-red-10" :offset="[10, 10]">
+                ><q-tooltip class="bg-red-10" :offset="[10, 10]">
                   Delete
                 </q-tooltip></q-btn
               >
@@ -450,7 +450,7 @@ export default class ManageElection extends Vue {
   };
 
   async onaddElection() {
-    await this.addElection(this.inputElection);
+    await this.addElection({ ...this.inputElection, status: 'Inactive' });
     this.addNewElection = false;
     this.resetModel();
     this.$q.notify({

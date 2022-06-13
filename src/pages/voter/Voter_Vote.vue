@@ -16,9 +16,15 @@
         <div class="col-12 col-md">
           <q-card class="my-card q-pa-sm" style="max-width: 98vw">
             <div class="row">
-              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
+              <div
+                v-for="rep in collegeCandidates"
+                v-bind:key="rep.candidate_id"
+              >
                 <div class="col-12 col-md q-pa-xs">
-                  <q-card class="cursor-pointer" style="width: 290px; max-width: 100vw">
+                  <q-card
+                    class="cursor-pointer"
+                    style="width: 290px; max-width: 100vw"
+                  >
                     <div class="q-pa-md">
                       <div class="row">
                         <div class="col-4 q-gutter-sm">
@@ -124,7 +130,7 @@
 </template>
 
 <script lang="ts">
-import { CandidateDto, VoteRepDto } from 'src/services/rest-api';
+import { CandidateDto, ElectionDto, VoteRepDto } from 'src/services/rest-api';
 import { AUser } from 'src/store/auth/state';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
@@ -141,11 +147,13 @@ const currentDate = date.formatDate('YYYY-MM-DD');
     ...mapState('voteRep', ['allVoteRep']),
     ...mapState('tempRep', ['allTempRep']),
     ...mapState('auth', ['currentUser']),
+    ...mapState('election', ['activeElection']),
   },
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
     ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
     ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
+    ...mapActions('election', ['getActiveElection']),
   },
 })
 export default class ManageElection extends Vue {
@@ -159,10 +167,27 @@ export default class ManageElection extends Vue {
   clear!: () => Promise<void>;
   addTempRep!: (payload: TempRep) => Promise<void>;
 
+  getActiveElection!: () => Promise<void>;
+  activeElection!: ElectionDto;
+
   currentUser!: AUser;
 
   async mounted() {
     await this.getAllCandidate();
+    await this.getActiveElection();
+    if (!this.activeElection) {
+      this.$q
+        .dialog({
+          title: 'Election Not Started Yet',
+          message: 'Please try again after later',
+        })
+        .onOk(async () => {
+          await this.$router.replace('/V_Homepage');
+        })
+        .onCancel(() => {
+          // console.log('Cancel')
+        });
+    }
   }
 
   //filter by college
@@ -170,7 +195,9 @@ export default class ManageElection extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.allCandidate.filter((c) => c.student?.college == this.collegeName);
+    return this.allCandidate.filter(
+      (c) => c.student?.college == this.collegeName
+    );
   }
 
   filter = '';
@@ -243,7 +270,7 @@ export default class ManageElection extends Vue {
           this.inputVoteRep.rep1 = firstRep.student_id;
           this.inputVoteRep.rep2 = secondRep.student_id;
 
-          await this.addVoteRep(this.inputVoteRep);
+          await this.addVoteRep({...this.inputVoteRep, voter_status: 'Voted'});
           await this.$router.replace('/V_Result');
           this.addNewVoteRep = false;
           this.resetModel();
@@ -272,7 +299,7 @@ export default class ManageElection extends Vue {
       rep2: '',
       rep1: '',
       academic_yr: '',
-      date:'',
+      date: '',
       time: '',
     };
   }

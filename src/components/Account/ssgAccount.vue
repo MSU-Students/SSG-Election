@@ -285,7 +285,7 @@ export default class ManageAccount extends Vue {
         this.isLoading = false;
         this.$q.notify({
           type: 'positive',
-          message: 'Candidates has been proclaimed!.',
+          message: 'Officers has been proclaimed!.',
         });
       });
   }
