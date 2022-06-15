@@ -53,7 +53,12 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
           return startDate <= now && now < endDate;
         } else {
           if (election.status == 'Active') {
-            return true;
+            Promise.all([
+              context.dispatch('editElection', {
+                ...election,
+                status: 'Election Done',
+              }),
+            ]);
           }
         }
       } else {
@@ -62,11 +67,6 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
     });
     if (active && active.status == 'Inactive') {
       await context.dispatch('editElection', { ...active, status: 'Active' });
-    } else if (active && active.status != 'Election Done') {
-      await context.dispatch('editElection', {
-        ...active,
-        status: 'Election Done',
-      });
     }
     context.commit('setActiveElection', active);
   },

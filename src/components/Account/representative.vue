@@ -33,7 +33,7 @@
               icon="add"
               @click="addNewCandidate = true"
             >
-            <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+              <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
             </q-btn>
           </div>
           <div>
@@ -45,7 +45,7 @@
               :disable="allCollegeRepresentative.length < 0"
               @click="onProclaimAllCanditates()"
             >
-            <q-tooltip :offset="[0, 8]">Proclaim Candidates</q-tooltip>
+              <q-tooltip :offset="[0, 8]">Proclaim Candidates</q-tooltip>
             </q-btn>
           </div>
           <q-dialog v-model="addNewCandidate" persistent>
@@ -407,6 +407,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
+    ...mapActions('student',['editStudent']),
     ...mapActions('representative', [
       'addRepresentative',
       'addProclaimRepresentative',
@@ -424,6 +425,7 @@ export default class ManageAccount extends Vue {
   getAllElection!: () => Promise<void>;
   getAllVoteRep!: () => Promise<void>;
   proclaimAllCanditates!: (payload: ICandidateVote[]) => Promise<void>;
+  editStudent!: (payload: StudentDto) => Promise<void>;
 
   collegeRepresentatives!: ICandidateVote[];
   summary!: ICandidateVote[];
@@ -486,8 +488,15 @@ export default class ManageAccount extends Vue {
     {
       name: 'position',
       align: 'center',
-      label: 'Position',
+      label: 'Student Type',
       field: (row: RepresentativeDto) => row.student?.student_type,
+      sortable: true,
+    },
+    {
+      name: 'position',
+      align: 'center',
+      label: 'Position',
+      field: (row: RepresentativeDto) => row.position,
       sortable: true,
     },
   ];
@@ -504,7 +513,8 @@ export default class ManageAccount extends Vue {
 
   inputRepresentative: RepresentativeDto = {
     platform: '',
-    position: '',
+    position: 'Not assigned any candidacy',
+    voter_status: 'Not vote yet',
   };
 
   //---------------------------------------------------for Candidate
@@ -539,10 +549,8 @@ export default class ManageAccount extends Vue {
   }
 
   async onaddCandidateAccount() {
-    await this.addRepresentative({
-      ...this.inputRepresentative,
-      student_type: 'Representative',
-    });
+    await this
+    await this.addRepresentative(this.inputRepresentative);
     this.addNewCandidate = false;
     this.resetModelCandidate();
     this.$q.notify({
@@ -590,6 +598,7 @@ export default class ManageAccount extends Vue {
     this.inputRepresentative = {
       platform: '',
       position: '',
+      voter_status: 'Not vote yet',
     };
   }
 }

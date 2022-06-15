@@ -3,17 +3,19 @@
     <div class="q-pa-md">
       <q-table
         class="my-sticky-header-table"
-        title="Student Voting Record"
+        title="Student  Voting Record"
         :grid="$q.screen.xs"
-        :rows="allVoteRep"
         :columns="columns"
+        :rows="allStudent"
+        virtual-scroll
         row-key="name"
+        :rows-per-page-options="[0]"
         :filter="filter"
-        hide-bottom
       >
         <template v-slot:top-right>
           <q-input
-            borderless
+            outlined
+            rounded
             dense
             debounce="300"
             v-model="filter"
@@ -30,23 +32,26 @@
 </template>
 
 <script lang="ts">
-import { VoteRepDto } from 'src/services/rest-api';
+import { StudentDto, VoteRepDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
 @Options({
   computed: {
+    ...mapState('student', ['allStudent']),
     ...mapState('voteRep', ['allVoteRep']),
   },
   methods: {
-    ...mapActions('voteRep', ['addVoteRep', 'getAllvoteRep']),
+    ...mapActions('student', ['addVoteRep', 'getAllStudent']),
   },
 })
 export default class VotingRecord extends Vue {
   allVoteRep!: VoteRepDto[];
-  getAllvoteRep!: () => Promise<void>;
+  getAllStudent!: () => Promise<void>;
+  allStudent!: StudentDto[];
+
   async mounted() {
-    await this.getAllvoteRep();
+    await this.getAllStudent();
   }
 
   filter = '';
@@ -55,7 +60,7 @@ export default class VotingRecord extends Vue {
       name: 'action',
       align: 'center',
       label: 'ID Number',
-      field: (row: VoteRepDto) => row.student?.school_id,
+      field: (row: StudentDto) => row.school_id,
       sortable: true,
     },
     {
@@ -63,8 +68,7 @@ export default class VotingRecord extends Vue {
       required: true,
       label: 'Student Name',
       align: 'left',
-      field: (row: VoteRepDto) =>
-        row.student?.first_name + ' ' + row.student?.last_name,
+      field: (row: StudentDto) => row.first_name + ' ' + row.last_name,
       format: (val: string) => `${val}`,
       sortable: true,
     },
@@ -72,14 +76,14 @@ export default class VotingRecord extends Vue {
       name: 'action',
       align: 'center',
       label: 'College',
-      field: (row: VoteRepDto) => row.student?.college,
+      field: (row: StudentDto) => row.college,
       sortable: true,
     },
     {
       name: 'action',
       align: 'center',
       label: 'Voting Status',
-      field: (row: VoteRepDto) => row.student?.college,
+      field: (row: StudentDto) => row.voter_status,
       sortable: true,
     },
   ];

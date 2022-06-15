@@ -355,19 +355,21 @@
                   </q-card-section>
                   <q-card-section horizontal>
                     <q-card-section class="q-pt-xs col">
-                      <div class="text-overline">
-                        {{ inputCandidate.student?.college }}
-                      </div>
-                      <div class="text-h5 q-mt-sm q-mb-xs text-bold">
+                      
+                      <div class="text-h5 q-mb-xs text-bold">
                         {{ inputCandidate.student?.first_name }}
                         {{ inputCandidate.student?.middle_name }}
                         {{ inputCandidate.student?.last_name }}
+                      </div>
+                      
+                      <div class="text-overline">
+                        {{ inputCandidate.student?.college }}
                       </div>
                       <div class="text-caption">
                         {{ inputCandidate.student?.course }}
                       </div>
                       <div class="text-caption text-grey">
-                        Running as:
+                        Running for:
                         <strong>{{ inputCandidate.position_type }}</strong>
                       </div>
                     </q-card-section>

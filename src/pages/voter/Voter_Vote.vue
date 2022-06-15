@@ -180,7 +180,7 @@ export default class ManageElection extends Vue {
           message: 'Please try again after later',
         })
         .onOk(async () => {
-          await this.$router.replace('/V_Homepage');
+          await this.$router.replace('/V_List');
         })
         .onCancel(() => {
           // console.log('Cancel')

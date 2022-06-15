@@ -113,6 +113,12 @@ export interface CandidateDto {
      * @memberof CandidateDto
      */
     'student'?: StudentDto;
+    /**
+     * 
+     * @type {UserDto}
+     * @memberof CandidateDto
+     */
+    'user'?: UserDto;
 }
 /**
  * 
@@ -355,6 +361,12 @@ export interface RepresentativeDto {
     'platform': string;
     /**
      * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'voter_status': string;
+    /**
+     * 
      * @type {StudentDto}
      * @memberof RepresentativeDto
      */
@@ -477,6 +489,12 @@ export interface StudentDto {
     'student_type': string;
     /**
      * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'voter_status': string;
+    /**
+     * 
      * @type {number}
      * @memberof StudentDto
      */
@@ -593,12 +611,6 @@ export interface VoteRepDto {
     'time': string;
     /**
      * 
-     * @type {string}
-     * @memberof VoteRepDto
-     */
-    'voter_status': string;
-    /**
-     * 
      * @type {StudentDto}
      * @memberof VoteRepDto
      */
@@ -634,12 +646,6 @@ export interface VoteSsgDto {
      * @memberof VoteSsgDto
      */
     'secretary': StudentDto;
-    /**
-     * 
-     * @type {string}
-     * @memberof VoteSsgDto
-     */
-    'voter_status': string;
     /**
      * 
      * @type {string}

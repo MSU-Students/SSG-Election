@@ -1,10 +1,10 @@
 <template>
   <q-page>
-    <div class="q-pl-lg">
-      <div class="text-h5 q-pa-lg text-bold">
+    <div class="q-pa-md">
+      <!-- <div class="text-h5 q-pa-lg text-bold">
         <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
         Election Result
-      </div>
+      </div> -->
       <q-card>
         <q-tabs
           v-model="tab"
@@ -22,62 +22,56 @@
           <q-tab-panel name="representative">
             <!--R E R P R E S E N T A T I V E-->
             <div class="q-pa-xs q-gutter-sm row">
-              <div class="col-12 col-md">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="College Representative"
-                  class="my-sticky-header-table"
-                  :rows="allCollegeRepresentative"
-                  :columns="representative"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="row">
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
+              <q-table
+                :grid="$q.screen.xs"
+                title="College Representative"
+                title-class="text-h6 text-bold"
+                class="my-sticky-header-table"
+                :rows="allCollegeRepresentative"
+                :columns="representative"
+                row-key="name"
+                :filter="filter"
+              >
+                <template v-slot:top-right>
+                  <div class="q-gutter-sm row">
+                    
+                    <q-select
+                        :options="allStudent"
+                        option-label="college"
+                        option-value="student_id"
+                        map-options
+                        emit-value
                         v-model="filter"
-                        placeholder="Search"
+                        dense
+                        borderless
+                        label="Filtered by College"
                       >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                          <div>
-                            <q-fab
-                              color="primary"
-                              icon="filter_list"
-                              label="Filter by:"
-                              label-position="top"
-                              external-label
-                              padding="xs"
-                              direction="down"
-                            >
-                              <q-fab-action
-                                color="white"
-                                padding="5px"
-                                text-color="black"
-                                @click="filter"
-                                label="CICS"
-                                label-position="left"
-                              />
-                            </q-fab>
-                          </div>
-                        </template>
-                      </q-input>
-                    </div>
-                  </template>
-                </q-table>
-              </div>
-              <div class="col-12 col-md">
-                <q-card>
-                  <div class="q-pa-md text-center text-bold text-primary">
-                    College Representative: Graph Result
+                      <q-tooltip :offset="[0, 8]">Filtered by College</q-tooltip>
+                      </q-select>
+                    <q-input
+                      outlined
+                      rounded
+                      dense
+                      debounce="300"
+                      v-model="filter"
+                      placeholder="Search"
+                    >
+                      <template v-slot:append>
+                        <q-icon name="search" />
+                      </template>
+                    </q-input>
+                      
                   </div>
-                  <representative-result />
-                </q-card>
-              </div>
+                </template>
+              </q-table>
+            </div>
+            <div class="q-pa-xs q-gutter-sm row">
+              <q-card class="my-sticky-header-table">
+                <div class="q-pa-lg text-center text-bold text-primary">
+                  College Representative: Graph Result
+                </div>
+                <representative-result />
+              </q-card>
             </div>
           </q-tab-panel>
 
@@ -85,7 +79,7 @@
             <!--S S G - P R I M E - M I N I S T E R-->
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
-                <prime-table-result/>
+                <prime-table-result />
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -102,7 +96,7 @@
             <!--S S G - E X E C U T I V E - S E C R E T A R Y-->
             <div class="q-pa-xs q-gutter-sm row">
               <div class="col-12 col-md">
-                <secretary-table-result/>
+                <secretary-table-result />
               </div>
               <div class="col-12 col-md">
                 <q-card>
@@ -128,7 +122,12 @@ import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
 import PrimeTableResult from 'components/Election Result/primeResult.vue';
 import SecretaryTableResult from 'components/Election Result/secretaryResult.vue';
-import { VoteRepDto, StudentDto, VoteSsgDto, CandidateDto } from 'src/services/rest-api';
+import {
+  VoteRepDto,
+  StudentDto,
+  VoteSsgDto,
+  CandidateDto,
+} from 'src/services/rest-api';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 @Options({
   components: {
@@ -198,10 +197,10 @@ export default class studentResult extends Vue {
       sortable: true,
     },
     {
-      name: 'department',
+      name: 'college',
       align: 'center',
-      label: 'Department',
-      field: (row: ICandidateVote) => row.candidate.student?.department,
+      label: 'College',
+      field: (row: ICandidateVote) => row.candidate.student?.college,
       sortable: true,
     },
     {
@@ -215,6 +214,9 @@ export default class studentResult extends Vue {
   get allCollegeRepresentative() {
     return this.collegeRepresentatives.filter((i) => !!i.votes.length);
   }
+
+  label = '';
+  collegeFilter = '';
 }
 </script>
 

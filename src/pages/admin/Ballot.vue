@@ -357,6 +357,16 @@
             </div>
           </q-td>
         </template>
+        <template #body-cell-status="props">
+          <q-td :props="props">
+            <q-chip
+              flat
+              color="white"
+              :text-color="colorManipulation(props.row.status)"
+              :label="labelManipulation(props.row.status)"
+            />
+          </q-td>
+        </template>
       </q-table>
     </div>
     <!----------------------------------------------->
@@ -501,6 +511,29 @@ export default class ManageElection extends Vue {
       end_time: '',
       status: '',
     };
+  }
+
+  colorManipulation(status: string) {
+    if (status === 'Election Done') {
+      return 'grey';
+    }
+    if (status === 'Active') {
+      return 'positive';
+    }
+    if (status === 'Inactive') {
+      return 'red';
+    }
+  }
+  labelManipulation(status: string) {
+    if (status === 'Election Done') {
+      return 'Election Done';
+    }
+    if (status === 'Active') {
+      return 'Active';
+    }
+    if (status === 'Inactive') {
+      return 'Inactive';
+    }
   }
 }
 </script>
