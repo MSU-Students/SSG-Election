@@ -77,16 +77,32 @@
                     </div>
                     <div class="q-gutter-x-xs q-gutter-y-lg">
                       <q-input
+                        v-model="inputAdmin.position"
+                        dense
+                        outlined
+                        label="Position"
+                      />
+                      <q-input
                         v-model="inputUser.username"
                         dense
                         outlined
                         label="Username"
                       />
+                      
                       <q-input
                         v-model="inputUser.password"
                         dense
                         outlined
                         label="Password"
+                        lazy-rules
+                        :rules="[(val) => (val && val.length > 0) || '']"
+                      />
+                      <q-input
+                        v-model="inputUser.refreshToken"
+                        dense
+                        type="password"
+                        outlined
+                        label="Signup Code"
                         lazy-rules
                         :rules="[(val) => (val && val.length > 0) || '']"
                       />
@@ -176,6 +192,13 @@ export default class ManageElection extends Vue {
       label: 'Name',
       align: 'left',
       field: (row: AdminDto) => row.first_name + ' ' + row.last_name,
+      sortable: true,
+    },
+    {
+      name: 'position',
+      align: 'center',
+      label: 'Position',
+      field: (row: AdminDto) => row.position,
       sortable: true,
     },
     {

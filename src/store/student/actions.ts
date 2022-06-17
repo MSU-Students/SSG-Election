@@ -6,30 +6,20 @@ import { StudentStateInterface } from './state';
 
 const actions: ActionTree<StudentStateInterface, StateInterface> = {
   async importAllStudents(context, file: File) {
-    const result = await helperService.uploadMasterlist(file);
-    console.log('result', result)
-    await studentservice.addStudent(result as unknown as any);
-    // // generate account @ user entity
-    // result.map((r: any) => {
-    //   context.dispatch(
-    //     'users/addUsers',
-    //     {
-    //       userType: 'student',
-    //       userName: r.idNumber,
-    //       password: r.studentName
-    //         .split(',')[0]
-    //         .replace(/[^a-zA-Z\s]/g, '')
-    //         .toLowerCase(),
-    //       firstName: r.studentName.split(',')[1],
-    //       lastName: r.studentName.split(',')[0],
-    //       idNumber: r.idNumber,
-    //       disabled: false,
-    //       refreshToken: '',
-    //       status: 'enable',
-    //     },
-    //     { root: true }
-    //   );
-    // });A
+    const result = (await helperService.uploadMasterlist(file)) as any[];
+    result.map(async (res) => {
+      const student = await studentservice.create(res as unknown as any);
+      await context.dispatch(
+        'account/addAccount',
+        {
+          ...student,
+          student: student!.student_id,
+          userType: 'voter',
+          status: '',
+        },
+        { root: true }
+      );
+    });
     await context.dispatch('getAllStudent');
   },
   async addStudent(context, payload: any): Promise<any> {
