@@ -228,6 +228,7 @@ import {
   StudentDto,
   RepresentativeDto,
   VoteSsgDto,
+  ElectionDto,
 } from 'src/services/rest-api';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
@@ -239,6 +240,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('tempRep', ['allTempRep']),
+    ...mapState('election', ['activeElection']),
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
   },
   methods: {
@@ -248,6 +250,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ]),
     ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg', 'getAllVoteSsg']),
     ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
+    ...mapActions('election', ['getActiveElection']),
   },
 })
 export default class studentVote extends Vue {
@@ -265,10 +268,24 @@ export default class studentVote extends Vue {
 
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
+  activeElection!: ElectionDto;
 
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
+    if (!this.activeElection) {
+      this.$q
+        .dialog({
+          title: 'Election Not Started Yet',
+          message: 'Please try again after later',
+        })
+        .onOk(async () => {
+          await this.$router.replace('/R_Nominee');
+        })
+        .onCancel(() => {
+          // console.log('Cancel')
+        });
+    }
   }
 
   columns = [

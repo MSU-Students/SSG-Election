@@ -145,9 +145,9 @@ import { IRepresentativeVote } from 'src/store/vote-ssg/state';
   },
   methods: {
     ...mapActions('ssgMember', [
-      'addSsgMember',
       'addProclaimSsgMember',
       'getAllSsgMember',
+      'proclaimAllOfficers'
     ]),
   },
 })
@@ -269,6 +269,7 @@ export default class ManageAccount extends Vue {
   }
 
   isLoading = true;
+
   async onProclaimAllOfficers() {
     this.isLoading = true;
     this.$q
@@ -281,6 +282,7 @@ export default class ManageAccount extends Vue {
         persistent: true,
       })
       .onOk(async () => {
+        await this.proclaimAllOfficers(this.allOfficers);
         await this.addProclaimSsgMember(this.allOfficers);
         this.isLoading = false;
         this.$q.notify({

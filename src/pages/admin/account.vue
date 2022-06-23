@@ -703,21 +703,16 @@
           />
         </q-card-section>
         <q-card-section>
-          <div>
-            Reminders: Before importing data, make sure that the name of every
-            columns must be anmed by the sample below
+          <div class="text-negative">
+            Reminders: Before importing data, make sure that the column names must be named by the sample below
           </div>
-          <div>
+          <div class="q-pt-md">
             <q-img
               class="wave"
               src="~assets/images/table_sample.png"
-              :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
-              :label="
-                $q.fullscreen.isActive ? 'Exit Fullscreen' : 'Go Fullscreen'
-              "
             />
           </div>
-          <div class="q-gutter-md" style="max-width: 1000px">
+          <div class="q-pa-md q-gutter-md" style="max-width: 500px">
             <q-file
               filled
               v-model="file"

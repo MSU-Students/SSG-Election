@@ -384,8 +384,8 @@
             <q-chip
               flat
               color="white"
-              :text-color="colorManipulation(props.row.status)"
-              :label="labelManipulation(props.row.status)"
+              :text-color="colorManipulation(props.row.position)"
+              :label="labelManipulation(props.row.position)"
             />
           </q-td>
         </template>
@@ -604,7 +604,7 @@ export default class ManageAccount extends Vue {
   resetModelCandidate() {
     this.inputRepresentative = {
       platform: '',
-      position: '',
+      position: 'No candidacy filed',
       voter_status: 'Not voted yet',
     };
   }
