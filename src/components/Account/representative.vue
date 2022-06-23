@@ -316,72 +316,79 @@
               </q-tooltip></q-btn
             >
             <q-dialog v-model="showDetails">
-              <q-card
-                class="my-card"
-                style="width: 700px; max-width: 60vw"
-                flat
-                bordered
-              >
-                <q-card-section>
-                  <div class="text-h6">
-                    Representative Information
-                    <q-btn
-                      round
-                      flat
-                      dense
-                      icon="close"
-                      class="float-right"
-                      color="primary"
-                      v-close-popup
-                    ></q-btn>
-                  </div>
-                </q-card-section>
-                <q-card-section horizontal>
-                  <q-card-section class="q-pt-xs col">
-                    <div class="text-overline">Mindanao State University</div>
-                    <div class="text-caption">
-                      {{ inputRepresentative.student?.college }}
-                      -
-                      {{ inputRepresentative.student?.course }}
-                    </div>
-                    <div class="text-h5 q-mt-sm q-mb-xs">
-                      {{ inputRepresentative.student?.last_name }},
-                      {{ inputRepresentative.student?.first_name }}
-                      {{ inputRepresentative.student?.middle_name }}
-                    </div>
-                    <div class="text-caption text-grey">
-                      {{ inputRepresentative.position }}
+                <q-card
+                  class="my-card q-pa-md"
+                  style="width: 600px; max-width: 60vw"
+                  flat
+                  bordered
+                >
+                  <q-card-section>
+                    <div class="text-h6">
+                      Candidate Information
+                      <q-btn
+                        round
+                        flat
+                        dense
+                        icon="close"
+                        class="float-right"
+                        color="primary"
+                        v-close-popup
+                      ></q-btn>
                     </div>
                   </q-card-section>
+                  <q-card-section horizontal>
+                    <q-card-section class="q-pt-xs col">
+                      
+                      <div class="text-h5 q-mb-xs text-bold">
+                        {{ inputRepresentative.student?.first_name }}
+                        {{ inputRepresentative.student?.middle_name }}
+                        {{ inputRepresentative.student?.last_name }}
+                      </div>
+                      
+                      <div class="text-overline">
+                        {{ inputRepresentative.student?.college }}
+                      </div>
+                      <div class="text-caption">
+                        {{ inputRepresentative.student?.course }}
+                      </div>
+                      <div class="text-caption text-grey">
+                        Running for:
+                        <strong>{{ inputRepresentative.position }}</strong>
+                      </div>
+                    </q-card-section>
 
-                  <q-card-section class="col-5 flex flex-center">
-                    <q-img
-                      square
-                      :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
-                      style="max-width: 300px; height: 150px"
-                      font-size="82px"
-                      color="teal"
-                      text-color="white"
-                      icon="account_circle"
-                      ><q-tooltip class="bg-primary" :offset="[10, 10]">
-                        Account
-                      </q-tooltip></q-img
-                    >
+                    <q-card-section class="col-4 flex flex-center">
+                      <q-img
+                        square
+                        v-if="inputRepresentative.student?.url"
+                        :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
+                      /><q-img
+                        v-if="!inputRepresentative.student?.url"
+                        src="~assets/images/MSU.jpg"
+                      />
+                    </q-card-section>
                   </q-card-section>
-                </q-card-section>
 
-                <q-separator />
+                  <q-separator />
 
-                <q-card-section>
-                  <div class="text-italic text-h5">
-                    {{ inputRepresentative.platform }}
-                  </div>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
+                  <q-card-section>
+                    <div class="text-italic text-h5">"{{ inputRepresentative.platform }}"</div>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
           </div>
         </q-td>
       </template>
+      <template #body-cell-position="props">
+          <q-td :props="props">
+            <q-chip
+              flat
+              color="white"
+              :text-color="colorManipulation(props.row.status)"
+              :label="labelManipulation(props.row.status)"
+            />
+          </q-td>
+        </template>
     </q-table>
   </div>
 </template>
@@ -486,7 +493,7 @@ export default class ManageAccount extends Vue {
       sortable: true,
     },
     {
-      name: 'position',
+      name: 'status',
       align: 'center',
       label: 'Student Type',
       field: (row: RepresentativeDto) => row.student?.student_type,
@@ -513,7 +520,7 @@ export default class ManageAccount extends Vue {
 
   inputRepresentative: RepresentativeDto = {
     platform: '',
-    position: 'Not assigned any candidacy',
+    position: 'No candidacy filed',
     voter_status: 'Not vote yet',
   };
 
@@ -598,8 +605,31 @@ export default class ManageAccount extends Vue {
     this.inputRepresentative = {
       platform: '',
       position: '',
-      voter_status: 'Not vote yet',
+      voter_status: 'Not voted yet',
     };
+  }
+
+  colorManipulation(position: string) {
+    if (position === 'No candidacy filed') {
+      return 'grey';
+    }
+    if (position === 'Prime Minister') {
+      return 'positive';
+    }
+    if (position === 'Executive Secretary') {
+      return 'positive';
+    }
+  }
+  labelManipulation(position: string) {
+    if (position === 'No candidacy filed') {
+      return 'No candidacy filed';
+    }
+    if (position === 'Prime Minister') {
+      return 'Prime Minister';
+    }
+    if (position === 'Executive Secretary') {
+      return 'Executive Secretary';
+    }
   }
 }
 </script>
@@ -608,9 +638,9 @@ export default class ManageAccount extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 100%
-  max-height: 700px
+  max-height: 100%
   width: 100%
-  max-width: 1500px
+  max-width: 100%
 
 
   .q-table__top,

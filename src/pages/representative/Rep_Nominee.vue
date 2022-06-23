@@ -56,15 +56,13 @@
                               <q-avatar size="90px">
                                 <q-img
                                   square
+                                  v-if="data.student?.url"
                                   :src="`http://localhost:3000/media/${data.student?.url}`"
-                                  v-for="mode in fitModes"
-                                  :key="mode"
-                                  style="max-width: 200px; height: 70px"
-                                  :fit="mode"
-                                  font-size="82px"
-                                  color="teal"
-                                  text-color="white"
-                                  icon="account_circle"
+                                />
+                                <q-img
+                                  v-if="!data.student?.url"
+                                  src="~assets/images/MSU.jpg"
+                                  class="q-pb-sm"
                                 />
                               </q-avatar>
                             </div>
@@ -123,15 +121,11 @@
                               <q-avatar size="90px">
                                 <q-img
                                   square
+                                  v-if="data.student?.url"
                                   :src="`http://localhost:3000/media/${data.student?.url}`"
-                                  v-for="mode in fitModes"
-                                  :key="mode"
-                                  style="max-width: 200px; height: 70px"
-                                  :fit="mode"
-                                  font-size="82px"
-                                  color="teal"
-                                  text-color="white"
-                                  icon="account_circle"
+                                /><q-img
+                                  v-if="!data.student?.url"
+                                  src="~assets/images/MSU.jpg"
                                 />
                               </q-avatar>
                             </div>

@@ -108,7 +108,7 @@ export default class studentResult extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 100%
-  max-height: 600px
+  max-height: 100%
   width: 100%
-  max-width: 1500px
+  max-width: 100%
 </style>

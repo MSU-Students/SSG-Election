@@ -541,8 +541,8 @@ export default class ManageElection extends Vue {
 <style>
 .my-sticky-header-table {
   height: 100%;
-  max-height: 700px;
+  max-height: 100%;
   width: 100%;
-  max-width: 1500px;
+  max-width: 100%;
 }
 </style>

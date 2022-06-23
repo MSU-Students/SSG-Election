@@ -296,9 +296,9 @@ export default class ManageAccount extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 100%
-  max-height: 700px
+  max-height: 100%
   width: 100%
-  max-width: 1500px
+  max-width: 100%
 
 
   .q-table__top,

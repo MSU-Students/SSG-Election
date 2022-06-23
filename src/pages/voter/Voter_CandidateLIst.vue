@@ -35,17 +35,15 @@
                     <div class="text-center">
                       <q-avatar size="93px">
                         <q-img
-                          square
-                          :src="`http://localhost:3000/media/${rep.student?.url}`"
-                          v-for="mode in fitModes"
-                          :key="mode"
-                          style="max-width: 200px; height: 70px"
-                          :fit="mode"
-                          font-size="82px"
-                          color="teal"
-                          text-color="white"
-                          icon="account_circle"
-                        />
+                                square
+                                v-if="rep.student?.url"
+                                :src="`http://localhost:3000/media/${rep.student?.url}`"
+                              />
+                              <q-img
+                                v-if="!rep.student?.url"
+                                src="~assets/images/MSU.jpg"
+                                class="q-pb-sm"
+                              />
                       </q-avatar>
                     </div>
                   </div>

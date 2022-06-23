@@ -690,9 +690,9 @@
     </div>
 
     <q-dialog v-model="showImportDialog" persistent>
-      <q-card style="width: 500px">
+      <q-card style="width: 1000px">
         <q-card-section class="row items-center q-pb-none">
-          <div class="text-h5">ADD</div>
+          <div class="text-h5">Import .CSV file</div>
           <q-space />
           <q-btn
             icon="close"
@@ -703,7 +703,21 @@
           />
         </q-card-section>
         <q-card-section>
-          <div class="q-gutter-md" style="max-width: 500px">
+          <div>
+            Reminders: Before importing data, make sure that the name of every
+            columns must be anmed by the sample below
+          </div>
+          <div>
+            <q-img
+              class="wave"
+              src="~assets/images/table_sample.png"
+              :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+              :label="
+                $q.fullscreen.isActive ? 'Exit Fullscreen' : 'Go Fullscreen'
+              "
+            />
+          </div>
+          <div class="q-gutter-md" style="max-width: 1000px">
             <q-file
               filled
               v-model="file"
@@ -836,19 +850,20 @@ export default class ManageAccount extends Vue {
       sortable: true,
     },
     {
+      name: 'year',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: UserDto) => row.student?.yr_admitted,
+      sortable: true,
+    },
+    {
       name: 'course',
       align: 'center',
       label: 'Course',
       field: (row: UserDto) => row.student?.course,
       sortable: true,
     },
-    {
-      name: 'department',
-      align: 'center',
-      label: 'Department',
-      field: (row: UserDto) => row.student?.department,
-      sortable: true,
-    },
+
     {
       name: 'college',
       align: 'center',
@@ -1066,6 +1081,7 @@ export default class ManageAccount extends Vue {
       wrapCsvValue('Last Name'),
       wrapCsvValue('Suffix'),
       wrapCsvValue('Email'),
+      wrapCsvValue('Year Admitted'),
       wrapCsvValue('Course'),
       wrapCsvValue('Department'),
       wrapCsvValue('College'),
@@ -1081,6 +1097,7 @@ export default class ManageAccount extends Vue {
           wrapCsvValue(String(c.student?.last_name)),
           wrapCsvValue(String(c.student?.suffix)),
           wrapCsvValue(String(c.student?.email)),
+          wrapCsvValue(String(c.student?.yr_admitted)),
           wrapCsvValue(String(c.student?.course)),
           wrapCsvValue(String(c.student?.department)),
           wrapCsvValue(String(c.student?.college)),
@@ -1111,6 +1128,20 @@ export default class ManageAccount extends Vue {
   hideDialog() {
     this.file = [];
   }
+
+  // toggle (e) {
+  //       const target = e.target.parentNode.parentNode.parentNode
+
+  //       $q.fullscreen.toggle(target)
+  //         .then(() => {
+  //           // success!
+  //         })
+  //         .catch((err) => {
+  //           alert(err)
+  //           // uh, oh, error!!
+  //           // console.error(err)
+  //         })
+  //     }
 
   fileChoose(val: any) {
     this.file = val;

@@ -36,6 +36,7 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
     payload.map(async (i: any) => {
       const newPayload = {
         student: i.candidate.student?.student_id,
+        position: 'No candidacy filed',
       };
 
       const result = await representativeservice.create(newPayload);
