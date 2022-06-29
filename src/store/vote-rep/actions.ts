@@ -3,14 +3,25 @@ import voterepservice from 'src/services/vote-rep.service';
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { VoteRepStateInterface, IRepVote, ICandidateVote } from './state';
+import { date } from 'quasar';
 
 const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
   async addVoteRep(context, payload: VoteRepDto): Promise<void> {
     payload.student = this.state.auth.currentUser?.student;
+    const check = this.state.auth.currentUser?.student;
+    const dateNow = new Date();
+    const currentMonth = date.formatDate(dateNow, 'YYYY-MM-DD:HH:mm');
     //change voter_status = voted
-    const result = await voterepservice.create(payload);
+    const result = await voterepservice.create({
+      ...payload,
+      date: currentMonth,
+    });
     context.commit('setNewVoteRep', result);
     await context.dispatch('getAllVoteRep');
+    await this.dispatch('student/editStudent', {
+      ...check,
+      voter_status: 'Voted',
+    });
   },
 
   async editVoteRep(context, payload: any): Promise<any> {
@@ -36,9 +47,15 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     const reps = res.map((rep) => {
       candidates.map((can, i) => {
         if (can.student?.student_id == rep.rep1.student_id) {
-          context.dispatch('addVote', { vote: 1, repId: rep.rep1.student_id });
+          context.dispatch('addVote', {
+            vote: 1,
+            repId: rep.rep1.student_id,
+          });
         } else if (can.student?.student_id == rep.rep2.student_id) {
-          context.dispatch('addVote', { vote: 1, repId: rep.rep2.student_id });
+          context.dispatch('addVote', {
+            vote: 1,
+            repId: rep.rep2.student_id,
+          });
         }
       });
     });
@@ -47,20 +64,27 @@ const actions: ActionTree<VoteRepStateInterface, StateInterface> = {
     await this.dispatch('student/getAllStudent');
     await this.dispatch('candidate/getAllCandidate');
     context.commit('clearSummary');
-    this.state.candidate.allCandidate.forEach(candiate => {
-      const matchingVotes = context.state.allVoteRep.filter(v => (
-        v.rep1.student_id == candiate.student?.student_id ||
-        v.rep2.student_id == candiate.student?.student_id
-      ));
-      const votes = matchingVotes.map(v => ({
-        voteId: v.vote_rep_id,
-        repPlace: (v.rep1.student_id == candiate.student?.student_id) ? 'rep1' : 'rep2'
-      } as IRepVote));
+    this.state.candidate.allCandidate.forEach((candiate) => {
+      const matchingVotes = context.state.allVoteRep.filter(
+        (v) =>
+          v.rep1.student_id == candiate.student?.student_id ||
+          v.rep2.student_id == candiate.student?.student_id
+      );
+      const votes = matchingVotes.map(
+        (v) =>
+          ({
+            voteId: v.vote_rep_id,
+            repPlace:
+              v.rep1.student_id == candiate.student?.student_id
+                ? 'rep1'
+                : 'rep2',
+          } as IRepVote)
+      );
       context.commit('addCandidateSummry', {
         candidate: candiate,
-        votes: votes
-      } as ICandidateVote)
-    })
+        votes: votes,
+      } as ICandidateVote);
+    });
   },
 
   async getOneVoteRep(context, voterep_id: number): Promise<any> {

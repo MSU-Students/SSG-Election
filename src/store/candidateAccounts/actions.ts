@@ -29,6 +29,7 @@ const actions: ActionTree<CandidateStateInterface, StateInterface> = {
     context.commit('getAllCandidate', res);
     await this.dispatch('student/getAllStudent');
     await this.dispatch('election/getAllElection');
+    await this.dispatch('account/getAllUser');
   },
 
   async getOneCandidate(context, candidate_id: number): Promise<any> {

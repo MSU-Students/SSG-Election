@@ -330,6 +330,7 @@ export default class studentVote extends Vue {
         ...data.student,
         student_id: data.student?.student_id,
         temp_tally_id: 0,
+        userID: data.student?.user?.account_id
       } as TempRep);
     }
   }

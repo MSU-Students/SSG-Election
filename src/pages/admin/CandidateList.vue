@@ -71,11 +71,22 @@
                         map-options
                         emit-value
                         v-model="inputCandidate.student"
+                        @update:model-value="onSelectStudent"
                         dense
                         outlined
                         label="Select ID Number"
                       >
                       </q-select>
+                    </div>
+                    <!-- foreign key -->
+                    <div class="col">
+                      <q-input
+                        dense
+                        outlined
+                        readonly
+                        v-model="inputCandidate.user"
+                        label="User ID"
+                      />
                     </div>
                     <div class="col">
                       <q-select
@@ -89,8 +100,7 @@
                         dense
                         outlined
                         label="First Name (Read Only)"
-                      >
-                      </q-select>
+                      />
                     </div>
                     <div class="col">
                       <q-select
@@ -195,7 +205,14 @@
                   <q-card-section class="row">
                     <div class="text-h6">Edit Account</div>
                     <q-space />
-                    <q-btn flat round dense icon="close" color="primary" v-close-popup />
+                    <q-btn
+                      flat
+                      round
+                      dense
+                      icon="close"
+                      color="primary"
+                      v-close-popup
+                    />
                   </q-card-section>
 
                   <q-card-section class="q-gutter-sm">
@@ -208,6 +225,7 @@
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
+                          @update:model-value="onSelectStudent"
                           dense
                           outlined
                           label="Select ID Number"
@@ -218,23 +236,31 @@
                         <q-select
                           :options="allStudent"
                           option-label="first_name"
-                          option-value="student_id"
                           readonly
+                          option-value="student_id"
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
                           dense
                           outlined
                           label="First Name (Read Only)"
-                        >
-                        </q-select>
+                        />
+
+                        <!-- foreign key -->
+                        <q-input
+                          dense
+                          outlined
+                          readonly
+                          v-model="inputCandidate.user"
+                          label="User ID"
+                        />
                       </div>
                       <div class="col">
                         <q-select
                           :options="allStudent"
                           option-label="last_name"
-                          option-value="student_id"
                           readonly
+                          option-value="student_id"
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
@@ -271,7 +297,7 @@
                           v-model="inputCandidate.election"
                           dense
                           outlined
-                          label="Academic Tyoe"
+                          label="Academic Type"
                           lazy-rules
                           :rules="[(val) => (val && val.length > 0) || '']"
                         >
@@ -301,7 +327,7 @@
                         label="Save"
                         color="primary"
                         type="submit"
-                        @click="onEditCandidateAccount()"
+                        @click="onaddCandidateAccount()"
                       />
                     </div>
                   </q-card-section>
@@ -355,13 +381,12 @@
                   </q-card-section>
                   <q-card-section horizontal>
                     <q-card-section class="q-pt-xs col">
-                      
                       <div class="text-h5 q-mb-xs text-bold">
                         {{ inputCandidate.student?.first_name }}
                         {{ inputCandidate.student?.middle_name }}
                         {{ inputCandidate.student?.last_name }}
                       </div>
-                      
+
                       <div class="text-overline">
                         {{ inputCandidate.student?.college }}
                       </div>
@@ -389,7 +414,9 @@
                   <q-separator />
 
                   <q-card-section>
-                    <div class="text-italic text-h5">"{{ inputCandidate.platform }}"</div>
+                    <div class="text-italic text-h5">
+                      "{{ inputCandidate.platform }}"
+                    </div>
                   </q-card-section>
                 </q-card>
               </q-dialog>
@@ -403,7 +430,12 @@
 </template>
 
 <script lang="ts">
-import { CandidateDto, StudentDto, ElectionDto } from 'src/services/rest-api';
+import {
+  CandidateDto,
+  StudentDto,
+  ElectionDto,
+  UserDto,
+} from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapState } from 'vuex';
 
@@ -412,6 +444,7 @@ import { mapActions, mapState } from 'vuex';
     ...mapState('candidate', ['allCandidate']),
     ...mapState('student', ['allStudent']),
     ...mapState('election', ['allElection']),
+    ...mapState('account', ['allAccount']),
   },
   methods: {
     ...mapActions('candidate', [
@@ -420,6 +453,7 @@ import { mapActions, mapState } from 'vuex';
       'deleteCandidate',
       'getAllCandidate',
     ]),
+    ...mapActions('account', ['getAllUser']),
   },
 })
 export default class ManageElection extends Vue {
@@ -429,12 +463,15 @@ export default class ManageElection extends Vue {
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
   allElection!: ElectionDto[];
+  allAccount!: UserDto[];
+  getAllUser!: () => Promise<void>;
 
   getAllStudent!: () => Promise<void>;
   allStudent!: StudentDto[];
 
   async mounted() {
     await this.getAllCandidate();
+    await this.getAllUser();
   }
 
   CandidateColumn = [
@@ -507,6 +544,12 @@ export default class ManageElection extends Vue {
     position_type: 'Representative',
     platform: '',
   };
+
+  onSelectStudent(user: UserDto) {
+    if (user.student?.school_id === this.inputCandidate.student) {
+      this.inputCandidate.user = user.account_id;
+    }
+  }
 
   async onaddCandidateAccount() {
     await this.addCandidate(this.inputCandidate);

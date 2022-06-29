@@ -704,13 +704,11 @@
         </q-card-section>
         <q-card-section>
           <div class="text-negative">
-            Reminders: Before importing data, make sure that the column names must be named by the sample below
+            Reminders: Before importing data, make sure that the column names
+            must be named by the sample below
           </div>
           <div class="q-pt-md">
-            <q-img
-              class="wave"
-              src="~assets/images/table_sample.png"
-            />
+            <q-img class="wave" src="~assets/images/table_sample.png" />
           </div>
           <div class="q-pa-md q-gutter-md" style="max-width: 500px">
             <q-file
@@ -944,6 +942,7 @@ export default class ManageAccount extends Vue {
           ...this.inputUser,
           student: profile.student_id,
         });
+
         this.$q.notify({
           type: 'positive',
           message: 'Account is successfully added.',
@@ -1086,16 +1085,16 @@ export default class ManageAccount extends Vue {
     const rows = [header.join(',')].concat(
       this.allAccount.map((c) =>
         [
-          wrapCsvValue(String(c.student?.school_id)),
-          wrapCsvValue(String(c.student?.first_name)),
-          wrapCsvValue(String(c.student?.middle_name)),
-          wrapCsvValue(String(c.student?.last_name)),
-          wrapCsvValue(String(c.student?.suffix)),
-          wrapCsvValue(String(c.student?.email)),
-          wrapCsvValue(String(c.student?.yr_admitted)),
-          wrapCsvValue(String(c.student?.course)),
-          wrapCsvValue(String(c.student?.department)),
-          wrapCsvValue(String(c.student?.college)),
+          wrapCsvValue(String(c.student?.school_id || '')),
+          wrapCsvValue(String(c.student?.first_name || '')),
+          wrapCsvValue(String(c.student?.middle_name || '')),
+          wrapCsvValue(String(c.student?.last_name || '')),
+          wrapCsvValue(String(c.student?.suffix || '')),
+          wrapCsvValue(String(c.student?.email || '')),
+          wrapCsvValue(String(c.student?.yr_admitted || '')),
+          wrapCsvValue(String(c.student?.course || '')),
+          wrapCsvValue(String(c.student?.department || '')),
+          wrapCsvValue(String(c.student?.college || '')),
           wrapCsvValue(c.username),
           wrapCsvValue(c.password),
         ].join(',')
@@ -1143,8 +1142,20 @@ export default class ManageAccount extends Vue {
   }
 
   async importStudents() {
-    this.isUpload = true;
-    await this.importAllStudents(this.file);
+    try {
+      this.isUpload = true;
+      await this.importAllStudents(this.file);
+      this.$q.notify({
+        type: 'positive',
+        message: 'Successfully imported.',
+      });
+    } catch (error) {
+      this.$q.notify({
+        type: 'warning',
+        message: 'Unsuccesfull Import.',
+      });
+    }
+
     this.isUpload = false;
     this.showAccountDialog(false);
   }

@@ -14,17 +14,18 @@ class HelperService {
             const newStructure: StudentDto[] = results.data.map(
               (i: StudentDto) => {
                 return {
-                  school_id: String(i.school_id),
-                  first_name: String(i.first_name),
-                  middle_name: String(i.middle_name),
+                  school_id: String(i.school_id)|| '',
+                  first_name: String(i.first_name)|| '',
+                  middle_name: String(i.middle_name)|| '',
                   last_name: String(i.last_name),
-                  suffix: String(i.suffix),
+                  suffix: String(i.suffix) || '',
                   email: String(i.email),
-                  yr_admitted: String(i.yr_admitted),
-                  college: String(i.college),
-                  course: String(i.course),
-                  department: String(i.department),
+                  yr_admitted: String(i.yr_admitted)|| '',
+                  college: String(i.college)|| '',
+                  course: String(i.course)|| '',
+                  department: String(i.department)|| '',
                   student_type: 'Regular',
+                  voter_status: 'Not vote yet',
                 };
               }
             );

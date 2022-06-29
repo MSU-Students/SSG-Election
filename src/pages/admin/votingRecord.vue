@@ -26,6 +26,16 @@
             </template>
           </q-input>
         </template>
+        <template #body-cell-status="props">
+          <q-td :props="props">
+            <q-chip
+              flat
+              color="white"
+              :text-color="colorManipulation(props.row.voter_status)"
+              :label="labelManipulation(props.row.voter_status)"
+            />
+          </q-td>
+        </template>
       </q-table>
     </div>
   </q-page>
@@ -73,20 +83,37 @@ export default class VotingRecord extends Vue {
       sortable: true,
     },
     {
-      name: 'action',
+      name: 'college',
       align: 'center',
       label: 'College',
       field: (row: StudentDto) => row.college,
       sortable: true,
     },
     {
-      name: 'action',
+      name: 'status',
       align: 'center',
       label: 'Voting Status',
       field: (row: StudentDto) => row.voter_status,
       sortable: true,
     },
   ];
+
+  colorManipulation(voter_status: string) {
+    if (voter_status === 'Voted') {
+      return 'positive';
+    }
+    if (voter_status === 'Not vote yet') {
+      return 'grey';
+    }
+  }
+  labelManipulation(voter_status: string) {
+    if (voter_status === 'Voted') {
+      return 'Voted';
+    }
+    if (voter_status === 'Not vote yet') {
+      return 'Not vote yet';
+    }
+  }
 }
 </script>
 

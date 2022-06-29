@@ -178,6 +178,7 @@ export default class ManageElection extends Vue {
         .dialog({
           title: 'Election Not Started Yet',
           message: 'Please try again after later',
+          persistent: true,
         })
         .onOk(async () => {
           await this.$router.replace('/V_List');
@@ -186,6 +187,7 @@ export default class ManageElection extends Vue {
           // console.log('Cancel')
         });
     }
+    console.log(this.allTempRep);
   }
 
   //filter by college
@@ -242,6 +244,7 @@ export default class ManageElection extends Vue {
         ...data.student,
         student_id: data.student?.student_id,
         temp_tally_id: 0,
+        userID: data.student?.student_id,
       } as TempRep);
     }
     if (this.allTempRep.length >= 2) {
