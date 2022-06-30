@@ -377,6 +377,12 @@ export interface RepresentativeDto {
      * @memberof RepresentativeDto
      */
     'election'?: ElectionDto;
+    /**
+     * 
+     * @type {UserDto}
+     * @memberof RepresentativeDto
+     */
+    'user'?: UserDto;
 }
 /**
  * 

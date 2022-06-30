@@ -65,15 +65,17 @@
                   <div class="row q-gutter-xs">
                     <div class="col">
                       <q-select
-                        :options="allStudent"
+                        :options="options"
                         option-label="school_id"
                         option-value="student_id"
                         map-options
                         emit-value
                         v-model="inputCandidate.student"
-                        @update:model-value="onSelectStudent"
                         dense
                         outlined
+                        use-input
+                        @filter="filterFn"
+                        @update:model-value="onSelectStudent($event)"
                         label="Select ID Number"
                       >
                       </q-select>
@@ -219,15 +221,17 @@
                     <div class="row q-gutter-xs">
                       <div class="col">
                         <q-select
-                          :options="allStudent"
+                          :options="options"
                           option-label="school_id"
                           option-value="student_id"
                           map-options
                           emit-value
                           v-model="inputCandidate.student"
-                          @update:model-value="onSelectStudent"
+                          use-input
                           dense
                           outlined
+                          @filter="filterFn"
+                          @update:model-value="onSelectStudent($event)"
                           label="Select ID Number"
                         >
                         </q-select>
@@ -468,10 +472,12 @@ export default class ManageElection extends Vue {
 
   getAllStudent!: () => Promise<void>;
   allStudent!: StudentDto[];
+  options: UserDto[] = [];
 
   async mounted() {
     await this.getAllCandidate();
     await this.getAllUser();
+    this.options = this.allAccount;
   }
 
   CandidateColumn = [
@@ -545,10 +551,10 @@ export default class ManageElection extends Vue {
     platform: '',
   };
 
-  onSelectStudent(user: UserDto) {
-    if (user.student?.school_id === this.inputCandidate.student) {
-      this.inputCandidate.user = user.account_id;
-    }
+  onSelectStudent(user?: string) {
+    this.inputCandidate.user = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.account_id;
   }
 
   async onaddCandidateAccount() {
@@ -601,6 +607,29 @@ export default class ManageElection extends Vue {
       position_type: 'Representative',
       platform: '',
     };
+  }
+
+  filterFn(val: any, update: any) {
+    if (val === '') {
+      update(() => {
+        this.options = this.allAccount.map(
+          (i) => i.student
+        ) as unknown as UserDto[];
+
+        // here you have access to "ref" which
+        // is the Vue reference of the QSelect
+      });
+      return;
+    }
+
+    update(() => {
+      const needle = val.toLowerCase();
+      this.options = this.allAccount
+        .filter(
+          (v) => String(v.student?.school_id).toLowerCase().indexOf(needle) > -1
+        )
+        .map((i) => i.student) as unknown as UserDto[];
+    });
   }
 }
 </script>
