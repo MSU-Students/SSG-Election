@@ -414,6 +414,12 @@ export interface SsgMemberDto {
      * @memberof SsgMemberDto
      */
     'student'?: StudentDto;
+    /**
+     * 
+     * @type {UserDto}
+     * @memberof SsgMemberDto
+     */
+    'user'?: UserDto;
 }
 /**
  * 
@@ -2571,6 +2577,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     

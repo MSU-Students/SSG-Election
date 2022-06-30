@@ -12,6 +12,7 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
     payload.map(async (i: any) => {
       const newPayload = {
         student: i.representative.student?.student_id,
+        user: i.representative.user?.account_id,
         position: i.representative.position,
       };
       const result = await ssgmemberservice.create(newPayload);
