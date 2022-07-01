@@ -7,7 +7,6 @@ import { StateInterface } from '../index';
 import { SsgMemberStateInterface } from './state';
 
 const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
-
   async addProclaimSsgMember(context, payload: any): Promise<void> {
     payload.map(async (i: any) => {
       const newPayload = {
@@ -17,22 +16,23 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
       };
       const result = await ssgmemberservice.create(newPayload);
       context.commit('setNewSsgMember', result);
+
       await context.dispatch('getAllSsgMember');
     });
   },
 
-  async proclaimAllOfficers (context, payload: IRepresentativeVote[]) {
+  async proclaimAllOfficers(context, payload: IRepresentativeVote[]) {
     payload.map(async (c) => {
+      const check = c.representative.user;
       await context.dispatch(
         'student/appointStudent',
         c.representative.student?.student_id,
         { root: true }
       );
-      await context.dispatch(
-        'account/changeStatus',
-        c.representative.student?.user?.userType,
-        { root: true }
-      );
+      await context.dispatch('account/changeStatus', {
+        ...check,
+        userType: 'rep',
+      });
     });
   },
 

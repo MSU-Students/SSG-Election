@@ -35,15 +35,15 @@
                     <div class="text-center">
                       <q-avatar size="93px">
                         <q-img
-                                square
-                                v-if="rep.student?.url"
-                                :src="`http://localhost:3000/media/${rep.student?.url}`"
-                              />
-                              <q-img
-                                v-if="!rep.student?.url"
-                                src="~assets/images/MSU.jpg"
-                                class="q-pb-sm"
-                              />
+                          square
+                          v-if="rep.student?.url"
+                          :src="`http://localhost:3000/media/${rep.student?.url}`"
+                        />
+                        <q-img
+                          v-if="!rep.student?.url"
+                          src="~assets/images/MSU.jpg"
+                          class="q-pb-sm"
+                        />
                       </q-avatar>
                     </div>
                   </div>

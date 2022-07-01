@@ -187,7 +187,7 @@ export default class ManageElection extends Vue {
           // console.log('Cancel')
         });
     }
-    console.log(this.allTempRep);
+    console.log(this.allCandidate);
   }
 
   //filter by college

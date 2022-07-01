@@ -9,7 +9,7 @@ import { RepresentativeStateInterface } from './state';
 const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
   async proclaimAllCanditates(context, payload: ICandidateVote[]) {
     payload.map(async (c) => {
-      const check: any = c.candidate.student?.student_id;
+      const check = c.candidate.user;
       await context.dispatch(
         'student/appointStudent',
         c.candidate.student?.student_id,
@@ -35,6 +35,7 @@ const actions: ActionTree<RepresentativeStateInterface, StateInterface> = {
         student: i.candidate.student?.student_id,
         user: i.candidate.user?.account_id,
         position: 'No candidacy filed',
+        studentIDNumber: i.candidate.student?.school_id,
       };
 
       const result = await representativeservice.create(newPayload);

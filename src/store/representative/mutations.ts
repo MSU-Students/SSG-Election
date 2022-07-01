@@ -3,7 +3,7 @@ import { MutationTree } from 'vuex';
 import { RepresentativeStateInterface } from './state';
 
 const mutation: MutationTree<RepresentativeStateInterface> = {
-  setNewRepresentative(state, payload: Representative) {
+  setNewRepresentative(state, payload) {
     state.newRepresentative = payload;
   },
   updateRepresentative(state, payload) {
