@@ -1,10 +1,10 @@
 <template>
   <q-page>
     <div class="q-pa-sm">
-      <div class="row q-gutter-md">
+      <div class="row q-gutter-lg">
         <div class="col-12 col-md">
           <!--separator-->
-          <div class="row q-col-gutter-lg">
+          <div class="q-col-gutter-lg">
             <div class="col">
               <q-toolbar>
                 <q-toolbar-title class="text-overline text-weight-bold"
@@ -14,7 +14,7 @@
             </div>
           </div>
           <!--separator-->
-          <q-card class="my-card q-pa-sm" style="max-width: 95vw; height: 65vh; max-height: 100vh">
+          <q-card class="my-card q-pa-sm">
             <div class="row">
               <div
                 v-for="rep in collegeCandidates"
@@ -24,7 +24,7 @@
                   <q-card class="cursor-pointer" style="width: 320px">
                     <div class="q-pa-sm">
                       <div class="row">
-                        <div class="col-4 q-gutter-sm">
+                        <div class="col-4">
                           <div class="text-center" v-if="rep">
                             <q-avatar size="70px">
                               <q-img
@@ -81,7 +81,7 @@
 
         <div class="col-12 col-md">
           <!--separator-->
-          <div class="row q-col-gutter-lg">
+          <div class="q-col-gutter-lg">
             <div class="col">
               <q-toolbar>
                 <q-toolbar-title class="text-overline text-weight-bold"
@@ -322,7 +322,7 @@ export default class ManageElection extends Vue {
 <style>
 .my-card {
   height: 100%;
-  max-height: 900px;
+  max-width: 95vw;
 }
 .bg-img {
   background-color: #f3eee8;
