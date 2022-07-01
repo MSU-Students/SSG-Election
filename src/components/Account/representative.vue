@@ -316,80 +316,79 @@
               </q-tooltip></q-btn
             >
             <q-dialog v-model="showDetails">
-              <q-card
-                class="my-card q-pa-md"
-                style="width: 600px; max-width: 60vw"
-                flat
-                bordered
-              >
-                <q-card-section>
-                  <div class="text-h6">
-                    Candidate Information
-                    <q-btn
-                      round
-                      flat
-                      dense
-                      icon="close"
-                      class="float-right"
-                      color="primary"
-                      v-close-popup
-                    ></q-btn>
-                  </div>
-                </q-card-section>
-                <q-card-section horizontal>
-                  <q-card-section class="q-pt-xs col">
-                    <div class="text-h5 q-mb-xs text-bold">
-                      {{ inputRepresentative.student?.first_name }}
-                      {{ inputRepresentative.student?.middle_name }}
-                      {{ inputRepresentative.student?.last_name }}
-                    </div>
-
-                    <div class="text-overline">
-                      {{ inputRepresentative.student?.college }}
-                    </div>
-                    <div class="text-caption">
-                      {{ inputRepresentative.student?.course }}
-                    </div>
-                    <div class="text-caption text-grey">
-                      Running for:
-                      <strong>{{ inputRepresentative.position }}</strong>
+                <q-card
+                  class="my-card q-pa-md"
+                  style="width: 600px; max-width: 60vw"
+                  flat
+                  bordered
+                >
+                  <q-card-section>
+                    <div class="text-h6">
+                      Candidate Information
+                      <q-btn
+                        round
+                        flat
+                        dense
+                        icon="close"
+                        class="float-right"
+                        color="primary"
+                        v-close-popup
+                      ></q-btn>
                     </div>
                   </q-card-section>
+                  <q-card-section horizontal>
+                    <q-card-section class="q-pt-xs col">
+                      
+                      <div class="text-h5 q-mb-xs text-bold">
+                        {{ inputRepresentative.student?.first_name }}
+                        {{ inputRepresentative.student?.middle_name }}
+                        {{ inputRepresentative.student?.last_name }}
+                      </div>
+                      
+                      <div class="text-overline">
+                        {{ inputRepresentative.student?.college }}
+                      </div>
+                      <div class="text-caption">
+                        {{ inputRepresentative.student?.course }}
+                      </div>
+                      <div class="text-caption text-grey">
+                        Running for:
+                        <strong>{{ inputRepresentative.position }}</strong>
+                      </div>
+                    </q-card-section>
 
-                  <q-card-section class="col-4 flex flex-center">
-                    <q-img
-                      square
-                      v-if="inputRepresentative.student?.url"
-                      :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
-                    /><q-img
-                      v-if="!inputRepresentative.student?.url"
-                      src="~assets/images/MSU.jpg"
-                    />
+                    <q-card-section class="col-4 flex flex-center">
+                      <q-img
+                        square
+                        v-if="inputRepresentative.student?.url"
+                        :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
+                      /><q-img
+                        v-if="!inputRepresentative.student?.url"
+                        src="~assets/images/MSU.jpg"
+                      />
+                    </q-card-section>
                   </q-card-section>
-                </q-card-section>
 
-                <q-separator />
+                  <q-separator />
 
-                <q-card-section>
-                  <div class="text-italic text-h5">
-                    "{{ inputRepresentative.platform }}"
-                  </div>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
+                  <q-card-section>
+                    <div class="text-italic text-h5">"{{ inputRepresentative.platform }}"</div>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
           </div>
         </q-td>
       </template>
       <template #body-cell-position="props">
-        <q-td :props="props">
-          <q-chip
-            flat
-            color="white"
-            :text-color="colorManipulation(props.row.position)"
-            :label="labelManipulation(props.row.position)"
-          />
-        </q-td>
-      </template>
+          <q-td :props="props">
+            <q-chip
+              flat
+              color="white"
+              :text-color="colorManipulation(props.row.position)"
+              :label="labelManipulation(props.row.position)"
+            />
+          </q-td>
+        </template>
     </q-table>
   </div>
 </template>

@@ -101,7 +101,7 @@
       <q-separator />
       <!---- Election HEader------>
       <div class="q-pa-sm bg-white text-primary text-center">
-        <div>Election Name: {{ electionInfo.election_name }}</div>
+        <!-- <div>Election Name: {{ electionInfo.election_name }}</div> -->
         <div>
           Timer: <strong>{{ electionTimer }}</strong>
         </div>
@@ -129,50 +129,26 @@
         <q-list padding>
           <q-separator />
           <q-item clickable v-ripple to="/Homepage">
-            <q-item-section avatar>
-              <q-icon name="home" />
-            </q-item-section>
-
             <q-item-section> Home </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Ballot">
-            <q-item-section avatar>
-              <q-icon name="ballot" />
-            </q-item-section>
-
             <q-item-section> Manage Election </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/List">
-            <q-item-section avatar>
-              <q-icon name="list" />
-            </q-item-section>
-
             <q-item-section> Candidate list </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Accounts">
-            <q-item-section avatar>
-              <q-icon name="people" />
-            </q-item-section>
-
             <q-item-section> Manage Accounts </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Result">
-            <q-item-section avatar>
-              <q-icon name="ballot" />
-            </q-item-section>
-
             <q-item-section>Election Result</q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/">
-            <q-item-section avatar>
-              <q-icon name="logout" />
-            </q-item-section>
-
             <q-item-section> Logout </q-item-section>
           </q-item>
         </q-list>
@@ -189,13 +165,14 @@
         </div>
         <div class="row justify-center">
           <q-btn
-             outline rounded 
+            outline
+            rounded
             dense
             color="primary"
             class="q-mt-sm text-caption"
             label="Manage Account"
-            icon="settings"
             to="/manageAdmin"
+            style="height: 1.5rem; width: 10rem; font-size: smaller"
           />
         </div>
         <div class="row justify-center"></div>

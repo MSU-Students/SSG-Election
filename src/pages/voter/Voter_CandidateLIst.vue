@@ -5,18 +5,18 @@
       <div class="row q-col-gutter-lg">
         <div class="col">
           <q-toolbar class="text-primary">
-            <q-toolbar-title>
-              List of Candidates:
-              <strong>{{ collegeName }}</strong></q-toolbar-title
+            <q-toolbar-title class="text-text-body2">
+              List of Candidates:</q-toolbar-title
             >
             <q-btn
-              push
+              dense
               color="white"
               text-color="primary"
               icon-right="touch_app"
-              label="Click to vote"
               to="/V_Vote"
-            />
+            >
+              <q-tooltip :offset="[0, 8]">Click to vote</q-tooltip>
+            </q-btn>
           </q-toolbar>
         </div>
       </div>
@@ -25,11 +25,8 @@
       <div class="row">
         <div v-for="rep in collegeCandidates" :key="rep.candidate_id">
           <div class="col-12 col-md q-pa-sm">
-            <q-card
-              class="my-card cursor-pointer"
-              style="width: 330px; max-height: 700px"
-            >
-              <div class="q-pa-md">
+            <q-card class="my-card cursor-pointer">
+              <div class="q-pa-sm">
                 <div class="row">
                   <div class="col-4 q-gutter-sm">
                     <div class="text-center">
@@ -156,10 +153,11 @@ export default class ManageElection extends Vue {
 .q-carousel {
   background-color: #f3eee8;
 }
-.my-sticky-header-table {
-  height: 200px;
+.my-card {
+  height: 300px;
+  max-height: 500px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 500px;
 }
 .my-sticky-table {
   width: 250px;

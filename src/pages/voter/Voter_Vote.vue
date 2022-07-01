@@ -1,30 +1,27 @@
 <template>
   <q-page>
     <div class="q-pa-sm">
-      <!--separator-->
-      <div class="row q-col-gutter-lg">
-        <div class="col">
-          <q-toolbar>
-            <q-toolbar-title class="text-overline text-weight-bold"
-              >Vote for {{ collegeName }} Representative</q-toolbar-title
-            >
-          </q-toolbar>
-        </div>
-      </div>
-      <!--separator-->
-      <div class="row q-gutter-sm">
+      <div class="row q-gutter-md">
         <div class="col-12 col-md">
-          <q-card class="my-card q-pa-sm" style="max-width: 98vw">
+          <!--separator-->
+          <div class="row q-col-gutter-lg">
+            <div class="col">
+              <q-toolbar>
+                <q-toolbar-title class="text-overline text-weight-bold"
+                  >Vote for College Representative</q-toolbar-title
+                >
+              </q-toolbar>
+            </div>
+          </div>
+          <!--separator-->
+          <q-card class="my-card q-pa-sm" style="max-width: 95vw; height: 65vh; max-height: 100vh">
             <div class="row">
               <div
                 v-for="rep in collegeCandidates"
                 v-bind:key="rep.candidate_id"
               >
                 <div class="col-12 col-md q-pa-xs">
-                  <q-card
-                    class="cursor-pointer"
-                    style="width: 290px; max-width: 100vw"
-                  >
+                  <q-card class="cursor-pointer" style="width: 320px">
                     <div class="q-pa-sm">
                       <div class="row">
                         <div class="col-4 q-gutter-sm">
@@ -83,9 +80,21 @@
         </div>
 
         <div class="col-12 col-md">
-          <q-card>
+          <!--separator-->
+          <div class="row q-col-gutter-lg">
+            <div class="col">
+              <q-toolbar>
+                <q-toolbar-title class="text-overline text-weight-bold"
+                  >Voting Submission</q-toolbar-title
+                >
+              </q-toolbar>
+            </div>
+          </div>
+          <!--separator-->
+          <q-card class="my-card q-pa-sm" style="max-width: 95vw; height: 40vh; max-height: 100vh">
             <q-card-actions>
               <q-table
+              :dense="$q.screen.lt.md"
                 :rows="allTempRep"
                 :columns="columns"
                 class="my-sticky-header-table"

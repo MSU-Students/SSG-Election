@@ -14,7 +14,7 @@
       >
         <q-card
           class="shadow-20"
-          v-bind:style="$q.screen.lt.sm ? { width: '70%' } : { width: '50%' }"
+          v-bind:style="$q.screen.lt.sm ? { width: '85%' } : { width: '50%' }"
         >
           <q-card-section>
             <q-avatar size="103px" class="absolute-center shadow-10">

@@ -276,8 +276,8 @@ export default class studentVote extends Vue {
     if (!this.activeElection) {
       this.$q
         .dialog({
-          title: 'Election Not Started Yet',
-          message: 'Please try again after later',
+          title: 'Election has not started yet',
+          message: 'Please try again later',
         })
         .onOk(async () => {
           await this.$router.replace('/R_Nominee');

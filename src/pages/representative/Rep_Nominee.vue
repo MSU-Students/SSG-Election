@@ -47,7 +47,6 @@
                   <div class="col-12 col-md q-pa-sm">
                     <q-card
                       class="my-card cursor-pointer"
-                      style="width: 320px; height: 400px"
                     >
                       <div class="q-pa-md">
                         <div class="row">
@@ -222,10 +221,11 @@ export default class ManageElection extends Vue {
 .q-carousel {
   background-color: #f3eee8;
 }
-.my-sticky-header-table {
-  height: 200px;
+.my-card {
+  height: 300px;
+  max-height: 500px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 500px;
 }
 .my-sticky-table {
   width: 250px;

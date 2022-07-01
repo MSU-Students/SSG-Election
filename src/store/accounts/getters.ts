@@ -3,9 +3,11 @@ import { StateInterface } from '../index';
 import { AccountStateInterface } from './state';
 
 const getters: GetterTree<AccountStateInterface, StateInterface> = {
-  someAction (/* context */) {
-    // your code
-  }
+  filterUser(state) {
+    return state.allAccount.filter((i) =>
+      /^voter$/ || /^rep$/ || /^ssg$/i.test(i.userType || '')
+    );
+  },
 };
 
 export default getters;

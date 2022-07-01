@@ -20,22 +20,37 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="representative">
+            <div class="q-gutter-sm">
+              <div class="row">
+                <q-card class="q-pa-sm">
+                  table 1
+                </q-card>
+              </div>
+              <div class="row">
+                <q-card class="q-pa-sm">
+                  <div class="q-pa-lg text-center text-bold text-primary">
+                  College Representative: Graph Result
+                </div>
+                <representative-result />
+                </q-card>
+              </div>
+            </div>
             <!--R E R P R E S E N T A T I V E-->
-            <div class="q-pa-xs q-gutter-sm row">
-              <q-table
-                :grid="$q.screen.xs"
-                title="College Representative"
-                title-class="text-h6 text-bold"
-                class="my-sticky-header-table"
-                :rows="allCollegeRepresentative"
-                :columns="representative"
-                row-key="name"
-                :filter="filter"
-              >
-                <template v-slot:top-right>
-                  <div class="q-gutter-sm row">
-                    
-                    <q-select
+            <!-- <div class="row q-pb-md">
+              <q-card class="my-card">
+                <q-table
+                  :grid="$q.screen.xs"
+                  title="College Representative"
+                  title-class="text-h6 text-bold"
+                  class="my-sticky-header-table"
+                  :rows="allCollegeRepresentative"
+                  :columns="representative"
+                  row-key="name"
+                  :filter="filter"
+                >
+                  <template v-slot:top-right>
+                    <div class="q-gutter-sm row">
+                      <q-select
                         :options="allStudent"
                         option-label="college"
                         option-value="student_id"
@@ -46,33 +61,35 @@
                         borderless
                         label="Filtered by College"
                       >
-                      <q-tooltip :offset="[0, 8]">Filtered by College</q-tooltip>
+                        <q-tooltip :offset="[0, 8]"
+                          >Filtered by College</q-tooltip
+                        >
                       </q-select>
-                    <q-input
-                      outlined
-                      rounded
-                      dense
-                      debounce="300"
-                      v-model="filter"
-                      placeholder="Search"
-                    >
-                      <template v-slot:append>
-                        <q-icon name="search" />
-                      </template>
-                    </q-input>
-                      
-                  </div>
-                </template>
-              </q-table>
+                      <q-input
+                        outlined
+                        rounded
+                        dense
+                        debounce="300"
+                        v-model="filter"
+                        placeholder="Search"
+                      >
+                        <template v-slot:append>
+                          <q-icon name="search" />
+                        </template>
+                      </q-input>
+                    </div>
+                  </template>
+                </q-table>
+              </q-card>
             </div>
-            <div class="q-pa-xs q-gutter-sm row">
+            <div class="row">
               <q-card class="my-sticky-header-table">
                 <div class="q-pa-lg text-center text-bold text-primary">
                   College Representative: Graph Result
                 </div>
                 <representative-result />
               </q-card>
-            </div>
+            </div> -->
           </q-tab-panel>
 
           <q-tab-panel name="prime">
@@ -225,6 +242,13 @@ export default class studentResult extends Vue {
   /* height or max-height is important */
   height: 100%
   max-height: 600px
+  width: 100%
+  max-width: 1500px
+
+.my-card
+  /* height or max-height is important */
+  height: 100%
+  max-height: 1200px
   width: 100%
   max-width: 1500px
 </style>

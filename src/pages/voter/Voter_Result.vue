@@ -7,57 +7,60 @@
           Election Result
         </div>
       </div>
-      <div class="">
-        <q-card>
-          <div class="q-pa-sm q-col-gutter-x-xs q-pa-md row">
-            <div class="col-12 col-md row q-gutter-xs justify-center items-center">
-              <q-card class="my-card q-pa-sm">
-                <div v-for="rep in collegeCandidates" :key="rep.candidate.candidate_id">
-                  <q-card-section class="q-pa-sm">
-                    <div class="text-green text-overline">
-                      Candidate {{ rep.candidate.candidate_id }}
-                    </div>
-                    <div class="row">
-                      <div class="col-12 col-md">
-                        Name:
-                        <strong>
-                          {{ rep.candidate.student?.last_name }},
-                          {{ rep.candidate.student?.first_name }}
-                          {{ rep.candidate.student?.middle_name }}
-                          {{ rep.candidate.student?.suffix }}
-                        </strong>
-                      </div>
-                      <div class="col-12 col-md">
-                        Total Votes: <strong>{{ rep.votes.length }}</strong>
-                      </div>
-                    </div>
-                    <div>
-                      Course:
-                      <strong>
-                        {{ rep.candidate.student?.course }}
-                      </strong>
-                    </div>
-                    <br />
-                    <q-separator />
-                  </q-card-section>
+      <div class="row q-pa-xs q-col-gutter-x-md q-col-gutter-y-sm">
+        <div class="col-12 col-md row">
+          <q-card class="my-card q-pa-sm">
+            <div
+              v-for="rep in collegeCandidates"
+              :key="rep.candidate.candidate_id"
+            >
+              <q-card-section class="q-pa-sm">
+                <div class="text-green text-overline">
+                  Candidate {{ rep.candidate.candidate_id }}
                 </div>
-              </q-card>
-            </div>
-            <div class="col-12 col-md">
-              <q-card>
-                <div class="q-pa-md text-center text-bold text-primary">
-                  College Representative in Graph
+                <div class="row">
+                  <div class="col-12 col-md">
+                    Name:
+                    <strong>
+                      {{ rep.candidate.student?.last_name }},
+                      {{ rep.candidate.student?.first_name }}
+                      {{ rep.candidate.student?.middle_name }}
+                      {{ rep.candidate.student?.suffix }}
+                    </strong>
+                  </div>
+                  <div class="col-12 col-md">
+                    Total Votes: <strong>{{ rep.votes.length }}</strong>
+                  </div>
                 </div>
-                <representative-result class="q-pa-md" />
-              </q-card>
+                <div>
+                  Course:
+                  <strong>
+                    {{ rep.candidate.student?.course }}
+                  </strong>
+                </div>
+                <br />
+                <q-separator />
+              </q-card-section>
             </div>
-          </div>
-        </q-card>
+          </q-card>
+        </div>
+        <div class="col-12 col-md">
+          <q-card>
+            <div class="q-pa-md text-center text-bold text-primary">
+              College Representative in Graph
+            </div>
+            <representative-result class="q-pa-md" />
+          </q-card>
+        </div>
       </div>
     </div>
 
     <!-------------------------->
-    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+    <q-page-scroller
+      position="bottom-right"
+      :scroll-offset="150"
+      :offset="[18, 18]"
+    >
       <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
     </q-page-scroller>
   </q-page>
@@ -101,7 +104,9 @@ export default class studentResult extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.summary.filter((c) => c.candidate.student?.college == this.collegeName);
+    return this.summary.filter(
+      (c) => c.candidate.student?.college == this.collegeName
+    );
   }
   tab = 'representative';
   filter = '';

@@ -51,7 +51,7 @@
                   />
                   <img
                     v-if="!currentUser.student?.url"
-                    src="~assets/images/avatar.svg"
+                    src="~assets/images/MSU.jpg"
                     class="q-pb-sm"
                   />
                 </q-avatar>
@@ -94,7 +94,7 @@
       </q-toolbar>
       <!--timer-->
       <div class="q-pa-sm bg-white text-primary text-center">
-        <div>Election Name: {{ electionInfo.election_name }}</div>
+        <!-- <div>Election Name: {{ electionInfo.election_name }}</div> -->
         <div>
           Timer: <strong>{{ electionTimer }}</strong>
         </div>
@@ -120,34 +120,22 @@
         <q-list padding>
           <q-separator />
           <q-item active clickable v-ripple to="/V_Homepage">
-            <q-item-section avatar>
-              <q-icon name="home" />
-            </q-item-section>
-
             <q-item-section> Home </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/V_List">
-            <q-item-section avatar>
-              <q-icon name="check" />
-            </q-item-section>
-
             <q-item-section> Candidate List </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/V_Vote">
-            <q-item-section avatar>
-              <q-icon name="check" />
-            </q-item-section>
-
             <q-item-section> Vote </q-item-section>
           </q-item>
 
-          <q-item class="absolute-bottom" clickable v-ripple to="/">
-            <q-item-section avatar>
-              <q-icon name="logout" />
-            </q-item-section>
+          <q-item clickable v-ripple to="/V_Result">
+            <q-item-section> Result </q-item-section>
+          </q-item>
 
+          <q-item class="absolute-bottom" clickable v-ripple to="/">
             <q-item-section> Logout </q-item-section>
           </q-item>
         </q-list>
@@ -167,7 +155,7 @@
             />
             <img
               v-if="!currentUser.student?.url"
-              src="~assets/images/avatar.svg"
+              src="~assets/images/MSU.jpg"
               class="q-pb-sm"
             />
           </q-avatar>
@@ -180,18 +168,6 @@
         </div>
         <div class="text-caption" style="text-align: center">
           {{ currentUser.student?.school_id }}
-        </div>
-        <div class="row justify-center">
-          <q-btn
-            outline
-            rounded
-            dense
-            to="/S_Profile"
-            class="q-mt-sm"
-            color="primary"
-            label="Profile"
-            style="height: 1.5rem; width: 10rem; font-size: smaller"
-          />
         </div>
       </div>
     </q-drawer>

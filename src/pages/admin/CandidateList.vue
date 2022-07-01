@@ -81,20 +81,22 @@
                       </q-select>
                     </div>
                     <!-- foreign key -->
-                    <div class="col">
+                    <!-- <div class="col">
                       <q-input
                         dense
                         outlined
+                        disable
                         readonly
                         v-model="inputCandidate.user"
                         label="User ID"
                       />
-                    </div>
+                    </div> -->
                     <div class="col">
                       <q-select
                         :options="allStudent"
                         option-label="first_name"
                         readonly
+                        disable
                         option-value="student_id"
                         map-options
                         emit-value
@@ -109,6 +111,7 @@
                         :options="allStudent"
                         option-label="last_name"
                         readonly
+                        disable
                         option-value="student_id"
                         map-options
                         emit-value
@@ -218,123 +221,124 @@
                   </q-card-section>
 
                   <q-card-section class="q-gutter-sm">
-                    <div class="row q-gutter-xs">
-                      <div class="col">
-                        <q-select
-                          :options="options"
-                          option-label="school_id"
-                          option-value="student_id"
-                          map-options
-                          emit-value
-                          v-model="inputCandidate.student"
-                          use-input
-                          dense
-                          outlined
-                          @filter="filterFn"
-                          @update:model-value="onSelectStudent($event)"
-                          label="Select ID Number"
-                        >
-                        </q-select>
-                      </div>
-                      <div class="col">
-                        <q-select
-                          :options="allStudent"
-                          option-label="first_name"
-                          readonly
-                          option-value="student_id"
-                          map-options
-                          emit-value
-                          v-model="inputCandidate.student"
-                          dense
-                          outlined
-                          label="First Name (Read Only)"
-                        />
-
-                        <!-- foreign key -->
-                        <q-input
-                          dense
-                          outlined
-                          readonly
-                          v-model="inputCandidate.user"
-                          label="User ID"
-                        />
-                      </div>
-                      <div class="col">
-                        <q-select
-                          :options="allStudent"
-                          option-label="last_name"
-                          readonly
-                          option-value="student_id"
-                          map-options
-                          emit-value
-                          v-model="inputCandidate.student"
-                          dense
-                          outlined
-                          label="Last Name (Read Only)"
-                        >
-                        </q-select>
-                      </div>
-                    </div>
-
-                    <div class="row q-gutter-xs">
-                      <div class="col">
-                        <q-select
-                          :options="allElection"
-                          option-label="academic_yr"
-                          option-value="election_id"
-                          map-options
-                          emit-value
-                          v-model="inputCandidate.election"
-                          dense
-                          outlined
-                          label="Select Year Elected"
-                        >
-                        </q-select>
-                      </div>
-                      <div class="col">
-                        <q-select
-                          :options="allElection"
-                          option-label="election_type"
-                          option-value="election_id"
-                          map-options
-                          emit-value
-                          v-model="inputCandidate.election"
-                          dense
-                          outlined
-                          label="Academic Type"
-                          lazy-rules
-                          :rules="[(val) => (val && val.length > 0) || '']"
-                        >
-                        </q-select>
-                      </div>
-                    </div>
-                    <div class="q-gutter-xs">
-                      <q-input
-                        v-model="inputCandidate.platform"
-                        type="textarea"
+                  <div class="row q-gutter-xs">
+                    <div class="col">
+                      <q-select
+                        :options="options"
+                        option-label="school_id"
+                        option-value="student_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.student"
                         dense
                         outlined
-                        label="Platform"
+                        use-input
+                        @filter="filterFn"
+                        @update:model-value="onSelectStudent($event)"
+                        label="Select ID Number"
                       >
-                      </q-input>
+                      </q-select>
                     </div>
-                    <div align="right">
-                      <q-btn
-                        flat
-                        label="Cancel"
-                        color="red-10"
-                        @click="resetModelCandidate()"
-                        v-close-popup
+                    <!-- foreign key -->
+                    <!-- <div class="col">
+                      <q-input
+                        dense
+                        outlined
+                        readonly
+                        v-model="inputCandidate.user"
+                        label="User ID"
                       />
-                      <q-btn
-                        flat
-                        label="Save"
-                        color="primary"
-                        type="submit"
-                        @click="onaddCandidateAccount()"
+                    </div> -->
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="first_name"
+                        readonly
+                        option-value="student_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.student"
+                        dense
+                        outlined
+                        label="First Name (Read Only)"
                       />
                     </div>
-                  </q-card-section>
+                    <div class="col">
+                      <q-select
+                        :options="allStudent"
+                        option-label="last_name"
+                        readonly
+                        option-value="student_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.student"
+                        dense
+                        outlined
+                        label="Last Name (Read Only)"
+                      >
+                      </q-select>
+                    </div>
+                  </div>
+
+                  <div class="row q-gutter-xs">
+                    <div class="col">
+                      <q-select
+                        :options="allElection"
+                        option-label="academic_yr"
+                        option-value="election_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.election"
+                        dense
+                        outlined
+                        label="Select Year Elected"
+                      >
+                      </q-select>
+                    </div>
+                    <div class="col">
+                      <q-select
+                        :options="allElection"
+                        option-label="election_type"
+                        option-value="election_id"
+                        map-options
+                        emit-value
+                        v-model="inputCandidate.election"
+                        dense
+                        outlined
+                        label="Academic Type"
+                        lazy-rules
+                        :rules="[(val) => (val && val.length > 0) || '']"
+                      >
+                      </q-select>
+                    </div>
+                  </div>
+                  <div class="q-gutter-xs">
+                    <q-input
+                      v-model="inputCandidate.platform"
+                      type="textarea"
+                      dense
+                      outlined
+                      label="Platform"
+                    >
+                    </q-input>
+                  </div>
+                  <div align="right">
+                    <q-btn
+                      flat
+                      label="Cancel"
+                      color="red-10"
+                      @click="resetModelCandidate()"
+                      v-close-popup
+                    />
+                    <q-btn
+                      flat
+                      label="Save"
+                      color="primary"
+                      type="submit"
+                      @click="onEditCandidateAccount()"
+                    />
+                  </div>
+                </q-card-section>
                 </q-card>
               </q-dialog>
               <q-btn

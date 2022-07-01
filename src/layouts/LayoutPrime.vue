@@ -11,7 +11,12 @@
 
           <!-------------Menu Button------------->
           <div class="q-ml-md q-gutter-x-xs gt-sm">
-            <q-btn flat class="text-overline text-white" label="Home" to="/P_Homepage" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Home"
+              to="/P_Homepage"
+            />
             <q-btn
               flat
               class="text-overline text-white"
@@ -103,32 +108,24 @@
         <q-list padding>
           <q-separator />
           <q-item active clickable v-ripple to="/P_Homepage">
-            <q-item-section avatar>
-              <q-icon name="home" />
-            </q-item-section>
-
             <q-item-section> Organizational Structure </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/P_Assign">
-            <q-item-section avatar>
-              <q-icon name="check" />
-            </q-item-section>
-
             <q-item-section> Assign Officers </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/Login">
-            <q-item-section avatar>
-              <q-icon name="logout" />
-            </q-item-section>
-
             <q-item-section> Logout </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
 
-      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
+      <div
+        class="q-pa-sm absolute-top"
+        style="height: 150px"
+        v-if="currentUser"
+      >
         <div class="row justify-center">
           <q-avatar size="80px" class="q-mb-sm">
             <img
@@ -172,7 +169,8 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
