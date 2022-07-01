@@ -16,10 +16,7 @@
           <!--separator-->
           <q-card class="my-card q-pa-sm">
             <div class="row">
-              <div
-                v-for="rep in collegeCandidates"
-                v-bind:key="rep.candidate_id"
-              >
+              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
                 <div class="col-12 col-md q-pa-xs">
                   <q-card class="cursor-pointer" style="width: 320px">
                     <div class="q-pa-sm">
@@ -91,10 +88,10 @@
             </div>
           </div>
           <!--separator-->
-          <q-card class="my-card q-pa-sm" style="max-width: 95vw; height: 40vh; max-height: 100vh">
+          <q-card class="my-card q-pa-sm" style="max-width: 95vw; max-height: 100vh">
             <q-card-actions>
               <q-table
-              :dense="$q.screen.lt.md"
+                :dense="$q.screen.lt.md"
                 :rows="allTempRep"
                 :columns="columns"
                 class="my-sticky-header-table"
@@ -204,9 +201,7 @@ export default class ManageElection extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.allCandidate.filter(
-      (c) => c.student?.college == this.collegeName
-    );
+    return this.allCandidate.filter((c) => c.student?.college == this.collegeName);
   }
 
   filter = '';
@@ -321,7 +316,7 @@ export default class ManageElection extends Vue {
 
 <style>
 .my-card {
-  height: 100%;
+  /* height: 100%; */
   max-width: 95vw;
 }
 .bg-img {
@@ -333,7 +328,7 @@ export default class ManageElection extends Vue {
 .my-sticky-header-table {
   height: 200px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 95vw;
 }
 .my-sticky-table {
   width: 250px;

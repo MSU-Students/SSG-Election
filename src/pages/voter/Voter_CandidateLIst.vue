@@ -77,11 +77,7 @@
     </div>
 
     <!-------------------------->
-    <q-page-scroller
-      position="bottom-right"
-      :scroll-offset="150"
-      :offset="[18, 18]"
-    >
+    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
     </q-page-scroller>
   </q-page>
@@ -130,9 +126,7 @@ export default class ManageElection extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.allCandidate.filter(
-      (c) => c.student?.college == this.collegeName
-    );
+    return this.allCandidate.filter((c) => c.student?.college == this.collegeName);
   }
 
   filter = '';
@@ -154,8 +148,8 @@ export default class ManageElection extends Vue {
   background-color: #f3eee8;
 }
 .my-card {
-  height: 300px;
-  max-height: 500px;
+  /* height: 300px;
+  max-height: 500px; */
   width: 100%;
   max-width: 500px;
 }

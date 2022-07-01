@@ -10,10 +10,7 @@
       <div class="row q-pa-xs q-col-gutter-x-md q-col-gutter-y-sm">
         <div class="col-12 col-md row">
           <q-card class="my-card q-pa-sm">
-            <div
-              v-for="rep in collegeCandidates"
-              :key="rep.candidate.candidate_id"
-            >
+            <div v-for="rep in collegeCandidates" :key="rep.candidate.candidate_id">
               <q-card-section class="q-pa-sm">
                 <div class="text-green text-overline">
                   Candidate {{ rep.candidate.candidate_id }}
@@ -56,11 +53,7 @@
     </div>
 
     <!-------------------------->
-    <q-page-scroller
-      position="bottom-right"
-      :scroll-offset="150"
-      :offset="[18, 18]"
-    >
+    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="amber-13" text-color="white" />
     </q-page-scroller>
   </q-page>
@@ -104,9 +97,7 @@ export default class studentResult extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.summary.filter(
-      (c) => c.candidate.student?.college == this.collegeName
-    );
+    return this.summary.filter((c) => c.candidate.student?.college == this.collegeName);
   }
   tab = 'representative';
   filter = '';
@@ -116,8 +107,8 @@ export default class studentResult extends Vue {
 <style lang="sass">
 .my-card
   /* height or max-height is important */
-  height: 100%
-  max-height: 700px
+  // height: 100%
+  // max-height: 700px
   width: 100%
   max-width: 1500px
 </style>

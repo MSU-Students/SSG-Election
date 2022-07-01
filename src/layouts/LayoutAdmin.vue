@@ -25,19 +25,19 @@
             <q-btn
               flat
               class="text-overline text-white no-wrap"
-              label="Candidate List"
+              label="Candidates"
               to="/List"
             />
             <q-btn
               flat
               class="text-overline text-white no-wrap"
-              label="Manage Accounts"
+              label="Accounts"
               to="/Accounts"
             />
             <q-btn
               flat
               class="push text-overline text-white no-wrap"
-              label="Election Result"
+              label="Result"
               to="/Result"
             />
           </div>
@@ -133,19 +133,19 @@
           </q-item>
 
           <q-item clickable v-ripple to="/Ballot">
-            <q-item-section> Manage Election </q-item-section>
+            <q-item-section> Election </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/List">
-            <q-item-section> Candidate list </q-item-section>
+            <q-item-section> Candidates </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Accounts">
-            <q-item-section> Manage Accounts </q-item-section>
+            <q-item-section> Accounts </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/Result">
-            <q-item-section>Election Result</q-item-section>
+            <q-item-section>Result</q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="absolute-bottom" to="/">
@@ -184,8 +184,7 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
-      UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
@@ -242,16 +241,13 @@ export default class LayoutAdmin extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
     }, SECOND);
