@@ -1,12 +1,11 @@
 <template>
   <q-page>
-    <div class="q-pl-lg">
-      <div class="text-h5 q-pa-lg text-bold">
+    <div class="q-pl-md">
+      <div class="text-h5 q-pa-sm q-pt-md text-bold">
         <q-icon name="ballot" color="primary" style="font-size: 3rem" />
         Election Page
       </div>
     </div>
-    <q-separator inset />
 
     <!--separator-->
     <!-- <div class="row q-col-gutter-lg">
@@ -20,7 +19,7 @@
     </div> -->
     <!--separator-->
     <!-----------Recent Election Ballot-------------->
-    <div class="row q-pt-md q-pa-md">
+    <div class="row q-pa-sm">
       <q-table
         class="my-sticky-header-table"
         title="Election List"
@@ -30,7 +29,7 @@
         row-key="name"
         hide-bottom
         ><template v-slot:top-right>
-          <div class="q-pa-md q-gutter-sm row">
+          <div class="q-gutter-sm row">
             <q-input
               outlined
               rounded

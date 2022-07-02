@@ -83,12 +83,27 @@ export default class VotingRecord extends Vue {
       sortable: true,
     },
     {
+      name: 'year',
+      align: 'center',
+      label: 'Year Admitted',
+      field: (row: StudentDto) => row.yr_admitted,
+      sortable: true,
+    },
+    {
+      name: 'department',
+      align: 'center',
+      label: 'Department',
+      field: (row: StudentDto) => row.department,
+      sortable: true,
+    },
+    {
       name: 'college',
       align: 'center',
       label: 'College',
       field: (row: StudentDto) => row.college,
       sortable: true,
     },
+
     {
       name: 'status',
       align: 'center',
@@ -120,8 +135,8 @@ export default class VotingRecord extends Vue {
 <style>
 .my-sticky-header-table {
   height: 100%;
-  max-height: 700px;
+  max-height: 3000px;
   width: 100%;
-  max-width: 1500px;
+  max-width: 3500px;
 }
 </style>

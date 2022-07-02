@@ -1,10 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <!-- <div class="text-h5 q-pa-lg text-bold">
-        <q-icon name="how_to_vote" color="primary" style="font-size: 3rem" />
-        Election Result
-      </div> -->
+    <div class="q-pa-xs q-gutter-xs">
       <q-card>
         <q-tabs
           v-model="tab"
@@ -21,17 +17,90 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="representative">
             <div class="q-gutter-sm">
+              <!--  -->
+              <div class="row q-gutter-x-xs q-pa-sm">
+                <div class="q-pa-sm text-primary text-caption">Filtered by</div>
+                <q-select
+                  filled
+                  dense
+                  v-model="allStudent"
+                  use-input
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="allStudent"
+                  @filter="filter"
+                  label="College"
+                  style="width: 150px; padding-bottom: 32px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+                <q-select
+                  filled
+                  v-model="allStudent"
+                  use-input
+                  dense
+                  hide-selected
+                  fill-input
+                  input-debounce="0"
+                  :options="allStudent"
+                  @filter="filter"
+                  label="College"
+                  style="width: 150px; padding-bottom: 32px"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              <!--  -->
               <div class="row">
-                <q-card class="q-pa-sm">
-                  table 1
+                <q-card class="my-table q-pa-sm">
+                  <q-table
+                    :grid="$q.screen.xs"
+                    title="College Representative"
+                    title-class="text-h6 text-bold"
+                    class="my-sticky-header-table"
+                    :rows="summary"
+                    :columns="representative"
+                    row-key="name"
+                    :filter="filter"
+                  >
+                    <template v-slot:top-right>
+                      <div class="q-gutter-sm row">
+                        <q-input
+                          outlined
+                          rounded
+                          dense
+                          debounce="300"
+                          v-model="filter"
+                          placeholder="Search"
+                        >
+                          <template v-slot:append>
+                            <q-icon name="search" />
+                          </template>
+                        </q-input>
+                      </div>
+                    </template>
+                  </q-table>
                 </q-card>
               </div>
               <div class="row">
-                <q-card class="q-pa-sm">
+                <q-card class="my-card q-pa-sm">
                   <div class="q-pa-lg text-center text-bold text-primary">
-                  College Representative: Graph Result
-                </div>
-                <representative-result />
+                    College Representative: Graph Result
+                  </div>
+                  <representative-result />
                 </q-card>
               </div>
             </div>
@@ -250,5 +319,12 @@ export default class studentResult extends Vue {
   height: 100%
   max-height: 1200px
   width: 100%
-  max-width: 1500px
+  max-width: 2500px
+
+.my-table
+  /* height or max-height is important */
+  height: 100%
+  max-height: 600px
+  width: 100%
+  max-width: 2500px
 </style>

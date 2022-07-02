@@ -70,7 +70,7 @@
                 <div class="row q-gutter-xs">
                   <div class="col">
                     <q-select
-                      :options="allStudent"
+                      :options="options"
                       option-label="school_id"
                       option-value="student_id"
                       map-options
@@ -78,9 +78,23 @@
                       v-model="inputRepresentative.student"
                       dense
                       outlined
+                      use-input
+                      @filter="filterFn"
+                      @update:model-value="onSelectStudent($event)"
                       label="Select ID Number"
                     >
                     </q-select>
+                  </div>
+                  <!-- foreign key -->
+                  <div class="col">
+                    <q-input
+                      dense
+                      outlined
+                      disable
+                      readonly
+                      v-model="inputRepresentative.user"
+                      label="User ID"
+                    />
                   </div>
                   <div class="col">
                     <q-select
@@ -316,79 +330,80 @@
               </q-tooltip></q-btn
             >
             <q-dialog v-model="showDetails">
-                <q-card
-                  class="my-card q-pa-md"
-                  style="width: 600px; max-width: 60vw"
-                  flat
-                  bordered
-                >
-                  <q-card-section>
-                    <div class="text-h6">
-                      Candidate Information
-                      <q-btn
-                        round
-                        flat
-                        dense
-                        icon="close"
-                        class="float-right"
-                        color="primary"
-                        v-close-popup
-                      ></q-btn>
+              <q-card
+                class="my-card q-pa-md"
+                style="width: 600px; max-width: 60vw"
+                flat
+                bordered
+              >
+                <q-card-section>
+                  <div class="text-h6">
+                    Candidate Information
+                    <q-btn
+                      round
+                      flat
+                      dense
+                      icon="close"
+                      class="float-right"
+                      color="primary"
+                      v-close-popup
+                    ></q-btn>
+                  </div>
+                </q-card-section>
+                <q-card-section horizontal>
+                  <q-card-section class="q-pt-xs col">
+                    <div class="text-h5 q-mb-xs text-bold">
+                      {{ inputRepresentative.student?.first_name }}
+                      {{ inputRepresentative.student?.middle_name }}
+                      {{ inputRepresentative.student?.last_name }}
+                    </div>
+
+                    <div class="text-overline">
+                      {{ inputRepresentative.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      {{ inputRepresentative.student?.course }}
+                    </div>
+                    <div class="text-caption text-grey">
+                      Running for:
+                      <strong>{{ inputRepresentative.position }}</strong>
                     </div>
                   </q-card-section>
-                  <q-card-section horizontal>
-                    <q-card-section class="q-pt-xs col">
-                      
-                      <div class="text-h5 q-mb-xs text-bold">
-                        {{ inputRepresentative.student?.first_name }}
-                        {{ inputRepresentative.student?.middle_name }}
-                        {{ inputRepresentative.student?.last_name }}
-                      </div>
-                      
-                      <div class="text-overline">
-                        {{ inputRepresentative.student?.college }}
-                      </div>
-                      <div class="text-caption">
-                        {{ inputRepresentative.student?.course }}
-                      </div>
-                      <div class="text-caption text-grey">
-                        Running for:
-                        <strong>{{ inputRepresentative.position }}</strong>
-                      </div>
-                    </q-card-section>
 
-                    <q-card-section class="col-4 flex flex-center">
-                      <q-img
-                        square
-                        v-if="inputRepresentative.student?.url"
-                        :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
-                      /><q-img
-                        v-if="!inputRepresentative.student?.url"
-                        src="~assets/images/MSU.jpg"
-                      />
-                    </q-card-section>
+                  <q-card-section class="col-4 flex flex-center">
+                    <q-img
+                      square
+                      v-if="inputRepresentative.student?.url"
+                      :src="`http://localhost:3000/media/${inputRepresentative.student?.url}`"
+                    /><q-img
+                      v-if="!inputRepresentative.student?.url"
+                      src="~assets/images/MSU.jpg"
+                    />
                   </q-card-section>
+                </q-card-section>
 
-                  <q-separator />
+                <q-separator />
 
-                  <q-card-section>
-                    <div class="text-italic text-h5">"{{ inputRepresentative.platform }}"</div>
-                  </q-card-section>
-                </q-card>
-              </q-dialog>
+                <q-card-section>
+                  <div class="text-italic text-h5">
+                    "{{ inputRepresentative.platform }}"
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-dialog>
           </div>
         </q-td>
       </template>
       <template #body-cell-position="props">
-          <q-td :props="props">
-            <q-chip
-              flat
-              color="white"
-              :text-color="colorManipulation(props.row.position)"
-              :label="labelManipulation(props.row.position)"
-            />
-          </q-td>
-        </template>
+        <q-td :props="props">
+          <q-chip
+            flat
+            color="white"
+            :text-color="colorManipulation(props.row.position)"
+            :label="labelManipulation(props.row.position)"
+          />
+        </q-td>
+      </template>
     </q-table>
   </div>
 </template>
@@ -399,6 +414,7 @@ import {
   StudentDto,
   RepresentativeDto,
   VoteRepDto,
+  UserDto,
 } from 'src/services/rest-api';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 import { Vue, Options } from 'vue-class-component';
@@ -411,10 +427,12 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
     ...mapState('representative', ['allRepresentative']),
     ...mapGetters('voteRep', ['collegeRepresentatives']),
     ...mapState('voteRep', ['summary']),
+    ...mapState('account', ['allAccount']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
     ...mapActions('student', ['editStudent']),
+    ...mapActions('account', ['getAllUser']),
     ...mapActions('representative', [
       'addRepresentative',
       'addProclaimRepresentative',
@@ -425,7 +443,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
     ]),
   },
 })
-export default class ManageAccount extends Vue {
+export default class ManageRepresentative extends Vue {
   //--------------------------------------------------------Table Column for student account
   allStudent!: StudentDto[];
   allElection!: ElectionDto[];
@@ -444,9 +462,15 @@ export default class ManageAccount extends Vue {
   deleteRepresentative!: (payload: RepresentativeDto) => Promise<void>;
   getAllRepresentative!: () => Promise<void>;
 
+  allAccount!: UserDto[];
+  getAllUser!: () => Promise<void>;
+  options: UserDto[] = [];
+
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteRep();
+    await this.getAllUser();
+    this.options = this.allAccount;
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -518,7 +542,7 @@ export default class ManageAccount extends Vue {
   editRowCandidate = false;
   updateCandidate = false;
 
-  inputRepresentative: RepresentativeDto = {
+  inputRepresentative: any = {
     platform: '',
     position: 'No candidacy filed',
     voter_status: 'Not vote yet',
@@ -531,6 +555,12 @@ export default class ManageAccount extends Vue {
 
   get allCollegeRepresentative() {
     return this.collegeRepresentatives.filter((i) => !!i.votes.length);
+  }
+
+  onSelectStudent(user?: string) {
+    this.inputRepresentative.user = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.account_id;
   }
 
   async onProclaimAllCanditates() {
@@ -556,7 +586,6 @@ export default class ManageAccount extends Vue {
   }
 
   async onaddCandidateAccount() {
-    await this;
     await this.addRepresentative(this.inputRepresentative);
     this.addNewCandidate = false;
     this.resetModelCandidate();
@@ -607,6 +636,27 @@ export default class ManageAccount extends Vue {
       position: 'No candidacy filed',
       voter_status: 'Not voted yet',
     };
+  }
+
+//filtering
+  filterFn(val: any, update: any) {
+    if (val === '') {
+      update(() => {
+        this.options = this.allAccount.map(
+          (i) => i.student
+        ) as unknown as UserDto[];
+      });
+      return;
+    }
+
+    update(() => {
+      const needle = val.toLowerCase();
+      this.options = this.allAccount
+        .filter(
+          (v) => String(v.student?.school_id).toLowerCase().indexOf(needle) > -1
+        )
+        .map((i) => i.student) as unknown as UserDto[];
+    });
   }
 
   colorManipulation(position: string) {

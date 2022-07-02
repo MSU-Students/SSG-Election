@@ -61,19 +61,6 @@ const actions: ActionTree<StudentStateInterface, StateInterface> = {
     context.commit('getAllStudent', res);
   },
 
-  async voteStatus(context, student_id: number) {
-    const student = (await studentservice.getStudent(student_id)).data;
-    await studentservice.updateStudent(student_id, {
-      ...student,
-      voter_status: 'Voted',
-    });
-    // const exist = context.state.allStudent.map((s) => {
-    //   payload.find((a) => s.user?.account_id === a.student);
-    // });
-
-    // if exist
-  },
-
   async getOneStudent(context, student_id: number): Promise<any> {
     const res = await studentservice.getOne(student_id);
     context.commit('getOneStudent', res);
