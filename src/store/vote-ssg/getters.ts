@@ -5,20 +5,20 @@ import { VoteSsgStateInterface, IRepresentativeVote } from './state';
 const getters: GetterTree<VoteSsgStateInterface, StateInterface> = {
   SsgOfficials(state) {
     const REP_COUNT = 1;
-    const colleges = [
+    const position = [
       ...new Set(
         state.summary.reduce(
-          (prev, curr) => prev.concat([curr.representative.student?.college || '']),
+          (prev, curr) => prev.concat([curr.representative.position || '']),
           [] as string[]
         )
       ),
     ].filter((c) => c);
 
-    return colleges.reduce(
+    return position.reduce(
       (prev, curr) =>
         prev.concat(
           state.summary
-            .filter((can) => String(can.representative.student?.college) == curr)
+            .filter((can) => String(can.representative.position) == curr)
             .sort((a, b) => b.votes.length - a.votes.length)
             .slice(0, REP_COUNT)
         ),

@@ -82,7 +82,7 @@
             <div class="col">
               <q-toolbar>
                 <q-toolbar-title class="text-overline text-weight-bold"
-                  >Voting Submission</q-toolbar-title
+                  >Voting Confirmation</q-toolbar-title
                 >
               </q-toolbar>
             </div>

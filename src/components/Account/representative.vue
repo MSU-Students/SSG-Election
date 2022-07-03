@@ -526,7 +526,7 @@ export default class ManageRepresentative extends Vue {
     {
       name: 'position',
       align: 'center',
-      label: 'Position',
+      label: 'Position Candidacy',
       field: (row: RepresentativeDto) => row.position,
       sortable: true,
     },
@@ -664,10 +664,10 @@ export default class ManageRepresentative extends Vue {
       return 'grey';
     }
     if (position === 'Prime Minister') {
-      return 'positive';
+      return 'warning';
     }
     if (position === 'Executive Secretary') {
-      return 'positive';
+      return 'warning';
     }
   }
   labelManipulation(position: string) {

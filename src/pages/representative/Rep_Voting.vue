@@ -278,6 +278,7 @@ export default class studentVote extends Vue {
         .dialog({
           title: 'Election has not started yet',
           message: 'Please try again later',
+          persistent: true,
         })
         .onOk(async () => {
           await this.$router.replace('/R_Nominee');

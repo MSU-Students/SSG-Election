@@ -6,7 +6,7 @@
         <div class="col">
           <q-toolbar class="text-primary">
             <q-toolbar-title class="text-text-body2">
-              List of Candidates:</q-toolbar-title
+              List of Candidates</q-toolbar-title
             >
             <q-btn
               dense
@@ -148,10 +148,9 @@ export default class ManageElection extends Vue {
   background-color: #f3eee8;
 }
 .my-card {
-  /* height: 300px;
-  max-height: 500px; */
-  width: 100%;
-  max-width: 500px;
+  height: 300px;
+  max-height: 100%;
+  width: 300px;
 }
 .my-sticky-table {
   width: 250px;

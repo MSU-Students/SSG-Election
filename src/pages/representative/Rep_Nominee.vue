@@ -1,19 +1,22 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
-      <!--separator-->
+    <div class="q-pa-sm">
+       <!--separator-->
       <div class="row q-col-gutter-lg">
         <div class="col">
           <q-toolbar class="text-primary">
-            <q-toolbar-title> List of Candidates </q-toolbar-title>
+            <q-toolbar-title class="text-text-body2">
+              List of Candidates</q-toolbar-title
+            >
             <q-btn
-              push
+              dense
               color="white"
               text-color="primary"
               icon-right="touch_app"
-              label="Click to vote"
-              to="/R_Vote"
-            />
+              to="/V_Vote"
+            >
+              <q-tooltip :offset="[0, 8]">Click to vote</q-tooltip>
+            </q-btn>
           </q-toolbar>
         </div>
       </div>
@@ -39,12 +42,12 @@
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="prime">
               <div class="text-h6">Candidates for Prime Minister</div>
-              <div class="row">
+              <div class="row q-gutter-sm">
                 <div
                   v-for="data in primePosition"
                   v-bind:key="data.representative_id"
                 >
-                  <div class="col-12 col-md q-pa-sm">
+                  <div class="col-12 col-md">
                     <q-card
                       class="my-card cursor-pointer"
                     >
@@ -103,15 +106,14 @@
 
             <q-tab-panel name="secretary">
               <div class="text-h6">Candidates for Executive Secretary</div>
-              <div class="row">
+              <div class="row q-gutter-sm">
                 <div
                   v-for="data in secretaryPosition"
                   v-bind:key="data.representative_id"
                 >
-                  <div class="col-12 col-md q-pa-sm">
+                  <div class="col-12 col-md">
                     <q-card
                       class="my-card cursor-pointer"
-                      style="width: 320px; height: 400px"
                     >
                       <div class="q-pa-md">
                         <div class="row">
@@ -223,9 +225,8 @@ export default class ManageElection extends Vue {
 }
 .my-card {
   height: 300px;
-  max-height: 500px;
-  width: 100%;
-  max-width: 500px;
+  max-height: 100%;
+  width: 310px;
 }
 .my-sticky-table {
   width: 250px;
