@@ -45,6 +45,12 @@ import { IAuthState } from './auth/state';
 import tempRep from './tempRep';
 import { TempRepStateInterface } from './tempRep/state';
 
+import VoteTemp from './VoteTemp';
+import { VoteTempStateInterface } from './VoteTemp/state';
+
+import SecretaryTemp from './secretaryTemp';
+import { SectTempStateInterface } from './secretaryTemp/state';
+
 export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
@@ -62,6 +68,8 @@ export interface StateInterface {
   admin: AdminStateInterface;
   auth: IAuthState;
   tempRep: TempRepStateInterface;
+  VoteTemp: VoteTempStateInterface;
+  SecretaryTemp: SectTempStateInterface;
 }
 
 // provide typings for `this.$store`
@@ -91,6 +99,8 @@ export default store(function (/* { ssrContext } */) {
       admin,
       auth,
       tempRep,
+      VoteTemp,
+      SecretaryTemp,
     },
 
     // enable strict mode (adds overhead!)

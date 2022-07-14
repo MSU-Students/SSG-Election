@@ -1,3 +1,4 @@
+import { VoteSsgDto } from 'src/services/rest-api';
 import { GetterTree } from 'vuex';
 import { StateInterface } from '../index';
 import { VoteSsgStateInterface, IRepresentativeVote } from './state';
@@ -24,6 +25,14 @@ const getters: GetterTree<VoteSsgStateInterface, StateInterface> = {
         ),
       [] as IRepresentativeVote[]
     );
+  },
+
+  Result(state) {
+    const res = state.summary
+      .filter((s) => s.representative.position === 'Prime Minister')
+      .sort((a, b) => b.votes.length - a.votes.length)
+      .slice(0, 1);
+    return res;
   },
 };
 

@@ -16,7 +16,10 @@
           <!--separator-->
           <q-card class="my-card q-pa-sm">
             <div class="row">
-              <div v-for="rep in collegeCandidates" v-bind:key="rep.candidate_id">
+              <div
+                v-for="rep in collegeCandidates"
+                v-bind:key="rep.candidate_id"
+              >
                 <div class="col-12 col-md q-pa-xs">
                   <q-card class="cursor-pointer" style="width: 320px">
                     <div class="q-pa-sm">
@@ -88,7 +91,10 @@
             </div>
           </div>
           <!--separator-->
-          <q-card class="my-card q-pa-sm" style="max-width: 95vw; max-height: 100vh">
+          <q-card
+            class="my-card q-pa-sm"
+            style="max-width: 95vw; max-height: 100vh"
+          >
             <q-card-actions>
               <q-table
                 :dense="$q.screen.lt.md"
@@ -138,9 +144,10 @@ import { CandidateDto, ElectionDto, VoteRepDto } from 'src/services/rest-api';
 import { AUser } from 'src/store/auth/state';
 import { TempRep } from 'src/store/tempRep/state';
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { date } from 'quasar';
 import routes from 'src/router/routes';
+import { ICandidateVote } from 'src/store/vote-rep/state';
 
 const timeStamp = Date.now();
 const currentDate = date.formatDate('YYYY-MM-DD');
@@ -152,6 +159,7 @@ const currentDate = date.formatDate('YYYY-MM-DD');
     ...mapState('tempRep', ['allTempRep']),
     ...mapState('auth', ['currentUser']),
     ...mapState('election', ['activeElection']),
+    ...mapGetters('voteRep', ['collegeRepresentatives']),
   },
   methods: {
     ...mapActions('candidate', ['getAllCandidate']),
@@ -166,6 +174,8 @@ export default class ManageElection extends Vue {
 
   getAllCandidate!: () => Promise<void>;
   allCandidate!: CandidateDto[];
+
+  collegeRepresentatives!: ICandidateVote[];
 
   allTempRep!: TempRep[];
   clear!: () => Promise<void>;
@@ -193,7 +203,7 @@ export default class ManageElection extends Vue {
           // console.log('Cancel')
         });
     }
-    console.log(this.allCandidate);
+    console.log(this.collegeRepresentatives);
   }
 
   //filter by college
@@ -201,7 +211,9 @@ export default class ManageElection extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.allCandidate.filter((c) => c.student?.college == this.collegeName);
+    return this.allCandidate.filter(
+      (c) => c.student?.college == this.collegeName
+    );
   }
 
   filter = '';

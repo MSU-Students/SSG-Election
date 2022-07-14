@@ -145,6 +145,7 @@ import { IRepresentativeVote } from 'src/store/vote-ssg/state';
     ...mapState('voteSsg', ['allVoteSsg', 'summary']),
     ...mapState('student', ['allStudent']),
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
+    ...mapState('voteSsg', ['getHighestVote']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
@@ -160,6 +161,7 @@ export default class studentResult extends Vue {
 
   allVoteSsg!: VoteSsgDto[];
   getAllVoteSsg!: () => Promise<void>;
+  getHighestVote!: VoteSsgDto[];
 
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
@@ -167,6 +169,7 @@ export default class studentResult extends Vue {
   async created() {
     await this.getAllVoteRep();
     await this.getAllVoteSsg();
+    console.log(this.getHighestVote);
   }
 
   get primeMinister() {

@@ -648,18 +648,6 @@ export interface VoteSsgDto {
     'vote_ssg_id'?: number;
     /**
      * 
-     * @type {StudentDto}
-     * @memberof VoteSsgDto
-     */
-    'prime': StudentDto;
-    /**
-     * 
-     * @type {StudentDto}
-     * @memberof VoteSsgDto
-     */
-    'secretary': StudentDto;
-    /**
-     * 
      * @type {string}
      * @memberof VoteSsgDto
      */
@@ -670,6 +658,18 @@ export interface VoteSsgDto {
      * @memberof VoteSsgDto
      */
     'time': string;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteSsgDto
+     */
+    'prime'?: StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof VoteSsgDto
+     */
+    'secretary'?: StudentDto;
     /**
      * 
      * @type {StudentDto}

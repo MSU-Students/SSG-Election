@@ -13,7 +13,7 @@
       </div>
       <!--separator-->
       <div class="row q-gutter-sm">
-        <div class="col-12 col-md">
+        <div class="col">
           <q-card>
             <q-tabs
               v-model="tab"
@@ -163,7 +163,7 @@
                                   color="primary"
                                   label="Vote"
                                   class="full-width absolute-bottom"
-                                  @click="onaddBallot(rep)"
+                                  @click="onaddBallotSect(rep)"
                                 />
                               </q-card-section>
                             </div>
@@ -179,43 +179,55 @@
           <q-separator vertical />
         </div>
 
-        <div class="col-12 col-md">
+        <div class="col">
           <q-card>
-            <q-card-actions>
+            <q-card-section class="q-gutter-sm">
               <q-table
-                :rows="allTempRep"
+                title="Prime Minister"
+                :rows="allVoteTemp"
                 :columns="columns"
                 class="my-sticky-header-table"
                 :rows-per-page-options="[0]"
                 row-key="temp_tally_id"
                 hide-bottom
               />
-            </q-card-actions>
-            <div class="row q-gutter-x-sm q-pa-sm">
-              <div class="col">
-                <q-btn
-                  unelevated
-                  square
-                  dense
-                  push
-                  color="positive"
-                  class="full-width"
-                  label="Submit Vote"
-                  icon="check"
-                  @click="submitVote()"
-                />
+              <q-table
+                title="Secretary General"
+                :rows="allSectTemp"
+                :columns="columns"
+                class="my-sticky-header-table"
+                :rows-per-page-options="[0]"
+                row-key="temp_tally_id"
+                hide-bottom
+              />
+            </q-card-section>
+            <q-card-section>
+              <div class="row q-gutter-x-sm q-pa-sm">
+                <div class="col">
+                  <q-btn
+                    unelevated
+                    square
+                    dense
+                    push
+                    color="positive"
+                    class="full-width"
+                    label="Submit Vote"
+                    icon="check"
+                    @click="submitVote()"
+                  />
+                </div>
+                <div class="col">
+                  <q-btn
+                    unelevated
+                    square
+                    dense
+                    outline
+                    class="text-primary full-width"
+                    label="Clear Selection"
+                  />
+                </div>
               </div>
-              <div class="col">
-                <q-btn
-                  unelevated
-                  square
-                  dense
-                  outline
-                  class="text-primary full-width"
-                  label="Clear Selection"
-                />
-              </div>
-            </div>
+            </q-card-section>
           </q-card>
         </div>
       </div>
@@ -230,7 +242,8 @@ import {
   VoteSsgDto,
   ElectionDto,
 } from 'src/services/rest-api';
-import { TempRep } from 'src/store/tempRep/state';
+import { SectTemp } from 'src/store/secretaryTemp/state';
+import { VoteTemp } from 'src/store/VoteTemp/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
@@ -239,9 +252,11 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapState('student', ['allStudent']),
     ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
-    ...mapState('tempRep', ['allTempRep']),
+    ...mapState('VoteTemp', ['allVoteTemp']),
     ...mapState('election', ['activeElection']),
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
+    ...mapState('voteSsg', ['getHighestVote']),
+    ...mapState('SecretaryTemp', ['allSectTemp']),
   },
   methods: {
     ...mapActions('representative', [
@@ -249,7 +264,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
       'getAllRepresentative',
     ]),
     ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg', 'getAllVoteSsg']),
-    ...mapActions('tempRep', ['addTempRep', 'deleteTempRep', 'clear']),
+    ...mapActions('VoteTemp', ['addVoteTemp', 'deleteVoteTemp', 'clear']),
+    ...mapActions('SecretaryTemp', ['addSectTemp', 'deleteSectTemp']),
     ...mapActions('election', ['getActiveElection']),
   },
 })
@@ -257,14 +273,17 @@ export default class studentVote extends Vue {
   addVoteSsg!: (payload: VoteSsgDto) => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
+  getHighestVote!: VoteSsgDto[];
 
   getAllRepresentative!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
 
   allStudent!: StudentDto[];
-  allTempRep!: TempRep[];
+  allVoteTemp!: VoteTemp[];
   clear!: () => Promise<void>;
-  addTempRep!: (payload: TempRep) => Promise<void>;
+  addVoteTemp!: (payload: VoteTemp) => Promise<void>;
+  allSectTemp!: SectTemp[];
+  addSectTemp!: (payload: SectTemp) => Promise<void>;
 
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
@@ -287,6 +306,7 @@ export default class studentVote extends Vue {
           // console.log('Cancel')
         });
     }
+    console.log(this.allVoteTemp);
   }
 
   columns = [
@@ -295,7 +315,7 @@ export default class studentVote extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: TempRep) =>
+      field: (row: VoteTemp) =>
         row.last_name + ', ' + row.first_name + ' ' + row.middle_name,
     },
     {
@@ -325,22 +345,35 @@ export default class studentVote extends Vue {
     this.clear();
   }
 
+  inputTemp: VoteTemp = {
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    course: '',
+    yr_admitted: '',
+  };
+
   async onaddBallot(data: RepresentativeDto) {
     if (data.student) {
-      await this.addTempRep({
+      await this.addVoteTemp({
         ...data.student,
-        student_id: data.student?.student_id,
-        temp_tally_id: 0,
-        userID: data.student?.user?.account_id
-      } as TempRep);
+        primeStudentId: data.student?.student_id,
+      } as VoteTemp);
     }
   }
-  addNewVoteSsg = false;
+
+  async onaddBallotSect(data: RepresentativeDto) {
+    if (data.student) {
+      await this.addSectTemp({
+        ...data.student,
+        secretaryStudentId: data.student?.student_id,
+      } as SectTemp);
+    }
+  }
 
   async submitVote() {
-    const prime = this.allTempRep[0];
-    const secretary = this.allTempRep[1];
-
+    const vote = this.allVoteTemp[0];
+    const sect = this.allSectTemp[0];
     this.$q
       .dialog({
         message: 'Submit vote?',
@@ -348,13 +381,12 @@ export default class studentVote extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        //copy from
-        this.inputVoteSsg.prime = prime.student_id;
-        this.inputVoteSsg.secretary = secretary.student_id;
-
-        await this.addVoteSsg(this.inputVoteSsg);
+        this.inputVoteSsg.prime = vote.primeStudentId;
+        this.inputVoteSsg.secretary = sect.secretaryStudentId;
+        await this.addVoteSsg({
+          ...this.inputVoteSsg,
+        });
         await this.$router.replace('/R_Result');
-        this.addNewVoteSsg = false;
         this.resetModel();
         this.$q.notify({
           type: 'positive',
@@ -364,18 +396,12 @@ export default class studentVote extends Vue {
   }
 
   inputVoteSsg: any = {
-    prime_name: '',
-    secretary_name: '',
-    academic_yr: '',
     date: '',
     time: '',
   };
 
   resetModel() {
     this.inputVoteSsg = {
-      rep2: '',
-      rep1: '',
-      academic_yr: '',
       date: '',
       time: '',
     };
@@ -389,5 +415,5 @@ export default class studentVote extends Vue {
   height: 100%
   max-height: 700px
   width: 100%
-  max-width: 1500px
+  max-width: 1400px
 </style>

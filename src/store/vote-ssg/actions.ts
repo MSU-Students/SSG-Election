@@ -31,16 +31,21 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     });
 
     const representative = context.rootState.representative.allRepresentative;
-    let votes = 0;
     const reps = res.map((rep) => {
       representative.map((pm, i) => {
-        if (pm.student?.student_id == rep.prime.student_id) {
-          context.dispatch('addVote', { vote: 1, repId: rep.prime.student_id });
+        if (pm.student?.student_id == rep.prime?.student_id) {
+          context.dispatch('addVote', {
+            vote: 1,
+            repId: rep.prime?.student_id,
+          });
         }
       });
       representative.map((es, i) => {
-        if (es.student?.student_id == rep.secretary.student_id) {
-          context.dispatch('addVote', { vote: 1, repId: rep.secretary.student_id });
+        if (es.student?.student_id == rep.secretary?.student_id) {
+          context.dispatch('addVote', {
+            vote: 1,
+            repId: rep.secretary?.student_id,
+          });
         }
       });
     });
@@ -49,20 +54,23 @@ const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
     await this.dispatch('student/getAllStudent');
     await this.dispatch('representative/getAllRepresentative');
     context.commit('clearSummary');
-    this.state.representative.allRepresentative.forEach(reps => {
-      const matchingVotes = context.state.allVoteSsg.filter(v => (
-        v.prime.student_id == reps.student?.student_id ||
-        v.secretary.student_id == reps.student?.student_id
-      ));
-      const votes = matchingVotes.map(v => ({
-        voteId: v.vote_ssg_id,
-      } as ISsgVote));
+    this.state.representative.allRepresentative.forEach((reps) => {
+      const matchingVotes = context.state.allVoteSsg.filter(
+        (v) =>
+          v.prime?.student_id == reps.student?.student_id ||
+          v.secretary?.student_id == reps.student?.student_id
+      );
+      const votes = matchingVotes.map(
+        (v) =>
+          ({
+            voteId: v.vote_ssg_id,
+          } as ISsgVote)
+      );
       context.commit('addRepSummry', {
         representative: reps,
-        votes: votes
-      } as IRepresentativeVote)
-    })
-
+        votes: votes,
+      } as IRepresentativeVote);
+    });
   },
 
   async getOneVoteSsg(context, votessg_id: number): Promise<any> {

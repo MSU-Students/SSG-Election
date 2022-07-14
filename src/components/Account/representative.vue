@@ -181,7 +181,7 @@
                     v-close-popup
                   />
                 </q-card-section>
-
+                asdas
                 <q-card-section class="q-gutter-sm">
                   <div class="q-pl-md text-overline text-grey">
                     Representative Information
@@ -471,6 +471,7 @@ export default class ManageRepresentative extends Vue {
     await this.getAllVoteRep();
     await this.getAllUser();
     this.options = this.allAccount;
+    console.log(this.collegeRepresentatives);
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -638,7 +639,7 @@ export default class ManageRepresentative extends Vue {
     };
   }
 
-//filtering
+  //filtering
   filterFn(val: any, update: any) {
     if (val === '') {
       update(() => {

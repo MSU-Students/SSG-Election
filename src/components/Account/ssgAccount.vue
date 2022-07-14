@@ -128,6 +128,7 @@ import {
   MediaDto,
   RepresentativeDto,
   CandidateDto,
+  VoteSsgDto,
 } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -141,21 +142,25 @@ import { IRepresentativeVote } from 'src/store/vote-ssg/state';
   computed: {
     ...mapState('ssgMember', ['allSsgMember']),
     ...mapState('voteSsg', ['allVoteSsg', 'summary']),
-    ...mapGetters('voteSsg', ['SsgOfficials']),
+    ...mapGetters('voteSsg', ['SsgOfficials', 'Result']),
   },
   methods: {
     ...mapActions('ssgMember', [
       'addProclaimSsgMember',
       'getAllSsgMember',
-      'proclaimAllOfficers'
+      'proclaimAllOfficers',
     ]),
+    ...mapActions('voteSsg', ['getAllVoteSsg']),
   },
 })
 export default class ManageAccount extends Vue {
   //--------------------------------------------------------Table Column for student account
   summary!: IRepresentativeVote[];
   allSsgMember!: SsgMemberDto[];
+  allVoteSsg!: VoteSsgDto[];
   getAllSsgMember!: () => Promise<void>;
+  getAllVoteSsg!: () => Promise<void>;
+  Result!: IRepresentativeVote[];
 
   addProclaimSsgMember!: (payload: any) => Promise<void>;
   addSsgMember!: (payload: any) => Promise<void>;
@@ -163,6 +168,8 @@ export default class ManageAccount extends Vue {
   SsgOfficials!: IRepresentativeVote[];
   async mounted() {
     await this.getAllSsgMember();
+    await this.getAllVoteSsg();
+    console.log(this.SsgOfficials);
   }
 
   //-----------------------------------------------Table Column for candidate account
@@ -259,7 +266,6 @@ export default class ManageAccount extends Vue {
 
   //---------------------------------------------------for Candidate
 
-  
   openSsgDetailDialog(val: SsgMemberDto) {
     this.showSSGDetails = true;
   }
