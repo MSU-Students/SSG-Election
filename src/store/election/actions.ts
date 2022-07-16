@@ -70,6 +70,7 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
     }
     context.commit('setActiveElection', active);
   },
+
   async getOneElection(context, election_id: number): Promise<any> {
     const res = await electionservice.getOne(election_id);
     context.commit('getOneElection', res);

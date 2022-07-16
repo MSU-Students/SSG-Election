@@ -6,6 +6,7 @@ export interface VoteTemp {
   course: string;
   yr_admitted: string;
   primeStudentId?: number;
+  academic_yr: string;
 }
 
 export interface VoteTempStateInterface {

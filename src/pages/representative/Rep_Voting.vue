@@ -5,9 +5,9 @@
       <div class="row q-col-gutter-lg">
         <div class="col">
           <q-toolbar>
-            <q-toolbar-title class="text-overline text-weight-bold"
-              >Select your Candidates</q-toolbar-title
-            >
+            <q-toolbar-title class="text-overline text-weight-bold">
+              Select your Candidates
+            </q-toolbar-title>
           </q-toolbar>
         </div>
       </div>
@@ -70,6 +70,9 @@
                               </div>
                               <div class="text-caption">
                                 {{ rep.student?.yr_admitted }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.election?.academic_yr }}
                               </div>
                             </div>
                           </div>
@@ -148,6 +151,9 @@
                               </div>
                               <div class="text-caption">
                                 {{ rep.student?.yr_admitted }}
+                              </div>
+                              <div class="text-caption">
+                                {{ rep.election?.academic_yr }}
                               </div>
                             </div>
                           </div>
@@ -236,6 +242,7 @@
 </template>
 
 <script lang="ts">
+import { date } from 'quasar';
 import {
   StudentDto,
   RepresentativeDto,
@@ -246,6 +253,9 @@ import { SectTemp } from 'src/store/secretaryTemp/state';
 import { VoteTemp } from 'src/store/VoteTemp/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState } from 'vuex';
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY-MM-DD');
+const currentTime = date.formatDate(timeStamp, 'HH:mm');
 
 @Options({
   computed: {
@@ -257,6 +267,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
     ...mapState('voteSsg', ['getHighestVote']),
     ...mapState('SecretaryTemp', ['allSectTemp']),
+    ...mapState('election', ['allElection', 'activeElection']),
   },
   methods: {
     ...mapActions('representative', [
@@ -267,9 +278,13 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapActions('VoteTemp', ['addVoteTemp', 'deleteVoteTemp', 'clear']),
     ...mapActions('SecretaryTemp', ['addSectTemp', 'deleteSectTemp']),
     ...mapActions('election', ['getActiveElection']),
+    ...mapActions('election', ['getAllElection', 'getActiveElection']),
   },
 })
 export default class studentVote extends Vue {
+  getAllElection!: () => Promise<void>;
+  getActiveElection!: () => Promise<void>;
+  allElection!: ElectionDto[];
   addVoteSsg!: (payload: VoteSsgDto) => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
@@ -351,13 +366,15 @@ export default class studentVote extends Vue {
     last_name: '',
     course: '',
     yr_admitted: '',
+    academic_yr: '',
   };
 
   async onaddBallot(data: RepresentativeDto) {
-    if (data.student) {
+    if (data.student && data.election) {
       await this.addVoteTemp({
         ...data.student,
         primeStudentId: data.student?.student_id,
+        academic_yr: data.election?.academic_yr,
       } as VoteTemp);
     }
   }
@@ -383,6 +400,7 @@ export default class studentVote extends Vue {
       .onOk(async () => {
         this.inputVoteSsg.prime = vote.primeStudentId;
         this.inputVoteSsg.secretary = sect.secretaryStudentId;
+        this.inputVoteSsg.academic_yr = vote.academic_yr;
         await this.addVoteSsg({
           ...this.inputVoteSsg,
         });
@@ -396,14 +414,14 @@ export default class studentVote extends Vue {
   }
 
   inputVoteSsg: any = {
-    date: '',
-    time: '',
+    date: currentDate,
+    time: currentTime,
   };
 
   resetModel() {
     this.inputVoteSsg = {
-      date: '',
-      time: '',
+      date: currentDate,
+      time: currentTime,
     };
   }
 }

@@ -7,13 +7,13 @@ import { StateInterface } from '../index';
 import { SsgMemberStateInterface } from './state';
 
 const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
-
   async addProclaimSsgMember(context, payload: any): Promise<void> {
     payload.map(async (i: any) => {
       const newPayload = {
         student: i.representative.student?.student_id,
         user: i.representative.user?.account_id,
         position: i.representative.position,
+        academic_yr: i.representative.election?.academic_yr,
       };
       const result = await ssgmemberservice.create(newPayload);
       context.commit('setNewSsgMember', result);
@@ -21,18 +21,26 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
     });
   },
 
-  async proclaimAllOfficers (context, payload: IRepresentativeVote[]) {
+  async proclaimAllOfficers(context, payload: IRepresentativeVote[]) {
     payload.map(async (c) => {
-      const check = c.representative.user;
+      const check = c.representative?.user;
       await context.dispatch(
         'student/appointStudent',
         c.representative.student?.student_id,
         { root: true }
       );
-      await context.dispatch('account/changeStatus', {
-        ...check,
-        userType: 'rep',
-      });
+      if (c.representative?.position === 'Prime Minister') {
+        await this.dispatch('account/editAccount', {
+          ...check,
+          userType: 'Prime Minister',
+        });
+      }
+      if (c.representative?.position === 'Executive Secretary') {
+        await this.dispatch('account/editAccount', {
+          ...check,
+          userType: 'Executive Secretary',
+        });
+      }
     });
   },
 
@@ -51,6 +59,14 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
   async getAllSsgMember(context): Promise<any> {
     const res = await ssgmemberservice.getAll();
     context.commit('getAllSsgMember', res);
+  },
+
+  async updateStatus(context) {
+    const check = context.state.allSsgMember.map(async (s) => {
+      if (s.position === 'Prime Minister') {
+        await context.dispatch('');
+      }
+    });
   },
 
   async getOneSsgMember(context, ssgmember_id: number): Promise<any> {

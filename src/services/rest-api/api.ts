@@ -401,7 +401,7 @@ export interface SsgMemberDto {
      * @type {string}
      * @memberof SsgMemberDto
      */
-    'academic_yr': string;
+    'academic_yr'?: string;
     /**
      * 
      * @type {string}
@@ -658,6 +658,12 @@ export interface VoteSsgDto {
      * @memberof VoteSsgDto
      */
     'time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VoteSsgDto
+     */
+    'academic_yr'?: string;
     /**
      * 
      * @type {StudentDto}
