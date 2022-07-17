@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pa-xs q-gutter-xs">
+    <div class="">
       <q-card>
         <q-tabs
           v-model="tab"
@@ -17,52 +17,6 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="representative">
             <div class="q-gutter-sm">
-              <!--  -->
-              <div class="row q-gutter-x-xs q-pa-sm">
-                <div class="q-pa-sm text-primary text-caption">Filtered by</div>
-                <q-select
-                  filled
-                  dense
-                  v-model="allStudent"
-                  use-input
-                  hide-selected
-                  fill-input
-                  input-debounce="0"
-                  :options="allStudent"
-                  @filter="filter"
-                  label="College"
-                  style="width: 150px; padding-bottom: 32px"
-                >
-                  <template v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        No results
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-                <q-select
-                  filled
-                  v-model="allStudent"
-                  use-input
-                  dense
-                  hide-selected
-                  fill-input
-                  input-debounce="0"
-                  :options="allStudent"
-                  @filter="filter"
-                  label="College"
-                  style="width: 150px; padding-bottom: 32px"
-                >
-                  <template v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        No results
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-              </div>
               <!--  -->
               <div class="row">
                 <q-card class="my-table q-pa-sm">
@@ -90,6 +44,68 @@
                             <q-icon name="search" />
                           </template>
                         </q-input>
+                        <q-btn
+                          flat
+                          round
+                          icon="filter_list"
+                          @click="showFilterDialog = true"
+                          ><q-tooltip :offset="[0, 8]"
+                            >Filtered by</q-tooltip
+                          ></q-btn
+                        >
+                        <q-dialog v-model="showFilterDialog" persistent>
+                          <q-card
+                            style="width: 700px; max-width: 100vw"
+                            class="q-pa-sm"
+                          >
+                            <q-card-section class="row">
+                              <div class="text-h6">Filter Table</div>
+                              <q-space />
+                              <q-btn
+                                flat
+                                round
+                                dense
+                                icon="close"
+                                color="primary"
+                                v-close-popup
+                              />
+                            </q-card-section>
+                            <div class="row q-gutter-md">
+                              <div class="col">
+                                <q-select
+                                  autofocus
+                                  v-model="collegeFilter"
+                                  outlined
+                                  label="Course"
+                                  :options="options"
+                                />
+                                <br />
+                              </div>
+                              <div class="col">
+                                <q-select
+                                  autofocus
+                                  outlined
+                                  label="Year Level"
+                                  v-model="yearFilter"
+                                  :options="allElection"
+                                  option-label="academic_yr"
+                                  option-value="election_id"
+                                  map-options
+                                  emit-value
+                                />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <q-btn
+                                push
+                                class="text-overline text-white full-width"
+                                color="primary"
+                                icon="search"
+                                label="search"
+                              ></q-btn>
+                            </div>
+                          </q-card>
+                        </q-dialog>
                       </div>
                     </template>
                   </q-table>
@@ -104,61 +120,6 @@
                 </q-card>
               </div>
             </div>
-            <!--R E R P R E S E N T A T I V E-->
-            <!-- <div class="row q-pb-md">
-              <q-card class="my-card">
-                <q-table
-                  :grid="$q.screen.xs"
-                  title="College Representative"
-                  title-class="text-h6 text-bold"
-                  class="my-sticky-header-table"
-                  :rows="allCollegeRepresentative"
-                  :columns="representative"
-                  row-key="name"
-                  :filter="filter"
-                >
-                  <template v-slot:top-right>
-                    <div class="q-gutter-sm row">
-                      <q-select
-                        :options="allStudent"
-                        option-label="college"
-                        option-value="student_id"
-                        map-options
-                        emit-value
-                        v-model="filter"
-                        dense
-                        borderless
-                        label="Filtered by College"
-                      >
-                        <q-tooltip :offset="[0, 8]"
-                          >Filtered by College</q-tooltip
-                        >
-                      </q-select>
-                      <q-input
-                        outlined
-                        rounded
-                        dense
-                        debounce="300"
-                        v-model="filter"
-                        placeholder="Search"
-                      >
-                        <template v-slot:append>
-                          <q-icon name="search" />
-                        </template>
-                      </q-input>
-                    </div>
-                  </template>
-                </q-table>
-              </q-card>
-            </div>
-            <div class="row">
-              <q-card class="my-sticky-header-table">
-                <div class="q-pa-lg text-center text-bold text-primary">
-                  College Representative: Graph Result
-                </div>
-                <representative-result />
-              </q-card>
-            </div> -->
           </q-tab-panel>
 
           <q-tab-panel name="prime">
@@ -213,6 +174,7 @@ import {
   StudentDto,
   VoteSsgDto,
   CandidateDto,
+  ElectionDto,
 } from 'src/services/rest-api';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 @Options({
@@ -228,10 +190,12 @@ import { ICandidateVote } from 'src/store/vote-rep/state';
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('student', ['allStudent']),
     ...mapGetters('voteRep', ['collegeRepresentatives']),
+    ...mapState('election', ['allElection']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
     ...mapActions('voteSsg', ['getAllVoteSsg']),
+    ...mapActions('election', ['getAllElection']),
   },
 })
 export default class studentResult extends Vue {
@@ -245,9 +209,14 @@ export default class studentResult extends Vue {
   allVoteSsg!: VoteSsgDto[];
   getAllVoteSsg!: () => Promise<void>;
 
+  getAllElection!: () => Promise<void>;
+  allElection!: ElectionDto[];
+
   async mounted() {
     await this.getAllVoteRep();
     await this.getAllVoteSsg();
+    await this.getAllElection();
+    this.filterTable();
   }
 
   tab = 'representative';
@@ -290,6 +259,13 @@ export default class studentResult extends Vue {
       sortable: true,
     },
     {
+      name: 'election',
+      align: 'center',
+      label: 'Election Date',
+      field: (row: ICandidateVote) => row.candidate.election?.start_date + ', ' +  row.candidate.election?.academic_yr,
+      sortable: true,
+    },
+    {
       name: 'vote',
       align: 'center',
       label: 'Total Vote',
@@ -301,8 +277,39 @@ export default class studentResult extends Vue {
     return this.collegeRepresentatives.filter((i) => !!i.votes.length);
   }
 
+  options = [
+    'College of Agriculture',
+    'College of Business Administration and Accountancy',
+    'College of Education',
+    'College of Engineering',
+    'College of Fisheries',
+    'College of Forestry and Environmental Studies',
+    'College of Health Sciences',
+    'College of Hotel and Restaurant Management',
+    'College of Information and Computing Sciences',
+    'College of Law',
+    'College of Medicine',
+    'College of Natural Sciences and Mathematics',
+    'College of Public Affairs',
+    'College of Social Sciences and Humanities',
+    'College of Sports, Physical Education and Recreation',
+    'King Faisal Center for Islamic, Arabic and Asian Studies',
+  ];
+
   label = '';
+  showFilterDialog = false;
+  yearFilter = '';
   collegeFilter = '';
+
+  filterTable() {
+    const result = this.summary.filter(
+      (s) =>
+        s.candidate?.election?.academic_yr === this.yearFilter &&
+        s.candidate?.student?.college === this.collegeFilter
+    );
+    console.log(result);
+    return result;
+  }
 }
 </script>
 
@@ -310,7 +317,7 @@ export default class studentResult extends Vue {
 .my-sticky-header-table
   /* height or max-height is important */
   height: 100%
-  max-height: 600px
+  max-height: 1500px
   width: 100%
   max-width: 1500px
 
@@ -324,7 +331,7 @@ export default class studentResult extends Vue {
 .my-table
   /* height or max-height is important */
   height: 100%
-  max-height: 600px
+  max-height: 1500px
   width: 100%
   max-width: 2500px
 </style>
