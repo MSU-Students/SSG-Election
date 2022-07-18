@@ -33,7 +33,7 @@
               icon="add"
               @click="addNewCandidate = true"
             >
-              <q-tooltip :offset="[0, 8]">Add Account</q-tooltip>
+              <q-tooltip :offset="[0, 8]">Add Representative</q-tooltip>
             </q-btn>
           </div>
           <div>
@@ -52,7 +52,7 @@
             <q-card style="width: 900px; max-width: 100vw">
               <q-card-section class="row">
                 <q-toolbar>
-                  <div class="text-h6">Create New Account</div>
+                  <div class="text-h6">Add New Representative</div>
                   <q-space />
                   <q-btn
                     flat
@@ -170,7 +170,7 @@
             <q-dialog v-model="editRowCandidate" persistent>
               <q-card style="width: 800px; max-width: 100vw">
                 <q-card-section class="row">
-                  <div class="text-h6">Edit Account</div>
+                  <div class="text-h6">Edit Representative Candidacy</div>
                   <q-space />
                   <q-btn
                     flat
@@ -181,7 +181,7 @@
                     v-close-popup
                   />
                 </q-card-section>
-                asdas
+
                 <q-card-section class="q-gutter-sm">
                   <div class="q-pl-md text-overline text-grey">
                     Representative Information
@@ -471,7 +471,6 @@ export default class ManageRepresentative extends Vue {
     await this.getAllVoteRep();
     await this.getAllUser();
     this.options = this.allAccount;
-    console.log(this.collegeRepresentatives);
   }
   //-----------------------------------------------Table Column for candidate account
   RepresentativeColumn = [
@@ -639,7 +638,7 @@ export default class ManageRepresentative extends Vue {
     };
   }
 
-  //filtering
+//filtering
   filterFn(val: any, update: any) {
     if (val === '') {
       update(() => {

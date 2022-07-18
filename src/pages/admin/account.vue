@@ -597,7 +597,7 @@
                                     Username:
                                   </div>
                                   <div
-                                    class="text-bold q-mt-sm q-mb-xs text-uppercase text-primary"
+                                    class="text-bold q-mt-sm q-mb-xs text-primary"
                                   >
                                     {{ inputUser.username }}
                                   </div>
@@ -607,7 +607,7 @@
                                     Password:
                                   </div>
                                   <div
-                                    class="text-bold q-mt-sm q-mb-xs text-uppercase text-primary"
+                                    class="text-bold q-mt-sm q-mb-xs text-primary"
                                   >
                                     {{ inputUser.password }}
                                   </div>

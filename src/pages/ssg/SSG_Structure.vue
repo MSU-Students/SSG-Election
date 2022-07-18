@@ -47,14 +47,16 @@
               </div>
               <br />
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
             </q-tab-panel>
 
@@ -78,14 +80,16 @@
 
               <q-separator />
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
             </q-tab-panel>
 
@@ -109,19 +113,22 @@
 
               <q-separator />
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
             </q-tab-panel>
 
@@ -145,14 +152,16 @@
 
               <q-separator />
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium
-                cumque magnam odio iure quidem, quod illum numquam possimus obcaecati
-                commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                praesentium cumque magnam odio iure quidem, quod illum numquam
+                possimus obcaecati commodi minima assumenda consectetur culpa
+                fuga nulla ullam. In, libero.
               </p>
             </q-tab-panel>
           </q-tab-panels>
@@ -163,10 +172,31 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component';
-
-@Options({})
+import { PositionDto, RepresentativeDto } from 'src/services/rest-api';
+import { Options, Vue } from 'vue-class-component';
+import { mapActions, mapState } from 'vuex';
+@Options({
+  computed: {
+    ...mapState('representative', ['allRepresentative']),
+    ...mapState('position', ['allPosition']),
+  },
+  methods: {
+    ...mapActions('position', ['addPosition']),
+    ...mapActions('representative', ['getAllRepresentative']),
+  },
+})
 export default class Student_Candidate extends Vue {
+  allRepresentative!: RepresentativeDto[];
+  getAllRepresentative!: () => Promise<void>;
+
+  allPosition!: PositionDto[];
+  getAllPosition!: () => Promise<void>;
+
+  async mounted() {
+    await this.getAllRepresentative();
+    await this.getAllPosition();
+  }
+  
   splitterModel = 50;
   selected = 'Officer';
 

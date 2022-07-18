@@ -408,7 +408,7 @@ export default class ManageElection extends Vue {
       required: true,
       label: 'Election Name',
       align: 'left',
-      field: (row: ElectionDto) => row.election_type + ' ' + row.academic_yr,
+      field: (row: ElectionDto) => row.election_type + ', ' + row.academic_yr,
       format: (val: string) => `${val}`,
       sortable: true,
     },

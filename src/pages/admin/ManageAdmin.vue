@@ -6,7 +6,7 @@
           class="my-sticky-header-table"
           title="Account List"
           :grid="$q.screen.xs"
-          :columns="CandidateColumn"
+          :columns="Column"
           :rows="allAdmin"
           row-key="name"
           :rows-per-page-options="[0]"
@@ -184,7 +184,7 @@ export default class ManageElection extends Vue {
     await this.getAllAdmin();
   }
 
-  CandidateColumn = [
+  Column = [
     { name: 'action', align: 'center', label: 'Action', field: 'action' },
     {
       name: 'name',

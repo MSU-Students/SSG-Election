@@ -4,7 +4,7 @@
       :grid="$q.screen.xs"
       title="College Representative"
       class="my-sticky-header-table"
-      :rows="allExecutiveSecretary"
+      :rows="executiveSecretary"
       :columns="prime"
       row-key="name"
       :filter="filter"

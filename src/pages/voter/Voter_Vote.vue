@@ -14,7 +14,7 @@
             </div>
           </div>
           <!--separator-->
-          <q-card class="my-card q-pa-sm">
+          <q-card class="my-card2 q-pa-sm">
             <div class="row">
               <div
                 v-for="rep in collegeCandidates"
@@ -92,7 +92,7 @@
           </div>
           <!--separator-->
           <q-card
-            class="my-card q-pa-sm"
+            class="my-card2 q-pa-sm"
             style="max-width: 95vw; max-height: 100vh"
           >
             <q-card-actions>
@@ -330,6 +330,10 @@ export default class ManageElection extends Vue {
 .my-card {
   /* height: 100%; */
   max-width: 95vw;
+}
+.my-card {
+  /* height: 100%; */
+  max-width: 500vw;
 }
 .bg-img {
   background-color: #f3eee8;

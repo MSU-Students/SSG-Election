@@ -79,7 +79,7 @@
                   <q-card-section class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
                     <div class="text-caption">
-                      {{ inputSsg.student?.college }} -
+                      {{ inputSsg.student?.college}} -
                       {{ inputSsg.student?.course }}
                     </div>
                     <div class="text-h5 q-mt-sm q-mb-xs">

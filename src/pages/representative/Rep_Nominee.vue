@@ -13,7 +13,7 @@
               color="white"
               text-color="primary"
               icon-right="touch_app"
-              to="/V_Vote"
+              to="/R_Vote"
             >
               <q-tooltip :offset="[0, 8]">Click to vote</q-tooltip>
             </q-btn>
@@ -22,7 +22,7 @@
       </div>
       <!--separator-->
 
-      <div class="q-gutter-y-md" style="width: 100%; max-width: 1500px">
+      <div class="q-gutter-y-md" style="width: 100%; max-width: 15000px">
         <q-card>
           <q-tabs
             v-model="tab"

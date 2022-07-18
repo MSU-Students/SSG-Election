@@ -43,7 +43,13 @@
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
                         <q-radio
-                          v-model="chiefJustice"
+                          :options="options"
+                          option-label="school_id"
+                          option-value="student_id"
+                          color="primary"
+                          map-options
+                          emit-value
+                          v-model="inputPosition.chiefJustice"
                           val="{{ chiefJustice }}"
                         >
                         </q-radio>
@@ -408,7 +414,7 @@
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
                         <q-radio
-                          v-model="commissionWelfare"
+                          v-model="getAllRepresentative"
                           val="{{ commissionWelfare }}"
                         >
                         </q-radio>
