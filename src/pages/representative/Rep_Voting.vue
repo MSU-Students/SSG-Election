@@ -263,7 +263,6 @@ const currentTime = date.formatDate(timeStamp, 'HH:mm');
     ...mapState('candidate', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg']),
     ...mapState('VoteTemp', ['allVoteTemp']),
-    ...mapState('election', ['activeElection']),
     ...mapGetters('representative', ['primePosition', 'secretaryPosition']),
     ...mapState('voteSsg', ['getHighestVote']),
     ...mapState('SecretaryTemp', ['allSectTemp']),
@@ -277,7 +276,6 @@ const currentTime = date.formatDate(timeStamp, 'HH:mm');
     ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg', 'getAllVoteSsg']),
     ...mapActions('VoteTemp', ['addVoteTemp', 'deleteVoteTemp', 'clear']),
     ...mapActions('SecretaryTemp', ['addSectTemp', 'deleteSectTemp']),
-    ...mapActions('election', ['getActiveElection']),
     ...mapActions('election', ['getAllElection', 'getActiveElection']),
   },
 })
@@ -307,6 +305,8 @@ export default class studentVote extends Vue {
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
+    await this.getActiveElection();
+
     if (!this.activeElection) {
       this.$q
         .dialog({
@@ -391,26 +391,32 @@ export default class studentVote extends Vue {
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
-    this.$q
-      .dialog({
-        message: 'Submit vote?',
-        cancel: true,
-        persistent: true,
-      })
-      .onOk(async () => {
-        this.inputVoteSsg.prime = vote.primeStudentId;
-        this.inputVoteSsg.secretary = sect.secretaryStudentId;
-        this.inputVoteSsg.academic_yr = vote.academic_yr;
-        await this.addVoteSsg({
-          ...this.inputVoteSsg,
+    if (this.allVoteTemp.length < 0 || this.allSectTemp.length < 0) {
+      this.$q
+        .dialog({
+          message: 'Submit vote?',
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(async () => {
+          this.inputVoteSsg.prime = vote.primeStudentId;
+          this.inputVoteSsg.secretary = sect.secretaryStudentId;
+          this.inputVoteSsg.academic_yr = vote.academic_yr;
+          await this.addVoteSsg({
+            ...this.inputVoteSsg,
+          });
+          await this.$router.replace('/R_Result');
+          this.$q.notify({
+            type: 'positive',
+            message: 'You have successfully voted.',
+          });
         });
-        await this.$router.replace('/R_Result');
-        this.resetModel();
-        this.$q.notify({
-          type: 'positive',
-          message: 'You have successfully voted.',
-        });
+      this.resetModel();
+    } else {
+      this.$q.dialog({
+        message: 'You have to vote both prime minister and secretary',
       });
+    }
   }
 
   inputVoteSsg: any = {

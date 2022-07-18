@@ -32,13 +32,13 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
       if (c.representative?.position === 'Prime Minister') {
         await this.dispatch('account/editAccount', {
           ...check,
-          userType: 'Prime Minister',
+          userType: 'ssg',
         });
       }
       if (c.representative?.position === 'Executive Secretary') {
         await this.dispatch('account/editAccount', {
           ...check,
-          userType: 'Executive Secretary',
+          userType: 'ssg',
         });
       }
     });
