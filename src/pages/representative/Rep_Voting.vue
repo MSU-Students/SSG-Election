@@ -391,6 +391,8 @@ export default class studentVote extends Vue {
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
+
+    if (this.allVoteTemp.length &&  this.allSectTemp.length === 1) {
     this.$q
       .dialog({
         message: 'Submit vote?',
@@ -411,6 +413,12 @@ export default class studentVote extends Vue {
           message: 'You have successfully voted.',
         });
       });
+      } else {
+      this.$q.notify({
+        type: 'negative',
+        message: 'You already have vote for this position.',
+      });
+    }
   }
 
   inputVoteSsg: any = {

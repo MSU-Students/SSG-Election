@@ -86,7 +86,7 @@
                     </q-select>
                   </div>
                   <!-- foreign key -->
-                  <div class="col">
+                  <!-- <div class="col">
                     <q-input
                       dense
                       outlined
@@ -95,7 +95,7 @@
                       v-model="inputRepresentative.user"
                       label="User ID"
                     />
-                  </div>
+                  </div> -->
                   <div class="col">
                     <q-select
                       :options="allStudent"

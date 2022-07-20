@@ -221,7 +221,7 @@
               <q-dialog v-model="editRowElection" persistent>
                 <q-card style="width: 800px; max-width: 100vw" class="q-pa-md">
                   <q-card-section class="row">
-                    <div class="text-h6">Create new Election</div>
+                    <div class="text-h6">Edit Election</div>
                     <q-space />
                     <q-btn
                       flat
@@ -240,6 +240,8 @@
                         <div class="col-12 col-md-9">
                           <q-select
                             filled
+                            disable
+                            readonly
                             v-model="inputElection.election_type"
                             :options="election_type"
                             :dense="dense"
@@ -254,6 +256,8 @@
                         <div class="col-12 col-md-9">
                           <q-input
                             filled
+                            disable
+                            readonly
                             v-model="inputElection.academic_yr"
                             :dense="dense"
                             hint="current academic year"

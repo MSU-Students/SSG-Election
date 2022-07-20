@@ -30,8 +30,8 @@
                 <q-card class="my-card q-pa-sm" style="max-width: 98vw">
                   <q-stepper
                     v-model="step"
-                    header-nav
                     vertical
+                    ref="stepper"
                     color="primary"
                     animated
                   >
@@ -42,17 +42,23 @@
                       :done="step > 1"
                     >
                       <q-tabs v-model="innerTab" horizontal class="text-teal">
-                        <q-radio
-                          :options="options"
-                          option-label="school_id"
-                          option-value="student_id"
-                          color="primary"
-                          map-options
-                          emit-value
-                          v-model="inputPosition.chiefJustice"
-                          val="{{ chiefJustice }}"
+                        <div
+                          v-for="rep in allRepresentative"
+                          v-bind:key="rep.representative_id"
                         >
-                        </q-radio>
+                        <q-radio name="shape" v-model="inputPosition.chiefJustice" val="{{ chiefJustice}}" label="{{ rep.student?.first_name}}"/>
+                          <q-radio
+                            color="primary"
+                            map-options
+                            emit-value
+                            v-model="inputPosition.chiefJustice"
+                            val="{{ chiefJustice }}"
+                            dense
+                            outlined
+                            use-input
+                          >
+                          </q-radio>
+                        </div>
                       </q-tabs>
                     </q-step>
 
@@ -589,7 +595,7 @@ export default class ManageOfficer extends Vue {
       });
   }
 
-  inputPosition: PositionDto = {
+  inputPosition: any = {
     chiefJustice: '',
     associateJustice: '',
     speakerHouse: '',

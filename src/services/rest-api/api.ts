@@ -239,88 +239,88 @@ export interface PositionDto {
     'position_id'?: number;
     /**
      * 
-     * @type {string}
+     * @type {StudentDto}
      * @memberof PositionDto
      */
-    'chiefJustice': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'associateJustice': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'speakerHouse': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'internalDeputy': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'externalDeputy': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'ministerHealth': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'ministerInfo': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'ministerPlanning': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'ministerAcadAffairs': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'ministerFinance': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'commissionAudit': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'commissionElection': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PositionDto
-     */
-    'commissionWelfare': string;
+    'chiefJustice': StudentDto;
     /**
      * 
      * @type {StudentDto}
      * @memberof PositionDto
      */
-    'student'?: StudentDto;
+    'associateJustice': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'speakerHouse': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'internalDeputy': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'externalDeputy': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'ministerHealth': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'ministerInfo': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'ministerPlanning': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'ministerAcadAffairs': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'ministerFinance': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'commissionAudit': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'commissionElection': StudentDto;
+    /**
+     * 
+     * @type {StudentDto}
+     * @memberof PositionDto
+     */
+    'commissionWelfare': StudentDto;
+    /**
+     * 
+     * @type {SsgMemberDto}
+     * @memberof PositionDto
+     */
+    'ssgMember'?: SsgMemberDto;
 }
 /**
  * 
