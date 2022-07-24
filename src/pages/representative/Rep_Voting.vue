@@ -99,7 +99,6 @@
                   </div>
                 </div>
               </q-tab-panel>
-
               <q-tab-panel name="secretary">
                 <div class="row">
                   <div
@@ -184,7 +183,6 @@
           </q-card>
           <q-separator vertical />
         </div>
-
         <div class="col">
           <q-card>
             <q-card-section class="q-gutter-sm">
@@ -240,7 +238,6 @@
     </div>
   </q-page>
 </template>
-
 <script lang="ts">
 import { date } from 'quasar';
 import {
@@ -256,7 +253,6 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 const timeStamp = Date.now();
 const currentDate = date.formatDate(timeStamp, 'YYYY-MM-DD');
 const currentTime = date.formatDate(timeStamp, 'HH:mm');
-
 @Options({
   computed: {
     ...mapState('student', ['allStudent']),
@@ -287,26 +283,21 @@ export default class studentVote extends Vue {
   getAllVoteSsg!: () => Promise<void>;
   allVoteSsg!: VoteSsgDto[];
   getHighestVote!: VoteSsgDto[];
-
   getAllRepresentative!: () => Promise<void>;
   allRepresentative!: RepresentativeDto[];
-
   allStudent!: StudentDto[];
   allVoteTemp!: VoteTemp[];
   clear!: () => Promise<void>;
   addVoteTemp!: (payload: VoteTemp) => Promise<void>;
   allSectTemp!: SectTemp[];
   addSectTemp!: (payload: SectTemp) => Promise<void>;
-
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
   activeElection!: ElectionDto;
-
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
     await this.getActiveElection();
-
     if (!this.activeElection) {
       this.$q
         .dialog({
@@ -323,7 +314,6 @@ export default class studentVote extends Vue {
     }
     console.log(this.allVoteTemp);
   }
-
   columns = [
     {
       name: 'name',
@@ -350,16 +340,13 @@ export default class studentVote extends Vue {
   fitModes = ['scale-down'];
   prime = [];
   secretary = [];
-
   onResetClick() {
     this.prime = [];
     this.secretary = [];
   }
-
   clearSelection() {
     this.clear();
   }
-
   inputTemp: VoteTemp = {
     first_name: '',
     middle_name: '',
@@ -368,7 +355,6 @@ export default class studentVote extends Vue {
     yr_admitted: '',
     academic_yr: '',
   };
-
   async onaddBallot(data: RepresentativeDto) {
     if (data.student && data.election) {
       await this.addVoteTemp({
@@ -378,7 +364,6 @@ export default class studentVote extends Vue {
       } as VoteTemp);
     }
   }
-
   async onaddBallotSect(data: RepresentativeDto) {
     if (data.student) {
       await this.addSectTemp({
@@ -387,32 +372,9 @@ export default class studentVote extends Vue {
       } as SectTemp);
     }
   }
-
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
-<<<<<<< HEAD
-
-    if (this.allVoteTemp.length &&  this.allSectTemp.length === 1) {
-    this.$q
-      .dialog({
-        message: 'Submit vote?',
-        cancel: true,
-        persistent: true,
-      })
-      .onOk(async () => {
-        this.inputVoteSsg.prime = vote.primeStudentId;
-        this.inputVoteSsg.secretary = sect.secretaryStudentId;
-        this.inputVoteSsg.academic_yr = vote.academic_yr;
-        await this.addVoteSsg({
-          ...this.inputVoteSsg,
-        });
-        await this.$router.replace('/R_Result');
-        this.resetModel();
-        this.$q.notify({
-          type: 'positive',
-          message: 'You have successfully voted.',
-=======
     if (this.allVoteTemp.length < 0 || this.allSectTemp.length < 0) {
       this.$q
         .dialog({
@@ -432,29 +394,18 @@ export default class studentVote extends Vue {
             type: 'positive',
             message: 'You have successfully voted.',
           });
->>>>>>> d4bad41926ae33dc69dfc212bf1f7cb6763089bc
         });
       this.resetModel();
     } else {
       this.$q.dialog({
         message: 'You have to vote both prime minister and secretary',
       });
-<<<<<<< HEAD
-      } else {
-      this.$q.notify({
-        type: 'negative',
-        message: 'You already have vote for this position.',
-      });
-=======
->>>>>>> d4bad41926ae33dc69dfc212bf1f7cb6763089bc
     }
   }
-
   inputVoteSsg: any = {
     date: currentDate,
     time: currentTime,
   };
-
   resetModel() {
     this.inputVoteSsg = {
       date: currentDate,
@@ -463,7 +414,6 @@ export default class studentVote extends Vue {
   }
 }
 </script>
-
 <style lang="sass">
 .my-sticky-header-table
   /* height or max-height is important */

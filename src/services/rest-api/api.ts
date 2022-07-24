@@ -349,6 +349,30 @@ export interface RepresentativeDto {
     'representative_id'?: number;
     /**
      * 
+     * @type {number}
+     * @memberof RepresentativeDto
+     */
+    'school_id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'first_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'middle_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'last_name': string;
+    /**
+     * 
      * @type {string}
      * @memberof RepresentativeDto
      */
