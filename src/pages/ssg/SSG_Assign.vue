@@ -45,7 +45,7 @@
                         <div class="col">
                           <q-select
                             :options="allRepresentative"
-                            option-label="representative_id"
+                            option-label="school_id"
                             option-value="representative_id"
                             map-options
                             emit-value
@@ -53,31 +53,43 @@
                             dense
                             outlined
                             use-input
-                            @update:model-value="onSelectChief($event)"
                             label="Select Representative Number"
                           >
                           </q-select>
                         </div>
                         <div class="col">
-                          <q-input
+                          <q-select
+                            :options="allRepresentative"
+                            option-label="first_name"
+                            option-value="representative_id"
+                            v-model="inputPosition.chiefJustice"
+                            disable
+                            readonly
+                            map-options
+                            emit-value
                             dense
                             outlined
-                            readonly
-                            v-model="name"
-                            label="Name"
-                          />
+                            use-input
+                            label="First Name"
+                          >
+                          </q-select>
                         </div>
                         <div class="col">
                           <q-select
-                            readonly
+                            :options="allRepresentative"
+                            option-label="last_name"
+                            option-value="representative_id"
+                            v-model="inputPosition.chiefJustice"
                             disable
+                            readonly
                             map-options
                             emit-value
-                            v-model="name"
                             dense
                             outlined
-                            label="College"
-                          />
+                            use-input
+                            label="Last Name"
+                          >
+                          </q-select>
                         </div>
                       </div>
                       <div class="q-pt-md">
@@ -95,7 +107,7 @@
                         <div class="col">
                           <q-select
                             :options="allRepresentative"
-                            option-label="representative_id"
+                            option-label="school_id"
                             option-value="representative_id"
                             map-options
                             emit-value
@@ -103,31 +115,43 @@
                             dense
                             outlined
                             use-input
-                            @update:model-value="onSelectChief($event)"
                             label="Select Representative Number"
                           >
                           </q-select>
                         </div>
                         <div class="col">
-                          <q-input
+                          <q-select
+                            :options="allRepresentative"
+                            option-label="first_name"
+                            option-value="representative_id"
+                            v-model="inputPosition.associateJustice"
+                            disable
+                            readonly
+                            map-options
+                            emit-value
                             dense
                             outlined
-                            readonly
-                            v-model="name"
-                            label="Name"
-                          />
+                            use-input
+                            label="First Name"
+                          >
+                          </q-select>
                         </div>
                         <div class="col">
                           <q-select
-                            readonly
+                            :options="allRepresentative"
+                            option-label="last_name"
+                            option-value="representative_id"
+                            v-model="inputPosition.associateJustice"
                             disable
+                            readonly
                             map-options
                             emit-value
-                            v-model="name"
                             dense
                             outlined
-                            label="College"
-                          />
+                            use-input
+                            label="Last Name"
+                          >
+                          </q-select>
                         </div>
                       </div>
                       <div class="q-gutter-x-sm q-pa-sm">
@@ -173,7 +197,7 @@
                     <div class="col">
                       <q-select
                         :options="allRepresentative"
-                        option-label="representative_id"
+                        option-label="school_id"
                         option-value="representative_id"
                         map-options
                         emit-value
@@ -181,31 +205,43 @@
                         dense
                         outlined
                         use-input
-                        @update:model-value="onSelectChief($event)"
                         label="Select Representative Number"
                       >
                       </q-select>
                     </div>
                     <div class="col">
-                      <q-input
+                      <q-select
+                        :options="allRepresentative"
+                        option-label="first_name"
+                        option-value="representative_id"
+                        v-model="inputPosition.speakerHouse"
+                        disable
+                        readonly
+                        map-options
+                        emit-value
                         dense
                         outlined
-                        readonly
-                        v-model="name"
-                        label="Name"
-                      />
+                        use-input
+                        label="First Name"
+                      >
+                      </q-select>
                     </div>
                     <div class="col">
                       <q-select
-                        readonly
+                        :options="allRepresentative"
+                        option-label="last_name"
+                        option-value="representative_id"
+                        v-model="inputPosition.speakerHouse"
                         disable
+                        readonly
                         map-options
                         emit-value
-                        v-model="name"
                         dense
                         outlined
-                        label="College"
-                      />
+                        use-input
+                        label="Last Name"
+                      >
+                      </q-select>
                     </div>
                   </div>
                   <div class="q-gutter-x-sm q-pa-sm">
@@ -276,7 +312,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -284,31 +320,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.internalDeputy"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.internalDeputy"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -362,7 +410,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -370,31 +418,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.externalDeputy"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.externalDeputy"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -421,7 +481,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -429,31 +489,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerHealth"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerHealth"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -480,7 +552,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -488,31 +560,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerInfo"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerInfo"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -539,7 +623,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -547,31 +631,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerPlanning"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerPlanning"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -598,7 +694,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -606,31 +702,45 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerAcadAffairs"
+
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerAcadAffairs"
+
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -657,7 +767,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -665,31 +775,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerFinance"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.ministerFinance"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -731,7 +853,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -739,31 +861,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionAudit"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionAudit"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -817,7 +951,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -825,31 +959,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionElection"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionElection"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -876,7 +1022,7 @@
                       <div class="col">
                         <q-select
                           :options="allRepresentative"
-                          option-label="representative_id"
+                          option-label="school_id"
                           option-value="representative_id"
                           map-options
                           emit-value
@@ -884,31 +1030,43 @@
                           dense
                           outlined
                           use-input
-                          @update:model-value="onSelectChief($event)"
                           label="Select Representative Number"
                         >
                         </q-select>
                       </div>
                       <div class="col">
-                        <q-input
+                        <q-select
+                          :options="allRepresentative"
+                          option-label="first_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionWelfare"
+                          disable
+                          readonly
+                          map-options
+                          emit-value
                           dense
                           outlined
-                          readonly
-                          v-model="name"
-                          label="Name"
-                        />
+                          use-input
+                          label="First Name"
+                        >
+                        </q-select>
                       </div>
                       <div class="col">
                         <q-select
-                          readonly
+                          :options="allRepresentative"
+                          option-label="last_name"
+                          option-value="representative_id"
+                          v-model="inputPosition.commissionWelfare"
                           disable
+                          readonly
                           map-options
                           emit-value
-                          v-model="name"
                           dense
                           outlined
-                          label="College"
-                        />
+                          use-input
+                          label="Last Name"
+                        >
+                        </q-select>
                       </div>
                     </div>
                     <div class="q-pt-md">
@@ -1062,15 +1220,6 @@ export default class ManageOfficer extends Vue {
   judiciaryDialog = false;
   executiveDialog = false;
   parliamentDialog = false;
-
-  name = '';
-  idNum = 0;
-
-  onSelectChief(representative: RepresentativeDto) {
-    // this.idNum = representative.student?.school_id;
-    this.name =
-      representative.first_name + '' + representative.student?.last_name;
-  }
 
   inputPosition: any = {
     chiefJustice: '',
