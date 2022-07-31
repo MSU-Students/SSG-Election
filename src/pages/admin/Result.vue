@@ -307,7 +307,6 @@ export default class studentResult extends Vue {
         s.candidate?.election?.academic_yr === this.yearFilter &&
         s.candidate?.student?.college === this.collegeFilter
     );
-    console.log(result);
     return result;
   }
 }

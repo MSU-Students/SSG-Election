@@ -358,7 +358,7 @@ export interface RepresentativeDto {
      * @type {string}
      * @memberof RepresentativeDto
      */
-    'first_name': string;
+    'first_name'?: string;
     /**
      * 
      * @type {string}
@@ -370,7 +370,7 @@ export interface RepresentativeDto {
      * @type {string}
      * @memberof RepresentativeDto
      */
-    'last_name': string;
+    'last_name'?: string;
     /**
      * 
      * @type {string}

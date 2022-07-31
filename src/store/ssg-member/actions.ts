@@ -44,6 +44,16 @@ const actions: ActionTree<SsgMemberStateInterface, StateInterface> = {
     });
   },
 
+  async addSsgMember(context, payload: any): Promise<void> {
+    const result = await ssgmemberservice.create(payload);
+    context.commit('setNewSsgMember', result);
+    await context.dispatch('getAllSsgMember');
+    // await this.dispatch('student/editStudent', {
+    //   ...payload.student,
+    //   student_type: 'Representative',
+    // });
+  },
+
   async editSsgMember(context, payload: any): Promise<any> {
     const result = await ssgmemberservice.update(payload.ssgmember_id, payload);
     context.commit('updateSsgMember', result);

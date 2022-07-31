@@ -93,7 +93,11 @@
                         </div>
                       </div>
                       <div class="q-pt-md">
-                        <q-btn @click="step = 2" color="primary" label="Next" />
+                        <q-btn
+                          @click="addChiefJustice()"
+                          color="primary"
+                          label="Next"
+                        />
                       </div>
                     </q-step>
 
@@ -159,7 +163,7 @@
                           dense
                           label="Continue to Parliament"
                           color="primary"
-                          @click="step = 3"
+                          @click="addAssociateJustice()"
                         />
                         <q-btn
                           flat
@@ -249,7 +253,7 @@
                       dense
                       label="Continue to Executive"
                       color="primary"
-                      @click="step = 4"
+                      @click="addSpeaker()"
                     />
                     <q-btn
                       flat
@@ -360,7 +364,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 5" color="primary" label="Next" />
+                      <q-btn @click="addInternalDeputy()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -458,7 +462,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 6" color="primary" label="Next" />
+                      <q-btn @click="addExternalDeputy()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -529,7 +533,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 7" color="primary" label="Next" />
+                      <q-btn @click="addHealth()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -600,7 +604,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 8" color="primary" label="Next" />
+                      <q-btn @click="addInfo()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -671,7 +675,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 9" color="primary" label="Next" />
+                      <q-btn @click="addPlanning()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -712,7 +716,6 @@
                           option-label="first_name"
                           option-value="representative_id"
                           v-model="inputPosition.ministerAcadAffairs"
-
                           disable
                           readonly
                           map-options
@@ -730,7 +733,6 @@
                           option-label="last_name"
                           option-value="representative_id"
                           v-model="inputPosition.ministerAcadAffairs"
-
                           disable
                           readonly
                           map-options
@@ -744,7 +746,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 10" color="primary" label="Next" />
+                      <q-btn @click="addAcadAffair()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -815,7 +817,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 11" color="primary" label="Next" />
+                      <q-btn @click="addFinance()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -901,7 +903,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 12" color="primary" label="Next" />
+                      <q-btn @click="addAudit()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -999,7 +1001,7 @@
                       </div>
                     </div>
                     <div class="q-pt-md">
-                      <q-btn @click="step = 13" color="primary" label="Next" />
+                      <q-btn @click="addElection()" color="primary" label="Next" />
                       <q-btn
                         flat
                         dense
@@ -1100,21 +1102,25 @@ import { Vue, Options } from 'vue-class-component';
 import {
   PositionDto,
   RepresentativeDto,
+  SsgMemberDto,
   StudentDto,
 } from 'src/services/rest-api';
 import { mapActions, mapState } from 'vuex';
-
-const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
+import { date } from 'quasar';
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY-MM-DD:HH:mm');
 
 @Options({
   computed: {
     ...mapState('representative', ['allRepresentative']),
     ...mapState('position', ['allPosition']),
     ...mapState('student', ['allStudent']),
+    ...mapState('ssgMember', ['allSsgMember']),
   },
   methods: {
     ...mapActions('position', ['addPosition', 'getAllPosition']),
     ...mapActions('representative', ['getAllRepresentative']),
+    ...mapActions('ssgMember', ['addSsgMember', 'getAllSsgMember']),
   },
 })
 export default class ManageOfficer extends Vue {
@@ -1126,8 +1132,13 @@ export default class ManageOfficer extends Vue {
   getAllStudent!: () => Promise<void>;
   allStudent!: StudentDto[];
 
+  getAllSsgMember!: () => Promise<void>;
+  addSsgMember!: (payload: SsgMemberDto) => Promise<void>;
+
   async mounted() {
     await this.getAllRepresentative();
+    await this.getAllSsgMember();
+    await this.getAllPosition();
   }
 
   tab = 'judiciary';
@@ -1160,7 +1171,6 @@ export default class ManageOfficer extends Vue {
     },
   ];
 
-  options = stringOptions;
   chiefJustice = [];
   associateJustice = [];
   speakerHouse = [];
@@ -1200,6 +1210,15 @@ export default class ManageOfficer extends Vue {
   }
 
   assignOfficers() {
+    this.inputSsg.student = this.inputPosition.commissionWelfare;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: "Student's Right and Welfare Commission",
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+
     this.$q
       .dialog({
         message: 'Are you sure you want to assign these officers?',
@@ -1210,6 +1229,7 @@ export default class ManageOfficer extends Vue {
         await this.addPosition(this.inputPosition);
         this.addNewPosition = false;
         this.resetModel();
+        await this.$router.replace('/P_Structure');
         this.$q.notify({
           type: 'positive',
           message: 'Successful role assignment.',
@@ -1217,9 +1237,161 @@ export default class ManageOfficer extends Vue {
       });
   }
 
+  //.............................................................................
+  addNewSsgMember = false;
+  async addChiefJustice() {
+    if (this.inputPosition.chiefJustice) this.step = 2;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Chief Justice',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addAssociateJustice() {
+    this.step = 3;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Associate Justice',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addSpeaker() {
+    this.step = 4;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Speaker of the House',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  async addInternalDeputy() {
+    this.step = 5;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Internal Deputy of Prime Minister',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  async addExternalDeputy() {
+    this.step = 6;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'External Deputy of Prime Minister',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  async addHealth() {
+    this.step = 7;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Ministry of Health and Environment',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  async addInfo() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Ministry of Information and Communication',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  async addFinance() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Ministry of Finance',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addPlanning() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Ministry of Planning and Project Management',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addAcadAffair() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Ministry of Academic Affair',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addAudit() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Commission on Audit',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+  async addElection() {
+    this.step = 8;
+    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.addSsgMember({
+      ...this.inputSsg,
+      student: this.inputSsg.student,
+      position: 'Commission on Election',
+      academic_yr: currentDate,
+    });
+    this.addNewSsgMember = false;
+  }
+
+  //==================================================================================================
   judiciaryDialog = false;
   executiveDialog = false;
   parliamentDialog = false;
+
+  inputSsg: any = {
+    position: '',
+    academic_yr: '',
+    date: currentDate,
+  };
+  resetSsgModel() {
+    this.inputSsg = {
+      date: currentDate,
+    };
+  }
 
   inputPosition: any = {
     chiefJustice: '',

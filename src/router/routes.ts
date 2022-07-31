@@ -20,6 +20,10 @@ const routes: RouteRecordRaw[] = [
         path: '/votingRecord',
         component: () => import('../pages/admin/votingRecord.vue'),
       },
+      {
+        path: '/repVotingRecord',
+        component: () => import('../pages/admin/repVotingRecord.vue'),
+      },
     ],
   },
   {

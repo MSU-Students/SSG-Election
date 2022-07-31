@@ -92,6 +92,7 @@ export default class studentResult extends Vue {
   async created() {
     await this.getAllVoteRep();
     await this.getAllCandidate();
+    
   }
   get collegeName() {
     return this.currentUser?.student.college || '';

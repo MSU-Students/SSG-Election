@@ -169,7 +169,6 @@ export default class studentResult extends Vue {
   async created() {
     await this.getAllVoteRep();
     await this.getAllVoteSsg();
-    console.log(this.getHighestVote);
   }
 
   get primeMinister() {

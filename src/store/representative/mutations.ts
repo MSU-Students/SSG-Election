@@ -11,7 +11,6 @@ const mutation: MutationTree<RepresentativeStateInterface> = {
       state.newRepresentative = payload;
     } else {
     }
-    console.log(check);
   },
   updateRepresentative(state, payload) {
     state.newRepresentative = payload;

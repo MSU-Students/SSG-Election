@@ -23,8 +23,14 @@
           <q-btn
             flat
             class="text-overline text-white no-wrap"
-            label="Voting Records"
+            label="Student Voting Records"
             to="/votingRecord"
+          />
+          <q-btn
+            flat
+            class="text-overline text-white no-wrap"
+            label="Representatives Voting Records"
+            to="/repVotingRecord"
           />
         </div>
         <div class="lt-md">
@@ -53,19 +59,15 @@
       <q-scroll-area class="fit">
         <q-list padding>
           <q-item active clickable v-ripple to="/manageAdmin">
-            <q-item-section avatar>
-              <q-icon name="admin_panel_settings" />
-            </q-item-section>
-
             <q-item-section> Manage Admin </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/votingRecord">
-            <q-item-section avatar>
-              <q-icon name="ballot" />
-            </q-item-section>
+            <q-item-section> Student Voting Records </q-item-section>
+          </q-item>
 
-            <q-item-section> Voting Records </q-item-section>
+          <q-item clickable v-ripple to="/repVotingRecord">
+            <q-item-section> Representatives Voting Records </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>

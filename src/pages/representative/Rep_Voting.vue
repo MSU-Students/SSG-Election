@@ -312,7 +312,6 @@ export default class studentVote extends Vue {
           // console.log('Cancel')
         });
     }
-    console.log(this.allVoteTemp);
   }
   columns = [
     {
@@ -375,7 +374,7 @@ export default class studentVote extends Vue {
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
-    if (this.allVoteTemp.length < 0 || this.allSectTemp.length < 0) {
+    if (this.allVoteTemp.length > 0 || this.allSectTemp.length > 0) {
       this.$q
         .dialog({
           message: 'Submit vote?',
@@ -388,6 +387,7 @@ export default class studentVote extends Vue {
           this.inputVoteSsg.academic_yr = vote.academic_yr;
           await this.addVoteSsg({
             ...this.inputVoteSsg,
+            voter_status: 'Voted',
           });
           await this.$router.replace('/R_Result');
           this.$q.notify({

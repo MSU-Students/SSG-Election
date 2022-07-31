@@ -10,15 +10,30 @@
           <q-separator vertical class="bg-deep-red-1" />
 
           <div class="q-ml-md q-gutter-x-xs gt-sm">
-            <q-btn flat class="text-overline text-white" label="Home" to="/V_Homepage" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Home"
+              to="/V_Homepage"
+            />
             <q-btn
               flat
               class="text-overline text-white"
               label="Candidates"
               to="/V_List"
             />
-            <q-btn flat class="text-overline text-white" label="Vote" to="/V_Vote" />
-            <q-btn flat class="text-overline text-white" label="Result" to="/V_Result" />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Vote"
+              to="/V_Vote"
+            />
+            <q-btn
+              flat
+              class="text-overline text-white"
+              label="Result"
+              to="/V_Result"
+            />
           </div>
         </q-toolbar-title>
 
@@ -126,7 +141,11 @@
         </q-list>
       </q-scroll-area>
 
-      <div class="q-pa-sm absolute-top" style="height: 150px" v-if="currentUser">
+      <div
+        class="q-pa-sm absolute-top"
+        style="height: 150px"
+        v-if="currentUser"
+      >
         <div class="row justify-center">
           <q-avatar size="80px" class="q-mb-sm">
             <img
@@ -158,7 +177,8 @@
     </q-page-container>
 
     <q-footer bordered class="bg-primary text-center text-caption text-white">
-      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE UNIVERSITY-MARAWI
+      A WEB-BASED SSG ELECTION MANAGEMENT SYSTEM IN MINDANAO STATE
+      UNIVERSITY-MARAWI
     </q-footer>
   </q-layout>
 </template>
@@ -194,6 +214,22 @@ export default class LayoutVoter extends Vue {
     this.onElectionTimer();
   }
 
+  // async mount() {
+  //   if (this.currentUser.student?.voter_status === 'Voted') {
+  //     this.$q
+  //       .dialog({
+  //         title: 'You have already voted',
+  //         persistent: true,
+  //       })
+  //       .onOk(async () => {
+  //         await this.$router.replace('/R_Nominee');
+  //       })
+  //       .onCancel(() => {
+  //         // console.log('Cancel')
+  //       });
+  //   }
+  // }
+
   onElectionTimer() {
     // end date + end time
     // Update the count down every 1 second
@@ -216,13 +252,16 @@ export default class LayoutVoter extends Vue {
 
       // Time calculations for days, hours, minutes and seconds
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
       // document.getElementById('demo').innerHTML =
-      this.electionTimer = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.electionTimer =
+        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
       // If the count down is finished, write some text
     }, SECOND);
