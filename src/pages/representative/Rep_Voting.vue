@@ -228,6 +228,7 @@
                     outline
                     class="text-primary full-width"
                     label="Clear Selection"
+                    @click="clearSelection()"
                   />
                 </div>
               </div>
@@ -271,7 +272,11 @@ const currentTime = date.formatDate(timeStamp, 'HH:mm');
     ]),
     ...mapActions('voteSsg', ['addVoteSsg', 'getAllVoteSsg', 'getAllVoteSsg']),
     ...mapActions('VoteTemp', ['addVoteTemp', 'deleteVoteTemp', 'clear']),
-    ...mapActions('SecretaryTemp', ['addSectTemp', 'deleteSectTemp']),
+    ...mapActions('SecretaryTemp', [
+      'addSectTemp',
+      'deleteSectTemp',
+      'clearSectTemp',
+    ]),
     ...mapActions('election', ['getAllElection', 'getActiveElection']),
   },
 })
@@ -288,6 +293,7 @@ export default class studentVote extends Vue {
   allStudent!: StudentDto[];
   allVoteTemp!: VoteTemp[];
   clear!: () => Promise<void>;
+  clearSectTemp!: () => Promise<void>;
   addVoteTemp!: (payload: VoteTemp) => Promise<void>;
   allSectTemp!: SectTemp[];
   addSectTemp!: (payload: SectTemp) => Promise<void>;
@@ -345,6 +351,7 @@ export default class studentVote extends Vue {
   }
   clearSelection() {
     this.clear();
+    this.clearSectTemp();
   }
   inputTemp: VoteTemp = {
     first_name: '',
@@ -374,7 +381,7 @@ export default class studentVote extends Vue {
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
-    if (this.allVoteTemp.length > 0 || this.allSectTemp.length > 0) {
+    if (this.allVoteTemp.length > 0 && this.allSectTemp.length > 0) {
       this.$q
         .dialog({
           message: 'Submit vote?',
@@ -389,6 +396,7 @@ export default class studentVote extends Vue {
             ...this.inputVoteSsg,
             voter_status: 'Voted',
           });
+          this.clearSelection();
           await this.$router.replace('/R_Result');
           this.$q.notify({
             type: 'positive',

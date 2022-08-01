@@ -79,7 +79,7 @@
                   <q-card-section class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
                     <div class="text-caption">
-                      {{ inputSsg.student?.college}} -
+                      {{ inputSsg.student?.college }} -
                       {{ inputSsg.student?.course }}
                     </div>
                     <div class="text-h5 q-mt-sm q-mb-xs">
@@ -143,6 +143,7 @@ import { IRepresentativeVote } from 'src/store/vote-ssg/state';
     ...mapState('ssgMember', ['allSsgMember']),
     ...mapState('voteSsg', ['allVoteSsg', 'summary']),
     ...mapGetters('voteSsg', ['SsgOfficials', 'Result']),
+    ...mapState('election', ['activeElection']),
   },
   methods: {
     ...mapActions('ssgMember', [
@@ -151,6 +152,7 @@ import { IRepresentativeVote } from 'src/store/vote-ssg/state';
       'proclaimAllOfficers',
     ]),
     ...mapActions('voteSsg', ['getAllVoteSsg']),
+    ...mapActions('election', ['getActiveElection']),
   },
 })
 export default class ManageAccount extends Vue {
@@ -161,6 +163,9 @@ export default class ManageAccount extends Vue {
   getAllSsgMember!: () => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   Result!: IRepresentativeVote[];
+
+  getActiveElection!: () => Promise<void>;
+  activeElection!: ElectionDto;
 
   addProclaimSsgMember!: (payload: any) => Promise<void>;
   proclaimAllOfficers!: (payload: IRepresentativeVote[]) => Promise<void>;
@@ -286,13 +291,21 @@ export default class ManageAccount extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.proclaimAllOfficers(this.allOfficers);
-        await this.addProclaimSsgMember(this.allOfficers);
-        this.isLoading = false;
-        this.$q.notify({
-          type: 'positive',
-          message: 'Officers has been proclaimed!.',
-        });
+        if (this.activeElection) {
+          this.$q.dialog({
+            title: 'Election Ongoing',
+            message: 'You can only proclaim after the election ended',
+            persistent: true,
+          });
+        } else {
+          await this.proclaimAllOfficers(this.allOfficers);
+          await this.addProclaimSsgMember(this.allOfficers);
+          this.isLoading = false;
+          this.$q.notify({
+            type: 'positive',
+            message: 'Officers has been proclaimed!.',
+          });
+        }
       });
   }
 }

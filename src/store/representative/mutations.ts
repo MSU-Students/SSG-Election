@@ -4,13 +4,7 @@ import { RepresentativeStateInterface } from './state';
 
 const mutation: MutationTree<RepresentativeStateInterface> = {
   setNewRepresentative(state, payload) {
-    const check = state.allRepresentative.findIndex((s) => {
-      s.student === payload.student;
-    });
-    if (!check) {
-      state.newRepresentative = payload;
-    } else {
-    }
+    state.newRepresentative = payload;
   },
   updateRepresentative(state, payload) {
     state.newRepresentative = payload;

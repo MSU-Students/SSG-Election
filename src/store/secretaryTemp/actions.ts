@@ -16,7 +16,7 @@ const actions: ActionTree<SectTempStateInterface, StateInterface> = {
   deleteSectTemp(context, payload: SectTemp) {
     context.commit('deleteSectTemp', payload);
   },
-  clear(context) {
+  clearSectTemp(context) {
     context.commit('clear');
   },
 };

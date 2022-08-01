@@ -189,6 +189,13 @@ export default class ManageElection extends Vue {
   async mounted() {
     await this.getAllCandidate();
     await this.getActiveElection();
+    if (this.currentUser.student?.voter_status === 'Voted') {
+      this.$q.dialog({
+        title: 'You are already voted',
+        message: 'You cannot vote again',
+        persistent: true,
+      });
+    }
     if (!this.activeElection) {
       this.$q
         .dialog({
@@ -203,7 +210,6 @@ export default class ManageElection extends Vue {
           // console.log('Cancel')
         });
     }
-    console.log(this.collegeRepresentatives);
   }
 
   //filter by college
@@ -275,7 +281,12 @@ export default class ManageElection extends Vue {
     const firstRep = this.allTempRep[0];
     const secondRep = this.allTempRep[1];
 
-    if (firstRep && secondRep && this.allTempRep.length === 2) {
+    if (
+      firstRep &&
+      secondRep &&
+      this.allTempRep.length === 2 &&
+      this.currentUser.student?.voter_status != 'Voted'
+    ) {
       this.$q
         .dialog({
           message: 'Submit vote?',
@@ -291,6 +302,7 @@ export default class ManageElection extends Vue {
             ...this.inputVoteRep,
             voter_status: 'Voted',
           });
+          this.clearSelection();
           await this.$router.replace('/V_Result');
           this.addNewVoteRep = false;
           this.resetModel();
@@ -299,6 +311,12 @@ export default class ManageElection extends Vue {
             message: 'You have successfully voted.',
           });
         });
+    }
+    if (this.currentUser.student?.voter_status === 'Voted') {
+      this.$q.notify({
+        type: 'negative',
+        message: 'You cannot vote again.',
+      });
     } else {
       this.$q.notify({
         type: 'negative',

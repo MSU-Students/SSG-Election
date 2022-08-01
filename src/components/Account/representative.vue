@@ -105,9 +105,9 @@
                       option-value="student_id"
                       map-options
                       emit-value
-                      v-model="inputRepresentative.student"
                       dense
                       outlined
+                      v-model="inputRepresentative.student"
                       label="First Name (Disable and Read Only)"
                     >
                     </q-select>
@@ -428,6 +428,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
     ...mapGetters('voteRep', ['collegeRepresentatives']),
     ...mapState('voteRep', ['summary']),
     ...mapState('account', ['allAccount']),
+    ...mapState('election', ['activeElection']),
   },
   methods: {
     ...mapActions('voteRep', ['getAllVoteRep']),
@@ -441,6 +442,7 @@ import { mapActions, mapGetters, mapState, Payload } from 'vuex';
       'getAllRepresentative',
       'proclaimAllCanditates',
     ]),
+    ...mapActions('election', ['getActiveElection']),
   },
 })
 export default class ManageRepresentative extends Vue {
@@ -465,6 +467,9 @@ export default class ManageRepresentative extends Vue {
   allAccount!: UserDto[];
   getAllUser!: () => Promise<void>;
   options: UserDto[] = [];
+
+  getActiveElection!: () => Promise<void>;
+  activeElection!: ElectionDto;
 
   async mounted() {
     await this.getAllRepresentative();
@@ -561,6 +566,22 @@ export default class ManageRepresentative extends Vue {
     this.inputRepresentative.user = this.allAccount.find(
       (i) => i.student?.student_id === user
     )?.account_id;
+
+    this.inputRepresentative.first_name = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.student?.first_name;
+
+    this.inputRepresentative.middle_name = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.student?.middle_name;
+
+    this.inputRepresentative.last_name = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.student?.last_name;
+
+    this.inputRepresentative.school_id = this.allAccount.find(
+      (i) => i.student?.student_id === user
+    )?.student?.school_id;
   }
 
   async onProclaimAllCanditates() {
@@ -575,13 +596,21 @@ export default class ManageRepresentative extends Vue {
         persistent: true,
       })
       .onOk(async () => {
-        await this.proclaimAllCanditates(this.allCollegeRepresentative);
-        await this.addProclaimRepresentative(this.allCollegeRepresentative);
-        this.isLoading = false;
-        this.$q.notify({
-          type: 'positive',
-          message: 'Candidates has been proclaimed!.',
-        });
+        if (this.activeElection) {
+          this.$q.dialog({
+            title: 'Election Ongoing',
+            message: 'You can only proclaim after the election ended',
+            persistent: true,
+          });
+        } else {
+          await this.proclaimAllCanditates(this.allCollegeRepresentative);
+          await this.addProclaimRepresentative(this.allCollegeRepresentative);
+          this.isLoading = false;
+          this.$q.notify({
+            type: 'positive',
+            message: 'Candidates has been proclaimed!.',
+          });
+        }
       });
   }
 
@@ -638,7 +667,7 @@ export default class ManageRepresentative extends Vue {
     };
   }
 
-//filtering
+  //filtering
   filterFn(val: any, update: any) {
     if (val === '') {
       update(() => {
