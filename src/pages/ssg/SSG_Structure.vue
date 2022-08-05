@@ -8,7 +8,7 @@
     </div>
     <q-separator inset /><br />
     <div>
-      <q-splitter v-model="splitterModel" style="height: 400px">
+      <q-splitter v-model="splitterModel" style="height: 550px">
         <template v-slot:before>
           <div class="q-pa-md">
             <q-tree
@@ -22,149 +22,589 @@
         </template>
 
         <template v-slot:after>
-          <q-tab-panels
-            v-model="selected"
-            animated
-            transition-prev="jump-up"
-            transition-next="jump-up"
-          >
-            <q-tab-panel name="Prime Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Arifah U. Abdulbasit</div>
-                <div class="text-caption text-grey">Prime Minister</div>
-              </div>
+          <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
+            <q-tab-panels
+              v-model="selected"
+              animated
+              transition-prev="jump-up"
+              transition-next="jump-up"
+            >
+              <q-tab-panel name="Chief Justice">
+                <div v-if="data.position == 'Chief Justice'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
 
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
-              <br />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-            <q-tab-panel name="Chief Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Norjehan M. Alango</div>
-                <div class="text-caption text-grey">Chief Minister</div>
-              </div>
+              <q-tab-panel name="Prime Minister">
+                <div v-if="data.position == 'Prime Minister'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
 
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
+              <q-tab-panel name="Executive Secretary">
+                <div v-if="data.position == 'Executive Secretary'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
 
-            <q-tab-panel name="Secretary General">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Najmah A. Omar</div>
-                <div class="text-caption text-grey">Minister</div>
-              </div>
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
+              <q-tab-panel name="Associate Justice">
+                <div v-if="data.position == 'Associate Justice'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
 
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-            <q-tab-panel name="Minister">
-              <div class="q-pt-xs col">
-                <div class="text-overline">Mindanao State University</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">Basam C. Serad</div>
-                <div class="text-caption text-grey">Prime Minister</div>
-              </div>
+              <q-tab-panel name="Speaker of the House">
+                <div v-if="data.position == 'Speaker of the House'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
 
-              <div class="col-5 flex flex-center">
-                <q-avatar
-                  square
-                  size="120px"
-                  font-size="82px"
-                  color="teal"
-                  text-color="white"
-                  icon="account_circle"
-                />
-              </div>
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-              <q-separator />
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                praesentium cumque magnam odio iure quidem, quod illum numquam
-                possimus obcaecati commodi minima assumenda consectetur culpa
-                fuga nulla ullam. In, libero.
-              </p>
-            </q-tab-panel>
-          </q-tab-panels>
+              <q-tab-panel name="Ministry on Finance">
+                <div v-if="data.position == 'Ministry on Finance'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="Ministry on Academic Affairs">
+                <div v-if="data.position == 'Ministry on Academic Affairs'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="Ministry on Planning and Project Management">
+                <div
+                  v-if="
+                    data.position ==
+                    'Ministry on Planning and Project Management'
+                  "
+                >
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="Ministry on Information and Communication">
+                <div
+                  v-if="
+                    data.position == 'Ministry on Information and Communication'
+                  "
+                >
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="Ministry on Health and Environment">
+                <div
+                  v-if="data.position == 'Ministry on Health and Environment'"
+                >
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="External Deputy Prime Minister">
+                <div v-if="data.position == 'External Deputy Prime Minister'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="Internal Deputy Prime Minister">
+                <div v-if="data.position == 'Internal Deputy Prime Minister'">
+                  <div class="q-pt-xs col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <q-separator />
+                    <div class="text-subtitle1 q-pt-sm">
+                      Elected as <strong>{{ data.position }}</strong> on the
+                      year <i>{{ data.academic_yr }}</i
+                      >.
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
+            </q-tab-panels>
+          </div>
         </template>
       </q-splitter>
     </div>
@@ -172,33 +612,50 @@
 </template>
 
 <script lang="ts">
-import { PositionDto, RepresentativeDto } from 'src/services/rest-api';
+import {
+  ElectionDto,
+  PositionDto,
+  RepresentativeDto,
+  SsgMemberDto,
+  VoteSsgDto,
+} from 'src/services/rest-api';
+import { IRepresentativeVote } from 'src/store/vote-ssg/state';
 import { Options, Vue } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 @Options({
   computed: {
-    ...mapState('representative', ['allRepresentative']),
-    ...mapState('position', ['allPosition']),
+    ...mapState('ssgMember', ['allSsgMember']),
+    ...mapState('voteSsg', ['allVoteSsg', 'summary']),
+    ...mapGetters('voteSsg', ['SsgOfficials', 'Result']),
+    ...mapState('election', ['activeElection']),
   },
   methods: {
-    ...mapActions('position', ['addPosition']),
-    ...mapActions('representative', ['getAllRepresentative']),
+    ...mapActions('ssgMember', ['getAllSsgMember']),
+    ...mapActions('voteSsg', ['getAllVoteSsg']),
+    ...mapActions('election', ['getActiveElection']),
   },
 })
 export default class Student_Candidate extends Vue {
-  allRepresentative!: RepresentativeDto[];
-  getAllRepresentative!: () => Promise<void>;
+  summary!: IRepresentativeVote[];
+  allSsgMember!: SsgMemberDto[];
+  allVoteSsg!: VoteSsgDto[];
+  getAllSsgMember!: () => Promise<void>;
+  getAllVoteSsg!: () => Promise<void>;
+  Result!: IRepresentativeVote[];
 
-  allPosition!: PositionDto[];
-  getAllPosition!: () => Promise<void>;
+  getActiveElection!: () => Promise<void>;
+  activeElection!: ElectionDto;
 
+  addProclaimSsgMember!: (payload: any) => Promise<void>;
+  proclaimAllOfficers!: (payload: IRepresentativeVote[]) => Promise<void>;
+  SsgOfficials!: IRepresentativeVote[];
   async mounted() {
-    await this.getAllRepresentative();
-    await this.getAllPosition();
+    await this.getAllSsgMember();
+    await this.getAllVoteSsg();
   }
-  
+
   splitterModel = 50;
-  selected = 'Officer';
+  selected = 'Prime Minister';
 
   simple = [
     {

@@ -1252,7 +1252,7 @@ export default class ManageOfficer extends Vue {
   }
   async addAssociateJustice() {
     this.step = 3;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.associateJustice;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1263,7 +1263,7 @@ export default class ManageOfficer extends Vue {
   }
   async addSpeaker() {
     this.step = 4;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.speakerHouse;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1275,7 +1275,7 @@ export default class ManageOfficer extends Vue {
 
   async addInternalDeputy() {
     this.step = 5;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.internalDeputy;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1287,7 +1287,7 @@ export default class ManageOfficer extends Vue {
 
   async addExternalDeputy() {
     this.step = 6;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.externalDeputy;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1299,7 +1299,7 @@ export default class ManageOfficer extends Vue {
 
   async addHealth() {
     this.step = 7;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.ministerHealth;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1311,7 +1311,7 @@ export default class ManageOfficer extends Vue {
 
   async addInfo() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.ministerInfo;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1323,7 +1323,7 @@ export default class ManageOfficer extends Vue {
 
   async addFinance() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.ministerFinance;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1334,7 +1334,7 @@ export default class ManageOfficer extends Vue {
   }
   async addPlanning() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.ministerPlanning;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1345,7 +1345,7 @@ export default class ManageOfficer extends Vue {
   }
   async addAcadAffair() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.ministerAcadAffairs;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1356,7 +1356,7 @@ export default class ManageOfficer extends Vue {
   }
   async addAudit() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.commissionAudit;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
@@ -1367,7 +1367,7 @@ export default class ManageOfficer extends Vue {
   }
   async addElection() {
     this.step = 8;
-    this.inputSsg.student = this.inputPosition.chiefJustice;
+    this.inputSsg.student = this.inputPosition.commissionElection;
     this.addSsgMember({
       ...this.inputSsg,
       student: this.inputSsg.student,
