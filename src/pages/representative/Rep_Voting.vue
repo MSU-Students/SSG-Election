@@ -247,6 +247,7 @@ import {
   VoteSsgDto,
   ElectionDto,
 } from 'src/services/rest-api';
+import { AUser } from 'src/store/auth/state';
 import { SectTemp } from 'src/store/secretaryTemp/state';
 import { VoteTemp } from 'src/store/VoteTemp/state';
 import { Vue, Options } from 'vue-class-component';
@@ -264,6 +265,7 @@ const currentTime = date.formatDate(timeStamp, 'HH:mm');
     ...mapState('voteSsg', ['getHighestVote']),
     ...mapState('SecretaryTemp', ['allSectTemp']),
     ...mapState('election', ['allElection', 'activeElection']),
+    ...mapState('auth', ['currentUser']),
   },
   methods: {
     ...mapActions('representative', [
@@ -300,10 +302,21 @@ export default class studentVote extends Vue {
   primePosition!: RepresentativeDto[];
   secretaryPosition!: RepresentativeDto[];
   activeElection!: ElectionDto;
+  currentUser!: AUser;
+
   async mounted() {
     await this.getAllRepresentative();
     await this.getAllVoteSsg();
     await this.getActiveElection();
+    this.currentUser;
+
+    if (this.currentUser.student?.rep_status === 'Voted') {
+      this.$q.dialog({
+        title: 'You are already voted',
+        message: 'You cannot vote again',
+        persistent: true,
+      });
+    }
     if (!this.activeElection) {
       this.$q
         .dialog({
@@ -381,7 +394,11 @@ export default class studentVote extends Vue {
   async submitVote() {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
-    if (this.allVoteTemp.length > 0 && this.allSectTemp.length > 0) {
+    if (
+      this.allVoteTemp.length > 0 &&
+      this.allSectTemp.length > 0 &&
+      this.currentUser.student?.rep_status != 'Voted'
+    ) {
       this.$q
         .dialog({
           message: 'Submit vote?',
@@ -404,6 +421,12 @@ export default class studentVote extends Vue {
           });
         });
       this.resetModel();
+    }
+    if (this.currentUser.student?.rep_status === 'Voted') {
+      this.$q.notify({
+        type: 'negative',
+        message: 'You cannot vote again.',
+      });
     } else {
       this.$q.dialog({
         message: 'You have to vote both prime minister and secretary',

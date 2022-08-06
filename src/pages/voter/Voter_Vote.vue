@@ -189,6 +189,7 @@ export default class ManageElection extends Vue {
   async mounted() {
     await this.getAllCandidate();
     await this.getActiveElection();
+    this.currentUser;
     if (this.currentUser.student?.voter_status === 'Voted') {
       this.$q.dialog({
         title: 'You are already voted',

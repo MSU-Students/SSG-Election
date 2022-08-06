@@ -385,12 +385,6 @@ export interface RepresentativeDto {
     'platform': string;
     /**
      * 
-     * @type {string}
-     * @memberof RepresentativeDto
-     */
-    'voter_status': string;
-    /**
-     * 
      * @type {StudentDto}
      * @memberof RepresentativeDto
      */
@@ -529,6 +523,12 @@ export interface StudentDto {
      * @memberof StudentDto
      */
     'voter_status': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDto
+     */
+    'rep_status': string;
     /**
      * 
      * @type {number}

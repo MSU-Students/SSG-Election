@@ -170,9 +170,11 @@ export default class ManageAccount extends Vue {
   addProclaimSsgMember!: (payload: any) => Promise<void>;
   proclaimAllOfficers!: (payload: IRepresentativeVote[]) => Promise<void>;
   SsgOfficials!: IRepresentativeVote[];
+
   async mounted() {
     await this.getAllSsgMember();
     await this.getAllVoteSsg();
+    await this.getActiveElection();
   }
 
   //-----------------------------------------------Table Column for candidate account

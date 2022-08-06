@@ -7,9 +7,14 @@ import { VoteSsgStateInterface, ISsgVote, IRepresentativeVote } from './state';
 const actions: ActionTree<VoteSsgStateInterface, StateInterface> = {
   async addVoteSsg(context, payload: VoteSsgDto): Promise<void> {
     payload.student = this.state.auth.currentUser?.student;
+    const check = this.state.auth.currentUser?.student;
     const result = await votessgservice.create(payload);
     context.commit('setNewVoteSsg', result);
     await context.dispatch('getAllVoteSsg');
+    await this.dispatch('student/editStudent', {
+      ...check,
+      rep_status: 'Voted',
+    });
   },
 
   async editVoteSsg(context, payload: any): Promise<any> {

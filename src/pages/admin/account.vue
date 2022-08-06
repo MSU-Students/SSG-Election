@@ -903,6 +903,7 @@ export default class ManageAccount extends Vue {
     department: '',
     student_type: 'Regular',
     voter_status: 'Not vote yet',
+    rep_status: 'Not vote yet',
   };
 
   //---------------------------------------------------for Candidate
@@ -1044,6 +1045,7 @@ export default class ManageAccount extends Vue {
       department: '',
       student_type: 'Regular',
       voter_status: 'Not vote yet',
+      rep_status: 'Not vote yet',
     };
     this.imageAttachement = new File([], 'Select File');
   }

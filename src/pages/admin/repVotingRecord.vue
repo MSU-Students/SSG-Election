@@ -83,7 +83,8 @@ export default class VotingRecord extends Vue {
       required: true,
       label: 'Student Name',
       align: 'left',
-      field: (row: RepresentativeDto) => row.student?.first_name + ' ' + row.student?.last_name,
+      field: (row: RepresentativeDto) =>
+        row.student?.first_name + ' ' + row.student?.last_name,
       format: (val: string) => `${val}`,
       sortable: true,
     },
@@ -98,7 +99,8 @@ export default class VotingRecord extends Vue {
       name: 'election',
       align: 'center',
       label: 'Election Date',
-      field: (row: RepresentativeDto) => row.election?.start_date+ ', ' + row.election?.academic_yr,
+      field: (row: RepresentativeDto) =>
+        row.election?.start_date + ', ' + row.election?.academic_yr,
       format: (val: string) => `${val}`,
       sortable: true,
     },
@@ -106,7 +108,7 @@ export default class VotingRecord extends Vue {
       name: 'status',
       align: 'center',
       label: 'Voting Status',
-      field: (row: RepresentativeDto) => row.voter_status,
+      field: (row: RepresentativeDto) => row.student?.rep_status,
       sortable: true,
     },
   ];
