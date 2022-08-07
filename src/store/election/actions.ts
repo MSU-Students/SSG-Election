@@ -69,6 +69,7 @@ const actions: ActionTree<ElectionStateInterface, StateInterface> = {
       await context.dispatch('editElection', { ...active, status: 'Active' });
     }
     context.commit('setActiveElection', active);
+    await this.dispatch('auth/authUser');
   },
 
   async getOneElection(context, election_id: number): Promise<any> {

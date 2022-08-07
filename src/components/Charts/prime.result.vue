@@ -13,6 +13,10 @@ import { Options, Vue } from 'vue-class-component';
 import Chart from 'chart.js/auto';
 import { mapState } from 'vuex';
 import { IRepresentativeVote } from 'src/store/vote-ssg/state';
+import { date } from 'quasar';
+
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY');
 @Options({
   computed: {
     ...mapState('voteSsg', ['summary']),
@@ -63,7 +67,9 @@ export default class ChartComponent extends Vue {
 
   get primeMinister() {
     return this.summary.filter(
-      (pm) => pm.representative.position == 'Prime Minister'
+      (pm) =>
+        pm.representative.position == 'Prime Minister' &&
+        pm.representative?.election?.academic_yr.startsWith(currentDate)
     );
   }
 }

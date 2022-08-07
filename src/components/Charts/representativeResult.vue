@@ -1,6 +1,10 @@
 <template>
   <div>
-    <canvas class="q-pl-sm" id="myChart" style="height: 350px; width: 50px"></canvas>
+    <canvas
+      class="q-pl-sm"
+      id="myChart"
+      style="height: 350px; width: 50px"
+    ></canvas>
   </div>
 </template>
 
@@ -10,6 +14,10 @@ import Chart from 'chart.js/auto';
 import { AUser } from 'src/store/auth/state';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 import { mapActions, mapState } from 'vuex';
+import { date } from 'quasar';
+
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY');
 
 @Options({
   computed: {
@@ -29,7 +37,8 @@ export default class ChartComponent extends Vue {
   async mounted() {
     await this.getAllVoteRep();
     const labels = this.collegeCandidates.map(
-      (i) => `${i.candidate.student?.last_name}, ${i.candidate.student?.first_name}`
+      (i) =>
+        `${i.candidate.student?.last_name}, ${i.candidate.student?.first_name}`
     );
     const data = {
       labels: labels,
@@ -71,7 +80,11 @@ export default class ChartComponent extends Vue {
     return this.currentUser?.student.college || '';
   }
   get collegeCandidates() {
-    return this.summary.filter((c) => c.candidate.student?.college == this.collegeName);
+    return this.summary.filter(
+      (c) =>
+        c.candidate.student?.college == this.collegeName &&
+        c.candidate?.election?.academic_yr.startsWith(currentDate)
+    );
   }
 }
 </script>

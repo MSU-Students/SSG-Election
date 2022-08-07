@@ -169,6 +169,10 @@ import SecretaryGeneralChart from 'components/Charts/secretaryResult.vue';
 import PrimeMinisterChart from 'components/Charts/prime.result.vue';
 import PrimeTableResult from 'components/Election Result/primeResult.vue';
 import SecretaryTableResult from 'components/Election Result/secretaryResult.vue';
+import { date } from 'quasar';
+
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY');
 import {
   VoteRepDto,
   StudentDto,
@@ -262,7 +266,10 @@ export default class studentResult extends Vue {
       name: 'election',
       align: 'center',
       label: 'Election Date',
-      field: (row: ICandidateVote) => row.candidate.election?.start_date + ', ' +  row.candidate.election?.academic_yr,
+      field: (row: ICandidateVote) =>
+        row.candidate.election?.start_date +
+        ', ' +
+        row.candidate.election?.academic_yr,
       sortable: true,
     },
     {

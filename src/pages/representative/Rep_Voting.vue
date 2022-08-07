@@ -395,6 +395,8 @@ export default class studentVote extends Vue {
     const vote = this.allVoteTemp[0];
     const sect = this.allSectTemp[0];
     if (
+      vote &&
+      sect &&
       this.allVoteTemp.length > 0 &&
       this.allSectTemp.length > 0 &&
       this.currentUser.student?.rep_status != 'Voted'
@@ -421,15 +423,15 @@ export default class studentVote extends Vue {
           });
         });
       this.resetModel();
+    } else {
+      this.$q.dialog({
+        message: 'You have to vote both prime minister and secretary',
+      });
     }
     if (this.currentUser.student?.rep_status === 'Voted') {
       this.$q.notify({
         type: 'negative',
         message: 'You cannot vote again.',
-      });
-    } else {
-      this.$q.dialog({
-        message: 'You have to vote both prime minister and secretary',
       });
     }
   }

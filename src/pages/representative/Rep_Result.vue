@@ -132,8 +132,11 @@ import {
   VoteSsgDto,
   RepresentativeDto,
 } from 'src/services/rest-api';
-import { IRepVote } from 'src/store/vote-rep/state';
 import { IRepresentativeVote } from 'src/store/vote-ssg/state';
+import { date } from 'quasar';
+
+const timeStamp = Date.now();
+const currentDate = date.formatDate(timeStamp, 'YYYY');
 @Options({
   components: {
     RepresentativeResult,
@@ -169,17 +172,22 @@ export default class studentResult extends Vue {
   async created() {
     await this.getAllVoteRep();
     await this.getAllVoteSsg();
+    console.log(this.primeMinister);
   }
 
   get primeMinister() {
     return this.summary.filter(
-      (pm) => pm.representative.position == 'Prime Minister'
+      (pm) =>
+        pm.representative.position == 'Prime Minister' &&
+        pm.representative?.election?.academic_yr.startsWith(currentDate)
     );
   }
 
   get executiveSecretary() {
     return this.summary.filter(
-      (es) => es.representative.position == 'Executive Secretary'
+      (es) =>
+        es.representative.position == 'Executive Secretary' &&
+        es.representative?.election?.academic_yr.startsWith(currentDate)
     );
   }
 
