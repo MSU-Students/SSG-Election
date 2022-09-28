@@ -38,7 +38,7 @@
               title="Student Account List"
               :grid="$q.screen.xs"
               :columns="columns"
-              :rows="allAccount"
+              :rows="filterUser"
               virtual-scroll
               row-key="name"
               :loading="loading"
@@ -742,7 +742,7 @@
 import { exportFile } from 'quasar';
 import { StudentDto, MediaDto, UserDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import RepresentativeAccount from 'components/Account/representative.vue';
 import SsgAccounts from 'components/Account/ssgAccount.vue';
 import studentResult from './Result.vue';
@@ -773,6 +773,7 @@ function wrapCsvValue(
   computed: {
     ...mapState('student', ['allStudent']),
     ...mapState('account', ['allAccount']),
+    ...mapGetters('account', ['filterUser']),
   },
   methods: {
     ...mapActions('student', [
@@ -798,6 +799,7 @@ export default class ManageAccount extends Vue {
   deleteAccount!: (payload: UserDto) => Promise<void>;
   allStudent!: StudentDto[];
   allAccount!: UserDto[];
+  filterUser!: UserDto[];
   addStudent!: (payload: StudentDto) => Promise<void>;
   editStudent!: (payload: StudentDto) => Promise<void>;
   deleteStudent!: (payload: UserDto) => Promise<void>;

@@ -3,7 +3,7 @@
     <div class="q-pa-md">
       <q-table
         class="my-sticky-header-table"
-        title="Student  Voting Record"
+        title="Representative Voting Record"
         :grid="$q.screen.xs"
         :columns="columns"
         :rows="allRepresentative"

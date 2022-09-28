@@ -7,7 +7,7 @@
           title="Account List"
           :grid="$q.screen.xs"
           :columns="Column"
-          :rows="allAdmin"
+          :rows="adminUser"
           row-key="name"
           :rows-per-page-options="[0]"
           :filter="filter"
@@ -141,6 +141,68 @@
                 dense
                 @click="deleteSpecificAdminAccount(props.row)"
               />
+
+              <q-btn
+              round
+              color="primary"
+              icon="more_vert"
+              size="md"
+              flat
+              dense
+              @click="openDetailDialog(props.row)"
+              ><q-tooltip class="bg-primary" :offset="[10, 10]">
+                Details
+              </q-tooltip></q-btn
+            >
+            <q-dialog v-model="showDetails">
+              <div
+                v-bind:class="{
+                  'justify-center':
+                    $q.screen.md || $q.screen.sm || $q.screen.xs,
+                }"
+                class="col-12 col-md-6 flex content-center q-pt-lg"
+                v-if="inputUser"
+              >
+                <q-card
+                  class="shadow-10"
+                  color="primary"
+                  v-bind:style="
+                    $q.screen.lt.sm ? { width: '100%' } : { height: '100%' }
+                  "
+                >
+                  <q-card-section>
+                    <div class="q-pt-lg">
+                      <div class="col text-h6 ellipsis flex justify-center">
+                        <div
+                          class="text-h4 text-warning q-my-none text-weight-bold"
+                        >
+                          <div
+                            class="text-h5 q-mt-sm q-mb-xs text-weight-bold text-uppercase"
+                          >
+                            {{ inputUser.admin?.first_name }}
+                            {{ inputUser.admin?.last_name }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="text-body text-center q-mt-sm q-mb-xs text-weight-bold text-uppercase"
+                      >
+                        {{ inputUser.admin?.position }}
+                      </div>
+                      <q-separator />
+                      <div class="q-gutter-sm row">
+                        <div class="col-md-4 q-pa-sm">
+                          <div class="text-caption q-pt-sm">Username:</div>
+                          <div class="text-bold q-mt-sm q-mb-xs text-primary">
+                            {{ inputUser.username }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </q-card-section>
+                </q-card>
+              </div>
+            </q-dialog>
             </q-td>
           </template>
         </q-table>
@@ -154,12 +216,13 @@
 import { Admin } from 'src/interfaces/admin.interface';
 import { AdminDto, UserDto } from 'src/services/rest-api';
 import { Vue, Options } from 'vue-class-component';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 @Options({
   computed: {
     ...mapState('admin', ['allAdmin']),
     ...mapState('account', ['allAccount']),
+    ...mapGetters('account', ['adminUser']),
   },
   methods: {
     ...mapActions('admin', [
@@ -169,19 +232,22 @@ import { mapActions, mapState } from 'vuex';
       'getAllAdmin',
     ]),
 
-    ...mapActions('account', ['addAccount']),
+    ...mapActions('account', ['addAccount', 'getAllUser']),
   },
 })
 export default class ManageElection extends Vue {
+  adminUser!: UserDto[];
   addAccount!: (payload: UserDto) => Promise<void>;
   addAdmin!: (payload: AdminDto) => Promise<void>;
   editAdmin!: (payload: AdminDto) => Promise<void>;
   deleteAdmin!: (payload: AdminDto) => Promise<void>;
   getAllAdmin!: () => Promise<void>;
+  getAllUser!: () => Promise<void>;
   allAdmin!: AdminDto[];
 
   async mounted() {
     await this.getAllAdmin();
+    await this.getAllUser();
   }
 
   Column = [
@@ -191,28 +257,14 @@ export default class ManageElection extends Vue {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row: AdminDto) => row.first_name + ' ' + row.last_name,
+      field: (row: any) => row.admin?.first_name + ' ' + row.admin?.last_name,
       sortable: true,
     },
     {
       name: 'position',
       align: 'center',
       label: 'Position',
-      field: (row: AdminDto) => row.position,
-      sortable: true,
-    },
-    {
-      name: 'username',
-      align: 'center',
-      label: 'Username',
-      field: (row: AdminDto) => row.user?.username,
-      sortable: true,
-    },
-    {
-      name: 'password',
-      align: 'center',
-      label: 'Password',
-      field: (row: AdminDto) => row.user?.password,
+      field: (row: any) => row.admin?.position,
       sortable: true,
     },
   ];
@@ -254,9 +306,9 @@ export default class ManageElection extends Vue {
     });
   }
 
-  openDetailDialog(val: AdminDto) {
+  openDetailDialog(val: UserDto) {
     this.showDetails = true;
-    this.inputAdmin = { ...val };
+    this.inputUser = { ...val };
   }
 
   deleteSpecificAdminAccount(val: AdminDto) {

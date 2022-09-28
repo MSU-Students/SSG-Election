@@ -413,7 +413,7 @@ export default class studentVote extends Vue {
           this.inputVoteSsg.academic_yr = vote.academic_yr;
           await this.addVoteSsg({
             ...this.inputVoteSsg,
-            voter_status: 'Voted',
+            rep_status: 'Voted',
           });
           this.clearSelection();
           await this.$router.replace('/R_Result');

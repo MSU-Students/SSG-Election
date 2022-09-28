@@ -147,6 +147,17 @@
               </q-card-section>
             </q-card>
           </q-dialog>
+          <div>
+            <q-btn
+              color="primary"
+              dense
+              flat
+              icon="file_download"
+              @click="exportTable()"
+            >
+              <q-tooltip :offset="[0, 8]">Export</q-tooltip>
+            </q-btn>
+          </div>
         </div>
       </template>
 
@@ -416,9 +427,28 @@ import {
   VoteRepDto,
   UserDto,
 } from 'src/services/rest-api';
+import { exportFile } from 'quasar';
 import { ICandidateVote } from 'src/store/vote-rep/state';
 import { Vue, Options } from 'vue-class-component';
 import { mapActions, mapGetters, mapState, Payload } from 'vuex';
+
+function wrapCsvValue(
+  val: string,
+  formatFn?: (v: string, r: any) => string,
+  row?: any
+) {
+  let formatted = formatFn !== void 0 ? formatFn(val, row) : val;
+  formatted =
+    formatted === void 0 || formatted === null ? '' : String(formatted);
+  formatted = formatted.split('"').join('""');
+  /**
+   * Excel accepts \n and \r in strings, but some other CSV parsers do not
+   * Uncomment the next two lines to escape new lines
+   */
+  // .split('\n').join('\\n')
+  // .split('\r').join('\\r')
+  return `"${formatted}"`;
+}
 
 @Options({
   computed: {
@@ -524,8 +554,8 @@ export default class ManageRepresentative extends Vue {
     {
       name: 'status',
       align: 'center',
-      label: 'Student Type',
-      field: (row: RepresentativeDto) => row.student?.student_type,
+      label: 'Student Status',
+      field: (row: RepresentativeDto) => row.college_status,
       sortable: true,
     },
     {
@@ -550,7 +580,7 @@ export default class ManageRepresentative extends Vue {
   inputRepresentative: any = {
     platform: '',
     position: 'No candidacy filed',
-    voter_status: 'Not vote yet',
+    college_status: 'College President',
   };
 
   //---------------------------------------------------for Candidate
@@ -710,6 +740,52 @@ export default class ManageRepresentative extends Vue {
       return 'Executive Secretary';
     }
   }
+
+  //---------------Export Table
+  exportTable() {
+    // naive encoding to csv format
+    const header = [
+      wrapCsvValue('Student ID'),
+      wrapCsvValue('First Name'),
+      wrapCsvValue('Middle Name'),
+      wrapCsvValue('Last Name'),
+      wrapCsvValue('Year Admitted'),
+      wrapCsvValue('Course'),
+      wrapCsvValue('Department'),
+      wrapCsvValue('College'),
+      wrapCsvValue('Student Status'),
+      wrapCsvValue('Position Candidacy'),
+    ];
+    const rows = [header.join(',')].concat(
+      this.allRepresentative.map((c) =>
+        [
+          wrapCsvValue(String(c.student?.school_id || '')),
+          wrapCsvValue(String(c.student?.first_name || '')),
+          wrapCsvValue(String(c.student?.middle_name || '')),
+          wrapCsvValue(String(c.student?.last_name || '')),
+          wrapCsvValue(String(c.student?.yr_admitted || '')),
+          wrapCsvValue(String(c.student?.course || '')),
+          wrapCsvValue(String(c.student?.department || '')),
+          wrapCsvValue(String(c.student?.college || '')),
+          wrapCsvValue(c.college_status),
+          wrapCsvValue(c.position),
+        ].join(',')
+      )
+    );
+    const status = exportFile(
+      'category-export.csv',
+      rows.join('\r\n'),
+      'text/csv'
+    );
+    if (status !== true) {
+      this.$q.notify({
+        message: 'Browser denied file download...',
+        color: 'negative',
+        icon: 'warning',
+      });
+    }
+  }
+  
 }
 </script>
 

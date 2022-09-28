@@ -195,7 +195,10 @@ export default class ManageElection extends Vue {
         title: 'You are already voted',
         message: 'You cannot vote again',
         persistent: true,
-      });
+      })
+        .onOk(async () => {
+          await this.$router.replace('/V_Result');
+        })
     }
     if (!this.activeElection) {
       this.$q
@@ -321,7 +324,7 @@ export default class ManageElection extends Vue {
     } else {
       this.$q.notify({
         type: 'negative',
-        message: 'You need to vote two represntatives.',
+        message: 'You need to vote two representatives.',
       });
     }
   }

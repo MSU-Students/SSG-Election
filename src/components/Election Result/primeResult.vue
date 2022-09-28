@@ -2,7 +2,7 @@
   <div>
     <q-table
       :grid="$q.screen.xs"
-      title="College Representative"
+      title="Prime MInister Result"
       class="my-sticky-header-table"
       :rows="primeMinister"
       :columns="prime"

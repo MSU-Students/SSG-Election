@@ -165,7 +165,7 @@
                           color="primary"
                           @click="addAssociateJustice()"
                         />
-                        <q-btn
+                        <!-- <q-btn
                           flat
                           dense
                           outline
@@ -173,7 +173,7 @@
                           label="back"
                           @click="step = 1"
                           class="q-ml-md"
-                        />
+                        /> -->
                       </div>
                     </q-step> </q-stepper
                 ></q-card>
@@ -255,7 +255,7 @@
                       color="primary"
                       @click="addSpeaker()"
                     />
-                    <q-btn
+                    <!-- <q-btn
                       flat
                       dense
                       outline
@@ -263,7 +263,7 @@
                       label="Back to Judiciary"
                       @click="judiciaryDialog = true"
                       class="q-ml-md"
-                    />
+                    /> -->
                     <q-dialog v-model="judiciaryDialog" persistent>
                       <q-card>
                         <q-card-section class="row items-center">
@@ -365,7 +365,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addInternalDeputy()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -373,7 +373,7 @@
                         label="Back to Parliament"
                         @click="parliamentDialog = true"
                         class="q-ml-md"
-                      />
+                      /> -->
 
                       <q-dialog v-model="parliamentDialog" persistent>
                         <q-card>
@@ -463,7 +463,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addExternalDeputy()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -471,7 +471,7 @@
                         label="back"
                         @click="step = 4"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -534,7 +534,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addHealth()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -542,7 +542,7 @@
                         label="back"
                         @click="step = 5"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -605,7 +605,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addInfo()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -613,7 +613,7 @@
                         label="back"
                         @click="step = 6"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -676,7 +676,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addPlanning()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -684,7 +684,7 @@
                         label="back"
                         @click="step = 7"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -747,7 +747,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addAcadAffair()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -755,7 +755,7 @@
                         label="back"
                         @click="step = 8"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -818,7 +818,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addFinance()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -826,7 +826,7 @@
                         label="back"
                         @click="step = 9"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
                 </q-stepper>
@@ -904,7 +904,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addAudit()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -912,7 +912,7 @@
                         label="Back to Executive"
                         @click="executiveDialog = true"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
 
                     <q-dialog v-model="executiveDialog" persistent>
@@ -1002,7 +1002,7 @@
                     </div>
                     <div class="q-pt-md">
                       <q-btn @click="addElection()" color="primary" label="Next" />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -1010,7 +1010,7 @@
                         label="back"
                         @click="step = 11"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step>
 
@@ -1077,7 +1077,7 @@
                         color="primary"
                         label="Next"
                       />
-                      <q-btn
+                      <!-- <q-btn
                         flat
                         dense
                         outline
@@ -1085,7 +1085,7 @@
                         label="back"
                         @click="step = 12"
                         class="q-ml-md"
-                      />
+                      /> -->
                     </div>
                   </q-step> </q-stepper
               ></q-card>

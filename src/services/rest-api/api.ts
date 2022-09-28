@@ -385,6 +385,12 @@ export interface RepresentativeDto {
     'platform': string;
     /**
      * 
+     * @type {string}
+     * @memberof RepresentativeDto
+     */
+    'college_status': string;
+    /**
+     * 
      * @type {StudentDto}
      * @memberof RepresentativeDto
      */

@@ -22,14 +22,14 @@
         </template>
 
         <template v-slot:after>
-          <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
-            <q-tab-panels
-              v-model="selected"
-              animated
-              transition-prev="jump-up"
-              transition-next="jump-up"
-            >
-              <q-tab-panel name="Chief Justice">
+          <q-tab-panels
+            v-model="selected"
+            animated
+            transition-prev="jump-up"
+            transition-next="jump-up"
+          >
+            <q-tab-panel name="Chief Justice">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Chief Justice'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -74,9 +74,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Prime Minister">
+            <q-tab-panel name="Prime Minister">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Prime Minister'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -121,9 +123,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Executive Secretary">
+            <q-tab-panel name="Executive Secretary">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Executive Secretary'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -168,9 +172,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Associate Justice">
+            <q-tab-panel name="Associate Justice">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Associate Justice'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -215,9 +221,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Speaker of the House">
+            <q-tab-panel name="Speaker of the House">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Speaker of the House'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -262,9 +270,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Ministry on Finance">
+            <q-tab-panel name="Ministry on Finance">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Ministry on Finance'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -309,9 +319,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Ministry on Academic Affairs">
+            <q-tab-panel name="Ministry on Academic Affairs">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Ministry on Academic Affairs'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -356,9 +368,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Ministry on Planning and Project Management">
+            <q-tab-panel name="Ministry on Planning and Project Management">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div
                   v-if="
                     data.position ==
@@ -408,9 +422,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Ministry on Information and Communication">
+            <q-tab-panel name="Ministry on Information and Communication">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div
                   v-if="
                     data.position == 'Ministry on Information and Communication'
@@ -459,9 +475,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Ministry on Health and Environment">
+            <q-tab-panel name="Ministry on Health and Environment">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div
                   v-if="data.position == 'Ministry on Health and Environment'"
                 >
@@ -508,9 +526,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="External Deputy Prime Minister">
+            <q-tab-panel name="External Deputy Prime Minister">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'External Deputy Prime Minister'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -555,9 +575,11 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
+              </div>
+            </q-tab-panel>
 
-              <q-tab-panel name="Internal Deputy Prime Minister">
+            <q-tab-panel name="Internal Deputy Prime Minister">
+              <div v-for="data in allSsgMember" v-bind:key="data.ssg_id">
                 <div v-if="data.position == 'Internal Deputy Prime Minister'">
                   <div class="q-pt-xs col">
                     <div class="text-overline">Mindanao State University</div>
@@ -602,9 +624,111 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
-            </q-tab-panels>
-          </div>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Chief Ministers">
+              <div
+                v-for="data in allRepresentative"
+                v-bind:key="data.representative_id"
+              >
+                <div v-if="data.college_status == 'College President'">
+                  <div class="q-pt-md col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <div class="text-subtitle1 q-pa-md">
+                      Assigned as <strong>Chief Minister</strong> from the
+                      {{ data.student?.college }}.
+                    </div>
+                    <q-separator />
+                  </div>
+                </div>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="College Representatives">
+              <div
+                v-for="data in allRepresentative"
+                v-bind:key="data.representative_id"
+              >
+                <div v-if="data.college_status == 'College Representative'">
+                  <div class="q-pt-md col">
+                    <div class="text-overline">Mindanao State University</div>
+                    <div class="col-5 flex flex-center">
+                      <q-avatar size="200px">
+                        <q-img
+                          square
+                          v-if="data.student?.url"
+                          :src="`http://localhost:3000/media/${data.student?.url}`"
+                        /><q-img
+                          v-if="!data.student?.url"
+                          src="~assets/images/MSU.jpg"
+                        />
+                      </q-avatar>
+                    </div>
+                    <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                      {{ data.student?.first_name }}
+                      {{ data.student?.middle_name }}
+                      {{ data.student?.last_name }} {{ data.student?.suffix }}
+                    </div>
+                    <div class="text-caption">
+                      Course: {{ data.student?.course }}
+                    </div>
+                    <div class="text-caption">
+                      College: {{ data.student?.college }}
+                    </div>
+                    <div class="text-caption">
+                      Department: {{ data.student?.department }}
+                    </div>
+                    <div class="text-caption">
+                      Email Address: {{ data.student?.email }}
+                    </div>
+
+                    <div class="text-caption q-pb-sm">
+                      Year Admitted: {{ data.student?.yr_admitted }}
+                    </div>
+                    <div class="text-subtitle1 q-pa-md">
+                      Assigned as <strong>College Representatives</strong> from the
+                      {{ data.student?.college }}.
+                    </div>
+                    <q-separator />
+                  </div>
+                </div>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
         </template>
       </q-splitter>
     </div>
@@ -625,6 +749,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 @Options({
   computed: {
     ...mapState('ssgMember', ['allSsgMember']),
+    ...mapState('representative', ['allRepresentative']),
     ...mapState('voteSsg', ['allVoteSsg', 'summary']),
     ...mapGetters('voteSsg', ['SsgOfficials', 'Result']),
     ...mapState('election', ['activeElection']),
@@ -633,6 +758,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     ...mapActions('ssgMember', ['getAllSsgMember']),
     ...mapActions('voteSsg', ['getAllVoteSsg']),
     ...mapActions('election', ['getActiveElection']),
+    ...mapActions('representative', ['getAllRepresentative']),
   },
 })
 export default class Student_Candidate extends Vue {
@@ -642,7 +768,8 @@ export default class Student_Candidate extends Vue {
   getAllSsgMember!: () => Promise<void>;
   getAllVoteSsg!: () => Promise<void>;
   Result!: IRepresentativeVote[];
-
+  allRepresentative!: RepresentativeDto[];
+  getAllRepresentative!: () => Promise<void>;
   getActiveElection!: () => Promise<void>;
   activeElection!: ElectionDto;
 
@@ -651,6 +778,7 @@ export default class Student_Candidate extends Vue {
   SsgOfficials!: IRepresentativeVote[];
   async mounted() {
     await this.getAllSsgMember();
+    await this.getAllRepresentative();
     await this.getAllVoteSsg();
   }
 
@@ -688,32 +816,6 @@ export default class Student_Candidate extends Vue {
             {
               label: 'College Representatives',
               icon: 'person',
-              children: [
-                {
-                  label: 'College of Agriculture',
-                  icon: 'person',
-                },
-                {
-                  label: 'College of Business Administration and Accountancy',
-                  icon: 'person',
-                },
-                {
-                  label: 'College of Education',
-                  icon: 'person',
-                },
-                {
-                  label: 'College of Engineering',
-                  icon: 'person',
-                },
-                {
-                  label: 'College of Forestry',
-                  icon: 'person',
-                },
-                {
-                  label: 'College of Information and Computing Sciences',
-                  icon: 'person',
-                },
-              ],
             },
           ],
         },
